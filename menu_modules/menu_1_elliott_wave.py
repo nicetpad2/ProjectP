@@ -19,9 +19,6 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
 import logging
 import traceback
-import json
-import pandas as pd
-import numpy as np
 
 # Import Core Components
 from core.output_manager import NicegoldOutputManager
@@ -40,13 +37,10 @@ class Menu1ElliottWave:
     def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
         self.config = config or {}
         self.logger = logger or logging.getLogger(__name__)
-        self.session_start = datetime.now()
         self.results = {}
         
-        # Initialize Output Manager with proper path structure
-        output_base = "outputs/elliott_wave"
-        self.output_manager = NicegoldOutputManager(output_base)
-        self.session_id = self.output_manager.session_id
+        # Initialize Output Manager
+        self.output_manager = NicegoldOutputManager("outputs/elliott_wave")
         
         # Initialize Components
         self._initialize_components()
