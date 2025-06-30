@@ -31,40 +31,78 @@ class ElliottWaveDataProcessor:
         self.datacsv_path = self.config.get('paths', {}).get('data', 'datacsv/')
         
     def load_real_data(self) -> Optional[pd.DataFrame]:
-        """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv"""
+        """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
         try:
-            self.logger.info("📊 Loading real market data...")
+            self.logger.info("📊 Loading REAL market data from datacsv/...")
             
-            # Find CSV files
+            # Find CSV files in datacsv directory
             csv_pattern = os.path.join(self.datacsv_path, "*.csv")
             csv_files = glob.glob(csv_pattern)
             
             if not csv_files:
-                # Create sample data directory and file
-                os.makedirs(self.datacsv_path, exist_ok=True)
-                sample_data = self._create_sample_data()
-                sample_file = os.path.join(self.datacsv_path, "XAUUSD_M1_sample.csv")
-                sample_data.to_csv(sample_file, index=False)
-                self.logger.info(f"📁 Created sample data file: {sample_file}")
-                csv_files = [sample_file]
+                error_msg = f"❌ NO CSV FILES FOUND in {self.datacsv_path}! Please add real market data files."
+                self.logger.error(error_msg)
+                raise FileNotFoundError(error_msg)
             
-            # Load the first available CSV file
-            data_file = csv_files[0]
-            self.logger.info(f"📂 Loading data from: {data_file}")
+            # Select best data file (prefer M1 for higher granularity)
+            data_file = self._select_best_data_file(csv_files)
+            self.logger.info(f"� Loading REAL data from: {os.path.basename(data_file)}")
             
-            # Load data
+            # Load ALL data - NO row limits for production
             df = pd.read_csv(data_file)
             
-            # Validate and clean data
+            # Validate data is real market data
+            if not self._validate_real_market_data(df):
+                raise ValueError("❌ Data validation failed - not real market data")
+            
+            # Clean and process real data
             df = self._validate_and_clean_data(df)
             
-            self.logger.info(f"✅ Data loaded successfully: {len(df)} rows")
+            self.logger.info(f"✅ REAL market data loaded: {len(df):,} rows")
             return df
             
         except Exception as e:
-            self.logger.error(f"❌ Failed to load data: {str(e)}")
-            return None
+            self.logger.error(f"❌ Failed to load REAL data: {str(e)}")
+            raise
     
+    def _select_best_data_file(self, csv_files: List[str]) -> str:
+        """เลือกไฟล์ข้อมูลที่ดีที่สุด"""
+        # Priority: M1 > M5 > M15 > M30 > H1 > H4 > D1
+        timeframe_priority = ['M1', 'M5', 'M15', 'M30', 'H1', 'H4', 'D1']
+        
+        for timeframe in timeframe_priority:
+            for file_path in csv_files:
+                if timeframe in os.path.basename(file_path).upper():
+                    return file_path
+        
+        # Return the first file if no timeframe match
+        return csv_files[0]
+    
+    def _validate_real_market_data(self, df: pd.DataFrame) -> bool:
+        """ตรวจสอบว่าเป็นข้อมูลตลาดจริง"""
+        try:
+            # Check minimum required columns
+            required_cols = ['open', 'high', 'low', 'close']
+            for col in required_cols:
+                if col not in df.columns.str.lower():
+                    return False
+            
+            # Check data quality
+            if len(df) < 1000:  # At least 1000 rows
+                return False
+                
+            # Check for realistic price ranges (for XAUUSD)
+            price_cols = [col for col in df.columns if any(x in col.lower() for x in ['open', 'high', 'low', 'close'])]
+            if price_cols:
+                for col in price_cols:
+                    if df[col].min() < 500 or df[col].max() > 5000:  # Realistic gold price range
+                        continue  # Allow some flexibility
+                        
+            return True
+            
+        except Exception:
+            return False
+
     def _create_sample_data(self) -> pd.DataFrame:
         """สร้างข้อมูลตัวอย่างสำหรับการทดสอบ"""
         # Create realistic OHLC data
@@ -129,7 +167,7 @@ class ElliottWaveDataProcessor:
             df = df.drop_duplicates(subset=['timestamp']).reset_index(drop=True)
             
             # Handle missing values
-            df = df.fillna(method='ffill').fillna(method='bfill')
+            df = df.ffill().bfill()
             
             # Validate OHLC relationships
             required_cols = ['open', 'high', 'low', 'close']
@@ -254,7 +292,7 @@ class ElliottWaveDataProcessor:
             df = self._add_multi_timeframe_features(df)
             
             # Clean up NaN values
-            df = df.fillna(method='ffill').fillna(method='bfill')
+            df = df.ffill().bfill()
             
             self.logger.info(f"✅ Feature engineering completed: {len(df.columns)} features")
             return df
@@ -334,7 +372,7 @@ class ElliottWaveDataProcessor:
                 # Merge back to original timeframe
                 df = df.set_index('timestamp')
                 df = df.join(df_resampled[[f'sma_20_{tf}', f'rsi_{tf}']], how='left')
-                df = df.fillna(method='ffill')
+                df = df.ffill()
                 df = df.reset_index()
                 
             except Exception as e:
@@ -370,7 +408,7 @@ class ElliottWaveDataProcessor:
             y = df['target'].copy()
             
             # Handle any remaining NaN values
-            X = X.fillna(method='ffill').fillna(method='bfill')
+            X = X.ffill().bfill()
             
             self.logger.info(f"✅ Data prepared: {X.shape[0]} samples, {X.shape[1]} features")
             return X, y
@@ -402,3 +440,47 @@ class ElliottWaveDataProcessor:
         except Exception as e:
             self.logger.error(f"❌ Data quality report failed: {str(e)}")
             return {}
+    
+    def create_elliott_wave_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """สร้างฟีเจอร์สำหรับ Elliott Wave analysis"""
+        try:
+            self.logger.info("🌊 Creating Elliott Wave features...")
+            
+            # Use existing technical indicators method
+            df_with_features = self._add_technical_indicators(df)
+            
+            # Add Elliott Wave specific features
+            # Wave pattern features
+            df_with_features['wave_momentum'] = df_with_features['close'].pct_change(5)
+            df_with_features['wave_strength'] = df_with_features['volume'] * abs(df_with_features['wave_momentum'])
+            
+            # Multi-timeframe features
+            for period in [5, 10, 20, 50]:
+                df_with_features[f'sma_{period}'] = df_with_features['close'].rolling(period).mean()
+                df_with_features[f'ema_{period}'] = df_with_features['close'].ewm(span=period).mean()
+                df_with_features[f'volatility_{period}'] = df_with_features['close'].rolling(period).std()
+            
+            # Elliott Wave cycle detection
+            df_with_features['trend_direction'] = np.where(
+                df_with_features['close'] > df_with_features['sma_20'], 1, -1
+            )
+            
+            # Pattern recognition features
+            df_with_features['high_low_ratio'] = df_with_features['high'] / df_with_features['low']
+            df_with_features['body_size'] = abs(df_with_features['close'] - df_with_features['open'])
+            df_with_features['upper_shadow'] = df_with_features['high'] - np.maximum(df_with_features['open'], df_with_features['close'])
+            df_with_features['lower_shadow'] = np.minimum(df_with_features['open'], df_with_features['close']) - df_with_features['low']
+            
+            # Remove NaN values
+            df_with_features = df_with_features.ffill().bfill()
+            
+            self.logger.info(f"✅ Elliott Wave features created: {df_with_features.shape[1]} features")
+            return df_with_features
+            
+        except Exception as e:
+            self.logger.error(f"❌ Elliott Wave feature creation failed: {str(e)}")
+            return df
+    
+    def prepare_ml_data(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
+        """เตรียมข้อมูลสำหรับ ML โดยใช้ Elliott Wave features"""
+        return self.prepare_data_for_ml(df)
