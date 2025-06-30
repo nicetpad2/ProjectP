@@ -7,19 +7,24 @@ Elliott Wave Modules Package
 __version__ = "2.0 DIVINE EDITION"
 __author__ = "NICEGOLD Enterprise"
 
-# Export main components
-from .data_processor import ElliottWaveDataProcessor
-from .cnn_lstm_engine import CNNLSTMElliottWave  
-from .dqn_agent import DQNReinforcementAgent
-from .feature_selector import SHAPOptunaFeatureSelector
-from .pipeline_orchestrator import ElliottWavePipelineOrchestrator
-from .performance_analyzer import ElliottWavePerformanceAnalyzer
-
-__all__ = [
-    'ElliottWaveDataProcessor',
-    'CNNLSTMElliottWave',
-    'DQNReinforcementAgent', 
-    'SHAPOptunaFeatureSelector',
-    'ElliottWavePipelineOrchestrator',
-    'ElliottWavePerformanceAnalyzer'
-]
+# Import with error handling
+try:
+    from .data_processor import ElliottWaveDataProcessor
+    from .cnn_lstm_engine import CNNLSTMElliottWave  
+    from .dqn_agent import DQNReinforcementAgent
+    from .feature_selector import SHAPOptunaFeatureSelector
+    from .pipeline_orchestrator import ElliottWavePipelineOrchestrator
+    from .performance_analyzer import ElliottWavePerformanceAnalyzer
+    
+    __all__ = [
+        'ElliottWaveDataProcessor',
+        'CNNLSTMElliottWave',
+        'DQNReinforcementAgent', 
+        'SHAPOptunaFeatureSelector',
+        'ElliottWavePipelineOrchestrator',
+        'ElliottWavePerformanceAnalyzer'
+    ]
+    
+except ImportError as e:
+    print(f"⚠️ Warning: Some Elliott Wave modules could not be imported: {e}")
+    __all__ = []

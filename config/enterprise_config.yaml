@@ -1,0 +1,86 @@
+# NICEGOLD Enterprise Configuration
+# 🏢 Production-Ready Settings
+
+system:
+  name: "NICEGOLD Enterprise ProjectP"
+  version: "2.0 DIVINE EDITION"
+  environment: "production"
+  debug: false
+
+# Elliott Wave Configuration
+elliott_wave:
+  enabled: true
+  cnn_lstm_enabled: true
+  dqn_enabled: true
+  target_auc: 0.70
+  max_features: 30
+  sequence_length: 50
+  enterprise_grade: true
+
+# ML Protection Settings
+ml_protection:
+  anti_overfitting: true
+  no_data_leakage: true
+  walk_forward_validation: true
+  enterprise_compliance: true
+
+# Data Configuration
+data:
+  real_data_only: true
+  no_mock_data: true
+  no_simulation: true
+  datacsv_path: "datacsv/"
+  models_path: "models/"
+
+# Performance Targets
+performance:
+  min_auc: 0.70
+  min_sharpe_ratio: 1.5
+  max_drawdown: 0.15
+  min_win_rate: 0.60
+
+# DQN Configuration
+dqn:
+  episodes: 1000
+  learning_rate: 0.001
+  gamma: 0.95
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+  memory_size: 10000
+  batch_size: 32
+
+# CNN-LSTM Configuration
+cnn_lstm:
+  filters: [64, 32]
+  lstm_units: [100, 50]
+  dense_units: [50, 25]
+  dropout_rate: 0.3
+  learning_rate: 0.001
+  epochs: 100
+  batch_size: 32
+
+# Feature Selection Configuration
+feature_selection:
+  shap_enabled: true
+  optuna_enabled: true
+  n_trials: 50
+  timeout: 180
+  cv_folds: 5
+
+# Paths
+paths:
+  data: "datacsv/"
+  models: "models/"
+  results: "results/"
+  logs: "logs/"
+  temp: "temp/"
+  config: "config/"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  console: true
+  file: true
+  rotation: true
