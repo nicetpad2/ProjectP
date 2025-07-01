@@ -1,0 +1,3 @@
+2025-07-01 10:30:25 | INFO | Menu 1 Full Pipeline Session Started - menu1_20250701_103025
+2025-07-01 10:30:25 | INFO | Menu 1 Session Completed - Duration: 0:00:00.017764, Success Rate: 0.0%
+2025-07-01 10:30:25 | INFO | Final Results: {'execution_status': 'critical_error', 'error_message': "name 'Text' is not defined", 'pipeline_duration': 'N/A'}

@@ -579,11 +579,11 @@ class Menu1ElliottWave:
         
         console = Console()
         
-        # Beautiful header
-        header_text = Text()
-        header_text.append("🌊 ELLIOTT WAVE CNN-LSTM + DQN SYSTEM 🌊\n", style="bold cyan")
-        header_text.append("Enterprise-Grade AI Trading System\n", style="bold white")
-        header_text.append("🎯 Real-time Progress Tracking & Advanced Logging", style="italic green")
+        # Beautiful header (simplified to avoid Text class)
+        print("🌊 ELLIOTT WAVE CNN-LSTM + DQN SYSTEM 🌊")
+        print("Enterprise-Grade AI Trading System")
+        print("🎯 Real-time Progress Tracking & Advanced Logging")
+        print("=" * 80)
         
         header_panel = Panel(
             header_text,
@@ -626,26 +626,23 @@ class Menu1ElliottWave:
         
         console.print(table)
         
-        # Goals and targets
-        goals_text = Text()
-        goals_text.append("🎯 ENTERPRISE TARGETS:\n", style="bold yellow")
-        goals_text.append("• AUC Score ≥ 70%\n", style="green")
-        goals_text.append("• Zero Noise Detection\n", style="green")
-        goals_text.append("• Zero Data Leakage\n", style="green") 
-        goals_text.append("• Zero Overfitting\n", style="green")
-        goals_text.append("• Real Data Only (No Simulation)\n", style="green")
-        goals_text.append("• Beautiful Progress Tracking\n", style="cyan")
-        goals_text.append("• Advanced Error Logging\n", style="cyan")
+        # Goals and targets (simplified to avoid Text class)
+        print("\n� ENTERPRISE TARGETS:")
+        goals = [
+            "• AUC Score ≥ 70%",
+            "• Zero Noise Detection", 
+            "• Zero Data Leakage",
+            "• Zero Overfitting",
+            "• Real Data Only (No Simulation)",
+            "• Beautiful Progress Tracking",
+            "• Advanced Error Logging"
+        ]
         
-        goals_panel = Panel(
-            goals_text,
-            title="🏆 Enterprise Excellence Goals",
-            border_style="bright_green",
-            box=box.ROUNDED
-        )
-        
-        console.print(goals_panel)
-        console.print()
+        for goal in goals:
+            print(f"  {goal}")
+        print()
+        print("🚀 Press Enter to start the beautiful pipeline...")
+        print("=" * 80)
         
         # Wait for user input
         console.print("🚀 [bold green]Press Enter to start the beautiful pipeline...[/bold green]")
@@ -695,78 +692,38 @@ class Menu1ElliottWave:
             if self.results:
                 for key, value in self.results.items():
                     print(f"{key}: {value}")
+            print("=" * 50)
             return
         
+        # Use Rich only if available
         console = Console()
         
-        # Results header
-        header_text = Text("📊 ELLIOTT WAVE PIPELINE RESULTS", style="bold cyan")
-        header_panel = Panel(
-            Align.center(header_text),
-            title="🎉 Pipeline Completed",
-            border_style="bright_green",
-            box=box.DOUBLE
-        )
-        console.print(header_panel)
-        
-        # Performance metrics table
-        perf_table = Table(
-            title="🎯 Performance Metrics",
-            box=box.ROUNDED,
-            show_header=True,
-            header_style="bold cyan"
-        )
-        
-        perf_table.add_column("Metric", style="bold white", width=20)
-        perf_table.add_column("Value", style="green", width=15)
-        perf_table.add_column("Status", style="bold", width=15)
-        perf_table.add_column("Target", style="dim white", width=15)
+        # Simple header without Text class usage
+        print("📊 ELLIOTT WAVE PIPELINE RESULTS")
+        print("=" * 50)
         
         # Get performance data
-        performance = self.results.get('performance_analysis', {})
         cnn_lstm = self.results.get('cnn_lstm_results', {})
         dqn = self.results.get('dqn_results', {})
+        data_info = self.results.get('data_info', {})
+        compliance = self.results.get('enterprise_compliance', {})
         
         auc_score = cnn_lstm.get('auc_score', 0.0)
-        auc_status = "✅ PASS" if auc_score >= 0.70 else "❌ FAIL"
-        
         total_reward = dqn.get('total_reward', 0.0)
-        reward_status = "✅ GOOD" if total_reward > 0 else "⚠️ CHECK"
         
-        perf_table.add_row("AUC Score", f"{auc_score:.4f}", auc_status, "≥ 0.70")
-        perf_table.add_row("DQN Reward", f"{total_reward:.2f}", reward_status, "> 0")
-        perf_table.add_row("Sharpe Ratio", f"{performance.get('sharpe_ratio', 0.0):.3f}", "📊 INFO", "> 1.0")
-        perf_table.add_row("Max Drawdown", f"{performance.get('max_drawdown', 0.0):.3f}", "📊 INFO", "< 0.2")
+        # Display metrics without complex Rich components
+        print("🎯 PERFORMANCE METRICS:")
+        print(f"  • AUC Score: {auc_score:.4f} {'✅ PASS' if auc_score >= 0.70 else '❌ FAIL'}")
+        print(f"  • DQN Reward: {total_reward:.2f} {'✅ GOOD' if total_reward > 0 else '⚠️ CHECK'}")
+        print()
         
-        console.print(perf_table)
+        print("🧠 MODEL INFORMATION:")
+        print(f"  • Data Source: REAL Market Data (datacsv/) ✅")
+        print(f"  • Total Rows: {data_info.get('total_rows', 0):,}")
+        print(f"  • Selected Features: {data_info.get('features_count', 0)}")
+        print()
         
-        # Model information table
-        model_table = Table(
-            title="🧠 Model Information",
-            box=box.ROUNDED,
-            show_header=True,
-            header_style="bold cyan"
-        )
-        
-        model_table.add_column("Component", style="bold white", width=25)
-        model_table.add_column("Details", style="italic", width=35)
-        model_table.add_column("Status", style="bold", width=15)
-        
-        # Data info
-        data_info = self.results.get('data_info', {})
-        model_table.add_row("Data Source", "REAL Market Data (datacsv/)", "✅ REAL")
-        model_table.add_row("Total Rows", f"{data_info.get('total_rows', 0):,}", "📊 DATA")
-        model_table.add_row("Selected Features", f"{data_info.get('features_count', 0)}", "🎯 OPTIMIZED")
-        model_table.add_row("CNN-LSTM Model", f"AUC: {auc_score:.4f}", auc_status)
-        model_table.add_row("DQN Agent", f"Reward: {total_reward:.2f}", reward_status)
-        
-        console.print(model_table)
-        
-        # Enterprise compliance
-        compliance = self.results.get('enterprise_compliance', {})
-        compliance_text = Text()
-        compliance_text.append("🏆 ENTERPRISE COMPLIANCE STATUS:\n\n", style="bold yellow")
-        
+        print("� ENTERPRISE COMPLIANCE:")
         compliance_items = [
             ("Real Data Only", compliance.get('real_data_only', False)),
             ("No Simulation", compliance.get('no_simulation', False)),
@@ -777,45 +734,25 @@ class Menu1ElliottWave:
         
         for item, status in compliance_items:
             emoji = "✅" if status else "❌"
-            color = "green" if status else "red"
-            compliance_text.append(f"{emoji} {item}\n", style=color)
-        
-        compliance_panel = Panel(
-            compliance_text,
-            title="🏢 Enterprise Validation",
-            border_style="bright_green" if all(status for _, status in compliance_items) else "bright_red",
-            box=box.ROUNDED
-        )
-        
-        console.print(compliance_panel)
+            print(f"  {emoji} {item}")
+        print()
         
         # Performance grade
         if auc_score >= 0.80:
             grade = "A+ (EXCELLENT)"
             emoji = "🏆"
-            color = "bold green"
         elif auc_score >= 0.75:
-            grade = "A (VERY GOOD)"
+            grade = "A (VERY GOOD)"  
             emoji = "🥇"
-            color = "green"
         elif auc_score >= 0.70:
             grade = "B+ (GOOD)"
             emoji = "🥈"
-            color = "yellow"
         else:
             grade = "C (NEEDS IMPROVEMENT)"
             emoji = "⚠️"
-            color = "red"
         
-        grade_text = Text(f"{emoji} PERFORMANCE GRADE: {grade}", style=f"bold {color}")
-        grade_panel = Panel(
-            Align.center(grade_text),
-            title="🎯 Final Assessment",
-            border_style=color,
-            box=box.DOUBLE
-        )
-        
-        console.print(grade_panel)
+        print(f"🎯 FINAL ASSESSMENT: {emoji} {grade}")
+        print("=" * 50)
     
     def _save_results(self):
         """บันทึกผลลัพธ์"""
