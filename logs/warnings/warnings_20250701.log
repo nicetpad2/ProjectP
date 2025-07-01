@@ -44,3 +44,4 @@ NameError: name 'อย่างสมบูรณ์' is not defined
 2025-07-01 17:10:19 | WARNING | NICEGOLD_Enterprise | main:160 | Operating without intelligent resource management
 2025-07-01 17:10:19 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:48 | ❌ Menu 1 initialization failed: Menu initialization error: unmatched '}' (menu_1_elliott_wave.py, line 639)
 2025-07-01 17:51:41 | WARNING | NICEGOLD_Enterprise | main:160 | Operating without intelligent resource management
+2025-07-01 17:58:21 | ERROR | NICEGOLD_Enterprise | main:103 | Auto-activation error: 'dict' object has no attribute 'get_activated_systems'

@@ -35,6 +35,7 @@ class AutoActivationSystem:
         self.activation_time = datetime.now()
         self.system_ready = False
         self.activation_log = []
+        self.last_activation_result = {}
         
         logger.info("🚀 Auto Activation System initialized")
     
@@ -246,11 +247,27 @@ class AutoActivationSystem:
             'uptime_seconds': (datetime.now() - self.activation_time).total_seconds(),
             'activation_log': self.activation_log
         }
+    
+    def get_activated_systems(self) -> Dict[str, Any]:
+        """
+        📊 Get activated systems information
+        
+        Returns:
+            Dict: Information about activated systems
+        """
+        return {
+            'system_ready': self.system_ready,
+            'activation_time': self.activation_time.isoformat(),
+            'uptime_seconds': (datetime.now() - self.activation_time).total_seconds(),
+            'activation_log': self.activation_log,
+            'resource_manager': None,  # Will be set if available
+            'enhanced_manager': None   # Will be set if available
+        }
 
 
 def auto_activate_full_system(target_menu: int = 1, 
                               enable_monitoring: bool = True,
-                              allocation_percentage: float = 0.8) -> Dict[str, Any]:
+                              allocation_percentage: float = 0.8) -> AutoActivationSystem:
     """
     🚀 Auto-activate Full NICEGOLD ProjectP System
     
@@ -260,14 +277,17 @@ def auto_activate_full_system(target_menu: int = 1,
         allocation_percentage: เปอร์เซ็นต์การจัดสรรทรัพยากร
     
     Returns:
-        Dict: ผลลัพธ์การเปิดใช้งาน
+        AutoActivationSystem: ระบบเปิดใช้งานอัตโนมัติ
     """
     auto_system = AutoActivationSystem()
-    return auto_system.auto_activate_full_system(
+    result = auto_system.auto_activate_full_system(
         target_menu=target_menu,
         enable_monitoring=enable_monitoring,
         allocation_percentage=allocation_percentage
     )
+    # Store the result in the auto_system for later access
+    auto_system.last_activation_result = result
+    return auto_system
 
 
 if __name__ == "__main__":

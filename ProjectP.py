@@ -88,15 +88,34 @@ def main():
             auto_systems = auto_activate_full_system()
             activated = auto_systems.get_activated_systems()
             
-            # Use the enhanced resource manager from auto-activation
-            resource_manager = activated.get('enhanced_manager') or activated.get('resource_manager')
+            # Check activation results from the last activation
+            activation_result = getattr(auto_systems, 'last_activation_result', {})
             
-            if resource_manager:
+            if (activation_result.get('status') == 'completed' and 
+                activation_result.get('system_ready') and 
+                activated.get('system_ready')):
+                
                 print("✅ 🤖 Full Auto-Activation: SUCCESS")
                 logger.info("✅ All systems auto-activated successfully")
+                
+                # Try to get resource manager if available
+                resource_manager = activated.get('resource_manager')
+                if not resource_manager:
+                    try:
+                        from core.intelligent_resource_manager import initialize_intelligent_resources
+                        resource_manager = initialize_intelligent_resources()
+                    except ImportError:
+                        logger.warning("Intelligent resource manager not available")
+                        
             else:
                 print("⚠️ Auto-activation partially successful, continuing with available systems")
                 logger.warning("Auto-activation incomplete, using fallback")
+                if activation_result.get('errors'):
+                    for error in activation_result['errors']:
+                        logger.error(f"Auto-activation error: {error}")
+                if activation_result.get('warnings'):
+                    for warning in activation_result['warnings']:
+                        logger.warning(f"Auto-activation warning: {warning}")
                 
         except Exception as e:
             print(f"❌ Auto-activation failed: {e}")
