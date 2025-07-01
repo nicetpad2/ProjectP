@@ -30,6 +30,10 @@ class ElliottWavePerformanceAnalyzer:
         self.max_drawdown = self.config.get('performance', {}).get('max_drawdown', 0.15)
         self.min_win_rate = self.config.get('performance', {}).get('min_win_rate', 0.60)
     
+    def analyze_performance(self, pipeline_results: Dict[str, Any]) -> Dict[str, Any]:
+        """วิเคราะห์ผลลัพธ์จาก Pipeline (เพิ่ม method นี้เพื่อ backward compatibility)"""
+        return self.analyze_results(pipeline_results)
+    
     def analyze_results(self, pipeline_results: Dict[str, Any]) -> Dict[str, Any]:
         """วิเคราะห์ผลลัพธ์จาก Pipeline"""
         try:

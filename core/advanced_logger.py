@@ -1,29 +1,30 @@
 #!/usr/bin/env python3
 """
-📊 NICEGOLD ENTERPRISE LOGGER
-ระบบการบันทึกข้อมูลระดับ Enterprise
-Advanced Logging System with Progress Tracking & Real-time Monitoring
+🚀 NICEGOLD ENTERPRISE ADVANCED LOGGER
+ระบบ Logging ขั้นสูงพร้อม Progress Tracking & Real-time Monitoring
 """
 
 import logging
 import sys
 import platform
 from datetime import datetime
-from typing import Dict, Optional, List, Any, Callable
+from typing import Dict, List, Any, Callable, Optional
 import os
 import io
 import json
 import traceback
 import threading
-import time
-from pathlib import Path
 from enum import Enum
 from collections import defaultdict
-import colorama
-from colorama import Fore, Back, Style
 
-# Initialize colorama for Windows
-colorama.init(autoreset=True)
+try:
+    import colorama
+    from colorama import Fore, Style
+    colorama.init(autoreset=True)
+    COLORS_AVAILABLE = True
+except ImportError:
+    COLORS_AVAILABLE = False
+
 
 class LogLevel(Enum):
     """Log Levels"""
@@ -35,6 +36,7 @@ class LogLevel(Enum):
     SUCCESS = "SUCCESS"
     PROGRESS = "PROGRESS"
 
+
 class ProcessStatus(Enum):
     """Process Status"""
     STARTED = "STARTED"
@@ -44,7 +46,8 @@ class ProcessStatus(Enum):
     CANCELLED = "CANCELLED"
     WAITING = "WAITING"
 
-class ProgressTracker:
+
+class AdvancedProgressTracker:
     """Advanced Progress Tracking System"""
     
     def __init__(self):
@@ -84,7 +87,8 @@ class ProgressTracker:
         """Mark process as completed"""
         with self.lock:
             if process_id in self.processes:
-                self.processes[process_id]['status'] = ProcessStatus.COMPLETED if success else ProcessStatus.FAILED
+                status = ProcessStatus.COMPLETED if success else ProcessStatus.FAILED
+                self.processes[process_id]['status'] = status
                 self.processes[process_id]['end_time'] = datetime.now()
     
     def add_error(self, process_id: str, error: str):
@@ -124,36 +128,73 @@ class ProgressTracker:
         
         if total > 0:
             percentage = (current / total) * 100
-            progress_bar = "█" * int(percentage / 5) + "░" * (20 - int(percentage / 5))
+            bar_length = 20
+            filled_length = int(percentage / 5)
+            progress_bar = "█" * filled_length + "░" * (bar_length - filled_length)
             return f"[{progress_bar}] {current}/{total} ({percentage:.1f}%) - {status.value}"
         else:
             return f"Step {current} - {status.value}"
 
 
-class EnterpriseLogger:
-    """Enterprise Logger Class with Advanced Features"""
+class ColoredFormatter(logging.Formatter):
+    """Colored formatter for console output"""
     
-    def __init__(self, name: str = "NICEGOLD", 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.colors = {
+            'DEBUG': Fore.CYAN if COLORS_AVAILABLE else '',
+            'INFO': Fore.GREEN if COLORS_AVAILABLE else '',
+            'WARNING': Fore.YELLOW if COLORS_AVAILABLE else '',
+            'ERROR': Fore.RED if COLORS_AVAILABLE else '',
+            'CRITICAL': Fore.MAGENTA if COLORS_AVAILABLE else '',
+            'SUCCESS': (Fore.GREEN + Style.BRIGHT) if COLORS_AVAILABLE else ''
+        }
+        self.reset = Style.RESET_ALL if COLORS_AVAILABLE else ''
+    
+    def format(self, record):
+        # Add color information to record
+        record.levelname_color = self.colors.get(record.levelname, '')
+        record.reset = self.reset
+        return super().format(record)
+
+
+class EnterpriseAdvancedLogger:
+    """Enterprise Advanced Logger with Progress Tracking"""
+    
+    def __init__(self, name: str = "NICEGOLD_ADVANCED", 
                  log_level: str = "INFO",
                  enable_colors: bool = True,
                  enable_file_logging: bool = True):
         self.name = name
-        self.enable_colors = enable_colors
+        self.enable_colors = enable_colors and COLORS_AVAILABLE
         self.enable_file_logging = enable_file_logging
         self.logger = logging.getLogger(name)
-        self.progress_tracker = ProgressTracker()
+        self.progress_tracker = AdvancedProgressTracker()
         self.alert_callbacks: List[Callable] = []
         
-        # Create logs directory
-        os.makedirs("logs", exist_ok=True)
-        os.makedirs("logs/errors", exist_ok=True)
-        os.makedirs("logs/warnings", exist_ok=True)
+        # Create logs directory structure
+        self._create_log_directories()
         
+        # Setup logger
         self.setup_logger(log_level)
         
         # Performance metrics
         self.start_time = datetime.now()
         self.log_counts = defaultdict(int)
+        self.session_id = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    def _create_log_directories(self):
+        """Create necessary log directories"""
+        directories = [
+            "logs",
+            "logs/errors",
+            "logs/warnings", 
+            "logs/processes",
+            "logs/performance"
+        ]
+        
+        for directory in directories:
+            os.makedirs(directory, exist_ok=True)
     
     def setup_logger(self, log_level: str = "INFO"):
         """Setup advanced logger with multiple handlers"""
@@ -215,7 +256,7 @@ class EnterpriseLogger:
         elif file_type == "warning":
             filename = f"logs/warnings/warnings_{timestamp}.log"
         else:
-            filename = f"logs/nicegold_enterprise_{timestamp}.log"
+            filename = f"logs/nicegold_advanced_{timestamp}.log"
         
         try:
             handler = logging.FileHandler(filename, encoding='utf-8')
@@ -240,7 +281,7 @@ class EnterpriseLogger:
         """Update process progress"""
         self.progress_tracker.update_progress(process_id, step, message)
         progress_display = self.progress_tracker.get_progress_display(process_id)
-        self.info(f"📊 Progress Update: {progress_display}")
+        self.info(f"📊 Progress: {progress_display}")
         if message:
             self.info(f"   └─ {message}")
     
@@ -248,13 +289,13 @@ class EnterpriseLogger:
         """Complete process tracking"""
         self.progress_tracker.complete_process(process_id, success)
         if success:
-            self.success(f"✅ Process completed successfully: {process_id}")
+            self.success(f"✅ Process completed: {process_id}")
         else:
             self.error(f"❌ Process failed: {process_id}")
     
     def info(self, message: str, process_id: str = None):
         """Log info message"""
-        safe_message = safe_log_message(message)
+        safe_message = self._safe_log_message(message)
         self.logger.info(safe_message)
         self.log_counts['info'] += 1
         
@@ -263,7 +304,7 @@ class EnterpriseLogger:
     
     def success(self, message: str, process_id: str = None):
         """Log success message"""
-        safe_message = safe_log_message(f"✅ {message}")
+        safe_message = self._safe_log_message(f"✅ {message}")
         self.logger.info(safe_message)
         self.log_counts['success'] += 1
         
@@ -272,7 +313,7 @@ class EnterpriseLogger:
     
     def warning(self, message: str, process_id: str = None):
         """Log warning message"""
-        safe_message = safe_log_message(f"⚠️ WARNING: {message}")
+        safe_message = self._safe_log_message(f"⚠️ WARNING: {message}")
         self.logger.warning(safe_message)
         self.log_counts['warning'] += 1
         
@@ -289,7 +330,7 @@ class EnterpriseLogger:
             error_msg += f"\n   Exception: {str(exception)}"
             error_msg += f"\n   Traceback: {traceback.format_exc()}"
         
-        safe_message = safe_log_message(error_msg)
+        safe_message = self._safe_log_message(error_msg)
         self.logger.error(safe_message)
         self.log_counts['error'] += 1
         
@@ -309,7 +350,7 @@ class EnterpriseLogger:
             critical_msg += f"\n   Exception: {str(exception)}"
             critical_msg += f"\n   Traceback: {traceback.format_exc()}"
         
-        safe_message = safe_log_message(critical_msg)
+        safe_message = self._safe_log_message(critical_msg)
         self.logger.critical(safe_message)
         self.log_counts['critical'] += 1
         
@@ -323,12 +364,30 @@ class EnterpriseLogger:
     
     def debug(self, message: str, process_id: str = None):
         """Log debug message"""
-        safe_message = safe_log_message(f"🔍 DEBUG: {message}")
+        safe_message = self._safe_log_message(f"🔍 DEBUG: {message}")
         self.logger.debug(safe_message)
         self.log_counts['debug'] += 1
         
         if process_id:
             self.progress_tracker.update_progress(process_id, 0, f"DEBUG: {message}")
+    
+    def _safe_log_message(self, message: str) -> str:
+        """Convert message to safe format"""
+        emoji_replacements = {
+            '🚀': '[ROCKET]', '✅': '[CHECK]', '❌': '[X]', '⚠️': '[WARNING]',
+            '🔍': '[SEARCH]', '📊': '[CHART]', '🎯': '[TARGET]', '🧠': '[BRAIN]',
+            '🤖': '[ROBOT]', '🏆': '[TROPHY]', '⚡': '[LIGHTNING]', '🔗': '[LINK]',
+            '📈': '[CHART_UP]', '🎉': '[PARTY]', '📁': '[FOLDER]', '🎛️': '[CONTROL]',
+            '🏢': '[BUILDING]', '🚨': '[ALERT]', '📋': '[CLIPBOARD]', '🔧': '[WRENCH]',
+            '💡': '[BULB]', '🎨': '[PALETTE]', '🔥': '[FIRE]', '💎': '[DIAMOND]',
+            '🌟': '[STAR]', '🌊': '[WAVE]', '💥': '[EXPLOSION]', '🛑': '[STOP]'
+        }
+        
+        safe_message = message
+        for emoji, replacement in emoji_replacements.items():
+            safe_message = safe_message.replace(emoji, replacement)
+        
+        return safe_message
     
     def _trigger_alert(self, level: str, message: str):
         """Trigger alert callbacks"""
@@ -346,6 +405,7 @@ class EnterpriseLogger:
         
         report = {
             'timestamp': timestamp,
+            'session_id': self.session_id,
             'level': 'CRITICAL' if critical else 'ERROR',
             'message': message,
             'exception': str(exception) if exception else None,
@@ -366,12 +426,15 @@ class EnterpriseLogger:
     def get_performance_summary(self) -> Dict:
         """Get performance summary"""
         runtime = datetime.now() - self.start_time
+        total_logs = sum(self.log_counts.values())
+        
         return {
+            'session_id': self.session_id,
             'runtime_seconds': runtime.total_seconds(),
             'log_counts': dict(self.log_counts),
-            'total_logs': sum(self.log_counts.values()),
-            'error_rate': self.log_counts['error'] / max(sum(self.log_counts.values()), 1) * 100,
-            'warning_rate': self.log_counts['warning'] / max(sum(self.log_counts.values()), 1) * 100
+            'total_logs': total_logs,
+            'error_rate': (self.log_counts['error'] / max(total_logs, 1)) * 100,
+            'warning_rate': (self.log_counts['warning'] / max(total_logs, 1)) * 100
         }
     
     def display_performance_summary(self):
@@ -380,6 +443,7 @@ class EnterpriseLogger:
         print("\n" + "="*60)
         print("📊 LOGGING PERFORMANCE SUMMARY")
         print("="*60)
+        print(f"Session ID: {summary['session_id']}")
         print(f"Runtime: {summary['runtime_seconds']:.2f} seconds")
         print(f"Total Logs: {summary['total_logs']}")
         print(f"Error Rate: {summary['error_rate']:.2f}%")
@@ -392,252 +456,43 @@ class EnterpriseLogger:
     def add_alert_callback(self, callback: Callable):
         """Add alert callback function"""
         self.alert_callbacks.append(callback)
-
-
-class ColoredFormatter(logging.Formatter):
-    """Colored formatter for console output"""
     
-    COLORS = {
-        'DEBUG': Fore.CYAN,
-        'INFO': Fore.GREEN,
-        'WARNING': Fore.YELLOW,
-        'ERROR': Fore.RED,
-        'CRITICAL': Fore.MAGENTA,
-        'SUCCESS': Fore.GREEN + Style.BRIGHT
-    }
-    
-    def format(self, record):
-        # Add color information to record
-        record.levelname_color = self.COLORS.get(record.levelname, '')
-        record.reset = Style.RESET_ALL
-        return super().format(record)
-
-
-def setup_enterprise_logger(log_level: str = "INFO") -> logging.Logger:
-    """Legacy function for backward compatibility"""
-    logger = EnterpriseLogger("NICEGOLD_Enterprise", log_level)
-    return logger.logger
-
-
-def safe_log_message(message: str) -> str:
-    """สร้างข้อความ log ที่ปลอดภัยสำหรับทุกระบบ"""
-    # Replace emoji with safe text representations
-    emoji_replacements = {
-        '🚀': '[ROCKET]',
-        '✅': '[CHECK]',
-        '❌': '[X]',
-        '⚠️': '[WARNING]',
-        'ℹ️': '[INFO]',
-        '🔍': '[SEARCH]',
-        '💥': '[EXPLOSION]',
-        '🛑': '[STOP]',
-        '🌊': '[WAVE]',
-        '📊': '[CHART]',
-        '🎯': '[TARGET]',
-        '🧠': '[BRAIN]',
-        '🤖': '[ROBOT]',
-        '🏆': '[TROPHY]',
-        '⚡': '[LIGHTNING]',
-        '🔗': '[LINK]',
-        '📈': '[CHART_UP]',
-        '🎉': '[PARTY]',
-        '📁': '[FOLDER]',
-        '🎛️': '[CONTROL]',
-        '🏢': '[BUILDING]',
-        '🚨': '[ALERT]',
-        '📋': '[CLIPBOARD]',
-        '🔧': '[WRENCH]',
-        '💡': '[BULB]',
-        '🎨': '[PALETTE]',
-        '🔥': '[FIRE]',
-        '💎': '[DIAMOND]',
-        '🌟': '[STAR]'
-    }
-    
-    safe_message = message
-    for emoji, replacement in emoji_replacements.items():
-        safe_message = safe_message.replace(emoji, replacement)
-    
-    return safe_message
+    def save_session_report(self):
+        """Save complete session report"""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"logs/performance/session_report_{timestamp}.json"
+        
+        report = {
+            'session_summary': self.get_performance_summary(),
+            'processes': dict(self.progress_tracker.processes),
+            'error_counts': dict(self.progress_tracker.error_count),
+            'warning_counts': dict(self.progress_tracker.warning_count)
+        }
+        
+        try:
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(report, f, indent=2, ensure_ascii=False, default=str)
+        except Exception as e:
+            print(f"Failed to save session report: {e}")
 
 
 # Global logger instance
-_global_logger = None
+_global_advanced_logger = None
 
 
-def get_enterprise_logger(name: str = "NICEGOLD") -> EnterpriseLogger:
-    """Get global enterprise logger instance"""
-    global _global_logger
-    if _global_logger is None:
-        _global_logger = EnterpriseLogger(name)
-    return _global_logger
-
-
-class ProcessManager:
-    """Advanced Process Management for Menu Systems"""
-    
-    def __init__(self, logger: EnterpriseLogger):
-        self.logger = logger
-        self.active_processes = {}
-        self.process_history = []
-    
-    def start_menu_process(self, menu_id: str, menu_name: str, 
-                          steps: List[str]) -> str:
-        """Start a menu process with defined steps"""
-        process_id = f"menu_{menu_id}_{datetime.now().strftime('%H%M%S')}"
-        
-        self.logger.start_process_tracking(
-            process_id, 
-            f"Menu {menu_id}: {menu_name}", 
-            len(steps)
-        )
-        
-        self.active_processes[process_id] = {
-            'menu_id': menu_id,
-            'menu_name': menu_name,
-            'steps': steps,
-            'current_step': 0,
-            'start_time': datetime.now(),
-            'status': 'RUNNING'
-        }
-        
-        return process_id
-    
-    def execute_step(self, process_id: str, step_function: Callable, 
-                    step_name: str, *args, **kwargs) -> bool:
-        """Execute a step with error handling and tracking"""
-        if process_id not in self.active_processes:
-            self.logger.error(f"Process {process_id} not found")
-            return False
-        
-        process = self.active_processes[process_id]
-        current_step = process['current_step']
-        
-        self.logger.info(
-            f"🔄 Executing Step {current_step + 1}: {step_name}",
-            process_id
-        )
-        
-        try:
-            # Execute the step function
-            result = step_function(*args, **kwargs)
-            
-            # Update progress
-            process['current_step'] += 1
-            self.logger.update_process_progress(
-                process_id,
-                process['current_step'],
-                f"Completed: {step_name}"
-            )
-            
-            self.logger.success(f"✅ Step completed: {step_name}", process_id)
-            return True
-            
-        except Exception as e:
-            self.logger.error(
-                f"Step failed: {step_name}",
-                process_id,
-                e
-            )
-            process['status'] = 'FAILED'
-            self.logger.complete_process(process_id, False)
-            return False
-    
-    def complete_menu_process(self, process_id: str, success: bool = True):
-        """Complete a menu process"""
-        if process_id in self.active_processes:
-            process = self.active_processes[process_id]
-            process['end_time'] = datetime.now()
-            process['status'] = 'COMPLETED' if success else 'FAILED'
-            
-            # Move to history
-            self.process_history.append(process)
-            del self.active_processes[process_id]
-            
-            self.logger.complete_process(process_id, success)
-    
-    def get_process_summary(self, process_id: str) -> Dict:
-        """Get detailed process summary"""
-        if process_id in self.active_processes:
-            process = self.active_processes[process_id]
-            return {
-                'process_id': process_id,
-                'menu_name': process['menu_name'],
-                'status': process['status'],
-                'progress': f"{process['current_step']}/{len(process['steps'])}",
-                'current_step_name': process['steps'][process['current_step']] if process['current_step'] < len(process['steps']) else "Completed",
-                'runtime': (datetime.now() - process['start_time']).total_seconds()
-            }
-        return {}
-
-
-class ErrorReporter:
-    """Advanced Error Reporting System"""
-    
-    def __init__(self, logger: EnterpriseLogger):
-        self.logger = logger
-        self.error_history = []
-        self.error_patterns = defaultdict(int)
-    
-    def report_error(self, error_type: str, message: str, 
-                    context: Dict = None, critical: bool = False):
-        """Report error with context"""
-        error_report = {
-            'timestamp': datetime.now(),
-            'type': error_type,
-            'message': message,
-            'context': context or {},
-            'critical': critical
-        }
-        
-        self.error_history.append(error_report)
-        self.error_patterns[error_type] += 1
-        
-        if critical:
-            self.logger.critical(f"{error_type}: {message}")
-        else:
-            self.logger.error(f"{error_type}: {message}")
-        
-        # Auto-suggest solutions for common errors
-        suggestion = self._get_error_suggestion(error_type, message)
-        if suggestion:
-            self.logger.info(f"💡 Suggestion: {suggestion}")
-    
-    def _get_error_suggestion(self, error_type: str, message: str) -> str:
-        """Get error suggestion based on pattern"""
-        suggestions = {
-            'FileNotFoundError': "Check if the file path exists and is accessible",
-            'ImportError': "Verify that all required packages are installed",
-            'MemoryError': "Consider reducing data size or increasing system memory",
-            'TimeoutError': "Check network connectivity or increase timeout value",
-            'ValueError': "Validate input data format and ranges",
-            'KeyError': "Verify that all required keys exist in the data structure"
-        }
-        
-        for pattern, suggestion in suggestions.items():
-            if pattern.lower() in error_type.lower() or pattern.lower() in message.lower():
-                return suggestion
-        
-        return ""
-    
-    def get_error_summary(self) -> Dict:
-        """Get error summary and patterns"""
-        return {
-            'total_errors': len(self.error_history),
-            'error_patterns': dict(self.error_patterns),
-            'recent_errors': self.error_history[-5:] if self.error_history else [],
-            'critical_errors': [e for e in self.error_history if e.get('critical', False)]
-        }
+def get_advanced_logger(name: str = "NICEGOLD_ADVANCED") -> EnterpriseAdvancedLogger:
+    """Get global advanced logger instance"""
+    global _global_advanced_logger
+    if _global_advanced_logger is None:
+        _global_advanced_logger = EnterpriseAdvancedLogger(name)
+    return _global_advanced_logger
 
 
 # Export main classes and functions
 __all__ = [
-    'EnterpriseLogger',
-    'ProcessManager', 
-    'ErrorReporter',
+    'EnterpriseAdvancedLogger',
+    'AdvancedProgressTracker',
     'ProcessStatus',
     'LogLevel',
-    'get_enterprise_logger',
-    'setup_enterprise_logger',
-    'safe_log_message'
+    'get_advanced_logger'
 ]

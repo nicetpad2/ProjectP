@@ -15,10 +15,19 @@ import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
+import warnings
+import os
+
+# Enterprise CUDA และ TensorFlow warnings management
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # แสดงเฉพาะ ERROR
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1' if not os.environ.get('CUDA_VISIBLE_DEVICES') else os.environ['CUDA_VISIBLE_DEVICES']
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=UserWarning)
 
 # Check available libraries
 TENSORFLOW_AVAILABLE = False
 SKLEARN_AVAILABLE = False
+CUDA_AVAILABLE = False
 
 try:
     import tensorflow as tf
@@ -26,9 +35,28 @@ try:
     from tensorflow.keras.layers import Conv1D, LSTM, Dense, Dropout, BatchNormalization, Input
     from tensorflow.keras.optimizers import Adam
     from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+    
+    # Silent TensorFlow warnings
+    tf.get_logger().setLevel('ERROR')
+    
+    # Check CUDA availability
+    try:
+        CUDA_AVAILABLE = len(tf.config.list_physical_devices('GPU')) > 0
+        if CUDA_AVAILABLE:
+            # Configure GPU memory growth
+            gpus = tf.config.list_physical_devices('GPU')
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+    except:
+        CUDA_AVAILABLE = False
+    
     TENSORFLOW_AVAILABLE = True
 except ImportError:
     pass
+except Exception as e:
+    # CUDA errors should not stop the pipeline
+    TENSORFLOW_AVAILABLE = True
+    CUDA_AVAILABLE = False
 
 try:
     from sklearn.preprocessing import MinMaxScaler
@@ -65,7 +93,14 @@ class CNNLSTMElliottWave:
         elif not TENSORFLOW_AVAILABLE:
             self.logger.info("ℹ️ TensorFlow not available. Using Scikit-learn.")
         else:
-            self.logger.info("✅ TensorFlow available. Using CNN-LSTM model.")
+            cuda_status = "✅ CUDA GPU" if CUDA_AVAILABLE else "🖥️ CPU"
+            self.logger.info(f"✅ TensorFlow available. Using CNN-LSTM model ({cuda_status})")
+            
+            # Log CUDA warnings ถ้าไม่มี GPU แต่ไม่หยุด pipeline
+            if not CUDA_AVAILABLE:
+                self.logger.info("ℹ️ CUDA not available - running on CPU (normal for cloud environments)")
+            else:
+                self.logger.info(f"🚀 GPU acceleration enabled: {len(tf.config.list_physical_devices('GPU'))} devices")
     
     def build_model(self, input_shape: Tuple[int, int]) -> Any:
         """สร้างโมเดลตามความพร้อมใช้งานของ libraries"""
@@ -81,39 +116,79 @@ class CNNLSTMElliottWave:
             return self._build_simple_model()
     
     def _build_tensorflow_model(self, input_shape: Tuple[int, int]):
-        """สร้างโมเดล TensorFlow CNN-LSTM"""
+        """สร้างโมเดล TensorFlow CNN-LSTM (แก้ไข Keras UserWarning)"""
         self.logger.info("🏗️ Building TensorFlow CNN-LSTM model...")
         
-        model = Sequential([
-            # Input layer (แก้ไข Keras UserWarning)
-            Input(shape=input_shape),
+        # ปิด TensorFlow warnings ที่ไม่จำเป็น
+        import os
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+        
+        try:
+            # วิธีที่ 1: Functional API (แนะนำสำหรับ Enterprise)
+            inputs = Input(shape=input_shape, name='elliott_wave_input')
+            
             # CNN layers
-            Conv1D(filters=64, kernel_size=3, activation='relu'),
-            BatchNormalization(),
-            Conv1D(filters=32, kernel_size=3, activation='relu'),
-            BatchNormalization(),
-            Dropout(0.2),
+            x = Conv1D(filters=64, kernel_size=3, activation='relu', name='conv1d_1')(inputs)
+            x = BatchNormalization(name='batch_norm_1')(x)
+            x = Conv1D(filters=32, kernel_size=3, activation='relu', name='conv1d_2')(x)
+            x = BatchNormalization(name='batch_norm_2')(x)
+            x = Dropout(0.2, name='dropout_1')(x)
             
             # LSTM layers
-            LSTM(50, return_sequences=True),
-            Dropout(0.3),
-            LSTM(25, return_sequences=False),
-            Dropout(0.3),
+            x = LSTM(50, return_sequences=True, name='lstm_1')(x)
+            x = Dropout(0.3, name='dropout_2')(x)
+            x = LSTM(25, return_sequences=False, name='lstm_2')(x)
+            x = Dropout(0.3, name='dropout_3')(x)
             
             # Dense layers
-            Dense(25, activation='relu'),
-            BatchNormalization(),
-            Dense(1, activation='sigmoid')
-        ])
-        
-        model.compile(
-            optimizer=Adam(learning_rate=0.001),
-            loss='binary_crossentropy',
-            metrics=['accuracy']
-        )
-        
-        self.logger.info("✅ TensorFlow CNN-LSTM model built successfully")
-        return model
+            x = Dense(25, activation='relu', name='dense_1')(x)
+            x = BatchNormalization(name='batch_norm_3')(x)
+            outputs = Dense(1, activation='sigmoid', name='elliott_wave_output')(x)
+            
+            model = Model(inputs=inputs, outputs=outputs, name='ElliottWave_CNN_LSTM')
+            
+            model.compile(
+                optimizer=Adam(learning_rate=0.001),
+                loss='binary_crossentropy',
+                metrics=['accuracy']
+            )
+            
+            self.logger.info("✅ TensorFlow CNN-LSTM model built successfully (Functional API)")
+            return model
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Functional API failed: {str(e)}, falling back to Sequential")
+            
+            # วิธีที่ 2: Sequential API (Fallback)
+            model = Sequential(name='ElliottWave_CNN_LSTM_Sequential')
+            model.add(Input(shape=input_shape, name='input_layer'))
+            
+            # CNN layers
+            model.add(Conv1D(filters=64, kernel_size=3, activation='relu'))
+            model.add(BatchNormalization())
+            model.add(Conv1D(filters=32, kernel_size=3, activation='relu'))
+            model.add(BatchNormalization())
+            model.add(Dropout(0.2))
+            
+            # LSTM layers
+            model.add(LSTM(50, return_sequences=True))
+            model.add(Dropout(0.3))
+            model.add(LSTM(25, return_sequences=False))
+            model.add(Dropout(0.3))
+            
+            # Dense layers
+            model.add(Dense(25, activation='relu'))
+            model.add(BatchNormalization())
+            model.add(Dense(1, activation='sigmoid'))
+            
+            model.compile(
+                optimizer=Adam(learning_rate=0.001),
+                loss='binary_crossentropy',
+                metrics=['accuracy']
+            )
+            
+            self.logger.info("✅ TensorFlow CNN-LSTM model built successfully (Sequential API)")
+            return model
     
     def _build_sklearn_model(self):
         """สร้างโมเดล Scikit-learn"""
@@ -333,11 +408,14 @@ class CNNLSTMElliottWave:
             'is_trained': self.is_trained,
             'tensorflow_available': TENSORFLOW_AVAILABLE,
             'sklearn_available': SKLEARN_AVAILABLE,
+            'cuda_available': CUDA_AVAILABLE,
             'sequence_length': self.sequence_length,
+            'acceleration': 'GPU' if CUDA_AVAILABLE else 'CPU',
             'features': [
                 'Pattern Recognition',
                 'Sequence Learning',  
                 'Elliott Wave Detection',
-                'Enterprise Fallbacks'
+                'Enterprise Fallbacks',
+                'CUDA Support' if CUDA_AVAILABLE else 'CPU Optimized'
             ]
         }

@@ -35,16 +35,12 @@ from scipy.stats import ks_2samp, shapiro
 import sys
 from pathlib import Path
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
-from core.logger import setup_logger
-
 
 class EnterpriseMLProtectionSystem:
     """ระบบป้องกัน ML ระดับ Enterprise สำหรับ NICEGOLD Trading System"""
     
     def __init__(self, logger: logging.Logger = None):
-        self.logger = logger or setup_logger("MLProtection")
+        self.logger = logger or logging.getLogger(__name__)
         self.protection_config = {
             'overfitting_threshold': 0.15,  # Max difference between train/val
             'noise_threshold': 0.05,        # Max noise ratio allowed
