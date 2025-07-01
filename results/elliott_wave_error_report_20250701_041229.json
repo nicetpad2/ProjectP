@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 179, in run_full_pipeline\n    pipeline_results = self.pipeline_orchestrator.run_integrated_pipeline(\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'\n",
+  "timestamp": "2025-07-01T04:12:29.936569"
+}
