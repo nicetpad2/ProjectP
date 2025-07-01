@@ -22,11 +22,19 @@
 import numpy as np
 import pandas as pd
 from typing import Dict, List, Optional, Tuple, Any, Union
-import logging
-from datetime import datetime, timedelta
 import warnings
 import sys
 from pathlib import Path
+from datetime import datetime, timedelta
+
+# Import new advanced logging system
+try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
+    from core.real_time_progress_manager import get_progress_manager, ProgressType, ProgressContext
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+    import logging
 
 # Import ML libraries with error handling
 try:
@@ -50,24 +58,39 @@ except ImportError:
 
 
 class EnterpriseMLProtectionSystem:
-    """ระบบป้องกัน ML ระดับ Enterprise สำหรับ NICEGOLD Trading System"""
+    """🛡️ ระบบป้องกัน ML ระดับ Enterprise สำหรับ NICEGOLD Trading System"""
     
-    def __init__(self, config: Dict = None, logger: logging.Logger = None):
-        self.logger = logger or logging.getLogger(__name__)
+    def __init__(self, config: Dict = None, logger=None):
+        # Initialize advanced logging system
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
+        
         self.config = config or {}
         
         # Set availability flags
         self.sklearn_available = SKLEARN_AVAILABLE
         self.scipy_available = SCIPY_AVAILABLE
         
-        # Default protection configuration
+        # Ultra-strict enterprise protection configuration
         default_config = {
-            'overfitting_threshold': 0.15,  # Max difference between train/val
-            'noise_threshold': 0.05,        # Max noise ratio allowed
-            'leak_detection_window': 100,   # Samples to check for leakage
-            'min_samples_split': 50,        # Minimum samples for time split
-            'stability_window': 1000,       # Window for feature stability
-            'significance_level': 0.05,     # Statistical significance level
+            'overfitting_threshold': 0.05,   # Ultra-strict overfitting detection
+            'noise_threshold': 0.02,         # Ultra-strict noise detection
+            'leak_detection_window': 200,    # Larger window for leakage detection
+            'min_samples_split': 100,        # Larger minimum samples for time split
+            'stability_window': 2000,        # Larger window for feature stability
+            'significance_level': 0.01,      # Stricter statistical significance
+            'enterprise_mode': True,         # Enable strict enterprise checking
+            'min_auc_threshold': 0.75,       # Higher minimum AUC for enterprise ready
+            'max_feature_correlation': 0.75, # Lower maximum correlation between features
+            'min_feature_importance': 0.02,  # Higher minimum feature importance threshold
+            'max_cv_variance': 0.05,         # Maximum allowed cross-validation variance
+            'min_train_val_ratio': 0.90,     # Minimum train/validation performance ratio
+            'max_feature_drift': 0.10,       # Maximum allowed feature drift over time
+            'min_signal_noise_ratio': 3.0,   # Minimum signal-to-noise ratio required
         }
         
         # Merge with ml_protection config from main config
@@ -75,95 +98,170 @@ class EnterpriseMLProtectionSystem:
         self.protection_config = {**default_config, **ml_protection_config}
         self.protection_results = {}
         
-        # Log configuration and availability
-        self.logger.info(f"🛡️ Enterprise ML Protection System initialized")
-        self.logger.info(f"   - sklearn available: {self.sklearn_available}")
-        self.logger.info(f"   - scipy available: {self.scipy_available}")
-        self.logger.info(f"   - config: {self.protection_config}")
+        # Log initialization with new system
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger.security("🛡️ Enterprise ML Protection System initialized", "ML_Protection_Init")
+            self.logger.system(f"sklearn available: {self.sklearn_available}", "ML_Protection_Init")
+            self.logger.system(f"scipy available: {self.scipy_available}", "ML_Protection_Init")
+            self.logger.system(f"config loaded: {len(self.protection_config)} settings", "ML_Protection_Init")
+        else:
+            self.logger.info(f"🛡️ Enterprise ML Protection System initialized")
+            self.logger.info(f"   - sklearn available: {self.sklearn_available}")
+            self.logger.info(f"   - scipy available: {self.scipy_available}")
+            self.logger.info(f"   - config: {self.protection_config}")
     
     def update_protection_config(self, new_config: Dict) -> bool:
-        """อัปเดตการตั้งค่าป้องกัน"""
+        """🔧 อัปเดตการตั้งค่าป้องกัน"""
         try:
             self.protection_config.update(new_config)
-            self.logger.info(f"🔧 Protection config updated: {new_config}")
+            
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.system(f"Protection config updated: {len(new_config)} new settings", 
+                                 "Config_Update", data=new_config)
+            else:
+                self.logger.info(f"🔧 Protection config updated: {new_config}")
+            
             return True
         except Exception as e:
-            self.logger.error(f"❌ Failed to update protection config: {str(e)}")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Failed to update protection config", 
+                                "Config_Update", exception=e)
+            else:
+                self.logger.error(f"❌ Failed to update protection config: {str(e)}")
             return False
     
     def get_protection_config(self) -> Dict:
-        """ดึงการตั้งค่าป้องกันปัจจุบัน"""
+        """📋 ดึงการตั้งค่าป้องกันปัจจุบัน"""
         return self.protection_config.copy()
+
+    def comprehensive_protection_analysis(self, X: np.ndarray, y: np.ndarray, 
+                                        model: Any = None, 
+                                        feature_names: List[str] = None,
+                                        process_id: str = None) -> Dict[str, Any]:
+        """🎯 การวิเคราะห์ป้องกันแบบครบถ้วน"""
         
-    def comprehensive_protection_analysis(self, 
-                                        X: pd.DataFrame, 
-                                        y: pd.Series, 
-                                        model: Any = None,
-                                        datetime_col: str = None) -> Dict[str, Any]:
-        """
-        ระบบตรวจสอบป้องกันแบบครบถ้วน
+        # Start progress tracking
+        main_progress_id = None
+        if ADVANCED_LOGGING_AVAILABLE and self.progress_manager:
+            main_progress_id = self.progress_manager.create_progress(
+                "🛡️ ML Protection Analysis", 7, ProgressType.ANALYSIS
+            )
         
-        Returns:
-            Dict containing all protection analysis results
-        """
         try:
-            self.logger.info("🛡️ Starting Enterprise ML Protection Analysis...")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.security("🛡️ Starting comprehensive ML protection analysis", 
+                                    "Protection_Analysis", process_id=process_id)
+            else:
+                self.logger.info("🛡️ Starting comprehensive ML protection analysis")
             
             protection_results = {
                 'timestamp': datetime.now().isoformat(),
-                'data_info': {
-                    'samples': len(X),
-                    'features': len(X.columns),
-                    'target_distribution': y.value_counts().to_dict()
-                },
-                'protection_status': 'ANALYZING',
-                'alerts': [],
+                'data_shape': X.shape,
+                'feature_names': feature_names or [f'feature_{i}' for i in range(X.shape[1])],
+                'protection_config': self.protection_config.copy(),
+                'enterprise_ready': False,
+                'critical_issues': [],
+                'warnings': [],
                 'recommendations': []
             }
             
-            # 1. Data Leakage Detection
-            self.logger.info("🔍 Phase 1: Data Leakage Detection...")
-            leakage_results = self._detect_data_leakage(X, y, datetime_col)
-            protection_results['data_leakage'] = leakage_results
+            # Step 1: Data Quality Analysis
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "🔍 Analyzing data quality")
             
-            # 2. Overfitting Detection
-            self.logger.info("📊 Phase 2: Overfitting Detection...")
-            overfitting_results = self._detect_overfitting(X, y, model)
-            protection_results['overfitting'] = overfitting_results
+            data_quality_results = self._analyze_data_quality(X, y, process_id)
+            protection_results['data_quality'] = data_quality_results
             
-            # 3. Noise Detection & Analysis
-            self.logger.info("🎯 Phase 3: Noise Detection & Analysis...")
-            noise_results = self._detect_noise_and_quality(X, y)
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.data_log(f"Data quality analysis completed", 
+                                   "Data_Quality", process_id=process_id, 
+                                   data={'issues': len(data_quality_results.get('issues', []))})
+            
+            # Step 2: Feature Correlation Analysis
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "🔗 Analyzing feature correlations")
+            
+            correlation_results = self._analyze_feature_correlation(X, feature_names, process_id)
+            protection_results['correlation_analysis'] = correlation_results
+            
+            # Step 3: Overfitting Detection
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "🎯 Detecting overfitting")
+            
+            if model is not None and self.sklearn_available:
+                overfitting_results = self._detect_overfitting(X, y, model, process_id)
+                protection_results['overfitting_analysis'] = overfitting_results
+            else:
+                if ADVANCED_LOGGING_AVAILABLE:
+                    self.logger.warning("Skipping overfitting analysis - no model provided or sklearn unavailable", 
+                                      "Overfitting_Detection", process_id=process_id)
+                protection_results['overfitting_analysis'] = {'skipped': True, 'reason': 'No model or sklearn unavailable'}
+            
+            # Step 4: Data Leakage Detection
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "🚨 Detecting data leakage")
+            
+            leakage_results = self._detect_data_leakage(X, y, process_id)
+            protection_results['leakage_analysis'] = leakage_results
+            
+            # Step 5: Noise Analysis
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "📊 Analyzing noise levels")
+            
+            noise_results = self._analyze_noise(X, y, process_id)
             protection_results['noise_analysis'] = noise_results
             
-            # 4. Feature Stability Analysis
-            self.logger.info("📈 Phase 4: Feature Stability Analysis...")
-            stability_results = self._analyze_feature_stability(X, y, datetime_col)
-            protection_results['feature_stability'] = stability_results
+            # Step 6: Time Series Validation
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "⏰ Validating time series integrity")
             
-            # 5. Time-Series Validation
-            self.logger.info("⏰ Phase 5: Time-Series Validation...")
-            timeseries_results = self._validate_timeseries_integrity(X, y, datetime_col)
-            protection_results['timeseries_validation'] = timeseries_results
+            timeseries_results = self._validate_time_series_integrity(X, y, process_id)
+            protection_results['timeseries_analysis'] = timeseries_results
             
-            # 6. Overall Assessment
-            protection_results = self._compute_overall_assessment(protection_results)
+            # Step 7: Enterprise Readiness Assessment
+            if main_progress_id:
+                self.progress_manager.update_progress(main_progress_id, 1, "🏢 Assessing enterprise readiness")
+            
+            enterprise_assessment = self._assess_enterprise_readiness(protection_results, process_id)
+            protection_results.update(enterprise_assessment)
+            
+            # Complete progress
+            if main_progress_id:
+                self.progress_manager.complete_progress(main_progress_id, 
+                                                       "✅ Protection analysis completed")
+            
+            # Log final results
+            if ADVANCED_LOGGING_AVAILABLE:
+                is_ready = protection_results.get('enterprise_ready', False)
+                if is_ready:
+                    self.logger.success("🏆 Enterprise ML Protection: PASSED", 
+                                      "Protection_Results", process_id=process_id,
+                                      data={'score': protection_results.get('enterprise_score', 0)})
+                else:
+                    self.logger.warning("⚠️ Enterprise ML Protection: REVIEW REQUIRED", 
+                                      "Protection_Results", process_id=process_id,
+                                      data={'critical_issues': len(protection_results.get('critical_issues', []))})
             
             self.protection_results = protection_results
-            
-            # Log summary
-            self._log_protection_summary(protection_results)
-            
             return protection_results
             
         except Exception as e:
-            self.logger.error(f"❌ Enterprise Protection Analysis failed: {str(e)}")
+            if main_progress_id:
+                self.progress_manager.fail_progress(main_progress_id, f"Protection analysis failed: {str(e)}")
+            
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.critical(f"Comprehensive protection analysis failed", 
+                                   "Protection_Analysis", process_id=process_id, exception=e)
+            else:
+                self.logger.error(f"❌ Comprehensive protection analysis failed: {str(e)}")
+            
             return {
-                'protection_status': 'ERROR',
                 'error': str(e),
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().isoformat(),
+                'enterprise_ready': False,
+                'critical_issues': [f"Analysis failed: {str(e)}"]
             }
-    
+
     def _detect_data_leakage(self, X: pd.DataFrame, y: pd.Series, datetime_col: str = None) -> Dict[str, Any]:
         """ตรวจจับ Data Leakage อย่างชาญฉลาด"""
         try:
@@ -218,7 +316,7 @@ class EnterpriseMLProtectionSystem:
             self.logger.error(f"❌ Data leakage detection failed: {str(e)}")
             return {'status': 'ERROR', 'error': str(e)}
     
-    def _detect_overfitting(self, X: pd.DataFrame, y: pd.Series, model: Any = None) -> Dict[str, Any]:
+    def _detect_overfitting(self, X: pd.DataFrame, y: pd.Series, model: Any = None, process_id: str = None) -> Dict[str, Any]:
         """ตรวจจับ Overfitting ด้วยหลายวิธี"""
         try:
             # Check if sklearn is available for advanced analysis
@@ -253,15 +351,15 @@ class EnterpriseMLProtectionSystem:
             }
             
             # 2. Train-Validation Split Analysis
-            train_val_analysis = self._train_validation_analysis(X, y, model)
+            train_val_analysis = self._train_validation_analysis(X, y, model, process_id)
             overfitting_results['train_validation'] = train_val_analysis
             
             # 3. Learning Curve Analysis
-            learning_curves = self._analyze_learning_curves(X, y, model)
+            learning_curves = self._analyze_learning_curves(X, y, model, process_id)
             overfitting_results['learning_curves'] = learning_curves
             
             # 4. Feature Importance Stability
-            importance_stability = self._analyze_feature_importance_stability(X, y, model)
+            importance_stability = self._analyze_feature_importance_stability(X, y, model, process_id)
             overfitting_results['feature_importance_stability'] = importance_stability
             
             # Overall overfitting assessment
@@ -288,7 +386,7 @@ class EnterpriseMLProtectionSystem:
                 }
     
     def _detect_overfitting_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """ตรวจจับ Overfitting แบบ simplified (ไม่ใช้ sklearn)"""
+        """ตรวจจับ Overfitting แบบ simplified (ไม่ใช้ sklearn) - Enhanced Version"""
         try:
             overfitting_results = {
                 'status': 'ANALYZING',
@@ -298,31 +396,76 @@ class EnterpriseMLProtectionSystem:
                 'details': {}
             }
             
-            # Simple check based on data size and feature count
+            # Enhanced overfitting detection with multiple criteria
             n_samples, n_features = X.shape
             feature_ratio = n_features / n_samples if n_samples > 0 else 1.0
             
-            # High feature-to-sample ratio indicates potential overfitting risk
-            if feature_ratio > 0.1:  # More than 10% features to samples
-                overfitting_score = min(feature_ratio, 1.0)
-                overfitting_detected = overfitting_score > self.protection_config.get('overfitting_threshold', 0.15)
-            else:
-                overfitting_score = feature_ratio
-                overfitting_detected = False
+            # Criterion 1: Feature-to-sample ratio (stricter threshold)
+            ratio_score = min(feature_ratio * 2, 1.0)  # More sensitive
+            
+            # Criterion 2: Data variance analysis
+            variance_score = 0.0
+            if n_features > 0:
+                try:
+                    # Calculate coefficient of variation for each feature
+                    feature_cv = []
+                    for col in X.select_dtypes(include=[np.number]).columns:
+                        if X[col].std() > 0:
+                            cv = X[col].std() / abs(X[col].mean()) if X[col].mean() != 0 else 0
+                            feature_cv.append(cv)
+                    
+                    if feature_cv:
+                        # High variance indicates potential noise/overfitting
+                        variance_score = min(np.mean(feature_cv) / 2, 1.0)
+                except:
+                    variance_score = 0.1
+            
+            # Criterion 3: Feature correlation analysis
+            correlation_score = 0.0
+            try:
+                # Check for high inter-feature correlations
+                numeric_X = X.select_dtypes(include=[np.number])
+                if len(numeric_X.columns) > 1:
+                    corr_matrix = numeric_X.corr().abs()
+                    # Count high correlations (excluding diagonal)
+                    high_corr_count = (corr_matrix > 0.8).sum().sum() - len(corr_matrix)
+                    total_pairs = len(corr_matrix) * (len(corr_matrix) - 1)
+                    correlation_score = min(high_corr_count / max(total_pairs, 1), 1.0)
+            except:
+                correlation_score = 0.1
+            
+            # Combined overfitting score (weighted average)
+            overfitting_score = (
+                0.4 * ratio_score +      # 40% weight on feature ratio
+                0.3 * variance_score +   # 30% weight on variance
+                0.3 * correlation_score  # 30% weight on correlation
+            )
+            
+            # More strict threshold for enterprise standards
+            overfitting_threshold = self.protection_config.get('overfitting_threshold', 0.08)  # Reduced from 0.15
+            overfitting_detected = overfitting_score > overfitting_threshold
             
             overfitting_results.update({
                 'status': 'DETECTED' if overfitting_detected else 'ACCEPTABLE',
                 'overfitting_detected': overfitting_detected,
                 'overfitting_score': overfitting_score,
                 'cross_validation': {
-                    'method': 'simplified_ratio_check',
+                    'method': 'enhanced_multi_criteria',
                     'feature_ratio': feature_ratio,
+                    'ratio_score': ratio_score,
+                    'variance_score': variance_score,
+                    'correlation_score': correlation_score,
                     'samples': n_samples,
                     'features': n_features
                 },
                 'details': {
-                    'method': 'feature_to_sample_ratio',
-                    'threshold': self.protection_config.get('overfitting_threshold', 0.15)
+                    'method': 'enhanced_overfitting_detection',
+                    'threshold': overfitting_threshold,
+                    'criteria_weights': {
+                        'feature_ratio': 0.4,
+                        'variance_analysis': 0.3,
+                        'correlation_analysis': 0.3
+                    }
                 }
             })
             
@@ -386,7 +529,7 @@ class EnterpriseMLProtectionSystem:
             return {'status': 'ERROR', 'error': str(e)}
     
     def _detect_noise_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """ตรวจจับ Noise แบบ simplified (ไม่ใช้ sklearn)"""
+        """ตรวจจับ Noise แบบ simplified (ไม่ใช้ sklearn) - Enhanced Version"""
         try:
             noise_results = {
                 'status': 'ANALYZING',
@@ -395,10 +538,12 @@ class EnterpriseMLProtectionSystem:
                 'details': {}
             }
             
-            # Check for missing values
+            # Enhanced noise detection with multiple criteria
+            
+            # 1. Missing Values Analysis (stricter)
             missing_ratio = X.isnull().sum().sum() / (X.shape[0] * X.shape[1])
             
-            # Check for constant features
+            # 2. Constant Features Detection
             constant_features = []
             for col in X.columns:
                 if X[col].nunique() <= 1:
@@ -406,35 +551,94 @@ class EnterpriseMLProtectionSystem:
             
             constant_ratio = len(constant_features) / len(X.columns) if len(X.columns) > 0 else 0
             
-            # Check for extreme values (simple outlier detection)
+            # 3. Enhanced Outlier Detection
             outlier_ratio = 0.0
+            extreme_outlier_ratio = 0.0
             numeric_cols = X.select_dtypes(include=[np.number]).columns
+            
             for col in numeric_cols:
-                if len(X[col]) > 0:
+                if len(X[col]) > 0 and X[col].std() > 0:
+                    # Standard IQR method
                     q1 = X[col].quantile(0.25)
                     q3 = X[col].quantile(0.75)
                     iqr = q3 - q1
                     if iqr > 0:
+                        # Normal outliers (1.5 * IQR)
                         outliers = ((X[col] < q1 - 1.5 * iqr) | (X[col] > q3 + 1.5 * iqr)).sum()
                         outlier_ratio += outliers / len(X[col])
+                        
+                        # Extreme outliers (3 * IQR)
+                        extreme_outliers = ((X[col] < q1 - 3 * iqr) | (X[col] > q3 + 3 * iqr)).sum()
+                        extreme_outlier_ratio += extreme_outliers / len(X[col])
             
             if len(numeric_cols) > 0:
                 outlier_ratio = outlier_ratio / len(numeric_cols)
+                extreme_outlier_ratio = extreme_outlier_ratio / len(numeric_cols)
             
-            # Calculate overall noise level
-            noise_level = (missing_ratio * 0.4 + constant_ratio * 0.4 + outlier_ratio * 0.2)
+            # 4. Feature Variance Analysis
+            low_variance_ratio = 0.0
+            for col in numeric_cols:
+                if len(X[col]) > 0:
+                    # Calculate coefficient of variation
+                    cv = X[col].std() / abs(X[col].mean()) if X[col].mean() != 0 else 0
+                    if cv < 0.01:  # Very low variance features
+                        low_variance_ratio += 1
+            
+            if len(numeric_cols) > 0:
+                low_variance_ratio = low_variance_ratio / len(numeric_cols)
+            
+            # 5. Skewness Analysis  
+            high_skewness_ratio = 0.0
+            for col in numeric_cols:
+                if len(X[col]) > 5 and X[col].std() > 0:  # Need at least 6 samples for skewness
+                    try:
+                        skewness = X[col].skew()
+                        if abs(skewness) > 2:  # High skewness
+                            high_skewness_ratio += 1
+                    except:
+                        pass
+            
+            if len(numeric_cols) > 0:
+                high_skewness_ratio = high_skewness_ratio / len(numeric_cols)
+            
+            # Enhanced noise calculation with weighted criteria
+            noise_level = (
+                missing_ratio * 0.25 +           # 25% weight on missing values
+                constant_ratio * 0.20 +          # 20% weight on constant features  
+                outlier_ratio * 0.20 +           # 20% weight on outliers
+                extreme_outlier_ratio * 0.15 +   # 15% weight on extreme outliers
+                low_variance_ratio * 0.10 +      # 10% weight on low variance
+                high_skewness_ratio * 0.10       # 10% weight on high skewness
+            )
+            
             data_quality_score = max(0.0, 1.0 - noise_level)
             
+            # More strict threshold for noise detection
+            noise_threshold = self.protection_config.get('noise_threshold', 0.03)  # Reduced from 0.05
+            
             noise_results.update({
-                'status': 'HIGH' if noise_level > self.protection_config.get('noise_threshold', 0.05) else 'ACCEPTABLE',
+                'status': 'HIGH_NOISE' if noise_level > noise_threshold else 'ACCEPTABLE',
                 'noise_level': noise_level,
                 'data_quality_score': data_quality_score,
+                'noise_detected': noise_level > noise_threshold,
                 'details': {
                     'missing_ratio': missing_ratio,
                     'constant_ratio': constant_ratio,
                     'outlier_ratio': outlier_ratio,
+                    'extreme_outlier_ratio': extreme_outlier_ratio,
+                    'low_variance_ratio': low_variance_ratio,
+                    'high_skewness_ratio': high_skewness_ratio,
                     'constant_features': constant_features,
-                    'method': 'simplified_quality_check'
+                    'noise_threshold': noise_threshold,
+                    'method': 'enhanced_multi_criteria_quality_check',
+                    'criteria_weights': {
+                        'missing_values': 0.25,
+                        'constant_features': 0.20,
+                        'outliers': 0.20,
+                        'extreme_outliers': 0.15,
+                        'low_variance': 0.10,
+                        'high_skewness': 0.10
+                    }
                 }
             })
             
@@ -520,7 +724,7 @@ class EnterpriseMLProtectionSystem:
             return {'status': 'ERROR', 'error': str(e)}
     
     def _compute_overall_assessment(self, protection_results: Dict) -> Dict:
-        """คำนวณการประเมินโดยรวม"""
+        """คำนวณการประเมินโดยรวม - Enhanced for Enterprise Standards"""
         try:
             # Protection scores
             leakage_score = protection_results.get('data_leakage', {}).get('leakage_score', 0)
@@ -528,42 +732,61 @@ class EnterpriseMLProtectionSystem:
             noise_level = protection_results.get('noise_analysis', {}).get('noise_level', 0)
             quality_score = protection_results.get('noise_analysis', {}).get('data_quality_score', 1.0)
             
-            # Overall risk score (0-1, lower is better)
-            overall_risk = (leakage_score * 0.4 + overfitting_score * 0.3 + noise_level * 0.3)
+            # Enhanced risk calculation with stricter enterprise standards
+            overall_risk = (leakage_score * 0.35 + overfitting_score * 0.35 + noise_level * 0.30)
             
-            # Protection status
-            if overall_risk < 0.2:
+            # Stricter thresholds for enterprise standards
+            if overall_risk < 0.10:  # Much stricter threshold
                 protection_status = 'EXCELLENT'
                 risk_level = 'LOW'
-            elif overall_risk < 0.4:
+            elif overall_risk < 0.20:  # Reduced from 0.4
                 protection_status = 'GOOD'
                 risk_level = 'MEDIUM'
-            elif overall_risk < 0.6:
+            elif overall_risk < 0.35:  # Reduced from 0.6
                 protection_status = 'ACCEPTABLE'
                 risk_level = 'HIGH'
             else:
                 protection_status = 'POOR'
                 risk_level = 'CRITICAL'
             
-            # Add alerts and recommendations
+            # Enhanced enterprise readiness criteria
+            enterprise_ready = (
+                overall_risk < 0.15 and           # Stricter overall risk
+                quality_score > 0.80 and          # Higher quality requirement
+                leakage_score < 0.05 and          # Stricter leakage tolerance
+                overfitting_score < 0.08 and      # Stricter overfitting tolerance
+                noise_level < 0.03                # Stricter noise tolerance
+            )
+            
+            # Add alerts and recommendations with stricter thresholds
             alerts = []
             recommendations = []
             
-            if leakage_score > 0.3:
+            if leakage_score > 0.05:  # Reduced from 0.3
                 alerts.append("⚠️ Data leakage detected - immediate action required")
                 recommendations.append("Remove or fix features causing data leakage")
             
-            if overfitting_score > 0.15:
+            if overfitting_score > 0.08:  # Reduced from 0.15
                 alerts.append("⚠️ Overfitting detected - model generalization at risk")
                 recommendations.append("Implement regularization or reduce model complexity")
             
-            if noise_level > 0.05:
+            if noise_level > 0.03:  # Reduced from 0.05
                 alerts.append("⚠️ High noise level detected")
                 recommendations.append("Apply noise filtering and feature selection")
             
-            if quality_score < 0.7:
+            if quality_score < 0.80:  # Increased from 0.7
                 alerts.append("⚠️ Low data quality detected")
                 recommendations.append("Improve data preprocessing and cleaning")
+            
+            # Additional enterprise-specific checks
+            if not enterprise_ready:
+                if overall_risk >= 0.15:
+                    alerts.append("❌ Overall risk too high for enterprise deployment")
+                    recommendations.append("Address overfitting, noise, and data leakage issues")
+                
+                if quality_score <= 0.80:
+                    alerts.append("❌ Data quality below enterprise standards")
+                    recommendations.append("Implement advanced data cleaning and feature engineering")
             
             protection_results.update({
                 'overall_assessment': {
@@ -571,7 +794,14 @@ class EnterpriseMLProtectionSystem:
                     'risk_level': risk_level,
                     'overall_risk_score': overall_risk,
                     'quality_score': quality_score,
-                    'enterprise_ready': overall_risk < 0.3 and quality_score > 0.7
+                    'enterprise_ready': enterprise_ready,
+                    'enterprise_thresholds': {
+                        'max_overall_risk': 0.15,
+                        'min_quality_score': 0.80,
+                        'max_leakage_score': 0.05,
+                        'max_overfitting_score': 0.08,
+                        'max_noise_level': 0.03
+                    }
                 },
                 'alerts': alerts,
                 'recommendations': recommendations
@@ -666,7 +896,7 @@ class EnterpriseMLProtectionSystem:
         
         return min(score, 1.0)
     
-    def _train_validation_analysis(self, X: pd.DataFrame, y: pd.Series, model: Any) -> Dict:
+    def _train_validation_analysis(self, X: pd.DataFrame, y: pd.Series, model: Any, process_id: str = None) -> Dict:
         """วิเคราะห์ train-validation performance gap"""
         try:
             if not self.sklearn_available:
@@ -832,7 +1062,7 @@ class EnterpriseMLProtectionSystem:
                 'converging': False
             }
     
-    def _analyze_feature_importance_stability(self, X: pd.DataFrame, y: pd.Series, model: Any) -> Dict:
+    def _analyze_feature_importance_stability(self, X: pd.DataFrame, y: pd.Series, model: Any, process_id: str = None) -> Dict:
         """วิเคราะห์ความเสถียรของ feature importance"""
         try:
             importances = []
@@ -1171,96 +1401,6 @@ class EnterpriseMLProtectionSystem:
         """ตรวจจับ temporal drift ใน features"""
         try:
             drift_results = {}
-            
-            # Sort by datetime
-            X_sorted = X.sort_values(datetime_col)
-            
-            # Split into first and last thirds
-            n = len(X_sorted)
-            first_third = X_sorted.iloc[:n//3]
-            last_third = X_sorted.iloc[2*n//3:]
-            
-            for col in X_sorted.select_dtypes(include=[np.number]).columns:
-                if col == datetime_col:
-                    continue
-                
-                # Get non-null values
-                first_values = first_third[col].dropna()
-                last_values = last_third[col].dropna()
-                
-                if len(first_values) < 10 or len(last_values) < 10:
-                    continue
-                
-                # Kolmogorov-Smirnov test for distribution change (with fallback)
-                try:
-                    if self.scipy_available:
-                        ks_stat, p_value = ks_2samp(first_values, last_values)
-                        drift_detected = p_value < 0.05
-                        severity = 'HIGH' if ks_stat > 0.3 else 'MEDIUM' if ks_stat > 0.1 else 'LOW'
-                    else:
-                        # Fallback: simple statistical comparison
-                        mean_diff = abs(first_values.mean() - last_values.mean())
-                        std_pooled = np.sqrt((first_values.var() + last_values.var()) / 2)
-                        ks_stat = mean_diff / std_pooled if std_pooled > 0 else 0
-                        p_value = 0.05 if ks_stat > 2 else 0.1  # Simplified p-value approximation
-                        drift_detected = ks_stat > 2  # Simplified threshold
-                        severity = 'HIGH' if ks_stat > 3 else 'MEDIUM' if ks_stat > 2 else 'LOW'
-                    
-                    drift_results[col] = {
-                        'ks_statistic': float(ks_stat),
-                        'p_value': float(p_value),
-                        'drift_detected': drift_detected,
-                        'severity': severity
-                    }
-                except:
-                    pass
-            
-            return drift_results
-            
-        except Exception as e:
-            return {'error': f'Temporal drift detection failed: {str(e)}'}
-    
-    def _detect_temporal_gaps(self, datetime_series: pd.Series) -> List[Dict]:
-        """ตรวจหาช่องว่างใน time series"""
-        try:
-            # Convert to datetime if not already
-            if not pd.api.types.is_datetime64_any_dtype(datetime_series):
-                datetime_series = pd.to_datetime(datetime_series)
-            
-            # Sort and find gaps
-            sorted_times = datetime_series.sort_values()
-            time_diffs = sorted_times.diff()
-            
-            # Define expected frequency (assume most common difference)
-            median_diff = time_diffs.median()
-            
-            # Find gaps larger than 2x expected frequency
-            large_gaps = time_diffs[time_diffs > median_diff * 2]
-            
-            gaps = []
-            for idx, gap in large_gaps.items():
-                gaps.append({
-                    'start_time': sorted_times.iloc[idx-1],
-                    'end_time': sorted_times.iloc[idx],
-                    'gap_duration': gap,
-                    'gap_ratio': gap / median_diff
-                })
-            
-            return gaps
-            
-        except:
-            return []
-    
-    def _analyze_seasonality(self, X: pd.DataFrame, y: pd.Series, datetime_col: str) -> Dict:
-        """วิเคราะห์ seasonality ใน data"""
-        try:
-            # This is a simplified seasonality analysis
-            # In production, you might want to use more sophisticated methods
-            
-            if datetime_col not in X.columns:
-                return {'error': 'Datetime column not found'}
-            
-            # Convert to datetime
             dt_series = pd.to_datetime(X[datetime_col])
             
             # Extract time components

@@ -59,3 +59,11 @@ NameError: name 'อย่างสมบูรณ์' is not defined
 2025-07-01 18:36:29 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ Overfitting detected - model generalization at risk
 2025-07-01 18:36:29 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ High noise level detected
 2025-07-01 18:36:29 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ Low data quality detected
+2025-07-01 18:43:32 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: ❌ ENTERPRISE COMPLIANCE FAILURE: AUC 0.5207 < target 0.70. Production deployment BLOCKED.
+2025-07-01 18:43:32 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1476 | ⚠️  ALERTS:
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1478 |    ⚠️ Overfitting detected - model generalization at risk
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1478 |    ⚠️ High noise level detected
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1478 |    ⚠️ Low data quality detected
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1478 |    ❌ Overall risk too high for enterprise deployment
+2025-07-01 18:48:32 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1478 |    ❌ Data quality below enterprise standards

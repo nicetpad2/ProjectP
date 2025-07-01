@@ -38,6 +38,14 @@ from collections import deque
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 
+# Advanced Logging Integration
+try:
+    from core.advanced_terminal_logger import get_terminal_logger
+    from core.real_time_progress_manager import get_progress_manager
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+
 # Enterprise numerical stability helpers
 def safe_division(numerator, denominator, default=0.0):
     """ปลอดภัยจากการหารด้วยศูนย์"""
@@ -150,7 +158,20 @@ class DQNReinforcementAgent:
     
     def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
         self.config = config or {}
-        self.logger = logger or logging.getLogger(__name__)
+        
+        # Initialize Advanced Terminal Logger
+        if ADVANCED_LOGGING_AVAILABLE:
+            try:
+                self.logger = get_terminal_logger()
+                self.progress_manager = get_progress_manager()
+                self.logger.info("🚀 DQNReinforcementAgent initialized with advanced logging", "DQN_Agent")
+            except Exception as e:
+                self.logger = logger or logging.getLogger(__name__)
+                self.progress_manager = None
+                print(f"⚠️ Advanced logging failed, using fallback: {e}")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         # DQN Parameters
         self.state_size = self.config.get('dqn', {}).get('state_size', 20)

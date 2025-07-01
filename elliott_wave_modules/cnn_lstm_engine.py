@@ -39,6 +39,14 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1' if not os.environ.get('CUDA_VISIBLE_DE
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning)
 
+# Advanced Logging Integration
+try:
+    from core.advanced_terminal_logger import get_terminal_logger
+    from core.real_time_progress_manager import get_progress_manager
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+
 # Check available libraries
 TENSORFLOW_AVAILABLE = False
 SKLEARN_AVAILABLE = False
@@ -87,7 +95,20 @@ class CNNLSTMElliottWave:
     
     def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
         self.config = config or {}
-        self.logger = logger or logging.getLogger(__name__)
+        
+        # Initialize Advanced Terminal Logger
+        if ADVANCED_LOGGING_AVAILABLE:
+            try:
+                self.logger = get_terminal_logger()
+                self.progress_manager = get_progress_manager()
+                self.logger.info("🚀 CNNLSTMElliottWave initialized with advanced logging", "CNN_LSTM_Engine")
+            except Exception as e:
+                self.logger = logger or logging.getLogger(__name__)
+                self.progress_manager = None
+                print(f"⚠️ Advanced logging failed, using fallback: {e}")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         # Model parameters
         self.sequence_length = self.config.get('elliott_wave', {}).get('sequence_length', 50)

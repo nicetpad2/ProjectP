@@ -31,6 +31,41 @@ warnings.filterwarnings('ignore', message='.*CUDA.*')
 warnings.filterwarnings('ignore', message='.*cuDNN.*')
 warnings.filterwarnings('ignore', message='.*cuBLAS.*')
 
+# Initialize Advanced Logging System First
+try:
+    from core.logging_integration_manager import integrate_logging_system, get_integration_manager
+    print("🚀 Initializing Advanced Terminal Logger System...")
+    
+    # Quick integration with project
+    integration_success = integrate_logging_system(project_root=".")
+    
+    if integration_success:
+        print("✅ Advanced logging system integrated successfully!")
+        
+        # Get advanced logger
+        from core.advanced_terminal_logger import get_terminal_logger
+        from core.real_time_progress_manager import get_progress_manager
+        
+        advanced_logger = get_terminal_logger()
+        progress_manager = get_progress_manager()
+        
+        ADVANCED_LOGGING_AVAILABLE = True
+        
+        # Log successful integration
+        advanced_logger.success("🎉 NICEGOLD Advanced Logging System Active", "System_Startup")
+        advanced_logger.system("Enhanced terminal output, real-time progress, and comprehensive monitoring enabled", "System_Startup")
+    else:
+        print("⚠️ Advanced logging integration failed, using fallback system")
+        ADVANCED_LOGGING_AVAILABLE = False
+        advanced_logger = None
+        progress_manager = None
+
+except ImportError as e:
+    print(f"⚠️ Advanced logging system not available: {e}")
+    ADVANCED_LOGGING_AVAILABLE = False
+    advanced_logger = None
+    progress_manager = None
+
 # Enterprise Compliance Check
 from core.compliance import EnterpriseComplianceValidator
 from core.menu_system import MenuSystem
@@ -45,7 +80,10 @@ try:
     RESOURCE_MANAGER_AVAILABLE = True
     AUTO_ACTIVATION_AVAILABLE = True
 except ImportError as e:
-    print(f"⚠️ Warning: Advanced systems not available: {e}")
+    if ADVANCED_LOGGING_AVAILABLE and advanced_logger:
+        advanced_logger.warning(f"Advanced systems not available: {e}", "System_Startup")
+    else:
+        print(f"⚠️ Warning: Advanced systems not available: {e}")
     RESOURCE_MANAGER_AVAILABLE = False
     AUTO_ACTIVATION_AVAILABLE = False
 
@@ -53,36 +91,79 @@ except ImportError as e:
 def main():
     """จุดเริ่มต้นของระบบ NICEGOLD Enterprise - ONLY AUTHORIZED ENTRY POINT"""
     
-    # Setup Enterprise Logger
-    logger = setup_enterprise_logger()
-    logger.info("🚀 NICEGOLD Enterprise ProjectP Starting...")
-    logger.info("📌 Using ONLY authorized entry point: ProjectP.py")
+    # Start main process tracking
+    main_process_id = None
+    if ADVANCED_LOGGING_AVAILABLE and progress_manager:
+        main_process_id = progress_manager.create_progress(
+            "🏢 NICEGOLD Enterprise Startup", 8, 
+            progress_type=progress_manager.ProgressType.PROCESSING if hasattr(progress_manager, 'ProgressType') else None
+        )
+    
+    # Setup Enterprise Logger (legacy + advanced)
+    if ADVANCED_LOGGING_AVAILABLE and advanced_logger:
+        logger = advanced_logger
+        logger.system("🚀 NICEGOLD Enterprise ProjectP Starting...", "Main_Entry", process_id=main_process_id)
+        logger.security("📌 Using ONLY authorized entry point: ProjectP.py", "Main_Entry", process_id=main_process_id)
+    else:
+        logger = setup_enterprise_logger()
+        logger.info("🚀 NICEGOLD Enterprise ProjectP Starting...")
+        logger.info("📌 Using ONLY authorized entry point: ProjectP.py")
+    
+    # Progress update
+    if main_process_id:
+        progress_manager.update_progress(main_process_id, 1, "System entry point validated")
     
     # 🤖 AUTO-ACTIVATION SYSTEM CHECK
-    print("🤖 Checking for Auto-Activation System...")
+    if ADVANCED_LOGGING_AVAILABLE:
+        logger.system("🤖 Checking for Auto-Activation System...", "Auto_Activation", process_id=main_process_id)
+    else:
+        print("🤖 Checking for Auto-Activation System...")
     
     # Ask user for activation mode
-    print("\n🎯 NICEGOLD ENTERPRISE ACTIVATION MODE")
-    print("="*50)
-    print("1. 🤖 Full Auto-Activation (Recommended)")
-    print("2. 🔧 Manual System Setup")
-    print("3. 📊 Quick Start (Default Settings)")
+    activation_prompt = """
+🎯 NICEGOLD ENTERPRISE ACTIVATION MODE
+================================================
+1. 🤖 Full Auto-Activation (Recommended)
+2. 🔧 Manual System Setup
+3. 📊 Quick Start (Default Settings)
+"""
+    
+    if ADVANCED_LOGGING_AVAILABLE:
+        logger.info(activation_prompt.strip(), "Activation_Menu")
+    else:
+        print(activation_prompt)
     
     try:
         choice = input("\n🎯 Select activation mode (1-3, default: 1): ").strip()
         if not choice:
             choice = "1"
     except KeyboardInterrupt:
-        print("\n🛑 Startup cancelled by user")
+        if ADVANCED_LOGGING_AVAILABLE:
+            logger.warning("🛑 Startup cancelled by user", "Main_Entry")
+        else:
+            print("\n🛑 Startup cancelled by user")
         return
+    
+    # Progress update
+    if main_process_id:
+        progress_manager.update_progress(main_process_id, 1, f"Activation mode selected: {choice}")
     
     resource_manager = None
     auto_systems = None
     
     if choice == "1" and AUTO_ACTIVATION_AVAILABLE:
         # 🤖 FULL AUTO-ACTIVATION MODE
-        print("\n🤖 Initiating Full Auto-Activation Mode...")
-        logger.info("🤖 Starting Full Auto-Activation System")
+        if ADVANCED_LOGGING_AVAILABLE:
+            logger.system("🤖 Initiating Full Auto-Activation Mode...", "Auto_Activation", process_id=main_process_id)
+            
+            # Create sub-progress for auto-activation
+            auto_progress_id = progress_manager.create_progress(
+                "🤖 Auto-Activation System", 0, 
+                progress_type=progress_manager.ProgressType.PROCESSING if hasattr(progress_manager, 'ProgressType') else None
+            )
+        else:
+            print("\n🤖 Initiating Full Auto-Activation Mode...")
+            logger.info("🤖 Starting Full Auto-Activation System")
         
         try:
             auto_systems = auto_activate_full_system()
@@ -95,9 +176,18 @@ def main():
                 activation_result.get('system_ready') and 
                 activated.get('system_ready')):
                 
-                print("✅ 🤖 Full Auto-Activation: SUCCESS")
-                logger.info("✅ All systems auto-activated successfully")
-                
+                if ADVANCED_LOGGING_AVAILABLE:
+                    logger.success("✅ 🤖 Full Auto-Activation: SUCCESS", "Auto_Activation", process_id=main_process_id)
+                    if auto_progress_id:
+                        progress_manager.complete_progress(auto_progress_id, "Auto-activation completed successfully")
+                else:
+                    print("✅ 🤖 Full Auto-Activation: SUCCESS")
+                    logger.info("✅ All systems auto-activated successfully")
+
+                # Progress update
+                if main_process_id:
+                    progress_manager.update_progress(main_process_id, 2, "Auto-activation completed")
+
                 # Try to get resource manager if available
                 resource_manager = activated.get('resource_manager')
                 if not resource_manager:

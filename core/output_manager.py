@@ -11,12 +11,33 @@ import pandas as pd
 import logging
 from .project_paths import get_project_paths
 
+# Advanced Logging Integration
+try:
+    from .advanced_terminal_logger import get_terminal_logger
+    from .real_time_progress_manager import get_progress_manager
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+
 
 class NicegoldOutputManager:
     """ตัวจัดการ Output ให้เป็นระเบียบ - ใช้ ProjectPaths"""
     
     def __init__(self, use_project_paths: bool = True):
-        self.logger = logging.getLogger(__name__)
+        # Initialize Advanced Terminal Logger
+        if ADVANCED_LOGGING_AVAILABLE:
+            try:
+                self.logger = get_terminal_logger()
+                self.progress_manager = get_progress_manager()
+                self.logger.info("🚀 NicegoldOutputManager initialized with advanced logging", "Output_Manager")
+            except Exception as e:
+                self.logger = logging.getLogger(__name__)
+                self.progress_manager = None
+                print(f"⚠️ Advanced logging failed, using fallback: {e}")
+        else:
+            self.logger = logging.getLogger(__name__)
+            self.progress_manager = None
+            
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         if use_project_paths:

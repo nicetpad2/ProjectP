@@ -352,52 +352,72 @@ class ElliottWaveDataProcessor:
             return df
     
     def _add_technical_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
-        """เพิ่มตัวชี้วัดทางเทคนิค"""
-        # Moving averages
-        for period in [5, 10, 20, 50, 100]:
+        """เพิ่มตัวชี้วัดทางเทคนิค - Enterprise Grade with Noise Reduction"""
+        
+        # Conservative Moving averages (reduced periods to reduce lag)
+        for period in [10, 20, 50]:  # Reduced from [5, 10, 20, 50, 100]
             df[f'sma_{period}'] = df['close'].rolling(window=period).mean()
             df[f'ema_{period}'] = df['close'].ewm(span=period).mean()
         
-        # RSI
+        # RSI with noise filtering
         delta = df['close'].diff()
         gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
         loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-        rs = gain / loss
+        rs = gain / (loss + 1e-10)  # Add small epsilon to prevent division by zero
         df['rsi'] = 100 - (100 / (1 + rs))
         
-        # MACD
+        # Apply smoothing to reduce noise
+        df['rsi'] = df['rsi'].rolling(window=3).mean()
+        
+        # MACD with conservative settings
         ema_12 = df['close'].ewm(span=12).mean()
         ema_26 = df['close'].ewm(span=26).mean()
         df['macd'] = ema_12 - ema_26
         df['macd_signal'] = df['macd'].ewm(span=9).mean()
         df['macd_histogram'] = df['macd'] - df['macd_signal']
         
-        # Bollinger Bands
+        # Smooth MACD to reduce noise
+        df['macd'] = df['macd'].rolling(window=3).mean()
+        
+        # Conservative Bollinger Bands
         df['bb_middle'] = df['close'].rolling(window=20).mean()
         bb_std = df['close'].rolling(window=20).std()
         df['bb_upper'] = df['bb_middle'] + (bb_std * 2)
         df['bb_lower'] = df['bb_middle'] - (bb_std * 2)
         df['bb_width'] = df['bb_upper'] - df['bb_lower']
-        df['bb_position'] = (df['close'] - df['bb_lower']) / df['bb_width']
+        df['bb_position'] = (df['close'] - df['bb_lower']) / (df['bb_width'] + 1e-10)
         
-        # Enhanced technical indicators for better AUC performance
+        # Clamp BB position to prevent outliers
+        df['bb_position'] = df['bb_position'].clip(-0.5, 1.5)
         
-        # Additional RSI periods
-        for period in [21, 30]:
-            delta = df['close'].diff()
-            gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-            loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-            rs = gain / (loss + 1e-8)
-            df[f'rsi_{period}'] = 100 - (100 / (1 + rs))
-            df[f'rsi_{period}_oversold'] = (df[f'rsi_{period}'] < 30).astype(int)
-            df[f'rsi_{period}_overbought'] = (df[f'rsi_{period}'] > 70).astype(int)
+        # Reduced feature set - only the most stable indicators
         
-        # Additional MACD variations
-        for fast, slow, signal in [(8, 21, 5), (19, 39, 9)]:
-            ema_fast = df['close'].ewm(span=fast).mean()
-            ema_slow = df['close'].ewm(span=slow).mean()
-            macd_line = ema_fast - ema_slow
-            macd_signal_line = macd_line.ewm(span=signal).mean()
+        # Single RSI period (most stable)
+        delta = df['close'].diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=21).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=21).mean()
+        rs = gain / (loss + 1e-10)
+        df[f'rsi_21'] = 100 - (100 / (1 + rs))
+        df[f'rsi_21'] = df[f'rsi_21'].rolling(window=3).mean()  # Smooth
+        
+        # Binary RSI signals (less noisy than continuous values)
+        df[f'rsi_21_oversold'] = (df[f'rsi_21'] < 25).astype(int)  # More conservative threshold
+        df[f'rsi_21_overbought'] = (df[f'rsi_21'] > 75).astype(int)  # More conservative threshold
+        
+        # Conservative moving average ratios
+        for period in [20, 50]:  # Reduced from multiple periods
+            df[f'price_sma_ratio_{period}'] = df['close'] / (df[f'sma_{period}'] + 1e-10)
+            df[f'price_ema_ratio_{period}'] = df['close'] / (df[f'ema_{period}'] + 1e-10)
+            
+            # Clamp ratios to prevent extreme outliers
+            df[f'price_sma_ratio_{period}'] = df[f'price_sma_ratio_{period}'].clip(0.8, 1.2)
+            df[f'price_ema_ratio_{period}'] = df[f'price_ema_ratio_{period}'].clip(0.8, 1.2)
+        
+        # Simple binary moving average signals
+        df['sma_signal'] = np.where(df['sma_10'] > df['sma_20'], 1, 0)
+        df['ema_signal'] = np.where(df['ema_10'] > df['ema_20'], 1, 0)
+        
+        return df
             macd_histogram = macd_line - macd_signal_line
             
             suffix = f'_{fast}_{slow}_{signal}'
@@ -1017,71 +1037,199 @@ class ElliottWaveDataProcessor:
         self.logger.info("✅ Noise filtering completed")
         return df
     
-    def _apply_feature_regularization(self, df: pd.DataFrame) -> pd.DataFrame:
-        """🛡️ Apply feature regularization to prevent overfitting"""
-        self.logger.info("🛡️ Applying feature regularization...")
-        
-        # Remove highly correlated features to reduce overfitting
-        numeric_df = df.select_dtypes(include=[np.number])
-        correlation_matrix = numeric_df.corr().abs()
-        
-        # Find highly correlated feature pairs
-        high_corr_pairs = []
-        for i in range(len(correlation_matrix.columns)):
-            for j in range(i+1, len(correlation_matrix.columns)):
-                if correlation_matrix.iloc[i, j] > 0.95:  # Very high correlation
-                    col1, col2 = correlation_matrix.columns[i], correlation_matrix.columns[j]
-                    high_corr_pairs.append((col1, col2))
-        
-        # Remove one feature from each highly correlated pair
-        features_to_remove = set()
-        for col1, col2 in high_corr_pairs:
-            # Keep the feature with lower variance (more stable)
-            if df[col1].var() < df[col2].var():
-                features_to_remove.add(col2)
-            else:
-                features_to_remove.add(col1)
-        
-        if features_to_remove:
-            self.logger.info(f"🗑️ Removing {len(features_to_remove)} highly correlated features")
-            df = df.drop(columns=list(features_to_remove))
-        
-        # Apply feature scaling for better regularization
-        from sklearn.preprocessing import RobustScaler
-        scaler = RobustScaler()
-        
-        numeric_columns = df.select_dtypes(include=[np.number]).columns
-        feature_columns = [col for col in numeric_columns 
-                          if col not in ['open', 'high', 'low', 'close', 'volume']]
-        
-        if feature_columns:
-            df[feature_columns] = scaler.fit_transform(df[feature_columns])
-        
-        self.logger.info("✅ Feature regularization completed")
-        return df
+    def apply_enterprise_noise_filtering(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ใช้การกรอง noise ระดับ enterprise"""
+        try:
+            self.logger.info("🔧 Applying enterprise-grade noise filtering...")
+            
+            original_cols = len(df.columns)
+            original_rows = len(df)
+            
+            # 1. Remove constant features
+            constant_features = []
+            for col in df.select_dtypes(include=[np.number]).columns:
+                if df[col].nunique() <= 1:
+                    constant_features.append(col)
+            
+            if constant_features:
+                df = df.drop(columns=constant_features)
+                self.logger.info(f"🗑️ Removed {len(constant_features)} constant features")
+            
+            # 2. Remove features with very low variance
+            low_variance_features = []
+            for col in df.select_dtypes(include=[np.number]).columns:
+                if df[col].std() > 0:
+                    cv = df[col].std() / abs(df[col].mean()) if df[col].mean() != 0 else 0
+                    if cv < 0.001:  # Very low coefficient of variation
+                        low_variance_features.append(col)
+            
+            if low_variance_features:
+                df = df.drop(columns=low_variance_features)
+                self.logger.info(f"🗑️ Removed {len(low_variance_features)} low-variance features")
+            
+            # 3. Handle extreme outliers with winsorization
+            numeric_cols = df.select_dtypes(include=[np.number]).columns
+            for col in numeric_cols:
+                if len(df[col]) > 10:  # Need sufficient data
+                    # Calculate percentiles
+                    q01 = df[col].quantile(0.01)
+                    q99 = df[col].quantile(0.99)
+                    
+                    # Winsorize extreme values
+                    df[col] = df[col].clip(lower=q01, upper=q99)
+            
+            # 4. Remove highly correlated features
+            df = self._remove_highly_correlated_features(df)
+            
+            # 5. Advanced outlier removal using IQR method
+            df = self._remove_extreme_outliers(df)
+            
+            filtered_cols = len(df.columns)
+            filtered_rows = len(df)
+            
+            self.logger.info(f"✅ Noise filtering complete:")
+            self.logger.info(f"   📊 Features: {original_cols} → {filtered_cols} (-{original_cols-filtered_cols})")
+            self.logger.info(f"   📊 Rows: {original_rows} → {filtered_rows} (-{original_rows-filtered_rows})")
+            
+            return df
+            
+        except Exception as e:
+            self.logger.error(f"❌ Enterprise noise filtering failed: {str(e)}")
+            return df
     
-    def _validate_data_quality(self, df: pd.DataFrame) -> dict:
-        """📊 Validate data quality and return quality metrics"""
-        self.logger.info("📊 Validating data quality...")
-        
-        quality_metrics = {
-            'total_rows': len(df),
-            'missing_percentage': df.isnull().sum().sum() / (len(df) * len(df.columns)) * 100,
-            'duplicate_rows': df.duplicated().sum(),
-            'infinite_values': np.isinf(df.select_dtypes(include=[np.number])).sum().sum(),
-            'quality_score': 0.0
-        }
-        
-        # Calculate quality score
-        score = 100.0
-        score -= quality_metrics['missing_percentage'] * 2  # Penalize missing data
-        score -= (quality_metrics['duplicate_rows'] / len(df)) * 50  # Penalize duplicates
-        score -= (quality_metrics['infinite_values'] / len(df)) * 30  # Penalize infinite values
-        
-        quality_metrics['quality_score'] = max(0, min(100, score))
-        
-        self.logger.info(f"📊 Data Quality Score: {quality_metrics['quality_score']:.2f}%")
-        if quality_metrics['quality_score'] < 70:
-            self.logger.warning("⚠️ Low data quality detected - applying additional cleaning")
-        
-        return quality_metrics
+    def _remove_highly_correlated_features(self, df: pd.DataFrame, threshold: float = 0.85) -> pd.DataFrame:
+        """ลบ features ที่มี correlation สูงเกินไป"""
+        try:
+            numeric_df = df.select_dtypes(include=[np.number])
+            if len(numeric_df.columns) < 2:
+                return df
+            
+            # Calculate correlation matrix
+            corr_matrix = numeric_df.corr().abs()
+            
+            # Find pairs with high correlation
+            high_corr_pairs = []
+            for i in range(len(corr_matrix.columns)):
+                for j in range(i+1, len(corr_matrix.columns)):
+                    if corr_matrix.iloc[i, j] > threshold:
+                        col1, col2 = corr_matrix.columns[i], corr_matrix.columns[j]
+                        # Keep the one with higher variance
+                        if numeric_df[col1].var() >= numeric_df[col2].var():
+                            high_corr_pairs.append(col2)
+                        else:
+                            high_corr_pairs.append(col1)
+            
+            # Remove highly correlated features
+            features_to_remove = list(set(high_corr_pairs))
+            if features_to_remove:
+                df = df.drop(columns=features_to_remove)
+                self.logger.info(f"🗑️ Removed {len(features_to_remove)} highly correlated features (threshold: {threshold})")
+            
+            return df
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Could not remove correlated features: {str(e)}")
+            return df
+    
+    def _remove_extreme_outliers(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ลบ outliers ที่รุนแรงออกจากข้อมูล"""
+        try:
+            numeric_cols = df.select_dtypes(include=[np.number]).columns
+            outlier_mask = pd.Series([False] * len(df))
+            
+            for col in numeric_cols:
+                if len(df[col]) > 50:  # Need sufficient data
+                    Q1 = df[col].quantile(0.25)
+                    Q3 = df[col].quantile(0.75)
+                    IQR = Q3 - Q1
+                    
+                    if IQR > 0:
+                        # More aggressive outlier detection (3 * IQR instead of 1.5)
+                        lower_bound = Q1 - 3 * IQR
+                        upper_bound = Q3 + 3 * IQR
+                        
+                        col_outliers = (df[col] < lower_bound) | (df[col] > upper_bound)
+                        outlier_mask = outlier_mask | col_outliers
+            
+            # Remove rows with outliers
+            original_len = len(df)
+            df = df[~outlier_mask]
+            removed_rows = original_len - len(df)
+            
+            if removed_rows > 0:
+                self.logger.info(f"🗑️ Removed {removed_rows} rows with extreme outliers")
+            
+            return df
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Could not remove outliers: {str(e)}")
+            return df
+    
+    def _enhance_data_quality(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ปรับปรุงคุณภาพข้อมูลให้ถึงมาตรฐาน enterprise"""
+        try:
+            # More aggressive missing value handling
+            missing_threshold = 0.01  # Stricter threshold (1% instead of 5%)
+            missing_ratios = df.isnull().sum() / len(df)
+            cols_to_drop = missing_ratios[missing_ratios > missing_threshold].index
+            
+            if len(cols_to_drop) > 0:
+                df = df.drop(columns=cols_to_drop)
+                self.logger.info(f"🗑️ Dropped {len(cols_to_drop)} columns with >1% missing values")
+            
+            # Forward fill then backward fill remaining missing values
+            df = df.fillna(method='ffill').fillna(method='bfill')
+            
+            # Drop any remaining rows with missing values
+            df = df.dropna()
+            
+            return df
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Enhanced data quality improvement failed: {str(e)}")
+            return df
+    
+    def _normalize_features_for_stability(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ปรับ features ให้มีความเสถียรสำหรับ ML models"""
+        try:
+            numeric_cols = df.select_dtypes(include=[np.number]).columns
+            
+            for col in numeric_cols:
+                if df[col].std() > 0:
+                    # Z-score normalization for stability
+                    df[col] = (df[col] - df[col].mean()) / df[col].std()
+                    
+                    # Clip extreme values after normalization
+                    df[col] = df[col].clip(-3, 3)  # Keep within 3 standard deviations
+            
+            return df
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Feature normalization failed: {str(e)}")
+            return df
+    
+    def optimize_features_for_enterprise(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ปรับปรุงและเลือก features สำหรับ enterprise standards"""
+        try:
+            self.logger.info("🎯 Optimizing features for enterprise standards...")
+            
+            # 1. Apply noise filtering
+            df = self.apply_enterprise_noise_filtering(df)
+            
+            # 2. Ensure minimum data quality
+            quality_metrics = self._analyze_data_quality(df)
+            if quality_metrics['quality_score'] < 80:
+                self.logger.warning("⚠️ Data quality below enterprise threshold - applying enhanced cleaning")
+                df = self._enhance_data_quality(df)
+            
+            # 3. Feature normalization for stability
+            df = self._normalize_features_for_stability(df)
+            
+            self.logger.info("✅ Enterprise feature optimization complete")
+            return df
+            
+        except Exception as e:
+            self.logger.error(f"❌ Feature optimization failed: {str(e)}")
+            return df
+
+# ...existing code...

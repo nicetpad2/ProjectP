@@ -46,3 +46,5 @@ NameError: name 'อย่างสมบูรณ์' is not defined
 2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | create_elliott_wave_features:772 | ❌ Failed to create Elliott Wave features: 'ema_50'
 2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: 'ema_50'
 2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!
+2025-07-01 18:43:32 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: ❌ ENTERPRISE COMPLIANCE FAILURE: AUC 0.5207 < target 0.70. Production deployment BLOCKED.
+2025-07-01 18:43:32 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!

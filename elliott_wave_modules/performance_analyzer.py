@@ -32,12 +32,33 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
 
+# Advanced Logging Integration
+try:
+    from core.advanced_terminal_logger import get_terminal_logger
+    from core.real_time_progress_manager import get_progress_manager
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+
 class ElliottWavePerformanceAnalyzer:
     """ตัววิเคราะห์ประสิทธิภาพ Elliott Wave ระดับ Enterprise"""
     
     def __init__(self, config: Dict = None, logger: logging.Logger = None):
         self.config = config or {}
-        self.logger = logger or logging.getLogger(__name__)
+        
+        # Initialize Advanced Terminal Logger
+        if ADVANCED_LOGGING_AVAILABLE:
+            try:
+                self.logger = get_terminal_logger()
+                self.progress_manager = get_progress_manager()
+                self.logger.info("🚀 ElliottWavePerformanceAnalyzer initialized with advanced logging", "Performance_Analyzer")
+            except Exception as e:
+                self.logger = logger or logging.getLogger(__name__)
+                self.progress_manager = None
+                print(f"⚠️ Advanced logging failed, using fallback: {e}")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         # Performance thresholds (Enterprise standards)
         self.min_auc = self.config.get('performance', {}).get('min_auc', 0.70)

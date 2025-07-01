@@ -171,26 +171,49 @@ class ElliottWavePipelineOrchestrator:
             return {'success': False, 'error': str(e)}
     
     def _stage_2_data_preprocessing(self) -> Dict[str, Any]:
-        """Stage 2: ประมวลผลและทำความสะอาดข้อมูล"""
+        """Stage 2: ประมวลผลและทำความสะอาดข้อมูล - Enhanced with Noise Filtering"""
         try:
-            self.logger.info("🧹 Preprocessing and cleaning data...")
+            self.logger.info("🧹 Preprocessing and cleaning data with enterprise-grade filtering...")
             
             # Get data from previous stage
             data = self.pipeline_results.get('data_loading', {}).get('data')
             if data is None:
                 raise ValueError("No data available from previous stage")
             
-            # Elliott Wave pattern detection
+            # Step 1: Elliott Wave pattern detection
             data_processed = self.data_processor.detect_elliott_wave_patterns(data)
             
-            self.logger.info("✅ Data preprocessing completed")
+            # Step 2: Apply enterprise noise filtering
+            self.logger.info("🔧 Applying enterprise noise filtering...")
+            data_processed = self.data_processor.apply_enterprise_noise_filtering(data_processed)
+            
+            # Step 3: Optimize features for enterprise standards
+            self.logger.info("🎯 Optimizing features for enterprise standards...")
+            data_processed = self.data_processor.optimize_features_for_enterprise(data_processed)
+            
+            # Step 4: Validate data quality after processing
+            quality_metrics = self.data_processor._analyze_data_quality(data_processed)
+            
+            # Enterprise quality gate
+            if quality_metrics['quality_score'] < 80:
+                self.logger.warning(f"⚠️ Data quality after processing: {quality_metrics['quality_score']:.1f}% (below 80% threshold)")
+                # Apply additional enhancement if needed
+                data_processed = self.data_processor._enhance_data_quality(data_processed)
+                quality_metrics = self.data_processor._analyze_data_quality(data_processed)
+            
+            self.logger.info(f"✅ Data preprocessing completed with quality score: {quality_metrics['quality_score']:.1f}%")
             
             return {
                 'success': True,
                 'data_processed': data_processed,
                 'elliott_wave_patterns_detected': True,
+                'quality_metrics': quality_metrics,
+                'enterprise_filtering_applied': True,
                 'processing_steps': [
                     'Elliott Wave Pattern Detection',
+                    'Enterprise Noise Filtering',
+                    'Feature Optimization',
+                    'Quality Enhancement',
                     'Price Swing Analysis',
                     'Fibonacci Retracement Calculation',
                     'Wave Relationship Analysis'

@@ -73,16 +73,16 @@ class EnterpriseShapOptunaFeatureSelector:
     Production-ready feature selection with strict compliance
     """
     
-    def __init__(self, target_auc: float = 0.70, max_features: int = 30,
-                 n_trials: int = 150, timeout: int = 480,  # Increased trials and timeout
+    def __init__(self, target_auc: float = 0.75, max_features: int = 25,
+                 n_trials: int = 200, timeout: int = 600,  # Enhanced for enterprise
                  logger: Optional[logging.Logger] = None):
-        """Initialize Enterprise Feature Selector
+        """Initialize Enterprise Feature Selector - Enhanced Version
         
         Args:
-            target_auc: Minimum AUC target (default 0.70 for enterprise)
-            max_features: Maximum number of features to select
-            n_trials: Number of Optuna optimization trials (increased to 150)
-            timeout: Timeout in seconds for optimization (increased to 8 minutes)
+            target_auc: Minimum AUC target (increased to 0.75 for enterprise)
+            max_features: Maximum number of features to select (reduced to 25)
+            n_trials: Number of Optuna optimization trials (increased to 200)
+            timeout: Timeout in seconds for optimization (increased to 10 minutes)
             logger: Logger instance
         """
         self.target_auc = target_auc
@@ -91,10 +91,15 @@ class EnterpriseShapOptunaFeatureSelector:
         self.timeout = timeout
         self.logger = logger or logging.getLogger(__name__)
         
-        # Production-grade Optuna parameters
-        self.n_trials = max(self.n_trials, 100)  # Minimum 100 trials
-        self.timeout = max(self.timeout, 300)    # Minimum 5 minutes
-        self.cv_folds = 5
+        # Enhanced production-grade parameters
+        self.n_trials = max(self.n_trials, 150)  # Minimum 150 trials
+        self.timeout = max(self.timeout, 480)    # Minimum 8 minutes
+        self.cv_folds = 6  # Increased from 5 for better validation
+        
+        # Enterprise anti-overfitting settings
+        self.early_stopping_patience = 30
+        self.min_feature_importance = 0.005  # Minimum feature importance threshold
+        self.max_correlation_threshold = 0.85  # Maximum correlation between features
         
         # Results storage
         self.shap_rankings = {}
@@ -184,15 +189,19 @@ class EnterpriseShapOptunaFeatureSelector:
         X_sample = X.iloc[sample_indices]
         y_sample = y.iloc[sample_indices]
         
-        # Train production-grade Random Forest for SHAP analysis
+        # Train ultra-conservative model for enterprise stability  
         model = RandomForestClassifier(
-            n_estimators=500,  # Increased for better stability
+            n_estimators=300,  # Reduced from 500 for faster training
             random_state=42,
             n_jobs=-1,
-            max_depth=15,  # Increased depth
-            min_samples_split=3,  # Reduced for more granular splits
-            min_samples_leaf=1,
-            class_weight='balanced'  # Handle imbalanced data
+            max_depth=8,   # Significantly reduced to prevent overfitting
+            min_samples_split=10,  # Increased to reduce overfitting
+            min_samples_leaf=5,    # Increased to prevent overfitting
+            max_features='sqrt',   # Conservative feature sampling
+            class_weight='balanced',
+            # Enterprise anti-overfitting parameters
+            ccp_alpha=0.01,       # Cost complexity pruning
+            max_samples=0.8       # Bootstrap sampling to reduce overfitting
         )
         model.fit(X_sample, y_sample)
         
@@ -301,12 +310,14 @@ class EnterpriseShapOptunaFeatureSelector:
             model_type = trial.suggest_categorical('model_type', ['rf', 'gb'])
             
             if model_type == 'rf':
-                # Enhanced Random Forest hyperparameters
-                n_estimators = trial.suggest_int('rf_n_estimators', 300, 800)
-                max_depth = trial.suggest_int('rf_max_depth', 10, 25)
-                min_samples_split = trial.suggest_int('rf_min_samples_split', 2, 6)
-                min_samples_leaf = trial.suggest_int('rf_min_samples_leaf', 1, 3)
-                max_features = trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.7])
+                # Ultra-Conservative Random Forest for Enterprise
+                n_estimators = trial.suggest_int('rf_n_estimators', 100, 300)  # Reduced range
+                max_depth = trial.suggest_int('rf_max_depth', 5, 12)  # Much shallower trees
+                min_samples_split = trial.suggest_int('rf_min_samples_split', 10, 25)  # Higher minimum
+                min_samples_leaf = trial.suggest_int('rf_min_samples_leaf', 5, 15)  # Higher minimum
+                max_features = trial.suggest_categorical('rf_max_features', ['sqrt', 'log2'])  # Conservative options
+                ccp_alpha = trial.suggest_float('rf_ccp_alpha', 0.001, 0.02)  # Cost complexity pruning
+                max_samples = trial.suggest_float('rf_max_samples', 0.6, 0.9)  # Bootstrap sampling
                 
                 model = RandomForestClassifier(
                     n_estimators=n_estimators,
@@ -314,22 +325,30 @@ class EnterpriseShapOptunaFeatureSelector:
                     min_samples_split=min_samples_split,
                     min_samples_leaf=min_samples_leaf,
                     max_features=max_features,
+                    ccp_alpha=ccp_alpha,  # Anti-overfitting
+                    max_samples=max_samples,  # Bootstrap sampling
                     random_state=42,
                     n_jobs=-1,
                     class_weight='balanced'
                 )
             else:
-                # Enhanced Gradient Boosting hyperparameters  
-                n_estimators = trial.suggest_int('gb_n_estimators', 200, 500)
-                max_depth = trial.suggest_int('gb_max_depth', 5, 15)
-                learning_rate = trial.suggest_float('gb_learning_rate', 0.01, 0.25)
-                subsample = trial.suggest_float('gb_subsample', 0.8, 1.0)
+                # Ultra-Conservative Gradient Boosting for Enterprise
+                n_estimators = trial.suggest_int('gb_n_estimators', 50, 200)  # Reduced range
+                max_depth = trial.suggest_int('gb_max_depth', 3, 8)  # Much shallower
+                learning_rate = trial.suggest_float('gb_learning_rate', 0.01, 0.1)  # Lower learning rate
+                subsample = trial.suggest_float('gb_subsample', 0.6, 0.8)  # More aggressive subsampling
+                max_features = trial.suggest_categorical('gb_max_features', ['sqrt', 'log2'])  # Feature subsampling
+                min_samples_split = trial.suggest_int('gb_min_samples_split', 10, 25)  # Higher minimum
+                min_samples_leaf = trial.suggest_int('gb_min_samples_leaf', 5, 15)  # Higher minimum
                 
                 model = GradientBoostingClassifier(
                     n_estimators=n_estimators,
                     max_depth=max_depth,
                     learning_rate=learning_rate,
                     subsample=subsample,
+                    max_features=max_features,
+                    min_samples_split=min_samples_split,
+                    min_samples_leaf=min_samples_leaf,
                     random_state=42
                 )
             
