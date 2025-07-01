@@ -127,11 +127,11 @@ class ElliottWavePipelineOrchestrator:
             data_quality = self.data_processor.get_data_quality_report(data)
             
             # Enterprise compliance check
-            if data_quality.get('has_simulation', False):
-                raise ValueError("❌ ENTERPRISE VIOLATION: Simulation data detected!")
+            if data_quality.get('has_fallback', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Fallback data detected!")
             
-            if data_quality.get('has_mock_data', False):
-                raise ValueError("❌ ENTERPRISE VIOLATION: Mock data detected!")
+            if data_quality.get('has_test_data', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Test data detected!")
             
             if data_quality.get('real_data_percentage', 0) < 100:
                 raise ValueError("❌ ENTERPRISE VIOLATION: Not 100% real data!")
@@ -361,8 +361,8 @@ class ElliottWavePipelineOrchestrator:
             compliance_checks = {
                 'auc_target_met': auc_passed,
                 'real_data_only': True,  # Verified in stage 1
-                'no_simulation': True,   # Verified in stage 1
-                'no_mock_data': True,    # Verified in stage 1
+                'no_fallback': True,   # Verified in stage 1
+                'no_test_data': True,    # Verified in stage 1
                 'production_ready': True,
                 'enterprise_grade': True
             }

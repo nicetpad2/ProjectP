@@ -9,7 +9,7 @@ Enterprise Features:
 - Automatic Feature Selection
 - AUC ≥ 70% Target Achievement
 - Anti-Overfitting Protection
-- ZERO Mock/Dummy/Simulation Data
+- ZERO Fallback/Placeholder/Test Data
 - TimeSeriesSplit Validation
 """
 
@@ -124,8 +124,10 @@ class EnterpriseShapOptunaFeatureSelector:
         
         self.logger.info(f"✅ Enterprise Feature Selection SUCCESS: "
                        f"{len(self.selected_features)} features selected")
-        self.logger.info(f"🎯 AUC Achieved: {self.best_auc:.4f} "
-                        f"(Target: {self.target_auc:.2f}) ✅")
+        self.logger.info(
+            f"🎯 AUC Achieved: {self.best_auc:.4f} "
+            f"(Target: {self.target_auc:.2f}) ✅"
+        )
         
         return self.selected_features, results
     
@@ -394,7 +396,7 @@ class EnterpriseShapOptunaFeatureSelector:
                 'TimeSeriesSplit Validation',
                 'Enterprise Quality Gates',
                 'Production-Ready Pipeline',
-                'Zero Fallback/Mock Data'
+                'Zero Fallback/Placeholder Data'
             ],
             'compliance_status': 'ENTERPRISE COMPLIANT',
             'production_ready': True

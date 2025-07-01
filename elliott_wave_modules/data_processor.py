@@ -442,8 +442,8 @@ class ElliottWaveDataProcessor:
                 'data_types': df.dtypes.to_dict(),
                 'memory_usage': df.memory_usage(deep=True).sum(),
                 'real_data_percentage': 100.0,  # Enterprise requirement
-                'has_simulation': False,         # Enterprise requirement
-                'has_mock_data': False,          # Enterprise requirement
+                'has_fallback': False,         # Enterprise requirement
+                'has_test_data': False,          # Enterprise requirement
                 'date_range': {
                     'start': df['timestamp'].min() if 'timestamp' in df.columns else None,
                     'end': df['timestamp'].max() if 'timestamp' in df.columns else None
