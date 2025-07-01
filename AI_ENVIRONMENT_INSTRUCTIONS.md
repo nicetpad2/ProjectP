@@ -169,6 +169,22 @@ Package Management:
   ✅ Check package versions via pip list
   ✅ Report missing dependencies (don't install)
   ✅ Use environment_manager.py for diagnostics
+
+File System Operations:
+  ✅ READ access: All project files and directories
+  ✅ WRITE access: Create, modify, and delete files in project
+  ✅ Directory operations: Create and manage directories
+  ✅ Log file management: Read and write to logs/
+  ✅ Output management: Generate files in outputs/ and results/
+  ✅ Temporary files: Create and clean temp/ directory
+
+Live Code Sharing:
+  ✅ Live Share collaboration: Enable VS Code Live Share
+  ✅ Real-time code editing: Collaborative development
+  ✅ Port forwarding: Share local development servers
+  ✅ Debug session sharing: Collaborative debugging
+  ✅ Terminal sharing: Shared command execution
+  ✅ Extension sharing: Share relevant extensions
 ```
 
 ### 🚫 **FORBIDDEN ACTIONS**
