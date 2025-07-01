@@ -18,3 +18,5 @@ numpy: DLL load failed while importing _umath_linalg: The specified module could
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report'
 
+2025-07-01 10:39:20 | ERROR | NICEGOLD_Enterprise | _initialize_components:139 | ❌ Component initialization failed: ElliottWavePipelineOrchestrator.__init__() missing 4 required positional arguments: 'data_processor', 'cnn_lstm_engine', 'dqn_agent', and 'feature_selector'
+2025-07-01 10:39:20 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:43 | ❌ Menu 1 initialization failed: Menu initialization error: ElliottWavePipelineOrchestrator.__init__() missing 4 required positional arguments: 'data_processor', 'cnn_lstm_engine', 'dqn_agent', and 'feature_selector'

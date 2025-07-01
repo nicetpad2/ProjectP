@@ -306,15 +306,34 @@ class DQNReinforcementAgent:
         try:
             self.logger.info(f"🎯 Training DQN Episode {self.episode_count + 1}...")
             
+            # ✅ แก้ไข: ตรวจสอบข้อมูลก่อนใช้งาน
+            if len(env_data) <= self.state_size:
+                self.logger.warning(f"⚠️ Training data too small ({len(env_data)} <= {self.state_size}). Skipping episode.")
+                return {
+                    'episode': self.episode_count,
+                    'reward': 0.0,
+                    'epsilon': self.epsilon,
+                    'avg_loss': 0.0,
+                    'avg_q_value': 0.0,
+                    'steps': 0,
+                    'numerical_stability': 'Maintained',
+                    'reward_quality': 'Skipped - Insufficient Data'
+                }
+            
             # Prepare environment
             episode_reward = 0
             episode_length = min(1000, len(env_data) - self.state_size)
+            
+            # ✅ แก้ไข: ตรวจสอบ episode_length
+            if episode_length <= 0:
+                episode_length = 1
             
             # Initialize state
             state = self._prepare_state(env_data.iloc[:self.state_size])
             
             losses = []
             q_values = []
+            step = 0  # ✅ แก้ไข: กำหนดค่าเริ่มต้นของ step
             
             for step in range(episode_length):
                 # Get action
@@ -370,14 +389,42 @@ class DQNReinforcementAgent:
     def _prepare_state(self, data: pd.DataFrame) -> np.ndarray:
         """เตรียม state จากข้อมูล (Enhanced numerical stability)"""
         try:
+            # ✅ แก้ไข: Handle empty or invalid data
+            if data is None or len(data) == 0:
+                return np.zeros(self.state_size)
+            
+            # ✅ แก้ไข: Safe column access
+            if len(data.columns) == 0:
+                return np.zeros(self.state_size)
+            
             if len(data) < self.state_size:
                 # Pad with zeros if not enough data
                 state = np.zeros(self.state_size)
-                available_data = data.iloc[:, -1].values[:min(len(data), self.state_size)]
-                state[:len(available_data)] = available_data
+                try:
+                    # Try different column access methods
+                    if 'close' in data.columns:
+                        available_data = data['close'].values[:min(len(data), self.state_size)]
+                    elif len(data.columns) > 0:
+                        available_data = data.iloc[:, -1].values[:min(len(data), self.state_size)]
+                    else:
+                        available_data = np.zeros(min(len(data), self.state_size))
+                    
+                    state[:len(available_data)] = available_data
+                except Exception as col_error:
+                    self.logger.debug(f"Column access error in _prepare_state: {str(col_error)}")
+                    state = np.zeros(self.state_size)
             else:
                 # Use last few values as state
-                state = data.iloc[-self.state_size:, -1].values
+                try:
+                    if 'close' in data.columns:
+                        state = data['close'].iloc[-self.state_size:].values
+                    elif len(data.columns) > 0:
+                        state = data.iloc[-self.state_size:, -1].values
+                    else:
+                        state = np.zeros(self.state_size)
+                except Exception as col_error:
+                    self.logger.debug(f"Column access error in _prepare_state: {str(col_error)}")
+                    state = np.zeros(self.state_size)
             
             # Enterprise-grade data sanitization
             state = np.array([sanitize_numeric_value(x) for x in state])
@@ -413,6 +460,9 @@ class DQNReinforcementAgent:
     def _step_environment(self, data: pd.DataFrame, step: int, action: int) -> Tuple[np.ndarray, float, bool]:
         """จำลองการทำงานของ environment (Enhanced reward calculation)"""
         try:
+            # ✅ แก้ไข: ใช้ int() เพื่อแปลง step ให้เป็น integer
+            step = int(step) if not isinstance(step, int) else step
+            
             # Get next state
             if step + self.state_size + 1 < len(data):
                 next_state = self._prepare_state(data.iloc[step+1:step+1+self.state_size])
@@ -424,11 +474,24 @@ class DQNReinforcementAgent:
             # Enhanced reward calculation with robust error handling
             reward = 0.0
             
-            if step + 1 < len(data):
+            if step + self.state_size + 1 < len(data):
                 try:
-                    # Get price data safely
-                    current_price = data.iloc[step + self.state_size]['close'] if 'close' in data.columns else data.iloc[step + self.state_size, -1]
-                    next_price = data.iloc[step + self.state_size + 1]['close'] if 'close' in data.columns else data.iloc[step + self.state_size + 1, -1]
+                    # ✅ แก้ไข: ใช้ safe indexing และ column access
+                    current_idx = step + self.state_size
+                    next_idx = step + self.state_size + 1
+                    
+                    # Safe column access
+                    if 'close' in data.columns:
+                        current_price = data.iloc[current_idx]['close']
+                        next_price = data.iloc[next_idx]['close']
+                    elif len(data.columns) > 0:
+                        # Use last column as price
+                        current_price = data.iloc[current_idx, -1]
+                        next_price = data.iloc[next_idx, -1]
+                    else:
+                        # Fallback to index-based access
+                        current_price = data.iloc[current_idx].iloc[-1] if hasattr(data.iloc[current_idx], 'iloc') else data.iloc[current_idx]
+                        next_price = data.iloc[next_idx].iloc[-1] if hasattr(data.iloc[next_idx], 'iloc') else data.iloc[next_idx]
                     
                     # Sanitize price values
                     current_price = sanitize_numeric_value(current_price, default=1.0)
@@ -470,10 +533,26 @@ class DQNReinforcementAgent:
             self.logger.error(f"❌ Environment step failed: {str(e)}")
             return np.zeros(self.state_size), 0.0, True
     
-    def train_agent(self, training_data: pd.DataFrame, episodes: int = 100) -> Dict[str, Any]:
-        """ฝึก DQN Agent"""
+    def train_agent(self, training_data, episodes: int = 100) -> Dict[str, Any]:
+        """ฝึก DQN Agent - รองรับ DataFrame, Series, และ numpy array"""
         try:
             self.logger.info(f"🚀 Training DQN Agent for {episodes} episodes...")
+            
+            # ✅ แก้ไข: แปลงข้อมูลให้เป็น DataFrame ถ้าจำเป็น
+            if isinstance(training_data, pd.Series):
+                # Convert Series to DataFrame
+                training_data = training_data.to_frame().T if len(training_data.shape) == 1 else training_data.to_frame()
+            elif isinstance(training_data, np.ndarray):
+                # Convert numpy array to DataFrame
+                training_data = pd.DataFrame(training_data, columns=[f'feature_{i}' for i in range(training_data.shape[1])])
+            elif not isinstance(training_data, pd.DataFrame):
+                # Try to convert to DataFrame
+                training_data = pd.DataFrame(training_data)
+            
+            # Ensure we have enough data
+            if len(training_data) < self.state_size:
+                self.logger.warning(f"⚠️ Training data too small ({len(training_data)} < {self.state_size}). Using minimal episodes.")
+                episodes = min(episodes, 10)
             
             episode_results = []
             

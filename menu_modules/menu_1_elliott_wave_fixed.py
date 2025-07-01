@@ -30,8 +30,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 # Import Core Components after path setup
 from core.project_paths import get_project_paths
 from core.output_manager import NicegoldOutputManager
-from core.simple_beautiful_progress import SimpleProgressTracker, setup_simple_beautiful_logging
-# from core.beautiful_logging import setup_beautiful_logging, BeautifulLogger  # Commented out to avoid Rich deps
+from core.beautiful_progress import BeautifulProgressTracker, start_pipeline_progress
+from core.beautiful_logging import setup_beautiful_logging, BeautifulLogger
 
 # Import Elliott Wave Components
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
@@ -60,11 +60,11 @@ class Menu1ElliottWaveFixed:
         # Get project paths
         self.paths = get_project_paths()
         
-        # Initialize Simple Progress Tracker (no Rich dependencies)
-        self.progress_tracker = SimpleProgressTracker(self.logger)
+        # Initialize Beautiful Progress Tracker
+        self.progress_tracker = BeautifulProgressTracker(self.logger)
         
-        # Initialize Simple Beautiful Logging (no Rich dependencies)
-        self.beautiful_logger = setup_simple_beautiful_logging(
+        # Initialize Beautiful Logging
+        self.beautiful_logger = setup_beautiful_logging(
             "ElliottWave_Menu1_Fixed", 
             f"logs/menu1_elliott_wave_fixed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
         )
@@ -120,11 +120,6 @@ class Menu1ElliottWaveFixed:
             # Pipeline Orchestrator
             self.beautiful_logger.log_info("Initializing Pipeline Orchestrator...")
             self.orchestrator = ElliottWavePipelineOrchestrator(
-                data_processor=self.data_processor,
-                cnn_lstm_engine=self.cnn_lstm_engine,
-                dqn_agent=self.dqn_agent,
-                feature_selector=self.feature_selector,
-                ml_protection=self.ml_protection,
                 config=self.config,
                 logger=self.logger
             )
@@ -219,26 +214,13 @@ class Menu1ElliottWaveFixed:
             
             # Step 6: Train DQN
             self.logger.info("🤖 Step 6: Training DQN agent...")
-            # ✅ แก้ไข: ใช้ DataFrame และแทนที่ y ด้วย episodes
-            if isinstance(X, pd.DataFrame):
-                dqn_training_data = X[selected_features] if isinstance(selected_features, list) else X
-            else:
-                # Convert to DataFrame if needed
-                dqn_training_data = pd.DataFrame(X, columns=selected_features if isinstance(selected_features, list) else [f'feature_{i}' for i in range(X.shape[1])])
-            
-            dqn_results = self.dqn_agent.train_agent(dqn_training_data, episodes=50)
+            dqn_results = self.dqn_agent.train_agent(X[selected_features], y)
             
             # Step 7: Performance analysis
             self.logger.info("📈 Step 7: Analyzing performance...")
-            # ✅ แก้ไข: ส่ง pipeline_results แทนที่จะส่ง arguments แยก
-            pipeline_results = {
-                'cnn_lstm_training': {'cnn_lstm_results': cnn_lstm_results},
-                'dqn_training': {'dqn_results': dqn_results},
-                'feature_selection': {'selection_results': selection_results},
-                'data_loading': {'data_quality': {'real_data_percentage': 100}},
-                'quality_validation': {'quality_score': 85.0}
-            }
-            performance_results = self.performance_analyzer.analyze_performance(pipeline_results)
+            performance_results = self.performance_analyzer.analyze_performance(
+                cnn_lstm_results, dqn_results
+            )
             
             # Store all results
             self.results.update({
