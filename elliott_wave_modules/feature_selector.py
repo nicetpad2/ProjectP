@@ -162,14 +162,27 @@ class EnterpriseShapOptunaFeatureSelector:
         # Calculate feature importance
         feature_importance = np.abs(shap_values).mean(axis=0)
         
+        # Ensure feature_importance matches number of features
+        if len(feature_importance) != len(X.columns):
+            self.logger.warning(f"⚠️ SHAP values length mismatch: {len(feature_importance)} vs {len(X.columns)}")
+            # Use simpler approach
+            feature_importance = np.abs(shap_values).mean(axis=0)
+        
         # Create rankings dictionary
         rankings = {}
         for i, feature in enumerate(X.columns):
-            rankings[feature] = float(feature_importance[i])
-        
-        # Sort by importance
+            if i < len(feature_importance):
+                importance_val = feature_importance[i]
+                if hasattr(importance_val, '__len__') and len(importance_val) > 1:
+                    # If it's an array, take the mean
+                    rankings[feature] = float(np.mean(importance_val))
+                else:
+                    rankings[feature] = float(importance_val)
+            else:
+                rankings[feature] = 0.0
+         # Sort by importance
         rankings = dict(sorted(rankings.items(), 
-                             key=lambda x: x[1], reverse=True))
+                              key=lambda x: x[1], reverse=True))
         
         self.logger.info(f"✅ SHAP analysis completed for {len(X.columns)} features")
         self.logger.info(f"🎯 Top 5 features: {list(rankings.keys())[:5]}")

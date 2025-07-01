@@ -93,3 +93,57 @@ AttributeError: 'ElliottWaveDataProcessor' object has no attribute 'prepare_ml_d
 2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
 2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
 2025-07-01 03:44:27 | ERROR | NICEGOLD_Enterprise | 💥 Menu error: [Errno 5] Input/output error
+2025-07-01 04:00:01 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:00:19 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 04:00:19 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 04:01:18 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 04:01:18 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ⚙️ Creating Elliott Wave features...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📈 Adding technical indicators...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🌊 Adding Elliott Wave pattern features...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave features created: 1504 rows, 38 features
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Preparing ML Training Data
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Preparing ML training data...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ ML data prepared: X shape (1503, 37), y shape (1503,)
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Target distribution: {1: 814, 0: 689}
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Step 4: SHAP + Optuna Feature Selection
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Starting Enterprise SHAP + Optuna Feature Selection...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Step 1: SHAP Feature Importance Analysis
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Analyzing SHAP feature importance...
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: only length-1 arrays can be converted to Python scalars
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py", line 139, in run_full_pipeline
+    selected_features, selection_results = self.feature_selector.select_features(X, y)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ProjectP/elliott_wave_modules/feature_selector.py", line 89, in select_features
+    self.shap_rankings = self._analyze_shap_importance(X, y)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ProjectP/elliott_wave_modules/feature_selector.py", line 168, in _analyze_shap_importance
+    rankings[feature] = float(feature_importance[i])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: only length-1 arrays can be converted to Python scalars
+
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 04:01:45 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 04:01:45 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 04:03:27 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:03:42 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 04:03:42 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started

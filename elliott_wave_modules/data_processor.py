@@ -404,32 +404,151 @@ class ElliottWaveDataProcessor:
         rsi = 100 - (100 / (1 + rs))
         return rsi
     
-    def prepare_data_for_ml(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
+    def create_elliott_wave_features(self, data: pd.DataFrame) -> pd.DataFrame:
+        """สร้างฟีเจอร์สำหรับ Elliott Wave Pattern Recognition"""
+        try:
+            self.logger.info("⚙️ Creating Elliott Wave features...")
+            
+            # Copy original data
+            features = data.copy()
+            
+            # Ensure required columns exist
+            if 'close' not in features.columns:
+                if 'Close' in features.columns:
+                    features = features.rename(columns={'Close': 'close'})
+                else:
+                    raise ValueError("❌ No 'close' or 'Close' column found")
+            
+            # Basic OHLC columns mapping
+            column_mapping = {
+                'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close',
+                'Volume': 'volume'
+            }
+            for old_col, new_col in column_mapping.items():
+                if old_col in features.columns and new_col not in features.columns:
+                    features[new_col] = features[old_col]
+            
+            # Technical Indicators
+            self.logger.info("📈 Adding technical indicators...")
+            
+            # Moving Averages
+            features['sma_5'] = features['close'].rolling(window=5).mean()
+            features['sma_10'] = features['close'].rolling(window=10).mean()
+            features['sma_20'] = features['close'].rolling(window=20).mean()
+            features['sma_50'] = features['close'].rolling(window=50).mean()
+            
+            features['ema_5'] = features['close'].ewm(span=5).mean()
+            features['ema_10'] = features['close'].ewm(span=10).mean()
+            features['ema_20'] = features['close'].ewm(span=20).mean()
+            
+            # RSI
+            delta = features['close'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+            rs = gain / loss
+            features['rsi'] = 100 - (100 / (1 + rs))
+            
+            # MACD
+            ema_12 = features['close'].ewm(span=12).mean()
+            ema_26 = features['close'].ewm(span=26).mean()
+            features['macd'] = ema_12 - ema_26
+            features['macd_signal'] = features['macd'].ewm(span=9).mean()
+            features['macd_histogram'] = features['macd'] - features['macd_signal']
+            
+            # Bollinger Bands
+            bb_period = 20
+            bb_std = 2
+            features['bb_middle'] = features['close'].rolling(window=bb_period).mean()
+            bb_std_dev = features['close'].rolling(window=bb_period).std()
+            features['bb_upper'] = features['bb_middle'] + (bb_std_dev * bb_std)
+            features['bb_lower'] = features['bb_middle'] - (bb_std_dev * bb_std)
+            features['bb_width'] = features['bb_upper'] - features['bb_lower']
+            features['bb_position'] = (features['close'] - features['bb_lower']) / features['bb_width']
+            
+            # Price Action Features
+            features['price_change'] = features['close'].pct_change()
+            features['high_low_ratio'] = features['high'] / features['low']
+            features['close_open_ratio'] = features['close'] / features['open']
+            
+            # Volatility
+            features['volatility'] = features['price_change'].rolling(window=10).std()
+            
+            # Volume features (if available)
+            if 'volume' in features.columns:
+                features['volume_sma'] = features['volume'].rolling(window=10).mean()
+                features['volume_ratio'] = features['volume'] / features['volume_sma']
+            
+            # Elliott Wave Pattern Features
+            self.logger.info("🌊 Adding Elliott Wave pattern features...")
+            
+            # Wave identification features
+            features['local_high'] = features['high'].rolling(window=5, center=True).max() == features['high']
+            features['local_low'] = features['low'].rolling(window=5, center=True).min() == features['low']
+            
+            # Trend strength
+            features['trend_strength'] = (features['close'] - features['close'].shift(20)) / features['close'].shift(20)
+            
+            # Support/Resistance levels
+            features['resistance'] = features['high'].rolling(window=20).max()
+            features['support'] = features['low'].rolling(window=20).min()
+            features['support_resistance_ratio'] = (features['close'] - features['support']) / (features['resistance'] - features['support'])
+            
+            # Momentum indicators
+            features['momentum_5'] = features['close'] / features['close'].shift(5) - 1
+            features['momentum_10'] = features['close'] / features['close'].shift(10) - 1
+            features['momentum_20'] = features['close'] / features['close'].shift(20) - 1
+            
+            # Drop NaN values
+            features = features.dropna()
+            
+            self.logger.info(f"✅ Elliott Wave features created: {len(features)} rows, {len(features.columns)} features")
+            return features
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to create Elliott Wave features: {str(e)}")
+            raise
+    
+    def prepare_ml_data(self, features: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
         """เตรียมข้อมูลสำหรับ Machine Learning"""
         try:
-            self.logger.info("🎯 Preparing data for ML models...")
+            self.logger.info("🎯 Preparing ML training data...")
             
-            # Create target variable (future price movement)
-            future_periods = 5  # Predict 5 periods ahead
-            df['future_close'] = df['close'].shift(-future_periods)
-            df['target'] = (df['future_close'] > df['close']).astype(int)
+            # Create target variable (price direction prediction)
+            # Target: 1 if price goes up in next period, 0 otherwise
+            features = features.copy()
+            features['future_close'] = features['close'].shift(-1)
+            features['target'] = (features['future_close'] > features['close']).astype(int)
             
-            # Remove rows with missing target
-            df = df.dropna(subset=['target'])
+            # Remove rows with NaN target
+            features = features.dropna()
             
             # Separate features and target
-            feature_cols = [col for col in df.columns if col not in ['timestamp', 'target', 'future_close']]
-            X = df[feature_cols].copy()
-            y = df['target'].copy()
+            target_col = 'target'
+            feature_cols = [col for col in features.columns if col not in [
+                'target', 'future_close', 'Date', 'Timestamp', 'date', 'timestamp'
+            ]]
             
-            # Handle any remaining NaN values
-            X = X.ffill().bfill()
+            X = features[feature_cols]
+            y = features[target_col]
             
-            self.logger.info(f"✅ Data prepared: {X.shape[0]} samples, {X.shape[1]} features")
+            # Ensure all features are numeric
+            for col in X.columns:
+                if X[col].dtype == 'object':
+                    try:
+                        X[col] = pd.to_numeric(X[col], errors='coerce')
+                    except (ValueError, TypeError):
+                        X = X.drop(columns=[col])
+            
+            # Remove any remaining NaN values
+            X = X.fillna(method='ffill').fillna(method='bfill').fillna(0)
+            
+            self.logger.info(f"✅ ML data prepared: X shape {X.shape}, y shape {y.shape}")
+            self.logger.info(f"📊 Target distribution: {y.value_counts().to_dict()}")
+            
             return X, y
             
         except Exception as e:
-            self.logger.error(f"❌ Data preparation failed: {str(e)}")
+            self.logger.error(f"❌ Failed to prepare ML data: {str(e)}")
             raise
     
     def get_data_quality_report(self, df: pd.DataFrame) -> Dict[str, Any]:
