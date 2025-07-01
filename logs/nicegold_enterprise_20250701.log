@@ -558,3 +558,9 @@ numpy: DLL load failed while importing _umath_linalg: The specified module could
 2025-07-01 15:24:38 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
 2025-07-01 15:24:39 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:32 | ❌ Failed to import Menu 1: Unable to import required dependencies:
 numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:29:51 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 15:29:51 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 15:29:51 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:38 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:29:51 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
