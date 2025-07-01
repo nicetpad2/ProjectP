@@ -39,6 +39,8 @@ from elliott_wave_modules.pipeline_orchestrator import (
 from elliott_wave_modules.performance_analyzer import (
     ElliottWavePerformanceAnalyzer
 )
+# Import Enterprise ML Protection System
+from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
 
 
 class Menu1ElliottWave:
@@ -89,18 +91,30 @@ class Menu1ElliottWave:
                 logger=self.logger
             )
             
+            # Enterprise ML Protection System
+            self.ml_protection = EnterpriseMLProtectionSystem(
+                logger=self.logger
+            )
+            
             # Pipeline Orchestrator
             self.pipeline_orchestrator = ElliottWavePipelineOrchestrator(
                 data_processor=self.data_processor,
                 cnn_lstm_engine=self.cnn_lstm_engine,
                 dqn_agent=self.dqn_agent,
                 feature_selector=self.feature_selector,
+                ml_protection=self.ml_protection,  # Add protection system
                 config=self.config,
                 logger=self.logger
             )
             
             # Performance Analyzer
             self.performance_analyzer = ElliottWavePerformanceAnalyzer(
+                config=self.config,
+                logger=self.logger
+            )
+            
+            # Enterprise ML Protection System
+            self.ml_protection_system = EnterpriseMLProtectionSystem(
                 config=self.config,
                 logger=self.logger
             )

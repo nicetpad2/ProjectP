@@ -25,6 +25,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Import after path setup
 from core.project_paths import get_project_paths
+# Import Enterprise ML Protection System
+from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
 
 
 class ElliottWaveDataProcessor:
@@ -38,6 +40,9 @@ class ElliottWaveDataProcessor:
         # Use ProjectPaths for path management
         self.paths = get_project_paths()
         self.datacsv_path = self.paths.datacsv
+        
+        # Initialize Enterprise ML Protection System
+        self.ml_protection = EnterpriseMLProtectionSystem(logger=self.logger)
         
     def load_real_data(self) -> Optional[pd.DataFrame]:
         """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
@@ -573,4 +578,90 @@ class ElliottWaveDataProcessor:
             
         except Exception as e:
             self.logger.error(f"❌ Data quality report failed: {str(e)}")
-            return {}
+            return {'error': str(e)}
+    
+    def run_enterprise_protection_analysis(self, df: pd.DataFrame, target_col: str = None) -> Dict[str, Any]:
+        """รันการวิเคราะห์ป้องกันระดับ Enterprise"""
+        try:
+            self.logger.info("🛡️ Running Enterprise Protection Analysis...")
+            
+            if df is None or df.empty:
+                return {
+                    'success': False,
+                    'error': 'No data provided for protection analysis'
+                }
+            
+            # Prepare data for analysis
+            analysis_df = df.copy()
+            
+            # Create target if not provided
+            if target_col and target_col in analysis_df.columns:
+                target_series = analysis_df[target_col]
+            elif 'close' in analysis_df.columns:
+                # Create price direction target
+                analysis_df['future_close'] = analysis_df['close'].shift(-1)
+                target_series = (analysis_df['future_close'] > analysis_df['close']).astype(int)
+                analysis_df = analysis_df.dropna()
+            else:
+                return {
+                    'success': False,
+                    'error': 'No suitable target variable found for protection analysis'
+                }
+            
+            # Select numeric features for analysis
+            feature_columns = analysis_df.select_dtypes(include=['number']).columns.tolist()
+            if target_col in feature_columns:
+                feature_columns.remove(target_col)
+            if 'future_close' in feature_columns:
+                feature_columns.remove('future_close')
+            
+            if len(feature_columns) == 0:
+                return {
+                    'success': False,
+                    'error': 'No numeric features found for protection analysis'
+                }
+            
+            features_df = analysis_df[feature_columns]
+            
+            # Run comprehensive protection analysis
+            protection_results = self.ml_protection.comprehensive_protection_analysis(
+                X=features_df,
+                y=target_series,
+                model=None,  # Will use default RandomForest
+                datetime_col='date' if 'date' in analysis_df.columns else 'timestamp' if 'timestamp' in analysis_df.columns else None
+            )
+            
+            # Enterprise validation
+            overall_assessment = protection_results.get('overall_assessment', {})
+            enterprise_ready = overall_assessment.get('enterprise_ready', False)
+            
+            self.logger.info(f"🛡️ Protection Analysis Complete - Enterprise Ready: {enterprise_ready}")
+            
+            # Log critical alerts
+            alerts = protection_results.get('alerts', [])
+            for alert in alerts:
+                self.logger.warning(alert)
+            
+            return {
+                'success': True,
+                'protection_results': protection_results,
+                'enterprise_ready': enterprise_ready,
+                'alerts_count': len(alerts),
+                'recommendations_count': len(protection_results.get('recommendations', [])),
+                'summary': {
+                    'data_leakage_detected': protection_results.get('data_leakage', {}).get('leakage_detected', False),
+                    'overfitting_detected': protection_results.get('overfitting', {}).get('overfitting_detected', False),
+                    'noise_detected': protection_results.get('noise_analysis', {}).get('noise_detected', False),
+                    'overall_risk_score': overall_assessment.get('overall_risk_score', 1.0),
+                    'quality_score': overall_assessment.get('quality_score', 0.0)
+                }
+            }
+            
+        except Exception as e:
+            error_msg = f"Enterprise protection analysis failed: {str(e)}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'error': error_msg,
+                'traceback': traceback.format_exc() if 'traceback' in sys.modules else str(e)
+            }
