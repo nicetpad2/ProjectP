@@ -1794,3 +1794,187 @@ AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report
 2025-07-01 17:58:28 | INFO | NICEGOLD_Enterprise | _import_menu_modules:34 | ✅ Menu 1 Elliott Wave Module Loaded
 2025-07-01 17:58:28 | INFO | NICEGOLD_Enterprise | _import_menu_modules:38 | ✅ Menu 1 integrated with Intelligent Resource Management
 2025-07-01 17:58:28 | INFO | NICEGOLD_Enterprise | start:338 | 🎛️ Menu System Started
+2025-07-01 18:23:37 | INFO | NICEGOLD_Enterprise | main:58 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 18:23:37 | INFO | NICEGOLD_Enterprise | main:59 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 18:24:02 | INFO | NICEGOLD_Enterprise | main:85 | 🤖 Starting Full Auto-Activation System
+2025-07-01 18:24:05 | INFO | NICEGOLD_Enterprise | main:99 | ✅ All systems auto-activated successfully
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:107 | 🛡️ Initializing Enterprise ML Protection...
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:112 | ✅ Enterprise ML Protection activated
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:139 | ⚡ Setting up Resource Management integration...
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:148 | ✅ Optimized configuration applied from Resource Manager
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:153 | 📊 Data Processing Optimization: Chunk Size 3000, Workers 3
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:157 | 🌊 Elliott Wave Optimization: Batch Size 64
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _initialize_components:170 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 18:24:13 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | __init__:106 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | _initialize_components:230 | ✅ All Elliott Wave components initialized successfully!
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | _import_menu_modules:34 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | _import_menu_modules:38 | ✅ Menu 1 integrated with Intelligent Resource Management
+2025-07-01 18:24:14 | INFO | NICEGOLD_Enterprise | start:338 | 🎛️ Menu System Started
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | handle_menu_choice:112 | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | handle_menu_choice:117 | ⚡ Pipeline execution with intelligent resource management
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | start_pipeline:102 | 🚀 Elliott Wave Pipeline started
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | run_full_pipeline:244 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | run_full_pipeline:249 | ⚡ Executing with intelligent resource management
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | run_full_pipeline:265 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:300 | 📊 Step 1: Loading and processing real market data...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | load_real_data:65 | 📊 Loading REAL market data from datacsv/...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | load_real_data:80 | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:180 | 🧹 Validating and cleaning data...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:214 | ✅ Data validation and cleaning completed
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | load_real_data:96 | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:307 | ✅ Successfully loaded 1,553 rows of real market data
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:313 | ⚙️ Step 2: Creating Elliott Wave features...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:536 | ⚙️ Creating Elliott Wave features...
+2025-07-01 18:25:12 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:558 | 📈 Adding technical indicators...
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | create_elliott_wave_features:772 | ❌ Failed to create Elliott Wave features: 'ema_50'
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: 'ema_50'
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!
+2025-07-01 18:26:27 | INFO | NICEGOLD_Enterprise | main:58 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 18:26:27 | INFO | NICEGOLD_Enterprise | main:59 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 18:26:34 | INFO | NICEGOLD_Enterprise | main:85 | 🤖 Starting Full Auto-Activation System
+2025-07-01 18:26:37 | INFO | NICEGOLD_Enterprise | main:99 | ✅ All systems auto-activated successfully
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:107 | 🛡️ Initializing Enterprise ML Protection...
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:112 | ✅ Enterprise ML Protection activated
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:139 | ⚡ Setting up Resource Management integration...
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:148 | ✅ Optimized configuration applied from Resource Manager
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:153 | 📊 Data Processing Optimization: Chunk Size 3000, Workers 3
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:157 | 🌊 Elliott Wave Optimization: Batch Size 64
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _initialize_components:170 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 18:26:43 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | __init__:106 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | _initialize_components:230 | ✅ All Elliott Wave components initialized successfully!
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | _import_menu_modules:34 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | _import_menu_modules:38 | ✅ Menu 1 integrated with Intelligent Resource Management
+2025-07-01 18:26:44 | INFO | NICEGOLD_Enterprise | start:338 | 🎛️ Menu System Started
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | handle_menu_choice:112 | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | handle_menu_choice:117 | ⚡ Pipeline execution with intelligent resource management
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | start_pipeline:102 | 🚀 Elliott Wave Pipeline started
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | run_full_pipeline:244 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | run_full_pipeline:249 | ⚡ Executing with intelligent resource management
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | run_full_pipeline:265 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:300 | 📊 Step 1: Loading and processing real market data...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | load_real_data:65 | 📊 Loading REAL market data from datacsv/...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | load_real_data:80 | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:180 | 🧹 Validating and cleaning data...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:214 | ✅ Data validation and cleaning completed
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | load_real_data:96 | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:307 | ✅ Successfully loaded 1,553 rows of real market data
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:313 | ⚙️ Step 2: Creating Elliott Wave features...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:536 | ⚙️ Creating Elliott Wave features...
+2025-07-01 18:26:52 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:558 | 📈 Adding technical indicators...
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | create_elliott_wave_features:772 | ❌ Failed to create Elliott Wave features: 'ema_50'
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: 'ema_50'
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!
+2025-07-01 18:30:41 | INFO | NICEGOLD_Enterprise | main:58 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 18:30:41 | INFO | NICEGOLD_Enterprise | main:59 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 18:30:53 | INFO | NICEGOLD_Enterprise | main:85 | 🤖 Starting Full Auto-Activation System
+2025-07-01 18:30:56 | INFO | NICEGOLD_Enterprise | main:99 | ✅ All systems auto-activated successfully
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:107 | 🛡️ Initializing Enterprise ML Protection...
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:112 | ✅ Enterprise ML Protection activated
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:139 | ⚡ Setting up Resource Management integration...
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:148 | ✅ Optimized configuration applied from Resource Manager
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:153 | 📊 Data Processing Optimization: Chunk Size 3000, Workers 3
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _setup_resource_integration:157 | 🌊 Elliott Wave Optimization: Batch Size 64
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _initialize_components:170 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 18:31:02 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | __init__:106 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | _initialize_components:230 | ✅ All Elliott Wave components initialized successfully!
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | _import_menu_modules:34 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | _import_menu_modules:38 | ✅ Menu 1 integrated with Intelligent Resource Management
+2025-07-01 18:31:03 | INFO | NICEGOLD_Enterprise | start:338 | 🎛️ Menu System Started
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | handle_menu_choice:112 | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | handle_menu_choice:117 | ⚡ Pipeline execution with intelligent resource management
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | start_pipeline:102 | 🚀 Elliott Wave Pipeline started
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | run_full_pipeline:244 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | run_full_pipeline:249 | ⚡ Executing with intelligent resource management
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | run_full_pipeline:265 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:300 | 📊 Step 1: Loading and processing real market data...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | load_real_data:65 | 📊 Loading REAL market data from datacsv/...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | load_real_data:80 | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:180 | 🧹 Validating and cleaning data...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | _validate_and_clean_data:214 | ✅ Data validation and cleaning completed
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | load_real_data:96 | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:307 | ✅ Successfully loaded 1,553 rows of real market data
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:313 | ⚙️ Step 2: Creating Elliott Wave features...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:536 | ⚙️ Creating Elliott Wave features...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:558 | 📈 Adding technical indicators...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | create_elliott_wave_features:771 | ✅ Elliott Wave features created: 1454 rows, 156 features
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:320 | 🎯 Step 3: Preparing ML data...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | prepare_ml_data:781 | 🎯 Preparing ML training data...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | prepare_ml_data:847 | ✅ ML data prepared: X shape (901, 155), y shape (901,)
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | prepare_ml_data:848 | 📊 Target distribution: {0.0: 508, 1.0: 393}
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:327 | 🛡️ Running Enterprise ML Protection Analysis...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:110 | 🛡️ Starting Enterprise ML Protection Analysis...
+2025-07-01 18:31:06 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:125 | 🔍 Phase 1: Data Leakage Detection...
+2025-07-01 18:31:07 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:130 | 📊 Phase 2: Overfitting Detection...
+2025-07-01 18:31:18 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:135 | 🎯 Phase 3: Noise Detection & Analysis...
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:140 | 📈 Phase 4: Feature Stability Analysis...
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | comprehensive_protection_analysis:145 | ⏰ Phase 5: Time-Series Validation...
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1313 | 🛡️ =============== ENTERPRISE ML PROTECTION SUMMARY ===============
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1314 | 📊 Protection Status: GOOD
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1315 | ⚠️  Risk Level: MEDIUM
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1316 | 🏢 Enterprise Ready: ❌ NO
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1322 | 🔍 Data Leakage: CLEAN (Score: 0.000)
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1328 | 📈 Overfitting: DETECTED (Score: 0.700)
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1335 | 🎯 Noise Level: HIGH_NOISE (Level: 0.529, Quality: 0.471)
+2025-07-01 18:31:20 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1340 | ⚠️  ALERTS:
+2025-07-01 18:31:20 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ Overfitting detected - model generalization at risk
+2025-07-01 18:31:20 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ High noise level detected
+2025-07-01 18:31:20 | WARNING | NICEGOLD_Enterprise | _log_protection_summary:1342 |    ⚠️ Low data quality detected
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1347 | 💡 RECOMMENDATIONS:
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1349 |    • Implement regularization or reduce model complexity
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1349 |    • Apply noise filtering and feature selection
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1349 |    • Improve data preprocessing and cleaning
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _log_protection_summary:1351 | 🛡️ ================================================================
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:344 | ✅ ML Protection Analysis completed
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:358 | 🧠 Step 4: Running SHAP + Optuna feature selection...
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | select_features:126 | 🎯 Starting Enterprise SHAP + Optuna Feature Selection...
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | select_features:131 | 🧠 Step 1: SHAP Feature Importance Analysis
+2025-07-01 18:31:20 | INFO | NICEGOLD_Enterprise | _analyze_shap_importance:179 | 🧠 Analyzing SHAP feature importance...
+2025-07-01 18:32:00 | INFO | NICEGOLD_Enterprise | _analyze_shap_importance:232 | ✅ SHAP analysis completed for 155 features
+2025-07-01 18:32:00 | INFO | NICEGOLD_Enterprise | _analyze_shap_importance:233 | 🎯 Top 5 features: ['sma_100', 'fib_500_distance', 'fib_382_distance', 'minus_di_50', 'ema_100']
+2025-07-01 18:32:00 | INFO | NICEGOLD_Enterprise | select_features:135 | ⚡ Step 2: Optuna Feature Optimization
+2025-07-01 18:32:00 | INFO | NICEGOLD_Enterprise | _optuna_optimization:239 | ⚡ Starting Enterprise Optuna optimization...

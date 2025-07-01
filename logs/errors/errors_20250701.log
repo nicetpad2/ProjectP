@@ -40,3 +40,9 @@ NameError: name 'อย่างสมบูรณ์' is not defined
 2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | start:353 | 💥 System error: EOF when reading a line
 2025-07-01 17:10:19 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:48 | ❌ Menu 1 initialization failed: Menu initialization error: unmatched '}' (menu_1_elliott_wave.py, line 639)
 2025-07-01 17:58:21 | ERROR | NICEGOLD_Enterprise | main:103 | Auto-activation error: 'dict' object has no attribute 'get_activated_systems'
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | create_elliott_wave_features:772 | ❌ Failed to create Elliott Wave features: 'ema_50'
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: 'ema_50'
+2025-07-01 18:25:12 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | create_elliott_wave_features:772 | ❌ Failed to create Elliott Wave features: 'ema_50'
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:433 | ❌ Pipeline execution failed: 'ema_50'
+2025-07-01 18:26:52 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:280 | ❌ Elliott Wave Pipeline failed!

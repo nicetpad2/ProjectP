@@ -562,10 +562,13 @@ class ElliottWaveDataProcessor:
             features['sma_10'] = features['close'].rolling(window=10).mean()
             features['sma_20'] = features['close'].rolling(window=20).mean()
             features['sma_50'] = features['close'].rolling(window=50).mean()
+            features['sma_100'] = features['close'].rolling(window=100).mean()
             
             features['ema_5'] = features['close'].ewm(span=5).mean()
             features['ema_10'] = features['close'].ewm(span=10).mean()
             features['ema_20'] = features['close'].ewm(span=20).mean()
+            features['ema_50'] = features['close'].ewm(span=50).mean()
+            features['ema_100'] = features['close'].ewm(span=100).mean()
             
             # RSI
             delta = features['close'].diff()
