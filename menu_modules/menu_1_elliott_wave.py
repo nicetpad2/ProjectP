@@ -43,6 +43,21 @@ from core.output_manager import NicegoldOutputManager
 from core.simple_beautiful_progress import SimpleProgressTracker, setup_simple_beautiful_logging
 # from core.beautiful_logging import setup_beautiful_logging, BeautifulLogger  # Commented out to avoid Rich deps
 
+# Import Intelligent Resource Management
+try:
+    from core.intelligent_resource_manager import initialize_intelligent_resources
+    from core.enhanced_intelligent_resource_manager import initialize_enhanced_intelligent_resources
+    RESOURCE_MANAGEMENT_AVAILABLE = True
+except ImportError:
+    RESOURCE_MANAGEMENT_AVAILABLE = False
+
+# Import Enterprise ML Protection
+try:
+    from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
+    ML_PROTECTION_AVAILABLE = True
+except ImportError:
+    ML_PROTECTION_AVAILABLE = False
+
 # Import Elliott Wave Components
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
@@ -71,6 +86,33 @@ class Menu1ElliottWaveFixed:
         
         # Get project paths
         self.paths = get_project_paths()
+        
+        # Initialize Intelligent Resource Management if available
+        if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager:
+            try:
+                self.logger.info("🧠 Initializing Intelligent Resource Management...")
+                self.resource_manager = initialize_intelligent_resources(
+                    allocation_percentage=0.8,
+                    enable_monitoring=True
+                )
+                self.logger.info("✅ Intelligent Resource Management activated")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Could not initialize resource management: {e}")
+                self.resource_manager = None
+        
+        # Initialize Enterprise ML Protection if available
+        self.ml_protection = None
+        if ML_PROTECTION_AVAILABLE:
+            try:
+                self.logger.info("🛡️ Initializing Enterprise ML Protection...")
+                self.ml_protection = EnterpriseMLProtectionSystem(
+                    config=self.config, 
+                    logger=self.logger
+                )
+                self.logger.info("✅ Enterprise ML Protection activated")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Could not initialize ML protection: {e}")
+                self.ml_protection = None
         
         # Initialize Simple Progress Tracker (no Rich dependencies)
         self.progress_tracker = SimpleProgressTracker(self.logger)
@@ -278,6 +320,30 @@ class Menu1ElliottWaveFixed:
             self._show_current_resource_usage()
             self._end_stage_resource_monitoring('data_preparation', {'ml_samples': len(X) if hasattr(X, '__len__') else 0})
             
+            # Run ML Protection Analysis if available
+            if self.ml_protection:
+                self.logger.info("🛡️ Running Enterprise ML Protection Analysis...")
+                try:
+                    # Get datetime column for time-series validation
+                    datetime_col = None
+                    if hasattr(data, 'columns') and 'Date' in data.columns:
+                        datetime_col = 'Date'
+                    elif hasattr(features, 'columns'):
+                        datetime_cols = [col for col in features.columns if 'date' in col.lower() or 'time' in col.lower()]
+                        if datetime_cols:
+                            datetime_col = datetime_cols[0]
+                    
+                    protection_results = self.ml_protection.comprehensive_protection_analysis(
+                        X=X, y=y, datetime_col=datetime_col
+                    )
+                    
+                    # Store protection results
+                    self.results['ml_protection'] = protection_results
+                    self.logger.info("✅ ML Protection Analysis completed")
+                    
+                except Exception as e:
+                    self.logger.warning(f"⚠️ ML Protection Analysis failed: {e}")
+            
             # Store data info
             self.results['data_info'] = {
                 'total_rows': len(data),
@@ -429,6 +495,26 @@ class Menu1ElliottWaveFixed:
                 self.logger.error("❌ No data processed - Enterprise requirement failed!")
                 return False
             
+            # Check ML Protection results if available
+            if self.ml_protection and 'ml_protection' in self.results:
+                protection_results = self.results['ml_protection']
+                overall_assessment = protection_results.get('overall_assessment', {})
+                enterprise_ready = overall_assessment.get('enterprise_ready', False)
+                
+                if not enterprise_ready:
+                    protection_status = overall_assessment.get('protection_status', 'UNKNOWN')
+                    risk_level = overall_assessment.get('risk_level', 'UNKNOWN')
+                    self.logger.warning(f"⚠️ ML Protection Warning: Status={protection_status}, Risk={risk_level}")
+                    
+                    # Check for critical alerts
+                    alerts = protection_results.get('alerts', [])
+                    critical_alerts = [alert for alert in alerts if 'CRITICAL' in alert or 'HIGH RISK' in alert]
+                    if critical_alerts:
+                        self.logger.error(f"❌ Critical ML Protection issues detected: {critical_alerts}")
+                        return False
+                
+                self.logger.info(f"✅ ML Protection Status: {overall_assessment.get('protection_status', 'UNKNOWN')}")
+            
             self.logger.info(f"✅ All Enterprise Requirements Met! AUC: {auc_score:.4f}")
             return True
             
@@ -520,6 +606,36 @@ class Menu1ElliottWaveFixed:
                     "No Mock Data": "✅ CONFIRMED",
                     "Production Ready": "✅ CONFIRMED" if self.results.get('enterprise_compliance', {}).get('enterprise_ready', False) else "❌ FAILED"
                 }
+            }
+            
+            # Add ML Protection report if available
+            if 'ml_protection' in self.results:
+                protection_results = self.results['ml_protection']
+                overall_assessment = protection_results.get('overall_assessment', {})
+                report_content["🛡️ ML Protection"] = {
+                    "Protection Status": overall_assessment.get('protection_status', 'UNKNOWN'),
+                    "Risk Level": overall_assessment.get('risk_level', 'UNKNOWN'),
+                    "Enterprise Ready": "✅ YES" if overall_assessment.get('enterprise_ready', False) else "❌ NO",
+                    "Data Leakage": "✅ CLEAN" if not protection_results.get('data_leakage', {}).get('leakage_detected', True) else "⚠️ DETECTED",
+                    "Overfitting": "✅ ACCEPTABLE" if protection_results.get('overfitting', {}).get('status', '') == 'ACCEPTABLE' else "⚠️ DETECTED"
+                }
+            
+            # Add Resource Management report if available
+            if self.resource_manager:
+                try:
+                    if hasattr(self.resource_manager, 'get_current_performance'):
+                        current_perf = self.resource_manager.get_current_performance()
+                        report_content["🧠 Resource Management"] = {
+                            "Resource Manager": "✅ ACTIVE",
+                            "CPU Usage": f"{current_perf.get('cpu_percent', 0):.1f}%",
+                            "Memory Usage": f"{current_perf.get('memory', {}).get('percent', 0):.1f}%",
+                            "Allocation Strategy": "80% Optimal Allocation"
+                        }
+                except Exception as e:
+                    report_content["🧠 Resource Management"] = {
+                        "Resource Manager": "⚠️ PARTIAL",
+                        "Status": f"Active but monitoring failed: {e}"
+                    }
             }
             
             # Convert report content to formatted string
