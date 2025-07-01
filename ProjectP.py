@@ -19,10 +19,17 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['PYTHONIOENCODING'] = 'utf-8'
 
+# Additional CUDA suppression
+os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices=false'
+os.environ['XLA_FLAGS'] = '--xla_gpu_cuda_data_dir=""'
+
 # Suppress all CUDA-related warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', message='.*CUDA.*')
+warnings.filterwarnings('ignore', message='.*cuDNN.*')
+warnings.filterwarnings('ignore', message='.*cuBLAS.*')
 
 # Enterprise Compliance Check
 from core.compliance import EnterpriseComplianceValidator
