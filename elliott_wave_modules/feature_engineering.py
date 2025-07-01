@@ -576,9 +576,9 @@ class ElliottWaveFeatureEngineer:
             # Get numeric columns only
             numeric_cols = df.select_dtypes(include=[np.number]).columns
             
-            # Fill NaN values with forward fill then backward fill
+            # Fill NaN values with forward fill then backward fill using updated methods
             for col in numeric_cols:
-                df[col] = df[col].fillna(method='ffill').fillna(method='bfill')
+                df[col] = df[col].ffill().bfill()
                 
                 # If still NaN, fill with median
                 if df[col].isna().any():

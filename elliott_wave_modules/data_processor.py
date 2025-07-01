@@ -539,8 +539,8 @@ class ElliottWaveDataProcessor:
                     except (ValueError, TypeError):
                         X = X.drop(columns=[col])
             
-            # Remove any remaining NaN values
-            X = X.fillna(method='ffill').fillna(method='bfill').fillna(0)
+            # Remove any remaining NaN values using updated methods
+            X = X.ffill().bfill().fillna(0)
             
             self.logger.info(f"✅ ML data prepared: X shape {X.shape}, y shape {y.shape}")
             self.logger.info(f"📊 Target distribution: {y.value_counts().to_dict()}")
