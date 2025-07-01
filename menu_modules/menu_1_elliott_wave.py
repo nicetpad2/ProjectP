@@ -32,7 +32,7 @@ from core.output_manager import NicegoldOutputManager
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
-from elliott_wave_modules.feature_selector import SHAPOptunaFeatureSelector
+from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
 from elliott_wave_modules.pipeline_orchestrator import (
     ElliottWavePipelineOrchestrator
 )
@@ -82,8 +82,8 @@ class Menu1ElliottWave:
                 logger=self.logger
             )
             
-            # SHAP + Optuna Feature Selector
-            self.feature_selector = SHAPOptunaFeatureSelector(
+            # SHAP + Optuna Feature Selector (Enterprise)
+            self.feature_selector = EnterpriseShapOptunaFeatureSelector(
                 target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
                 max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
                 logger=self.logger
