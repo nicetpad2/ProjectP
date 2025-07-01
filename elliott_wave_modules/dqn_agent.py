@@ -393,6 +393,20 @@ class DQNReinforcementAgent:
             if data is None or len(data) == 0:
                 return np.zeros(self.state_size)
             
+            # ✅ แก้ไข: Handle single row DataFrame
+            if len(data) == 1:
+                # If only one row, repeat it to fill state_size
+                single_value = 0.0
+                try:
+                    if 'close' in data.columns:
+                        single_value = float(data['close'].iloc[0])
+                    elif len(data.columns) > 0:
+                        single_value = float(data.iloc[0, -1])
+                except:
+                    single_value = 0.0
+                
+                return np.full(self.state_size, sanitize_numeric_value(single_value))
+            
             # ✅ แก้ไข: Safe column access
             if len(data.columns) == 0:
                 return np.zeros(self.state_size)
@@ -409,6 +423,8 @@ class DQNReinforcementAgent:
                     else:
                         available_data = np.zeros(min(len(data), self.state_size))
                     
+                    # Ensure available_data is numeric
+                    available_data = np.array([sanitize_numeric_value(x) for x in available_data])
                     state[:len(available_data)] = available_data
                 except Exception as col_error:
                     self.logger.debug(f"Column access error in _prepare_state: {str(col_error)}")
@@ -422,6 +438,9 @@ class DQNReinforcementAgent:
                         state = data.iloc[-self.state_size:, -1].values
                     else:
                         state = np.zeros(self.state_size)
+                    
+                    # Ensure state is numeric array
+                    state = np.array([sanitize_numeric_value(x) for x in state])
                 except Exception as col_error:
                     self.logger.debug(f"Column access error in _prepare_state: {str(col_error)}")
                     state = np.zeros(self.state_size)
@@ -460,38 +479,65 @@ class DQNReinforcementAgent:
     def _step_environment(self, data: pd.DataFrame, step: int, action: int) -> Tuple[np.ndarray, float, bool]:
         """จำลองการทำงานของ environment (Enhanced reward calculation)"""
         try:
-            # ✅ แก้ไข: ใช้ int() เพื่อแปลง step ให้เป็น integer
+            # ✅ แก้ไข: ใช้ int() เพื่อแปลง step ให้เป็น integer และตรวจสอบ bounds
             step = int(step) if not isinstance(step, int) else step
             
+            # ✅ Bounds checking
+            if step < 0:
+                step = 0
+            if step >= len(data) - self.state_size - 1:
+                return np.zeros(self.state_size), 0.0, True
+            
             # Get next state
-            if step + self.state_size + 1 < len(data):
-                next_state = self._prepare_state(data.iloc[step+1:step+1+self.state_size])
-                done = False
-            else:
+            try:
+                next_start_idx = step + 1
+                next_end_idx = step + 1 + self.state_size
+                
+                if next_end_idx <= len(data):
+                    next_state_data = data.iloc[next_start_idx:next_end_idx]
+                    next_state = self._prepare_state(next_state_data)
+                    done = False
+                else:
+                    next_state = np.zeros(self.state_size)
+                    done = True
+            except Exception as state_error:
+                self.logger.debug(f"Next state calculation error: {str(state_error)}")
                 next_state = np.zeros(self.state_size)
                 done = True
             
             # Enhanced reward calculation with robust error handling
             reward = 0.0
             
-            if step + self.state_size + 1 < len(data):
+            if not done and step + self.state_size + 1 < len(data):
                 try:
                     # ✅ แก้ไข: ใช้ safe indexing และ column access
                     current_idx = step + self.state_size
                     next_idx = step + self.state_size + 1
                     
-                    # Safe column access
-                    if 'close' in data.columns:
-                        current_price = data.iloc[current_idx]['close']
-                        next_price = data.iloc[next_idx]['close']
-                    elif len(data.columns) > 0:
-                        # Use last column as price
-                        current_price = data.iloc[current_idx, -1]
-                        next_price = data.iloc[next_idx, -1]
-                    else:
-                        # Fallback to index-based access
-                        current_price = data.iloc[current_idx].iloc[-1] if hasattr(data.iloc[current_idx], 'iloc') else data.iloc[current_idx]
-                        next_price = data.iloc[next_idx].iloc[-1] if hasattr(data.iloc[next_idx], 'iloc') else data.iloc[next_idx]
+                    # ✅ Bounds checking for indices
+                    if current_idx >= len(data) or next_idx >= len(data):
+                        return next_state, 0.0, True
+                    
+                    # Safe column access with multiple fallbacks
+                    current_price = 1.0  # Default price
+                    next_price = 1.0     # Default price
+                    
+                    try:
+                        if 'close' in data.columns:
+                            current_price = float(data.iloc[current_idx]['close'])
+                            next_price = float(data.iloc[next_idx]['close'])
+                        elif len(data.columns) > 0:
+                            # Use last column as price
+                            current_price = float(data.iloc[current_idx, -1])
+                            next_price = float(data.iloc[next_idx, -1])
+                        else:
+                            # Use index values as fallback
+                            current_price = float(current_idx)
+                            next_price = float(next_idx)
+                    except (IndexError, ValueError, TypeError) as price_error:
+                        self.logger.debug(f"Price extraction error: {str(price_error)}")
+                        current_price = 1.0
+                        next_price = 1.0
                     
                     # Sanitize price values
                     current_price = sanitize_numeric_value(current_price, default=1.0)
@@ -538,21 +584,65 @@ class DQNReinforcementAgent:
         try:
             self.logger.info(f"🚀 Training DQN Agent for {episodes} episodes...")
             
-            # ✅ แก้ไข: แปลงข้อมูลให้เป็น DataFrame ถ้าจำเป็น
+            # ✅ แก้ไข: แปลงข้อมูลให้เป็น DataFrame อย่างปลอดภัย
             if isinstance(training_data, pd.Series):
-                # Convert Series to DataFrame
-                training_data = training_data.to_frame().T if len(training_data.shape) == 1 else training_data.to_frame()
+                # Convert Series to DataFrame with proper handling
+                if training_data.name:
+                    column_name = training_data.name
+                else:
+                    column_name = 'close'  # Default name for price data
+                
+                # Create DataFrame from Series
+                training_data = pd.DataFrame({column_name: training_data})
+                self.logger.info(f"✅ Converted Series to DataFrame: {training_data.shape}")
+                
             elif isinstance(training_data, np.ndarray):
                 # Convert numpy array to DataFrame
-                training_data = pd.DataFrame(training_data, columns=[f'feature_{i}' for i in range(training_data.shape[1])])
+                if training_data.ndim == 1:
+                    # 1D array - treat as price series
+                    training_data = pd.DataFrame({'close': training_data})
+                else:
+                    # 2D array - create column names
+                    column_names = [f'feature_{i}' for i in range(training_data.shape[1])]
+                    # Make sure last column is named 'close' for price data
+                    if training_data.shape[1] > 0:
+                        column_names[-1] = 'close'
+                    training_data = pd.DataFrame(training_data, columns=column_names)
+                self.logger.info(f"✅ Converted numpy array to DataFrame: {training_data.shape}")
+                
             elif not isinstance(training_data, pd.DataFrame):
-                # Try to convert to DataFrame
-                training_data = pd.DataFrame(training_data)
+                # Try to convert other types to DataFrame
+                try:
+                    training_data = pd.DataFrame(training_data)
+                    # Ensure we have a 'close' column
+                    if 'close' not in training_data.columns and len(training_data.columns) > 0:
+                        training_data = training_data.rename(columns={training_data.columns[-1]: 'close'})
+                except Exception as convert_error:
+                    self.logger.error(f"❌ Failed to convert training data to DataFrame: {str(convert_error)}")
+                    return {'success': False, 'error': f'Data conversion failed: {str(convert_error)}'}
+            
+            # ✅ Ensure DataFrame has valid data
+            if len(training_data) == 0:
+                self.logger.error("❌ Training data is empty")
+                return {'success': False, 'error': 'Empty training data'}
+            
+            # ✅ Ensure we have a valid 'close' column or use the last column
+            if 'close' not in training_data.columns:
+                if len(training_data.columns) > 0:
+                    # Use last column as 'close'
+                    last_col = training_data.columns[-1]
+                    training_data = training_data.rename(columns={last_col: 'close'})
+                    self.logger.info(f"✅ Renamed column '{last_col}' to 'close'")
+                else:
+                    self.logger.error("❌ No columns found in training data")
+                    return {'success': False, 'error': 'No valid columns in training data'}
             
             # Ensure we have enough data
             if len(training_data) < self.state_size:
                 self.logger.warning(f"⚠️ Training data too small ({len(training_data)} < {self.state_size}). Using minimal episodes.")
                 episodes = min(episodes, 10)
+            
+            self.logger.info(f"✅ Training data prepared: {training_data.shape}, columns: {list(training_data.columns)}")
             
             episode_results = []
             
