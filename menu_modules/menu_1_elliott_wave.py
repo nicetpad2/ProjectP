@@ -19,8 +19,13 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
 import logging
 import traceback
+from pathlib import Path
 
-# Import Core Components
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import Core Components after path setup
+from core.project_paths import get_project_paths
 from core.output_manager import NicegoldOutputManager
 
 # Import Elliott Wave Components
@@ -28,19 +33,28 @@ from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
 from elliott_wave_modules.feature_selector import SHAPOptunaFeatureSelector
-from elliott_wave_modules.pipeline_orchestrator import ElliottWavePipelineOrchestrator
-from elliott_wave_modules.performance_analyzer import ElliottWavePerformanceAnalyzer
+from elliott_wave_modules.pipeline_orchestrator import (
+    ElliottWavePipelineOrchestrator
+)
+from elliott_wave_modules.performance_analyzer import (
+    ElliottWavePerformanceAnalyzer
+)
+
 
 class Menu1ElliottWave:
     """เมนู 1: Elliott Wave CNN-LSTM + DQN System"""
     
-    def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
+    def __init__(self, config: Optional[Dict] = None,
+                 logger: Optional[logging.Logger] = None):
         self.config = config or {}
         self.logger = logger or logging.getLogger(__name__)
         self.results = {}
         
-        # Initialize Output Manager
-        self.output_manager = NicegoldOutputManager("outputs/elliott_wave")
+        # Get project paths
+        self.paths = get_project_paths()
+        
+        # Initialize Output Manager with proper path
+        self.output_manager = NicegoldOutputManager()
         
         # Initialize Components
         self._initialize_components()

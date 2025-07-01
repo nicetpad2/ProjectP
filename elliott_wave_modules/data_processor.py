@@ -13,11 +13,19 @@ Enterprise Features:
 
 import numpy as np
 import pandas as pd
-from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
 import os
 import glob
+import sys
+from pathlib import Path
+
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import after path setup
+from core.project_paths import get_project_paths
+
 
 class ElliottWaveDataProcessor:
     """ตัวประมวลผลข้อมูล Elliott Wave แบบ Enterprise"""
@@ -27,8 +35,9 @@ class ElliottWaveDataProcessor:
         self.logger = logger or logging.getLogger(__name__)
         self.data_cache = {}
         
-        # Paths
-        self.datacsv_path = self.config.get('paths', {}).get('data', 'datacsv/')
+        # Use ProjectPaths for path management
+        self.paths = get_project_paths()
+        self.datacsv_path = self.paths.datacsv
         
     def load_real_data(self) -> Optional[pd.DataFrame]:
         """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
@@ -36,24 +45,30 @@ class ElliottWaveDataProcessor:
             self.logger.info("📊 Loading REAL market data from datacsv/...")
             
             # Find CSV files in datacsv directory
-            csv_pattern = os.path.join(self.datacsv_path, "*.csv")
-            csv_files = glob.glob(csv_pattern)
+            csv_files = list(self.datacsv_path.glob("*.csv"))
             
             if not csv_files:
-                error_msg = f"❌ NO CSV FILES FOUND in {self.datacsv_path}! Please add real market data files."
+                error_msg = (
+                    f"❌ NO CSV FILES FOUND in {self.datacsv_path}! "
+                    f"Please add real market data files."
+                )
                 self.logger.error(error_msg)
                 raise FileNotFoundError(error_msg)
             
             # Select best data file (prefer M1 for higher granularity)
             data_file = self._select_best_data_file(csv_files)
-            self.logger.info(f"� Loading REAL data from: {os.path.basename(data_file)}")
+            self.logger.info(
+                f"� Loading REAL data from: {data_file.name}"
+            )
             
             # Load ALL data - NO row limits for production
             df = pd.read_csv(data_file)
             
             # Validate data is real market data
             if not self._validate_real_market_data(df):
-                raise ValueError("❌ Data validation failed - not real market data")
+                raise ValueError(
+                    "❌ Data validation failed - not real market data"
+                )
             
             # Clean and process real data
             df = self._validate_and_clean_data(df)
@@ -65,14 +80,14 @@ class ElliottWaveDataProcessor:
             self.logger.error(f"❌ Failed to load REAL data: {str(e)}")
             raise
     
-    def _select_best_data_file(self, csv_files: List[str]) -> str:
+    def _select_best_data_file(self, csv_files: List[Path]) -> Path:
         """เลือกไฟล์ข้อมูลที่ดีที่สุด"""
         # Priority: M1 > M5 > M15 > M30 > H1 > H4 > D1
         timeframe_priority = ['M1', 'M5', 'M15', 'M30', 'H1', 'H4', 'D1']
         
         for timeframe in timeframe_priority:
             for file_path in csv_files:
-                if timeframe in os.path.basename(file_path).upper():
+                if timeframe in file_path.name.upper():
                     return file_path
         
         # Return the first file if no timeframe match

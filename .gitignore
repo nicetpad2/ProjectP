@@ -2379,3 +2379,4 @@ datacsv/XAUUSD_M15.csv
 .mypy_cache/3.12/ProjectP.meta.json
 .mypy_cache/3.12/torch/export/_tree_utils.meta.json
 .mypy_cache/3.12/torch/fx/immutable_collections.meta.json
+core/__pycache__/project_paths.cpython-312.pyc
