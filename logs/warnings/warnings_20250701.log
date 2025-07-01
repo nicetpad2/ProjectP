@@ -9,3 +9,6 @@ numpy: DLL load failed while importing _umath_linalg: The specified module could
 2025-07-01 15:29:51 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:38 | ❌ Failed to import Menu 1: Unable to import required dependencies:
 Unable to import required dependencies:
 numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:44:24 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:38 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.

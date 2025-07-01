@@ -564,3 +564,63 @@ numpy: DLL load failed while importing _umath_linalg: The specified module could
 Unable to import required dependencies:
 numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
 2025-07-01 15:29:51 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
+2025-07-01 15:44:23 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 15:44:23 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 15:44:24 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:38 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:44:24 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
+2025-07-01 08:52:34 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 08:52:34 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | _initialize_components:67 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 08:52:46 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | __init__:78 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | _initialize_components:120 | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | _import_menu_modules:33 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 08:52:54 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
+2025-07-01 08:56:54 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 08:56:54 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | _initialize_components:67 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 08:57:04 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | __init__:78 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | _initialize_components:120 | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | _import_menu_modules:33 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 08:57:08 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | _initialize_components:67 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 09:02:51 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | __init__:78 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | _initialize_components:120 | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | _import_menu_modules:33 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 09:02:53 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
