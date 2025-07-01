@@ -13,9 +13,10 @@ import logging
 class MenuSystem:
     """ระบบเมนูหลักของ NICEGOLD Enterprise"""
     
-    def __init__(self, config: Dict = None, logger: logging.Logger = None):
+    def __init__(self, config: Dict = None, logger: logging.Logger = None, resource_manager = None):
         self.config = config or {}
         self.logger = logger or logging.getLogger(__name__)
+        self.resource_manager = resource_manager
         self.running = True
         
         # Import Menu Modules
@@ -29,8 +30,12 @@ class MenuSystem:
         # Try to import Menu 1 with detailed error handling
         try:
             from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
-            self.menu_1 = Menu1ElliottWave(self.config, self.logger)
+            self.menu_1 = Menu1ElliottWave(self.config, self.logger, self.resource_manager)
             self.logger.info("✅ Menu 1 Elliott Wave Module Loaded")
+            
+            # If resource manager is available, show integration status
+            if self.resource_manager:
+                self.logger.info("✅ Menu 1 integrated with Intelligent Resource Management")
             
         except ImportError as e:
             error_msg = f"Unable to import required dependencies:\n{str(e)}"
@@ -59,7 +64,10 @@ class MenuSystem:
         
         # Show Menu 1 status based on availability
         if self.menu_1:
-            print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN)")
+            if self.resource_manager:
+                print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN) ⚡ Resource Optimized")
+            else:
+                print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN)")
         else:
             print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN) [DISABLED - Dependencies missing]")
             
@@ -103,6 +111,24 @@ class MenuSystem:
                 
                 self.logger.info("🌊 Starting Elliott Wave Full Pipeline...")
                 
+                # Show resource management status if available
+                if self.resource_manager:
+                    print("⚡ Resource optimization is active during pipeline execution")
+                    self.logger.info("⚡ Pipeline execution with intelligent resource management")
+                    
+                    # Display current resource utilization
+                    current_perf = self.resource_manager.get_current_performance()
+                    cpu_usage = current_perf.get('cpu_percent', 0)
+                    memory_info = current_perf.get('memory', {})
+                    memory_usage = memory_info.get('percent', 0)
+                    
+                    print(f"📊 Current System Usage: CPU {cpu_usage:.1f}%, Memory {memory_usage:.1f}%")
+                    
+                    # Start real-time monitoring
+                    if not self.resource_manager.monitoring_active:
+                        self.resource_manager.start_monitoring(interval=1.0)
+                        print("📈 Real-time resource monitoring started")
+                
                 # Import Menu1Logger for enterprise-grade logging
                 from core.menu1_logger import (
                     start_menu1_session, 
@@ -129,6 +155,26 @@ class MenuSystem:
                         }
                         complete_menu1_session(final_results)
                         
+                        # Show resource usage summary if available
+                        if self.resource_manager:
+                            print("\n📊 Resource Usage Summary:")
+                            
+                            # Get performance data
+                            performance_data = self.resource_manager.performance_data
+                            if performance_data:
+                                cpu_values = [d.get('cpu_percent', 0) for d in performance_data]
+                                memory_values = [d.get('memory_percent', 0) for d in performance_data]
+                                
+                                avg_cpu = sum(cpu_values) / len(cpu_values) if cpu_values else 0
+                                avg_memory = sum(memory_values) / len(memory_values) if memory_values else 0
+                                max_cpu = max(cpu_values) if cpu_values else 0
+                                max_memory = max(memory_values) if memory_values else 0
+                                
+                                print(f"   🧮 CPU Usage - Average: {avg_cpu:.1f}%, Peak: {max_cpu:.1f}%")
+                                print(f"   🧠 Memory Usage - Average: {avg_memory:.1f}%, Peak: {max_memory:.1f}%")
+                                print(f"   📈 Monitoring Points: {len(performance_data)} data points collected")
+                                print("   ⚡ Resource optimization was active during execution")
+                            
                         print("\n🎉 Elliott Wave Pipeline completed successfully!")
                         print(f"📁 Session logs saved with ID: {session_id}")
                         input("Press Enter to continue...")

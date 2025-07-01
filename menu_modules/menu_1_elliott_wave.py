@@ -62,9 +62,11 @@ class Menu1ElliottWaveFixed:
     """เมนู 1: Elliott Wave CNN-LSTM + DQN System with Beautiful Progress & Logging (FIXED)"""
     
     def __init__(self, config: Optional[Dict] = None,
-                 logger: Optional[logging.Logger] = None):
+                 logger: Optional[logging.Logger] = None,
+                 resource_manager = None):
         self.config = config or {}
         self.logger = logger or logging.getLogger(__name__)
+        self.resource_manager = resource_manager
         self.results = {}
         
         # Get project paths
@@ -82,8 +84,42 @@ class Menu1ElliottWaveFixed:
         # Initialize Output Manager with proper path
         self.output_manager = NicegoldOutputManager()
         
+        # Setup Resource Management Integration
+        if self.resource_manager:
+            self._setup_resource_integration()
+        
         # Initialize Components
         self._initialize_components()
+    
+    def _setup_resource_integration(self):
+        """ตั้งค่าการรวมเข้ากับ Resource Management"""
+        try:
+            self.logger.info("⚡ Setting up Resource Management integration...")
+            
+            # Get optimized configuration from resource manager
+            if hasattr(self.resource_manager, 'get_menu1_optimization_config'):
+                optimized_config = self.resource_manager.get_menu1_optimization_config()
+                
+                # Merge optimized settings into config
+                if optimized_config:
+                    self.config.update(optimized_config)
+                    self.logger.info("✅ Optimized configuration applied from Resource Manager")
+                    
+                    # Log key optimization settings
+                    data_config = optimized_config.get('data_processing', {})
+                    if data_config:
+                        self.logger.info(f"📊 Data Processing Optimization: Chunk Size {data_config.get('chunk_size', 'N/A')}, Workers {data_config.get('parallel_workers', 'N/A')}")
+                    
+                    elliott_config = optimized_config.get('elliott_wave', {})
+                    if elliott_config:
+                        self.logger.info(f"🌊 Elliott Wave Optimization: Batch Size {elliott_config.get('batch_size', 'N/A')}")
+            
+            # Start stage monitoring if available
+            if hasattr(self.resource_manager, 'start_stage_monitoring'):
+                self.resource_manager.start_stage_monitoring('menu1_initialization')
+                
+        except Exception as e:
+            self.logger.warning(f"⚠️ Resource integration setup failed: {e}")
     
     def _initialize_components(self):
         """เริ่มต้น Components ต่างๆ"""
@@ -162,6 +198,27 @@ class Menu1ElliottWaveFixed:
         
         try:
             self.logger.info("🚀 Starting Elliott Wave Full Pipeline...")
+            
+            # Show resource optimization status
+            if self.resource_manager:
+                print("⚡ Resource-Optimized Elliott Wave Pipeline Starting...")
+                self.logger.info("⚡ Executing with intelligent resource management")
+                
+                # Display allocated resources
+                resource_config = self.resource_manager.resource_config
+                cpu_config = resource_config.get('cpu', {})
+                memory_config = resource_config.get('memory', {})
+                
+                allocated_threads = cpu_config.get('allocated_threads', 0)
+                allocated_memory = memory_config.get('allocated_gb', 0)
+                
+                print(f"📊 Resource Allocation: {allocated_threads} CPU cores, {allocated_memory:.1f} GB RAM")
+                
+                # Start pipeline-level monitoring
+                if hasattr(self.resource_manager, 'start_stage_monitoring'):
+                    self.resource_manager.start_stage_monitoring('elliott_wave_pipeline')
+            
+            self.logger.info("🚀 Starting Elliott Wave Full Pipeline...")
             self._display_pipeline_overview()
             
             # Call execute_full_pipeline for the actual work
@@ -195,6 +252,7 @@ class Menu1ElliottWaveFixed:
         """ดำเนินการ Full Pipeline ของ Elliott Wave System - ใช้ข้อมูลจริงเท่านั้น"""
         try:
             # Step 1: Load and process data
+            self._start_stage_resource_monitoring('data_loading', 'Step 1: Loading and processing real market data')
             self.logger.info("📊 Step 1: Loading and processing real market data...")
             data = self.data_processor.load_real_data()
             
@@ -203,14 +261,22 @@ class Menu1ElliottWaveFixed:
                 return False
                 
             self.logger.info(f"✅ Successfully loaded {len(data):,} rows of real market data")
+            self._show_current_resource_usage()
+            self._end_stage_resource_monitoring('data_loading', {'rows_loaded': len(data)})
             
             # Step 2: Create features
+            self._start_stage_resource_monitoring('feature_engineering', 'Step 2: Creating Elliott Wave features')
             self.logger.info("⚙️ Step 2: Creating Elliott Wave features...")
             features = self.data_processor.create_elliott_wave_features(data)
+            self._show_current_resource_usage()
+            self._end_stage_resource_monitoring('feature_engineering', {'features_created': features.shape[1] if hasattr(features, 'shape') else 0})
             
             # Step 3: Prepare ML data
+            self._start_stage_resource_monitoring('data_preparation', 'Step 3: Preparing ML data')
             self.logger.info("🎯 Step 3: Preparing ML data...")
             X, y = self.data_processor.prepare_ml_data(features)
+            self._show_current_resource_usage()
+            self._end_stage_resource_monitoring('data_preparation', {'ml_samples': len(X) if hasattr(X, '__len__') else 0})
             
             # Store data info
             self.results['data_info'] = {
@@ -220,14 +286,27 @@ class Menu1ElliottWaveFixed:
             }
             
             # Step 4: Feature selection with SHAP + Optuna
+            self._start_stage_resource_monitoring('feature_selection', 'Step 4: Running SHAP + Optuna feature selection')
             self.logger.info("🧠 Step 4: Running SHAP + Optuna feature selection...")
             selected_features, selection_results = self.feature_selector.select_features(X, y)
+            self._show_current_resource_usage()
+            selection_metrics = {'selected_features': len(selected_features) if selected_features else 0}
+            if selection_results and 'best_auc' in selection_results:
+                selection_metrics['auc_achieved'] = selection_results['best_auc']
+            self._end_stage_resource_monitoring('feature_selection', selection_metrics)
             
             # Step 5: Train CNN-LSTM
+            self._start_stage_resource_monitoring('cnn_lstm_training', 'Step 5: Training CNN-LSTM model')
             self.logger.info("🏗️ Step 5: Training CNN-LSTM model...")
             cnn_lstm_results = self.cnn_lstm_engine.train_model(X[selected_features], y)
+            self._show_current_resource_usage()
+            cnn_metrics = {'training_completed': True}
+            if cnn_lstm_results and 'accuracy' in cnn_lstm_results:
+                cnn_metrics['accuracy'] = cnn_lstm_results['accuracy']
+            self._end_stage_resource_monitoring('cnn_lstm_training', cnn_metrics)
             
             # Step 6: Train DQN
+            self._start_stage_resource_monitoring('dqn_training', 'Step 6: Training DQN agent')
             self.logger.info("🤖 Step 6: Training DQN agent...")
             # ✅ แก้ไข: ใช้ DataFrame และแทนที่ y ด้วย episodes
             if isinstance(X, pd.DataFrame):
@@ -237,8 +316,14 @@ class Menu1ElliottWaveFixed:
                 dqn_training_data = pd.DataFrame(X, columns=selected_features if isinstance(selected_features, list) else [f'feature_{i}' for i in range(X.shape[1])])
             
             dqn_results = self.dqn_agent.train_agent(dqn_training_data, episodes=50)
+            self._show_current_resource_usage()
+            dqn_metrics = {'episodes_completed': 50}
+            if dqn_results and 'final_reward' in dqn_results:
+                dqn_metrics['final_reward'] = dqn_results['final_reward']
+            self._end_stage_resource_monitoring('dqn_training', dqn_metrics)
             
             # Step 7: Performance analysis
+            self._start_stage_resource_monitoring('performance_analysis', 'Step 7: Analyzing performance')
             self.logger.info("📈 Step 7: Analyzing performance...")
             # ✅ แก้ไข: ส่ง pipeline_results แทนที่จะส่ง arguments แยก
             pipeline_results = {
@@ -329,9 +414,10 @@ class Menu1ElliottWaveFixed:
     def _validate_enterprise_requirements(self) -> bool:
         """ตรวจสอบความต้องการ Enterprise"""
         try:
-            # Check AUC requirement
+            # Check AUC requirement - NEW FORMAT
             cnn_lstm_results = self.results.get('cnn_lstm_results', {})
-            auc_score = cnn_lstm_results.get('auc_score', 0)
+            eval_results = cnn_lstm_results.get('evaluation_results', {})
+            auc_score = eval_results.get('auc', cnn_lstm_results.get('auc_score', 0))
             
             if auc_score < 0.70:
                 self.logger.error(f"❌ AUC Score {auc_score:.4f} < 0.70 - Enterprise requirement failed!")
@@ -343,7 +429,7 @@ class Menu1ElliottWaveFixed:
                 self.logger.error("❌ No data processed - Enterprise requirement failed!")
                 return False
             
-            self.logger.info("✅ All Enterprise Requirements Met!")
+            self.logger.info(f"✅ All Enterprise Requirements Met! AUC: {auc_score:.4f}")
             return True
             
         except Exception as e:
@@ -362,7 +448,9 @@ class Menu1ElliottWaveFixed:
         data_info = self.results.get('data_info', {})
         compliance = self.results.get('enterprise_compliance', {})
         
-        auc_score = cnn_lstm.get('auc_score', 0.0)
+        # Extract AUC from evaluation_results (NEW FORMAT)
+        eval_results = cnn_lstm.get('evaluation_results', {})
+        auc_score = eval_results.get('auc', cnn_lstm.get('auc_score', 0.0))
         total_reward = dqn.get('total_reward', 0.0)
         
         # Display metrics
@@ -491,6 +579,46 @@ class Menu1ElliottWaveFixed:
             "status": "Production Ready",
             "last_results": self.results
         }
+    
+    def _start_stage_resource_monitoring(self, stage_name: str, description: str):
+        """เริ่มการติดตามทรัพยากรสำหรับขั้นตอน"""
+        if self.resource_manager and hasattr(self.resource_manager, 'start_stage_monitoring'):
+            try:
+                self.resource_manager.start_stage_monitoring(stage_name)
+                print(f"📊 {description} (Resource monitoring active)")
+                self.logger.info(f"📊 Stage '{stage_name}' resource monitoring started")
+            except:
+                pass
+    
+    def _end_stage_resource_monitoring(self, stage_name: str, performance_metrics: dict = None):
+        """สิ้นสุดการติดตามทรัพยากรสำหรับขั้นตอน"""
+        if self.resource_manager and hasattr(self.resource_manager, 'end_stage_monitoring'):
+            try:
+                summary = self.resource_manager.end_stage_monitoring(stage_name, performance_metrics)
+                if summary:
+                    efficiency = summary.get('efficiency_score', 0)
+                    duration = summary.get('duration_seconds', 0)
+                    print(f"✅ {stage_name} completed - Efficiency: {efficiency:.2f}, Duration: {duration:.1f}s")
+                    self.logger.info(f"✅ Stage '{stage_name}' completed with efficiency {efficiency:.2f}")
+                return summary
+            except:
+                pass
+        return None
+    
+    def _show_current_resource_usage(self):
+        """แสดงการใช้ทรัพยากรปัจจุบัน"""
+        if self.resource_manager and hasattr(self.resource_manager, 'get_current_performance'):
+            try:
+                current_perf = self.resource_manager.get_current_performance()
+                cpu_usage = current_perf.get('cpu_percent', 0)
+                memory_info = current_perf.get('memory', {})
+                memory_usage = memory_info.get('percent', 0)
+                
+                print(f"⚡ Current Usage: CPU {cpu_usage:.1f}%, Memory {memory_usage:.1f}%")
+                return True
+            except:
+                pass
+        return False
 
 
 # Alias for backward compatibility
