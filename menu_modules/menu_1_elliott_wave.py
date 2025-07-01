@@ -447,7 +447,7 @@ class Menu1ElliottWaveFixed:
         dqn = self.results.get('dqn_results', {})
         data_info = self.results.get('data_info', {})
         compliance = self.results.get('enterprise_compliance', {})
-        
+        อย่างสมบูรณ์
         # Extract AUC from evaluation_results (NEW FORMAT)
         eval_results = cnn_lstm.get('evaluation_results', {})
         auc_score = eval_results.get('auc', cnn_lstm.get('auc_score', 0.0))
