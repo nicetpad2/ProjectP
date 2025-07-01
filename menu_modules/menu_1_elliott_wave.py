@@ -23,6 +23,16 @@ from typing import Dict, List, Optional, Any, Tuple
 import logging
 import traceback
 from pathlib import Path
+import warnings
+
+# Essential data processing imports
+import pandas as pd
+import numpy as np
+
+# Suppress warnings for clean output
+warnings.filterwarnings('ignore')
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Add project root to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
