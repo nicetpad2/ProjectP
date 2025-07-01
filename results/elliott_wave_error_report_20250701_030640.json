@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "'ElliottWaveDataProcessor' object has no attribute 'prepare_ml_data'",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 135, in run_full_pipeline\n    X, y = self.data_processor.prepare_ml_data(features)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'ElliottWaveDataProcessor' object has no attribute 'prepare_ml_data'\n",
+  "timestamp": "2025-07-01T03:06:40.769235"
+}
