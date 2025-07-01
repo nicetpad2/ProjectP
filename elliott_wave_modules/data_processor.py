@@ -211,6 +211,9 @@ class ElliottWaveDataProcessor:
                 df['high'] = df[['open', 'high', 'low', 'close']].max(axis=1)
                 df['low'] = df[['open', 'high', 'low', 'close']].min(axis=1)
             
+            # Apply noise filtering and outlier removal
+            df = self._apply_noise_filtering(df)
+            
             self.logger.info("✅ Data validation and cleaning completed")
             return df
             
@@ -326,10 +329,22 @@ class ElliottWaveDataProcessor:
             # Multi-timeframe features
             df = self._add_multi_timeframe_features(df)
             
+            # Apply noise filtering and quality improvement
+            self.logger.info("🧹 Applying noise filtering...")
+            df = self._apply_noise_filtering(df)
+            
+            # Apply feature regularization to prevent overfitting
+            df = self._apply_feature_regularization(df)
+            
+            # Validate data quality
+            quality_metrics = self._validate_data_quality(df)
+            
             # Clean up NaN values
             df = df.ffill().bfill()
             
             self.logger.info(f"✅ Feature engineering completed: {len(df.columns)} features")
+            self.logger.info(f"📊 Data Quality Score: {quality_metrics['quality_score']:.2f}%")
+            
             return df
             
         except Exception as e:
@@ -406,15 +421,15 @@ class ElliottWaveDataProcessor:
             for std_dev in [1.5, 2.5]:
                 bb_middle = df['close'].rolling(window=period).mean()
                 bb_std = df['close'].rolling(window=period).std()
-                bb_upper = bb_middle + (bb_std * std_dev)
-                bb_lower = bb_middle - (bb_std * std_dev)
-                bb_width = bb_upper - bb_lower
-                bb_position = (df['close'] - bb_lower) / (bb_width + 1e-8)
+                df['bb_upper'] = bb_middle + (bb_std * std_dev)
+                df['bb_lower'] = bb_middle - (bb_std * std_dev)
+                df['bb_width'] = df['bb_upper'] - df['bb_lower']
+                df['bb_position'] = (df['close'] - df['bb_lower']) / (df['bb_width'] + 1e-8)
                 
                 suffix = f'_{period}_{int(std_dev*10)}'
-                df[f'bb_width{suffix}'] = bb_width
-                df[f'bb_position{suffix}'] = bb_position
-                df[f'bb_squeeze{suffix}'] = (bb_width < bb_width.rolling(20).mean()).astype(int)
+                df[f'bb_width{suffix}'] = df['bb_width']
+                df[f'bb_position{suffix}'] = df['bb_position']
+                df[f'bb_squeeze{suffix}'] = (df['bb_width'] < df['bb_width'].rolling(20).mean()).astype(int)
         
         # Stochastic Oscillator
         for k_period, d_period in [(14, 3), (21, 5)]:
@@ -635,15 +650,15 @@ class ElliottWaveDataProcessor:
                 for std_dev in [1.5, 2.5]:
                     bb_middle = features['close'].rolling(window=period).mean()
                     bb_std = features['close'].rolling(window=period).std()
-                    bb_upper = bb_middle + (bb_std * std_dev)
-                    bb_lower = bb_middle - (bb_std * std_dev)
-                    bb_width = bb_upper - bb_lower
-                    bb_position = (features['close'] - bb_lower) / (bb_width + 1e-8)
+                    features['bb_upper'] = bb_middle + (bb_std * std_dev)
+                    features['bb_lower'] = bb_middle - (bb_std * std_dev)
+                    features['bb_width'] = features['bb_upper'] - features['bb_lower']
+                    features['bb_position'] = (features['close'] - features['bb_lower']) / (features['bb_width'] + 1e-8)
                     
                     suffix = f'_{period}_{int(std_dev*10)}'
-                    features[f'bb_width{suffix}'] = bb_width
-                    features[f'bb_position{suffix}'] = bb_position
-                    features[f'bb_squeeze{suffix}'] = (bb_width < bb_width.rolling(20).mean()).astype(int)
+                    features[f'bb_width{suffix}'] = features['bb_width']
+                    features[f'bb_position{suffix}'] = features['bb_position']
+                    features[f'bb_squeeze{suffix}'] = (features['bb_width'] < features['bb_width'].rolling(20).mean()).astype(int)
             
             # Stochastic Oscillator
             for k_period, d_period in [(14, 3), (21, 5)]:
@@ -962,3 +977,111 @@ class ElliottWaveDataProcessor:
                 'error': error_msg,
                 'traceback': traceback.format_exc() if 'traceback' in sys.modules else str(e)
             }
+    
+    def _apply_noise_filtering(self, df: pd.DataFrame) -> pd.DataFrame:
+        """🧹 Apply advanced noise filtering to improve data quality"""
+        self.logger.info("🧹 Applying noise filtering and outlier removal...")
+        
+        # Remove extreme outliers using IQR method
+        numeric_columns = df.select_dtypes(include=[np.number]).columns
+        for col in numeric_columns:
+            if col in ['open', 'high', 'low', 'close', 'volume']:
+                continue  # Skip basic OHLCV data
+                
+            Q1 = df[col].quantile(0.25)
+            Q3 = df[col].quantile(0.75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 3 * IQR  # More conservative than 1.5
+            upper_bound = Q3 + 3 * IQR
+            
+            # Cap extreme values instead of removing
+            df[col] = df[col].clip(lower=lower_bound, upper=upper_bound)
+        
+        # Apply smoothing to reduce noise
+        for col in numeric_columns:
+            if col not in ['open', 'high', 'low', 'close', 'volume'] and not col.endswith('_signal'):
+                # Apply Savitzky-Golay filter for noise reduction
+                try:
+                    from scipy.signal import savgol_filter
+                    if len(df[col].dropna()) > 50:
+                        window_length = min(11, len(df[col].dropna()) // 5)
+                        if window_length % 2 == 0:
+                            window_length += 1
+                        if window_length >= 3:
+                            df[col] = savgol_filter(df[col].fillna(method='ffill'), 
+                                                  window_length, 3, mode='nearest')
+                except ImportError:
+                    # Fallback to rolling mean smoothing
+                    df[col] = df[col].rolling(window=3, center=True).mean().fillna(df[col])
+        
+        self.logger.info("✅ Noise filtering completed")
+        return df
+    
+    def _apply_feature_regularization(self, df: pd.DataFrame) -> pd.DataFrame:
+        """🛡️ Apply feature regularization to prevent overfitting"""
+        self.logger.info("🛡️ Applying feature regularization...")
+        
+        # Remove highly correlated features to reduce overfitting
+        numeric_df = df.select_dtypes(include=[np.number])
+        correlation_matrix = numeric_df.corr().abs()
+        
+        # Find highly correlated feature pairs
+        high_corr_pairs = []
+        for i in range(len(correlation_matrix.columns)):
+            for j in range(i+1, len(correlation_matrix.columns)):
+                if correlation_matrix.iloc[i, j] > 0.95:  # Very high correlation
+                    col1, col2 = correlation_matrix.columns[i], correlation_matrix.columns[j]
+                    high_corr_pairs.append((col1, col2))
+        
+        # Remove one feature from each highly correlated pair
+        features_to_remove = set()
+        for col1, col2 in high_corr_pairs:
+            # Keep the feature with lower variance (more stable)
+            if df[col1].var() < df[col2].var():
+                features_to_remove.add(col2)
+            else:
+                features_to_remove.add(col1)
+        
+        if features_to_remove:
+            self.logger.info(f"🗑️ Removing {len(features_to_remove)} highly correlated features")
+            df = df.drop(columns=list(features_to_remove))
+        
+        # Apply feature scaling for better regularization
+        from sklearn.preprocessing import RobustScaler
+        scaler = RobustScaler()
+        
+        numeric_columns = df.select_dtypes(include=[np.number]).columns
+        feature_columns = [col for col in numeric_columns 
+                          if col not in ['open', 'high', 'low', 'close', 'volume']]
+        
+        if feature_columns:
+            df[feature_columns] = scaler.fit_transform(df[feature_columns])
+        
+        self.logger.info("✅ Feature regularization completed")
+        return df
+    
+    def _validate_data_quality(self, df: pd.DataFrame) -> dict:
+        """📊 Validate data quality and return quality metrics"""
+        self.logger.info("📊 Validating data quality...")
+        
+        quality_metrics = {
+            'total_rows': len(df),
+            'missing_percentage': df.isnull().sum().sum() / (len(df) * len(df.columns)) * 100,
+            'duplicate_rows': df.duplicated().sum(),
+            'infinite_values': np.isinf(df.select_dtypes(include=[np.number])).sum().sum(),
+            'quality_score': 0.0
+        }
+        
+        # Calculate quality score
+        score = 100.0
+        score -= quality_metrics['missing_percentage'] * 2  # Penalize missing data
+        score -= (quality_metrics['duplicate_rows'] / len(df)) * 50  # Penalize duplicates
+        score -= (quality_metrics['infinite_values'] / len(df)) * 30  # Penalize infinite values
+        
+        quality_metrics['quality_score'] = max(0, min(100, score))
+        
+        self.logger.info(f"📊 Data Quality Score: {quality_metrics['quality_score']:.2f}%")
+        if quality_metrics['quality_score'] < 70:
+            self.logger.warning("⚠️ Low data quality detected - applying additional cleaning")
+        
+        return quality_metrics

@@ -247,7 +247,7 @@ class EnterpriseShapOptunaFeatureSelector:
         
         # Define objective function
         def objective(trial):
-            return self._objective_function(trial, X, y)
+            return self._anti_overfitting_objective(trial, X, y)
         
         # Run optimization
         study.optimize(
@@ -467,6 +467,103 @@ class EnterpriseShapOptunaFeatureSelector:
             'production_ready': True
         }
 
+    def _anti_overfitting_objective(self, trial, X, y):
+        """🛡️ Anti-overfitting objective function with regularization"""
+        
+        # Model selection with overfitting prevention
+        model_name = trial.suggest_categorical('model', ['rf', 'gb'])
+        
+        if model_name == 'rf':
+            # More conservative Random Forest parameters
+            model = RandomForestClassifier(
+                n_estimators=trial.suggest_int('rf_n_estimators', 100, 300),
+                max_depth=trial.suggest_int('rf_max_depth', 5, 12),  # Reduced depth
+                min_samples_split=trial.suggest_int('rf_min_samples_split', 5, 20),  # Increased
+                min_samples_leaf=trial.suggest_int('rf_min_samples_leaf', 2, 10),  # Increased
+                max_features=trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.5]),
+                random_state=42,
+                n_jobs=-1,
+                class_weight='balanced'
+            )
+        else:
+            # More conservative Gradient Boosting parameters
+            model = GradientBoostingClassifier(
+                n_estimators=trial.suggest_int('gb_n_estimators', 50, 150),  # Reduced
+                max_depth=trial.suggest_int('gb_max_depth', 3, 8),  # Reduced depth
+                learning_rate=trial.suggest_float('gb_learning_rate', 0.01, 0.2),
+                subsample=trial.suggest_float('gb_subsample', 0.6, 0.9),  # Regularization
+                min_samples_split=trial.suggest_int('gb_min_samples_split', 5, 20),
+                min_samples_leaf=trial.suggest_int('gb_min_samples_leaf', 2, 10),
+                random_state=42
+            )
+        
+        # Feature selection with regularization
+        feature_selection_method = trial.suggest_categorical('feature_method', ['shap_top', 'mixed'])
+        n_features = trial.suggest_int('n_features', 10, min(25, len(X.columns)))  # Reduced max
+        
+        if feature_selection_method == 'shap_top':
+            # Use top SHAP features only
+            shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
+            selected_features = [feat for feat, _ in shap_ranking[:n_features]]
+        else:
+            # Mixed approach: combine top SHAP with diversity
+            shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
+            top_shap = [feat for feat, _ in shap_ranking[:n_features//2]]
+            
+            # Add diverse features (low correlation with top SHAP)
+            remaining_features = [feat for feat in X.columns if feat not in top_shap]
+            if remaining_features:
+                selected_remaining = trial.suggest_categorical(
+                    'diverse_features',
+                    remaining_features[:min(10, len(remaining_features))]
+                )
+                selected_features = top_shap + [selected_remaining]
+            else:
+                selected_features = top_shap
+        
+        X_selected = X[selected_features]
+        
+        # Cross-validation with anti-overfitting measures
+        tscv = TimeSeriesSplit(n_splits=5, test_size=len(X)//10)  # Larger test sets
+        
+        # Calculate both training and validation scores
+        train_scores = []
+        val_scores = []
+        
+        for train_idx, val_idx in tscv.split(X_selected):
+            X_train_fold, X_val_fold = X_selected.iloc[train_idx], X_selected.iloc[val_idx]
+            y_train_fold, y_val_fold = y.iloc[train_idx], y.iloc[val_idx]
+            
+            # Fit model
+            model.fit(X_train_fold, y_train_fold)
+            
+            # Get scores
+            train_pred = model.predict_proba(X_train_fold)[:, 1]
+            val_pred = model.predict_proba(X_val_fold)[:, 1]
+            
+            train_auc = roc_auc_score(y_train_fold, train_pred)
+            val_auc = roc_auc_score(y_val_fold, val_pred)
+            
+            train_scores.append(train_auc)
+            val_scores.append(val_auc)
+        
+        # Calculate overfitting penalty
+        mean_train_auc = np.mean(train_scores)
+        mean_val_auc = np.mean(val_scores)
+        overfitting_gap = mean_train_auc - mean_val_auc
+        
+        # Penalty for overfitting
+        overfitting_penalty = max(0, overfitting_gap * 2)  # Strong penalty
+        
+        # Final score with anti-overfitting measure
+        final_score = mean_val_auc - overfitting_penalty
+        
+        # Additional penalty for too many features (complexity penalty)
+        complexity_penalty = len(selected_features) * 0.001
+        final_score -= complexity_penalty
+        
+        return final_score
+        
 
 # Alias for backward compatibility
 SHAPOptunaFeatureSelector = EnterpriseShapOptunaFeatureSelector
