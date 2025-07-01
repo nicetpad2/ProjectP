@@ -209,3 +209,78 @@ AttributeError: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_i
 2025-07-01 04:12:29 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
 2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
 2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 11:53:19 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:57:04 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:57:24 | ERROR | NICEGOLD_Enterprise | ❌ Failed to import Menu 1: No module named 'optuna'
+2025-07-01 05:18:07 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 05:18:15 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 05:18:15 | INFO | NICEGOLD_Enterprise | ✅ TensorFlow available. Using CNN-LSTM model.
+2025-07-01 05:18:23 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 05:18:23 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 05:18:23 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 05:18:23 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 05:18:23 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 05:18:53 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 05:18:53 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 05:18:58 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 05:18:58 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 05:18:58 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 05:18:58 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M1.csv
+2025-07-01 05:19:03 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ⚙️ Creating Elliott Wave features...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 📈 Adding technical indicators...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🌊 Adding Elliott Wave pattern features...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave features created: 1504 rows, 38 features
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Preparing ML Training Data
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🎯 Preparing ML training data...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | ✅ ML data prepared: X shape (1503, 37), y shape (1503,)
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 📊 Target distribution: {1: 808, 0: 695}
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🧠 Step 4: SHAP + Optuna Feature Selection
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🎯 Starting Enterprise SHAP + Optuna Feature Selection...
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🧠 Step 1: SHAP Feature Importance Analysis
+2025-07-01 05:19:04 | INFO | NICEGOLD_Enterprise | 🧠 Analyzing SHAP feature importance...
+2025-07-01 05:19:38 | INFO | NICEGOLD_Enterprise | ✅ SHAP analysis completed for 37 features
+2025-07-01 05:19:38 | INFO | NICEGOLD_Enterprise | 🎯 Top 5 features: ['local_high', 'local_low', 'price_change', 'support_resistance_ratio', 'bb_position']
+2025-07-01 05:19:38 | INFO | NICEGOLD_Enterprise | ⚡ Step 2: Optuna Feature Optimization
+2025-07-01 05:19:38 | INFO | NICEGOLD_Enterprise | ⚡ Starting Enterprise Optuna optimization...
+2025-07-01 05:26:35 | INFO | NICEGOLD_Enterprise | ✅ Enterprise Optuna optimization completed
+2025-07-01 05:26:35 | INFO | NICEGOLD_Enterprise | 🎯 Best AUC: 0.8636 from 150 trials
+2025-07-01 05:26:35 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Extracting Best Features
+2025-07-01 05:26:35 | INFO | NICEGOLD_Enterprise | ✅ Step 4: Final Enterprise Validation
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | ✅ Enterprise Feature Selection SUCCESS: 6 features selected
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | 🎯 AUC Achieved: 0.8636 (Target: 0.70) ✅
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | 🏗️ Step 5: Training CNN-LSTM Elliott Wave Model
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | 🚀 Training Elliott Wave model...
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | 📊 Preparing sequences for CNN-LSTM...
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | ✅ Sequences prepared: (1453, 50, 6)
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | 🏗️ Building TensorFlow CNN-LSTM model...
+2025-07-01 05:26:36 | INFO | NICEGOLD_Enterprise | ✅ TensorFlow CNN-LSTM model built successfully
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | ✅ Model training completed: CNN-LSTM TensorFlow
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | 🤖 Step 6: Training DQN Reinforcement Learning Agent
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | 🚀 Training DQN Agent for 49      1
+50      1
+51      0
+52      1
+53      0
+       ..
+1547    0
+1548    1
+1549    1
+1550    0
+1551    0
+Name: target, Length: 1503, dtype: int64 episodes...
+2025-07-01 05:28:51 | ERROR | NICEGOLD_Enterprise | ❌ DQN Agent training failed: 'Series' object cannot be interpreted as an integer
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | 🔗 Step 7: Running Integrated Pipeline
+2025-07-01 05:28:51 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'
+2025-07-01 05:28:51 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/content/drive/MyDrive/ProjectP/menu_modules/menu_1_elliott_wave.py", line 179, in run_full_pipeline
+    pipeline_results = self.pipeline_orchestrator.run_integrated_pipeline(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'
+
+2025-07-01 05:28:51 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 05:28:51 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete

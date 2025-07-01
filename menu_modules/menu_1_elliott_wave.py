@@ -159,7 +159,10 @@ class Menu1ElliottWave:
             
             # Step 6: Train DQN Agent
             self.logger.info("🤖 Step 6: Training DQN Reinforcement Learning Agent")
-            dqn_results = self.dqn_agent.train_agent(X[selected_features], y)
+            # Prepare training data for DQN Agent
+            training_data_for_dqn = X[selected_features].copy()
+            training_data_for_dqn['target'] = y
+            dqn_results = self.dqn_agent.train_agent(training_data_for_dqn, episodes=50)
             
             # Save DQN Agent
             if dqn_results.get('agent'):

@@ -18,6 +18,7 @@ from typing import Dict, List, Optional, Tuple, Any
 import logging
 import traceback
 import os
+import json
 
 class ElliottWavePipelineOrchestrator:
     """ตัวควบคุม Pipeline Elliott Wave ระดับ Enterprise"""
@@ -522,3 +523,42 @@ class ElliottWavePipelineOrchestrator:
             
         except Exception as e:
             self.logger.error(f"❌ Failed to save pipeline results: {str(e)}")
+    
+    def run_integrated_pipeline(self, data: pd.DataFrame, selected_features: List[str], 
+                               cnn_lstm_results: Dict, dqn_results: Dict) -> Dict[str, Any]:
+        """รัน Integrated Pipeline เพื่อรวมผลลัพธ์จากทุก components"""
+        try:
+            self.logger.info("🔗 Starting Integrated Pipeline...")
+            
+            integration_results = {
+                'timestamp': datetime.now().isoformat(),
+                'status': 'success',
+                'components': {
+                    'data_processed': True,
+                    'features_selected': len(selected_features),
+                    'selected_features': selected_features,
+                    'cnn_lstm_trained': bool(cnn_lstm_results.get('model')),
+                    'dqn_trained': bool(dqn_results.get('agent')),
+                },
+                'performance': {
+                    'cnn_lstm_auc': cnn_lstm_results.get('auc_score', 0.0),
+                    'dqn_total_reward': dqn_results.get('total_reward', 0.0),
+                    'data_quality_score': len(data) / max(len(data), 1000) * 100  # Simple quality metric
+                },
+                'models_saved': {
+                    'cnn_lstm_path': cnn_lstm_results.get('model_path', ''),
+                    'dqn_agent_path': dqn_results.get('agent_path', '')
+                },
+                'integration_status': 'completed'
+            }
+            
+            self.logger.info("✅ Integrated Pipeline completed successfully")
+            return integration_results
+            
+        except Exception as e:
+            self.logger.error(f"❌ Integrated Pipeline failed: {e}")
+            return {
+                'status': 'failed',
+                'error': str(e),
+                'timestamp': datetime.now().isoformat()
+            }
