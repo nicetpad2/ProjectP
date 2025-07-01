@@ -17,14 +17,13 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
 
-# SHAP and Optuna Imports
-try:
-    import shap
-    import optuna
-    from optuna.pruners import MedianPruner
-    SHAP_OPTUNA_AVAILABLE = True
-except ImportError:
-    SHAP_OPTUNA_AVAILABLE = False
+# SHAP and Optuna Imports - Required for Enterprise Production
+import shap
+import optuna
+from optuna.pruners import MedianPruner
+
+# Enterprise Production - SHAP and Optuna are REQUIRED
+SHAP_OPTUNA_AVAILABLE = True
 
 # ML Imports
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
@@ -35,14 +34,22 @@ from sklearn.feature_selection import mutual_info_classif
 class SHAPOptunaFeatureSelector:
     """SHAP + Optuna Feature Selector สำหรับ Enterprise"""
     
-    def __init__(self, target_auc: float = 0.70, max_features: int = 30, logger: logging.Logger = None):
+    def __init__(self, target_auc: float = 0.70, max_features: int = 30, 
+                 logger: logging.Logger = None):
+        """Initialize SHAP + Optuna Feature Selector for Enterprise Production
+        
+        Args:
+            target_auc: Minimum AUC target (default 0.70 for enterprise)
+            max_features: Maximum number of features to select (default 30)
+            logger: Logger instance
+        """
         self.target_auc = target_auc
         self.max_features = max_features
         self.logger = logger or logging.getLogger(__name__)
         
-        # Optuna parameters
-        self.n_trials = 50
-        self.timeout = 180  # 3 minutes
+        # Optuna parameters - Optimized for production
+        self.n_trials = 100  # Increased for production quality
+        self.timeout = 300   # 5 minutes for thorough optimization
         self.cv_folds = 5
         
         # Results storage
@@ -52,87 +59,104 @@ class SHAPOptunaFeatureSelector:
         self.best_model = None
         self.best_auc = 0.0
         
-        # Check availability
-        if not SHAP_OPTUNA_AVAILABLE:
-            self.logger.warning("⚠️ SHAP/Optuna not available. Using fallback implementation.")
+        # Enterprise Production Mode - SHAP and Optuna are required
+        self.logger.info("🎯 SHAP + Optuna Feature Selector initialized for Enterprise Production")
     
     def select_features(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
-        """คัดเลือกฟีเจอร์ที่ดีที่สุด"""
-        try:
-            self.logger.info("🎯 Starting SHAP + Optuna Feature Selection...")
+        """Enterprise Production Feature Selection using SHAP + Optuna ONLY
+        
+        Args:
+            X: Feature matrix
+            y: Target variable
             
-            # Step 1: SHAP Analysis
-            self.shap_rankings = self.analyze_shap_importance(X, y)
-            
-            # Step 2: Optuna Optimization
-            self.optimization_results = self.optuna_feature_optimization(X, y, self.shap_rankings)
-            
-            # Step 3: Extract Best Features
-            self.selected_features = self.extract_best_features()
-            
-            # Step 4: Validate Results
-            validation_results = self.validate_selected_features(X, y)
-            
-            results = {
-                'selected_features': self.selected_features,
-                'shap_rankings': self.shap_rankings,
-                'optimization_results': self.optimization_results,
-                'validation_results': validation_results,
-                'best_auc': self.best_auc,
-                'target_achieved': self.best_auc >= self.target_auc,
-                'feature_count': len(self.selected_features)
-            }
-            
-            self.logger.info(f"✅ Feature selection completed: {len(self.selected_features)} features selected")
-            return self.selected_features, results
-            
-        except Exception as e:
-            self.logger.error(f"❌ Feature selection failed: {str(e)}")
-            return self._fallback_feature_selection(X, y)
+        Returns:
+            Tuple of (selected_features, selection_results)
+        """
+        self.logger.info("🎯 Starting Enterprise SHAP + Optuna Feature Selection...")
+        
+        # Step 1: SHAP Analysis (Required)
+        self.shap_rankings = self.analyze_shap_importance(X, y)
+        
+        # Step 2: Optuna Optimization (Required)
+        self.optimization_results = self.optuna_feature_optimization(
+            X, y, self.shap_rankings
+        )
+        
+        # Step 3: Extract Best Features
+        self.selected_features = self.extract_best_features()
+        
+        # Step 4: Validate Results - Enforce Enterprise Standards
+        validation_results = self.validate_selected_features(X, y)
+        
+        # Enterprise Compliance Check
+        if self.best_auc < self.target_auc:
+            raise ValueError(
+                f"❌ ENTERPRISE COMPLIANCE FAILURE: AUC {self.best_auc:.4f} < "
+                f"target {self.target_auc:.2f}. Production deployment blocked."
+            )
+        
+        # Compile final results
+        results = {
+            'selected_features': self.selected_features,
+            'shap_rankings': self.shap_rankings,
+            'optimization_results': self.optimization_results,
+            'validation_results': validation_results,
+            'best_auc': self.best_auc,
+            'target_achieved': True,  # Must be True to reach this point
+            'feature_count': len(self.selected_features),
+            'enterprise_compliant': True,
+            'production_ready': True
+        }
+        
+        self.logger.info(f"✅ Enterprise Feature Selection Completed: "
+                       f"{len(self.selected_features)} features selected")
+        self.logger.info(f"🎯 AUC Achieved: {self.best_auc:.4f} "
+                       f"(Target: {self.target_auc:.2f}) ✅")
+        
+        return self.selected_features, results
     
     def analyze_shap_importance(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, float]:
-        """วิเคราะห์ความสำคัญของฟีเจอร์ด้วย SHAP"""
-        try:
-            self.logger.info("🧠 Analyzing SHAP feature importance...")
-            
-            if not SHAP_OPTUNA_AVAILABLE:
-                return self._fallback_importance_analysis(X, y)
-            
-            # Sample data for faster computation
-            sample_size = min(1000, len(X))
-            sample_indices = np.random.choice(len(X), sample_size, replace=False)
-            X_sample = X.iloc[sample_indices]
-            y_sample = y.iloc[sample_indices]
-            
-            # Train a model for SHAP analysis
-            model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
-            model.fit(X_sample, y_sample)
-            
-            # Calculate SHAP values
-            explainer = shap.TreeExplainer(model)
-            shap_values = explainer.shap_values(X_sample)
-            
-            # Get feature importance (for binary classification, use class 1)
-            if isinstance(shap_values, list):
-                shap_values = shap_values[1]  # Positive class
-            
-            # Calculate mean absolute SHAP values
-            feature_importance = np.abs(shap_values).mean(axis=0)
-            
-            # Create ranking dictionary
-            rankings = {}
-            for i, feature in enumerate(X.columns):
-                rankings[feature] = float(feature_importance[i])
-            
-            # Sort by importance
-            rankings = dict(sorted(rankings.items(), key=lambda x: x[1], reverse=True))
-            
-            self.logger.info("✅ SHAP analysis completed")
-            return rankings
-            
-        except Exception as e:
-            self.logger.warning(f"⚠️ SHAP analysis failed, using fallback: {str(e)}")
-            return self._fallback_importance_analysis(X, y)
+        """Enterprise SHAP Feature Importance Analysis - Production Only"""
+        self.logger.info("🧠 Analyzing SHAP feature importance...")
+        
+        # Sample data for efficient computation
+        sample_size = min(2000, len(X))  # Increased for production quality
+        sample_indices = np.random.choice(len(X), sample_size, replace=False)
+        X_sample = X.iloc[sample_indices]
+        y_sample = y.iloc[sample_indices]
+        
+        # Train Random Forest model for SHAP analysis
+        model = RandomForestClassifier(
+            n_estimators=200,  # Increased for production stability
+            random_state=42, 
+            n_jobs=-1,
+            max_depth=10
+        )
+        model.fit(X_sample, y_sample)
+        
+        # Calculate SHAP values
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(X_sample)
+        
+        # Handle binary classification SHAP values
+        if isinstance(shap_values, list):
+            shap_values = shap_values[1]  # Use positive class
+        
+        # Calculate mean absolute SHAP values for feature importance
+        feature_importance = np.abs(shap_values).mean(axis=0)
+        
+        # Create feature importance ranking
+        rankings = {}
+        for i, feature in enumerate(X.columns):
+            rankings[feature] = float(feature_importance[i])
+        
+        # Sort by importance (descending)
+        rankings = dict(sorted(rankings.items(), key=lambda x: x[1], reverse=True))
+        
+        self.logger.info(f"✅ SHAP analysis completed for {len(X.columns)} features")
+        self.logger.info(f"🎯 Top 5 features: {list(rankings.keys())[:5]}")
+        
+        return rankings
     
     def _fallback_importance_analysis(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, float]:
         """Fallback สำหรับการวิเคราะห์ความสำคัญ"""
@@ -157,45 +181,57 @@ class SHAPOptunaFeatureSelector:
             return {feature: 1.0 for feature in X.columns}
     
     def optuna_feature_optimization(self, X: pd.DataFrame, y: pd.Series, shap_rankings: Dict[str, float]) -> Dict[str, Any]:
-        """ใช้ Optuna เพื่อหาฟีเจอร์และพารามิเตอร์ที่ดีที่สุด"""
-        try:
-            self.logger.info("⚡ Starting Optuna optimization...")
-            
-            if not SHAP_OPTUNA_AVAILABLE:
-                return self._fallback_optimization(X, y, shap_rankings)
-            
-            # Create Optuna study
-            study = optuna.create_study(
-                direction='maximize',
-                pruner=MedianPruner(n_startup_trials=5, n_warmup_steps=10)
+        """Enterprise Optuna Feature Optimization - Production Only"""
+        self.logger.info("⚡ Starting Enterprise Optuna optimization...")
+        
+        # Create Optuna study with production-grade configuration
+        study = optuna.create_study(
+            direction='maximize',
+            pruner=MedianPruner(n_startup_trials=10, n_warmup_steps=20),
+            study_name="Enterprise_Feature_Selection"
+        )
+        
+        # Define objective function
+        def objective(trial):
+            return self._objective_function(trial, X, y, shap_rankings)
+        
+        # Run optimization with production parameters
+        study.optimize(
+            objective, 
+            n_trials=self.n_trials, 
+            timeout=self.timeout,
+            show_progress_bar=False  # Production mode
+        )
+        
+        # Extract and validate results
+        best_params = study.best_params
+        best_auc = study.best_value
+        
+        # Enterprise compliance check
+        if best_auc is None or best_auc < self.target_auc:
+            raise ValueError(
+                f"❌ ENTERPRISE FAILURE: Optuna optimization failed to achieve "
+                f"target AUC {self.target_auc}. Best AUC: {best_auc}"
             )
-            
-            # Define objective function
-            def objective(trial):
-                return self._objective_function(trial, X, y, shap_rankings)
-            
-            # Optimize
-            study.optimize(objective, n_trials=self.n_trials, timeout=self.timeout)
-            
-            # Extract results
-            best_params = study.best_params
-            best_auc = study.best_value
-            
-            self.best_auc = best_auc
-            
-            results = {
-                'best_params': best_params,
-                'best_auc': best_auc,
-                'n_trials': len(study.trials),
-                'optimization_history': [trial.value for trial in study.trials if trial.value is not None]
-            }
-            
-            self.logger.info(f"✅ Optuna optimization completed: Best AUC = {best_auc:.3f}")
-            return results
-            
-        except Exception as e:
-            self.logger.warning(f"⚠️ Optuna optimization failed, using fallback: {str(e)}")
-            return self._fallback_optimization(X, y, shap_rankings)
+        
+        self.best_auc = best_auc
+        
+        # Compile optimization results
+        results = {
+            'best_params': best_params,
+            'best_auc': best_auc,
+            'n_trials': len(study.trials),
+            'successful_trials': len([t for t in study.trials if t.value is not None]),
+            'optimization_history': [
+                trial.value for trial in study.trials if trial.value is not None
+            ],
+            'enterprise_compliant': True
+        }
+        
+        self.logger.info(f"✅ Enterprise Optuna optimization completed")
+        self.logger.info(f"🎯 Best AUC: {best_auc:.4f} from {len(study.trials)} trials")
+        
+        return results
     
     def _objective_function(self, trial, X: pd.DataFrame, y: pd.Series, shap_rankings: Dict[str, float]) -> float:
         """Objective Function สำหรับ Optuna"""
