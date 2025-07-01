@@ -23,14 +23,30 @@ class MenuSystem:
     
     def _import_menu_modules(self):
         """นำเข้าโมดูลเมนูต่างๆ"""
+        self.menu_1 = None
+        self.menu_errors = []
+        
+        # Try to import Menu 1 with detailed error handling
         try:
             from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
             self.menu_1 = Menu1ElliottWave(self.config, self.logger)
             self.logger.info("✅ Menu 1 Elliott Wave Module Loaded")
             
         except ImportError as e:
-            self.logger.error(f"❌ Failed to import Menu 1: {e}")
-            sys.exit(1)
+            error_msg = f"Unable to import required dependencies:\n{str(e)}"
+            self.menu_errors.append(("Menu 1", error_msg))
+            self.logger.error(f"❌ Failed to import Menu 1: {error_msg}")
+            
+        except Exception as e:
+            error_msg = f"Menu initialization error: {str(e)}"
+            self.menu_errors.append(("Menu 1", error_msg))
+            self.logger.error(f"❌ Menu 1 initialization failed: {error_msg}")
+        
+        # Show warning if some menus failed to load
+        if self.menu_errors:
+            print("⚠️ Warning: Some menu modules could not be imported:", end=" ")
+            for menu_name, error in self.menu_errors:
+                print(error.split('\n')[0])  # Show first line of error
     
     def display_main_menu(self):
         """แสดงเมนูหลัก"""
@@ -40,20 +56,36 @@ class MenuSystem:
         print("="*80)
         print()
         print("📋 MAIN MENU:")
-        print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN)")
-        print("  2. 📊 Data Analysis & Preprocessing")
-        print("  3. 🤖 Model Training & Optimization")
-        print("  4. 🎯 Strategy Backtesting")
-        print("  5. 📈 Performance Analytics")
+        
+        # Show Menu 1 status based on availability
+        if self.menu_1:
+            print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN)")
+        else:
+            print("  1. 🌊 Full Pipeline (Elliott Wave CNN-LSTM + DQN) [DISABLED - Dependencies missing]")
+            
+        print("  2. 📊 Data Analysis & Preprocessing [Under Development]")
+        print("  3. 🤖 Model Training & Optimization [Under Development]")
+        print("  4. 🎯 Strategy Backtesting [Under Development]")
+        print("  5. 📈 Performance Analytics [Under Development]")
+        print("  D. 🔧 Dependency Check & Fix")
         print("  E. 🚪 Exit System")
         print("  R. 🔄 Reset & Restart")
         print()
+        
+        # Show dependency warnings if any
+        if self.menu_errors:
+            print("⚠️  DEPENDENCY ISSUES:")
+            for menu_name, error in self.menu_errors:
+                print(f"    {menu_name}: Dependencies missing")
+            print("    💡 Try option 'D' to fix dependencies")
+            print()
+            
         print("="*80)
     
     def get_user_choice(self) -> str:
         """รับข้อมูลจากผู้ใช้"""
         try:
-            choice = input("🎯 Select option (1-5, E, R): ").strip().upper()
+            choice = input("🎯 Select option (1-5, D, E, R): ").strip().upper()
             return choice
         except (EOFError, KeyboardInterrupt):
             return 'E'
@@ -62,6 +94,13 @@ class MenuSystem:
         """จัดการตัวเลือกเมนู"""
         try:
             if choice == '1':
+                # Check if Menu 1 is available
+                if not self.menu_1:
+                    print("❌ Menu 1 is not available due to missing dependencies")
+                    print("💡 Please try option 'D' to fix dependencies")
+                    input("Press Enter to continue...")
+                    return True
+                
                 self.logger.info("🌊 Starting Elliott Wave Full Pipeline...")
                 
                 # Import Menu1Logger for enterprise-grade logging
@@ -146,6 +185,11 @@ class MenuSystem:
                 input("Press Enter to continue...")
                 return True
                 
+            elif choice == 'D':
+                print("🔧 Dependency Check & Fix")
+                self._run_dependency_fix()
+                return True
+                
             elif choice == 'E':
                 print("🚪 Exiting NICEGOLD Enterprise System...")
                 self.running = False
@@ -157,7 +201,7 @@ class MenuSystem:
                 
             else:
                 print(f"❌ Invalid option: {choice}")
-                print("Please select 1-5, E, or R")
+                print("Please select 1-5, D, E, or R")
                 input("Press Enter to continue...")
                 return True
                 
@@ -166,6 +210,82 @@ class MenuSystem:
             print(f"❌ Error: {str(e)}")
             input("Press Enter to continue...")
             return True
+    
+    def _run_dependency_fix(self):
+        """แก้ไขปัญหา dependencies"""
+        import subprocess
+        import sys
+        
+        print("🔧 NICEGOLD Dependency Fix & Check")
+        print("=" * 50)
+        
+        # Check current NumPy status
+        print("📊 Checking NumPy status...")
+        try:
+            import numpy as np
+            print(f"✅ NumPy {np.__version__} is working")
+            numpy_ok = True
+        except Exception as e:
+            print(f"❌ NumPy error: {e}")
+            numpy_ok = False
+        
+        # If NumPy has issues, try to fix
+        if not numpy_ok:
+            print("\n🔧 Attempting to fix NumPy...")
+            try:
+                # Uninstall and reinstall NumPy 1.26.4
+                print("   Uninstalling NumPy...")
+                subprocess.run([sys.executable, "-m", "pip", "uninstall", "numpy", "-y"], 
+                             capture_output=True, check=True)
+                
+                print("   Installing NumPy 1.26.4...")
+                subprocess.run([sys.executable, "-m", "pip", "install", "numpy==1.26.4", 
+                               "--no-cache-dir", "--force-reinstall"], 
+                             capture_output=True, check=True)
+                
+                print("✅ NumPy reinstallation completed")
+                
+                # Test NumPy again
+                try:
+                    import numpy as np
+                    print(f"✅ NumPy {np.__version__} is now working!")
+                except Exception as e:
+                    print(f"❌ NumPy still has issues: {e}")
+                    
+            except Exception as fix_error:
+                print(f"❌ Failed to fix NumPy: {fix_error}")
+        
+        # Test SHAP
+        print("\n📊 Checking SHAP status...")
+        try:
+            import shap
+            print(f"✅ SHAP {shap.__version__} is working")
+        except Exception as e:
+            print(f"❌ SHAP error: {e}")
+            
+            # Try to install SHAP
+            try:
+                print("   Installing SHAP...")
+                subprocess.run([sys.executable, "-m", "pip", "install", "shap==0.45.0"], 
+                             capture_output=True, check=True)
+                print("✅ SHAP installation completed")
+            except Exception as shap_error:
+                print(f"❌ Failed to install SHAP: {shap_error}")
+        
+        # Re-attempt to import Menu 1
+        print("\n🔄 Re-checking Menu 1 availability...")
+        try:
+            from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
+            self.menu_1 = Menu1ElliottWave(self.config, self.logger)
+            self.menu_errors = []  # Clear errors
+            print("✅ Menu 1 is now available!")
+            
+        except Exception as e:
+            print(f"❌ Menu 1 still unavailable: {e}")
+            
+        print("\n🎯 Dependency check completed!")
+        print("💡 Return to main menu to try Menu 1 again")
+        input("Press Enter to continue...")
     
     def start(self):
         """เริ่มต้นระบบเมนู"""
