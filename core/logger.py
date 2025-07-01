@@ -3,27 +3,35 @@
 📊 NICEGOLD ENTERPRISE LOGGER
 ระบบการบันทึกข้อมูลระดับ Enterprise
 Advanced Logging System with Progress Tracking & Real-time Monitoring
+
+🎯 Features:
+- Beautiful colored console output
+- Progress tracking with visual bars
+- Real-time error/warning alerts
+- Comprehensive file logging
+- Performance monitoring
+- Process status tracking
 """
 
 import logging
 import sys
 import platform
 from datetime import datetime
-from typing import Dict, Optional, List, Any, Callable
+from typing import Dict, List, Callable
 import os
 import io
 import json
 import traceback
 import threading
-import time
 from pathlib import Path
 from enum import Enum
 from collections import defaultdict
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 # Initialize colorama for Windows
 colorama.init(autoreset=True)
+
 
 class LogLevel(Enum):
     """Log Levels"""
@@ -35,6 +43,7 @@ class LogLevel(Enum):
     SUCCESS = "SUCCESS"
     PROGRESS = "PROGRESS"
 
+
 class ProcessStatus(Enum):
     """Process Status"""
     STARTED = "STARTED"
@@ -43,6 +52,7 @@ class ProcessStatus(Enum):
     FAILED = "FAILED"
     CANCELLED = "CANCELLED"
     WAITING = "WAITING"
+
 
 class ProgressTracker:
     """Advanced Progress Tracking System"""

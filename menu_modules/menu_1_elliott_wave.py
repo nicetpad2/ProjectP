@@ -127,14 +127,25 @@ class Menu1ElliottWave:
     
     def run_full_pipeline(self) -> Dict[str, Any]:
         """รัน Elliott Wave Pipeline แบบเต็มรูปแบบ - ใช้ข้อมูลจริงเท่านั้น"""
+        # Import Menu1Logger here to avoid circular imports
+        from core.menu1_logger import start_menu1_session, log_step, log_error, log_success, complete_menu1_session, ProcessStatus
+        
+        # Start enterprise logging session
+        menu1_logger = start_menu1_session()
+        
         try:
-            self.logger.info("🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY")
-            
             # Step 1: Load REAL data from datacsv/
-            self.logger.info("📊 Step 1: Loading REAL market data from datacsv/")
+            log_step(1, "Loading REAL Market Data", ProcessStatus.RUNNING, 
+                    "Loading from datacsv/ folder only", 10)
+            
             data = self.data_processor.load_real_data()
             if data is None or data.empty:
+                log_error("NO REAL DATA available in datacsv/ folder!", 
+                         step_name="Data Loading")
                 raise ValueError("❌ NO REAL DATA available in datacsv/ folder!")
+            
+            log_success(f"Successfully loaded {len(data):,} rows of real market data",
+                       "Data Loading", {"rows": len(data), "columns": len(data.columns)})
             
             # Save raw data
             self.output_manager.save_data(data, "raw_market_data", "csv")
