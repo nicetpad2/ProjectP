@@ -5,7 +5,7 @@ Production-Ready Feature Selection System - NO FALLBACKS ALLOWED
 
 Enterprise Features:
 - SHAP Feature Importance Analysis (REQUIRED)
-- Optuna Hyperparameter Optimization (REQUIRED)  
+- Optuna Hyperparameter Optimization (REQUIRED)
 - Automatic Feature Selection
 - AUC ≥ 70% Target Achievement
 - Anti-Overfitting Protection
@@ -16,7 +16,7 @@ Enterprise Features:
 import numpy as np
 import pandas as pd
 from datetime import datetime
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Any, Optional
 import logging
 
 # Enterprise Production Imports - REQUIRED
@@ -35,8 +35,8 @@ class EnterpriseShapOptunaFeatureSelector:
     Production-ready feature selection with strict compliance
     """
     
-    def __init__(self, target_auc: float = 0.70, max_features: int = 30, 
-                 logger: logging.Logger = None):
+    def __init__(self, target_auc: float = 0.70, max_features: int = 30,
+                 logger: Optional[logging.Logger] = None):
         """Initialize Enterprise Feature Selector
         
         Args:
@@ -60,9 +60,13 @@ class EnterpriseShapOptunaFeatureSelector:
         self.best_model = None
         self.best_auc = 0.0
         
-        self.logger.info("🎯 Enterprise SHAP + Optuna Feature Selector initialized")
+        self.logger.info(
+            "🎯 Enterprise SHAP + Optuna Feature Selector initialized"
+        )
     
-    def select_features(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
+    def select_features(self, X: pd.DataFrame, y: pd.Series) -> Tuple[
+        List[str], Dict[str, Any]
+    ]:
         """
         Enterprise Production Feature Selection
         
@@ -76,7 +80,9 @@ class EnterpriseShapOptunaFeatureSelector:
         Raises:
             ValueError: If AUC target is not achieved
         """
-        self.logger.info("🎯 Starting Enterprise SHAP + Optuna Feature Selection...")
+        self.logger.info(
+            "🎯 Starting Enterprise SHAP + Optuna Feature Selection..."
+        )
         
         # Step 1: SHAP Feature Importance Analysis
         self.logger.info("🧠 Step 1: SHAP Feature Importance Analysis")
@@ -119,7 +125,7 @@ class EnterpriseShapOptunaFeatureSelector:
         self.logger.info(f"✅ Enterprise Feature Selection SUCCESS: "
                        f"{len(self.selected_features)} features selected")
         self.logger.info(f"🎯 AUC Achieved: {self.best_auc:.4f} "
-                       f"(Target: {self.target_auc:.2f}) ✅")
+                        f"(Target: {self.target_auc:.2f}) ✅")
         
         return self.selected_features, results
     
