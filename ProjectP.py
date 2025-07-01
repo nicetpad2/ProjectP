@@ -8,7 +8,21 @@
 🚫 DO NOT create alternative main files - use this file only
 """
 
+# 🛠️ CUDA FIX: Apply immediate CUDA fixes before any imports
+import os
 import sys
+import warnings
+
+# Force CPU-only operation to prevent CUDA errors
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
+# Suppress all CUDA-related warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=UserWarning)
 
 # Enterprise Compliance Check
 from core.compliance import EnterpriseComplianceValidator

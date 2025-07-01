@@ -1,0 +1,39 @@
+
+# Enterprise ML Configuration - CPU Only
+# For NICEGOLD ProjectP Production Environment
+
+ml_config:
+  # Core Settings
+  device: "cpu"
+  force_cpu: true
+  suppress_warnings: true
+  
+  # TensorFlow Settings
+  tensorflow:
+    device: "cpu"
+    log_level: "ERROR"
+    disable_gpu: true
+    enable_onednn: false
+    
+  # PyTorch Settings
+  pytorch:
+    device: "cpu"
+    num_threads: 4
+    disable_cuda: true
+    
+  # Scikit-learn Settings
+  sklearn:
+    n_jobs: 4
+    random_state: 42
+    
+  # Performance Settings
+  performance:
+    batch_size: 1000
+    max_workers: 4
+    memory_limit: "8GB"
+    
+  # Production Settings
+  production:
+    model_format: "joblib"
+    save_metadata: true
+    validate_inputs: true

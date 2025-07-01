@@ -474,3 +474,11 @@ AttributeError: 'ElliottWavePerformanceAnalyzer' object has no attribute 'analyz
 2025-07-01 07:20:10 | INFO | NICEGOLD_Enterprise | _initialize_components:172 | ✅ DQN Agent initialized (PyTorch: True)
 2025-07-01 07:20:10 | INFO | NICEGOLD_Enterprise | __init__:63 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
 2025-07-01 07:20:10 | ERROR | NICEGOLD_Enterprise | _initialize_components:125 | ❌ Failed to initialize components: EnterpriseMLProtectionSystem.__init__() got an unexpected keyword argument 'config'
+2025-07-01 07:25:01 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 07:25:01 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 07:25:14 | INFO | NICEGOLD_Enterprise | main:39 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 07:25:14 | INFO | NICEGOLD_Enterprise | main:40 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 07:25:23 | INFO | NICEGOLD_Enterprise | _initialize_components:67 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 07:25:23 | INFO | NICEGOLD_Enterprise | __init__:62 | 🛡️ Enterprise ML Protection System initialized with config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 07:25:23 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 07:25:23 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)

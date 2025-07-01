@@ -11,6 +11,21 @@ Enterprise Features:
 - Production-Ready Execution
 """
 
+# 🛠️ CUDA FIX: Force CPU-only operation to prevent CUDA errors
+import os
+import warnings
+
+# Environment variables to force CPU-only operation
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+# Suppress CUDA warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=UserWarning)
+
+
 import numpy as np
 import pandas as pd
 from datetime import datetime
