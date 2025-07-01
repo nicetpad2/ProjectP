@@ -1,5 +1,18 @@
 datacsv/XAUUSD_M1.csv
 datacsv/XAUUSD_M15.csv
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Log files
+logs/*.log
+
+# Temporary files
+temp_logs/
+
+# Existing specific cache files
 core/__pycache__/__init__.cpython-311.pyc
 core/__pycache__/compliance.cpython-311.pyc
 core/__pycache__/config.cpython-311.pyc
