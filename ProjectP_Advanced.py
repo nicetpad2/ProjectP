@@ -21,7 +21,7 @@ from core.advanced_logger import get_advanced_logger
 
 # Import core systems
 from core.project_paths import get_project_paths
-from core.config import load_config
+from core.config import load_enterprise_config
 from core.compliance import validate_enterprise_compliance
 
 
@@ -49,7 +49,7 @@ class NicegoldProjectPAdvanced:
             self.logger.info("🔧 Initializing system components...")
             
             # Load configuration
-            self.config = load_config()
+            self.config = load_enterprise_config()
             if not self.config:
                 self.logger.warning("Configuration not loaded, using defaults")
                 self.config = {}

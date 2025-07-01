@@ -4,12 +4,11 @@
 ระบบ AI-Powered Algorithmic Trading System ระดับ Enterprise
 
 📊 Main Entry Point - สำหรับรันระบบหลัก
+⚠️ THIS IS THE ONLY AUTHORIZED MAIN ENTRY POINT
+🚫 DO NOT create alternative main files - use this file only
 """
 
 import sys
-import os
-from datetime import datetime
-from typing import Dict, List, Optional
 
 # Enterprise Compliance Check
 from core.compliance import EnterpriseComplianceValidator
@@ -17,12 +16,14 @@ from core.menu_system import MenuSystem
 from core.logger import setup_enterprise_logger
 from core.config import load_enterprise_config
 
+
 def main():
-    """จุดเริ่มต้นของระบบ NICEGOLD Enterprise"""
+    """จุดเริ่มต้นของระบบ NICEGOLD Enterprise - ONLY AUTHORIZED ENTRY POINT"""
     
     # Setup Enterprise Logger
     logger = setup_enterprise_logger()
     logger.info("🚀 NICEGOLD Enterprise ProjectP Starting...")
+    logger.info("📌 Using ONLY authorized entry point: ProjectP.py")
     
     # Load Enterprise Configuration
     config = load_enterprise_config()
@@ -49,6 +50,7 @@ def main():
         
     finally:
         logger.info("✅ NICEGOLD Enterprise ProjectP Shutdown Complete")
+
 
 if __name__ == "__main__":
     main()
