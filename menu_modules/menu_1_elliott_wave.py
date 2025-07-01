@@ -461,9 +461,13 @@ class Menu1ElliottWave:
                 }
             }
             
-            report_path = self.output_manager.generate_report(
-                "Elliott Wave Complete Analysis",
-                report_content
+            # Convert report content to formatted string
+            report_string = self._format_report_content(report_content)
+            
+            report_path = self.output_manager.save_report(
+                report_string,
+                "elliott_wave_complete_analysis",
+                "txt"
             )
             
             # Save session summary
@@ -836,3 +840,29 @@ class Menu1ElliottWave:
             "status": "Production Ready",
             "last_results": self.results
         }
+    
+    def _format_report_content(self, content: dict) -> str:
+        """แปลง report content dictionary เป็น formatted string"""
+        lines = []
+        lines.append("=" * 80)
+        lines.append("📊 ELLIOTT WAVE PIPELINE - COMPLETE ANALYSIS REPORT")
+        lines.append("=" * 80)
+        lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append("")
+        
+        for section_title, section_data in content.items():
+            lines.append(f"\n{section_title}")
+            lines.append("-" * len(section_title))
+            
+            if isinstance(section_data, dict):
+                for key, value in section_data.items():
+                    lines.append(f"  • {key}: {value}")
+            else:
+                lines.append(f"  {section_data}")
+            lines.append("")
+        
+        lines.append("=" * 80)
+        lines.append("🏆 Report completed successfully!")
+        lines.append("=" * 80)
+        
+        return "\n".join(lines)
