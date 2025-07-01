@@ -25,3 +25,17 @@ AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report
 2025-07-01 15:00:15 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:337 | ❌ AUC Score 0.0000 < 0.70 - Enterprise requirement failed!
 2025-07-01 15:36:23 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:337 | ❌ AUC Score 0.0000 < 0.70 - Enterprise requirement failed!
 2025-07-01 16:24:57 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:423 | ❌ AUC Score 0.5021 < 0.70 - Enterprise requirement failed!
+2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:423 | ❌ AUC Score 0.5236 < 0.70 - Enterprise requirement failed!
+2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:242 | ❌ Elliott Wave Pipeline failed: name 'อย่างสมบูรณ์' is not defined
+2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:243 | Traceback: Traceback (most recent call last):
+  File "/mnt/data/projects/ProjectP/menu_modules/menu_1_elliott_wave.py", line 228, in run_full_pipeline
+    self.logger.info("✅ All Elliott Wave components initialized successfully!")
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/projects/ProjectP/menu_modules/menu_1_elliott_wave.py", line 450, in _display_results
+    ("🧠 Feature Selection", "SHAP + Optuna optimization"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'อย่างสมบูรณ์' is not defined
+
+2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | handle_menu_choice:255 | 💥 Menu error: EOF when reading a line
+2025-07-01 17:06:29 | ERROR | NICEGOLD_Enterprise | start:353 | 💥 System error: EOF when reading a line
+2025-07-01 17:10:19 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:48 | ❌ Menu 1 initialization failed: Menu initialization error: unmatched '}' (menu_1_elliott_wave.py, line 639)
