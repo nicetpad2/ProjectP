@@ -1198,6 +1198,47 @@ class EnterpriseMLProtectionSystem:
             error_msg = f"❌ Failed to generate protection report: {str(e)}"
             self.logger.error(error_msg)
             return error_msg
+    
+    def validate_configuration(self) -> Dict[str, Any]:
+        """ตรวจสอบความถูกต้องของ configuration"""
+        validation_results = {
+            'valid': True,
+            'issues': [],
+            'warnings': []
+        }
+        
+        # Check thresholds
+        if self.protection_config.get('overfitting_threshold', 0) <= 0:
+            validation_results['issues'].append("overfitting_threshold must be > 0")
+            validation_results['valid'] = False
+        
+        if self.protection_config.get('noise_threshold', 0) <= 0:
+            validation_results['issues'].append("noise_threshold must be > 0")
+            validation_results['valid'] = False
+        
+        if self.protection_config.get('leak_detection_window', 0) <= 0:
+            validation_results['issues'].append("leak_detection_window must be > 0")
+            validation_results['valid'] = False
+        
+        # Check reasonable ranges
+        if self.protection_config.get('overfitting_threshold', 0) > 0.5:
+            validation_results['warnings'].append("overfitting_threshold > 0.5 may be too high")
+        
+        if self.protection_config.get('noise_threshold', 0) > 0.2:
+            validation_results['warnings'].append("noise_threshold > 0.2 may be too high")
+        
+        return validation_results
+    
+    def get_protection_status(self) -> str:
+        """ดึงสถานะการป้องกันปัจจุบัน"""
+        validation = self.validate_configuration()
+        if not validation['valid']:
+            return "CONFIGURATION_ERROR"
+        elif validation['warnings']:
+            return "ACTIVE_WITH_WARNINGS"
+        else:
+            return "ACTIVE"
+    
 
 
 # Alias for backward compatibility

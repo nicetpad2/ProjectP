@@ -93,6 +93,7 @@ class Menu1ElliottWave:
             
             # Enterprise ML Protection System
             self.ml_protection = EnterpriseMLProtectionSystem(
+                config=self.config,
                 logger=self.logger
             )
             
@@ -113,11 +114,8 @@ class Menu1ElliottWave:
                 logger=self.logger
             )
             
-            # Enterprise ML Protection System
-            self.ml_protection_system = EnterpriseMLProtectionSystem(
-                config=self.config,
-                logger=self.logger
-            )
+            # Keep reference for backward compatibility
+            self.ml_protection_system = self.ml_protection
             
             self.logger.info("✅ Elliott Wave Components Initialized Successfully")
             
