@@ -6,7 +6,30 @@ Production-Ready Feature Selection System - NO FALLBACKS ALLOWED
 Enterprise Features:
 - SHAP Feature Importance Analysis (REQUIRED)
 - Optuna Hyperparameter Optimization (REQUIRED)
-- Automatic Feature Selection
+- Automatic            if model_type == 'rf':
+                # Enhanced Random Forest hyperparameters
+                n_estimators = trial.suggest_int('rf_n_estimators', 200, 800)
+                max_depth = trial.suggest_int('rf_max_depth', 8, 25)
+                min_samples_split = trial.suggest_int('rf_min_samples_split', 2, 8)
+                min_samples_leaf = trial.suggest_int('rf_min_samples_leaf', 1, 4)
+                max_features = trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.6, 0.8])
+                
+                model = RandomForestClassifier(
+                    n_estimators=n_estimators,
+                    max_depth=max_depth,
+                    min_samples_split=min_samples_split,
+                    min_samples_leaf=min_samples_leaf,
+                    max_features=max_features,
+                    random_state=42,
+                    n_jobs=-1,
+                    class_weight='balanced'
+                )
+            else:
+                # Enhanced Gradient Boosting hyperparameters
+                n_estimators = trial.suggest_int('gb_n_estimators', 200, 500)
+                max_depth = trial.suggest_int('gb_max_depth', 4, 15)
+                learning_rate = trial.suggest_float('gb_learning_rate', 0.01, 0.2)
+                subsample = trial.suggest_float('gb_subsample', 0.7, 1.0)
 - AUC ≥ 70% Target Achievement
 - Anti-Overfitting Protection
 - ZERO Fallback/Placeholder/Test Data
@@ -51,21 +74,26 @@ class EnterpriseShapOptunaFeatureSelector:
     """
     
     def __init__(self, target_auc: float = 0.70, max_features: int = 30,
+                 n_trials: int = 100, timeout: int = 300,
                  logger: Optional[logging.Logger] = None):
         """Initialize Enterprise Feature Selector
         
         Args:
             target_auc: Minimum AUC target (default 0.70 for enterprise)
             max_features: Maximum number of features to select
+            n_trials: Number of Optuna optimization trials
+            timeout: Timeout in seconds for optimization
             logger: Logger instance
         """
         self.target_auc = target_auc
         self.max_features = max_features
+        self.n_trials = n_trials
+        self.timeout = timeout
         self.logger = logger or logging.getLogger(__name__)
         
         # Production-grade Optuna parameters
-        self.n_trials = 150  # Increased for production quality
-        self.timeout = 600   # 10 minutes for thorough optimization
+        self.n_trials = self.n_trials  # Use constructor parameter
+        self.timeout = self.timeout     # Use constructor parameter
         self.cv_folds = 5
         
         # Results storage
@@ -293,6 +321,7 @@ class EnterpriseShapOptunaFeatureSelector:
                     n_estimators=n_estimators,
                     max_depth=max_depth,
                     learning_rate=learning_rate,
+                    subsample=subsample,
                     random_state=42
                 )
             

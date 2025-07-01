@@ -190,11 +190,13 @@ class Menu1ElliottWaveFixed:
                 logger=self.logger
             )
             
-            # Feature Selector
+            # Feature Selector with enhanced parameters
             self.beautiful_logger.log_info("Initializing Feature Selector...")
             self.feature_selector = EnterpriseShapOptunaFeatureSelector(
                 target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
                 max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
+                n_trials=150,  # Enhanced for production quality
+                timeout=600,   # 10 minutes for thorough optimization
                 logger=self.logger
             )
             
@@ -533,7 +535,7 @@ class Menu1ElliottWaveFixed:
         dqn = self.results.get('dqn_results', {})
         data_info = self.results.get('data_info', {})
         compliance = self.results.get('enterprise_compliance', {})
-        อย่างสมบูรณ์
+        
         # Extract AUC from evaluation_results (NEW FORMAT)
         eval_results = cnn_lstm.get('evaluation_results', {})
         auc_score = eval_results.get('auc', cnn_lstm.get('auc_score', 0.0))

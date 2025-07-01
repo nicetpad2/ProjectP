@@ -365,22 +365,128 @@ class ElliottWaveDataProcessor:
         df['bb_width'] = df['bb_upper'] - df['bb_lower']
         df['bb_position'] = (df['close'] - df['bb_lower']) / df['bb_width']
         
+        # Enhanced technical indicators for better AUC performance
+        
+        # Additional RSI periods
+        for period in [21, 30]:
+            delta = df['close'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+            rs = gain / (loss + 1e-8)
+            df[f'rsi_{period}'] = 100 - (100 / (1 + rs))
+            df[f'rsi_{period}_oversold'] = (df[f'rsi_{period}'] < 30).astype(int)
+            df[f'rsi_{period}_overbought'] = (df[f'rsi_{period}'] > 70).astype(int)
+        
+        # Additional MACD variations
+        for fast, slow, signal in [(8, 21, 5), (19, 39, 9)]:
+            ema_fast = df['close'].ewm(span=fast).mean()
+            ema_slow = df['close'].ewm(span=slow).mean()
+            macd_line = ema_fast - ema_slow
+            macd_signal_line = macd_line.ewm(span=signal).mean()
+            macd_histogram = macd_line - macd_signal_line
+            
+            suffix = f'_{fast}_{slow}_{signal}'
+            df[f'macd{suffix}'] = macd_line
+            df[f'macd_signal{suffix}'] = macd_signal_line
+            df[f'macd_histogram{suffix}'] = macd_histogram
+            df[f'macd_crossover{suffix}'] = np.where(macd_line > macd_signal_line, 1, -1)
+        
+        # Moving average ratios and signals
+        for period in [5, 10, 20, 50, 100]:
+            df[f'price_sma_ratio_{period}'] = df['close'] / (df[f'sma_{period}'] + 1e-8)
+            df[f'price_ema_ratio_{period}'] = df['close'] / (df[f'ema_{period}'] + 1e-8)
+        
+        # Moving average crossover signals
+        df['sma_5_20_signal'] = np.where(df['sma_5'] > df['sma_20'], 1, -1)
+        df['sma_10_50_signal'] = np.where(df['sma_10'] > df['sma_50'], 1, -1)
+        df['ema_5_20_signal'] = np.where(df['ema_5'] > df['ema_20'], 1, -1)
+        
+        # Bollinger Bands variations
+        for period in [10, 50]:
+            for std_dev in [1.5, 2.5]:
+                bb_middle = df['close'].rolling(window=period).mean()
+                bb_std = df['close'].rolling(window=period).std()
+                bb_upper = bb_middle + (bb_std * std_dev)
+                bb_lower = bb_middle - (bb_std * std_dev)
+                bb_width = bb_upper - bb_lower
+                bb_position = (df['close'] - bb_lower) / (bb_width + 1e-8)
+                
+                suffix = f'_{period}_{int(std_dev*10)}'
+                df[f'bb_width{suffix}'] = bb_width
+                df[f'bb_position{suffix}'] = bb_position
+                df[f'bb_squeeze{suffix}'] = (bb_width < bb_width.rolling(20).mean()).astype(int)
+        
+        # Stochastic Oscillator
+        for k_period, d_period in [(14, 3), (21, 5)]:
+            low_k = df['low'].rolling(window=k_period).min()
+            high_k = df['high'].rolling(window=k_period).max()
+            k_percent = 100 * ((df['close'] - low_k) / (high_k - low_k + 1e-8))
+            d_percent = k_percent.rolling(window=d_period).mean()
+            
+            suffix = f'_{k_period}_{d_period}'
+            df[f'stoch_k{suffix}'] = k_percent
+            df[f'stoch_d{suffix}'] = d_percent
+            df[f'stoch_oversold{suffix}'] = (k_percent < 20).astype(int)
+            df[f'stoch_overbought{suffix}'] = (k_percent > 80).astype(int)
+        
+        # Williams %R
+        for period in [14, 21]:
+            high_n = df['high'].rolling(window=period).max()
+            low_n = df['low'].rolling(window=period).min()
+            williams_r = -100 * ((high_n - df['close']) / (high_n - low_n + 1e-8))
+            df[f'williams_r_{period}'] = williams_r
+        
+        # Average True Range (ATR)
+        for period in [14, 21]:
+            high_low = df['high'] - df['low']
+            high_close = np.abs(df['high'] - df['close'].shift())
+            low_close = np.abs(df['low'] - df['close'].shift())
+            true_range = np.maximum(high_low, np.maximum(high_close, low_close))
+            df[f'atr_{period}'] = true_range.rolling(window=period).mean()
+            df[f'atr_ratio_{period}'] = true_range / (df[f'atr_{period}'] + 1e-8)
+        
+        # Additional momentum indicators
+        for period in [10, 20, 50]:
+            df[f'momentum_{period}'] = df['close'] / df['close'].shift(period) - 1
+            df[f'rate_of_change_{period}'] = ((df['close'] - df['close'].shift(period)) / 
+                                           (df['close'].shift(period) + 1e-8)) * 100
+        
         return df
     
     def _add_price_action_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """เพิ่มฟีเจอร์การเคลื่อนไหวของราคา"""
         # Price changes
-        for period in [1, 3, 5, 10]:
+        for period in [1, 3, 5, 10, 20]:
             df[f'price_change_{period}'] = df['close'].pct_change(period)
             df[f'price_change_{period}_abs'] = df[f'price_change_{period}'].abs()
         
-        # Volatility
-        for period in [5, 10, 20]:
+        # Volatility measures
+        for period in [5, 10, 20, 50]:
             df[f'volatility_{period}'] = df['close'].pct_change().rolling(window=period).std()
+            df[f'volatility_{period}_annualized'] = df[f'volatility_{period}'] * np.sqrt(252*24*60)
         
-        # High-Low spreads
+        # High-Low spreads and ratios
         df['hl_spread'] = (df['high'] - df['low']) / df['close']
         df['oc_spread'] = (df['close'] - df['open']) / df['open']
+        df['hl_ratio'] = df['high'] / df['low']
+        df['oc_ratio'] = df['close'] / df['open']
+        
+        # Price position indicators
+        df['price_position_hl'] = (df['close'] - df['low']) / (df['high'] - df['low'])
+        df['price_position_oc'] = (df['close'] - df['open']) / (df['high'] - df['low'] + 1e-8)
+        
+        # Momentum indicators
+        for period in [5, 10, 20]:
+            df[f'momentum_{period}'] = df['close'] / df['close'].shift(period) - 1
+            df[f'rate_of_change_{period}'] = df['close'].pct_change(period)
+        
+        # Volume-weighted features (if volume exists)
+        if 'volume' in df.columns:
+            df['vwap'] = (df['close'] * df['volume']).cumsum() / df['volume'].cumsum()
+            df['price_volume_trend'] = df['volume'] * df['close'].pct_change()
+            for period in [10, 20]:
+                volume_ma = df['volume'].rolling(window=period).mean()
+                df[f'volume_ratio_{period}'] = df['volume'] / (volume_ma + 1e-8)
         
         return df
     
@@ -485,38 +591,91 @@ class ElliottWaveDataProcessor:
             features['bb_width'] = features['bb_upper'] - features['bb_lower']
             features['bb_position'] = (features['close'] - features['bb_lower']) / features['bb_width']
             
-            # Price Action Features
-            features['price_change'] = features['close'].pct_change()
-            features['high_low_ratio'] = features['high'] / features['low']
-            features['close_open_ratio'] = features['close'] / features['open']
+            # Enhanced technical indicators for better AUC performance
             
-            # Volatility
-            features['volatility'] = features['price_change'].rolling(window=10).std()
+            # Additional RSI periods
+            for period in [21, 30]:
+                delta = features['close'].diff()
+                gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+                loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+                rs = gain / (loss + 1e-8)
+                features[f'rsi_{period}'] = 100 - (100 / (1 + rs))
+                features[f'rsi_{period}_oversold'] = (features[f'rsi_{period}'] < 30).astype(int)
+                features[f'rsi_{period}_overbought'] = (features[f'rsi_{period}'] > 70).astype(int)
             
-            # Volume features (if available)
-            if 'volume' in features.columns:
-                features['volume_sma'] = features['volume'].rolling(window=10).mean()
-                features['volume_ratio'] = features['volume'] / features['volume_sma']
+            # Additional MACD variations
+            for fast, slow, signal in [(8, 21, 5), (19, 39, 9)]:
+                ema_fast = features['close'].ewm(span=fast).mean()
+                ema_slow = features['close'].ewm(span=slow).mean()
+                macd_line = ema_fast - ema_slow
+                macd_signal_line = macd_line.ewm(span=signal).mean()
+                macd_histogram = macd_line - macd_signal_line
+                
+                suffix = f'_{fast}_{slow}_{signal}'
+                features[f'macd{suffix}'] = macd_line
+                features[f'macd_signal{suffix}'] = macd_signal_line
+                features[f'macd_histogram{suffix}'] = macd_histogram
+                features[f'macd_crossover{suffix}'] = np.where(macd_line > macd_signal_line, 1, -1)
             
-            # Elliott Wave Pattern Features
-            self.logger.info("🌊 Adding Elliott Wave pattern features...")
+            # Moving average ratios and signals
+            for period in [5, 10, 20, 50, 100]:
+                features[f'price_sma_ratio_{period}'] = features['close'] / (features[f'sma_{period}'] + 1e-8)
+                features[f'price_ema_ratio_{period}'] = features['close'] / (features[f'ema_{period}'] + 1e-8)
             
-            # Wave identification features
-            features['local_high'] = features['high'].rolling(window=5, center=True).max() == features['high']
-            features['local_low'] = features['low'].rolling(window=5, center=True).min() == features['low']
+            # Moving average crossover signals
+            features['sma_5_20_signal'] = np.where(features['sma_5'] > features['sma_20'], 1, -1)
+            features['sma_10_50_signal'] = np.where(features['sma_10'] > features['sma_50'], 1, -1)
+            features['ema_5_20_signal'] = np.where(features['ema_5'] > features['ema_20'], 1, -1)
             
-            # Trend strength
-            features['trend_strength'] = (features['close'] - features['close'].shift(20)) / features['close'].shift(20)
+            # Bollinger Bands variations
+            for period in [10, 50]:
+                for std_dev in [1.5, 2.5]:
+                    bb_middle = features['close'].rolling(window=period).mean()
+                    bb_std = features['close'].rolling(window=period).std()
+                    bb_upper = bb_middle + (bb_std * std_dev)
+                    bb_lower = bb_middle - (bb_std * std_dev)
+                    bb_width = bb_upper - bb_lower
+                    bb_position = (features['close'] - bb_lower) / (bb_width + 1e-8)
+                    
+                    suffix = f'_{period}_{int(std_dev*10)}'
+                    features[f'bb_width{suffix}'] = bb_width
+                    features[f'bb_position{suffix}'] = bb_position
+                    features[f'bb_squeeze{suffix}'] = (bb_width < bb_width.rolling(20).mean()).astype(int)
             
-            # Support/Resistance levels
-            features['resistance'] = features['high'].rolling(window=20).max()
-            features['support'] = features['low'].rolling(window=20).min()
-            features['support_resistance_ratio'] = (features['close'] - features['support']) / (features['resistance'] - features['support'])
+            # Stochastic Oscillator
+            for k_period, d_period in [(14, 3), (21, 5)]:
+                low_k = features['low'].rolling(window=k_period).min()
+                high_k = features['high'].rolling(window=k_period).max()
+                k_percent = 100 * ((features['close'] - low_k) / (high_k - low_k + 1e-8))
+                d_percent = k_percent.rolling(window=d_period).mean()
+                
+                suffix = f'_{k_period}_{d_period}'
+                features[f'stoch_k{suffix}'] = k_percent
+                features[f'stoch_d{suffix}'] = d_percent
+                features[f'stoch_oversold{suffix}'] = (k_percent < 20).astype(int)
+                features[f'stoch_overbought{suffix}'] = (k_percent > 80).astype(int)
             
-            # Momentum indicators
-            features['momentum_5'] = features['close'] / features['close'].shift(5) - 1
-            features['momentum_10'] = features['close'] / features['close'].shift(10) - 1
-            features['momentum_20'] = features['close'] / features['close'].shift(20) - 1
+            # Williams %R
+            for period in [14, 21]:
+                high_n = features['high'].rolling(window=period).max()
+                low_n = features['low'].rolling(window=period).min()
+                williams_r = -100 * ((high_n - features['close']) / (high_n - low_n + 1e-8))
+                features[f'williams_r_{period}'] = williams_r
+            
+            # Average True Range (ATR)
+            for period in [14, 21]:
+                high_low = features['high'] - features['low']
+                high_close = np.abs(features['high'] - features['close'].shift())
+                low_close = np.abs(features['low'] - features['close'].shift())
+                true_range = np.maximum(high_low, np.maximum(high_close, low_close))
+                features[f'atr_{period}'] = true_range.rolling(window=period).mean()
+                features[f'atr_ratio_{period}'] = true_range / (features[f'atr_{period}'] + 1e-8)
+            
+            # Additional momentum indicators
+            for period in [10, 20, 50]:
+                features[f'momentum_{period}'] = features['close'] / features['close'].shift(period) - 1
+                features[f'rate_of_change_{period}'] = ((features['close'] - features['close'].shift(period)) / 
+                                                       (features['close'].shift(period) + 1e-8)) * 100
             
             # Drop NaN values
             features = features.dropna()
