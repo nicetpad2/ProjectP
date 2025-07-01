@@ -12,3 +12,10 @@ numpy: DLL load failed while importing _umath_linalg: The specified module could
 2025-07-01 15:44:24 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:38 | ❌ Failed to import Menu 1: Unable to import required dependencies:
 Unable to import required dependencies:
 numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 09:50:46 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:282 | ❌ Elliott Wave Pipeline failed: 'NicegoldOutputManager' object has no attribute 'generate_report'
+2025-07-01 09:50:46 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:283 | Traceback (most recent call last):
+  File "/content/drive/MyDrive/ProjectP/menu_modules/menu_1_elliott_wave.py", line 259, in run_full_pipeline
+    selected_features, selection_results = self.feature_selector.select_features(X, y)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report'
+

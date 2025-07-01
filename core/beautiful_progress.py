@@ -1,30 +1,36 @@
 #!/usr/bin/env python3
 """
-🎨 BEAUTIFUL PROGRESS BAR SYSTEM
-ระบบ Progress Bar แบบสวยสำหรับ Elliott Wave Pipeline
+🎨 ENHANCED BEAUTIFUL PROGRESS BAR AND LOGGING SYSTEM
+ระบบ Progress Bar และ Logging ที่สวยงามพร้อมการแสดงผลแบบ Real-time
 
-Features:
-- Real-time animated progress bars
-- Colorful status indicators
-- Step-by-step progress tracking
-- Beautiful visual feedback
-- Enterprise-grade logging integration
+Enhanced Features:
+- Multi-style progress bars (Classic, Modern, Neon, Enterprise, Rainbow)
+- Real-time animated progress with ETA calculation
+- Beautiful colored logging with icons and formatting
+- Step-by-step process tracking
+- Error handling and detailed reporting
+- Enterprise-grade visual feedback
+- Rich console integration with fallback support
 """
 
 import time
 import sys
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Union
 from dataclasses import dataclass
 from enum import Enum
 import threading
 import logging
+import queue
+from datetime import datetime
+import traceback
 
-# Try to import rich for beautiful output
+# Enhanced Rich import with better error handling
 try:
     from rich.console import Console
     from rich.progress import (
         Progress, SpinnerColumn, BarColumn, TextColumn, 
-        TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn
+        TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn,
+        TaskProgressColumn, SpeedColumn
     )
     from rich.panel import Panel
     from rich.table import Table
@@ -32,22 +38,34 @@ try:
     from rich.text import Text
     from rich.align import Align
     from rich import box
+    from rich.status import Status
+    from rich.tree import Tree
+    from rich.columns import Columns
     RICH_AVAILABLE = True
 except ImportError:
     RICH_AVAILABLE = False
     print("💡 Installing rich for beautiful progress bars...")
     import subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "rich"])
-    from rich.console import Console
-    from rich.progress import (
-        Progress, SpinnerColumn, BarColumn, TextColumn, 
-        TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn
-    )
-    from rich.panel import Panel
-    from rich.table import Table
-    from rich.live import Live
-    from rich.text import Text
-    from rich.align import Align
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "rich>=12.0.0"])
+        from rich.console import Console
+        from rich.progress import (
+            Progress, SpinnerColumn, BarColumn, TextColumn, 
+            TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn,
+            TaskProgressColumn, SpeedColumn
+        )
+        from rich.panel import Panel
+        from rich.table import Table
+        from rich.live import Live
+        from rich.text import Text
+        from rich.align import Align
+        from rich import box
+        from rich.status import Status
+        from rich.tree import Tree
+        from rich.columns import Columns
+        RICH_AVAILABLE = True
+    except Exception:
+        RICH_AVAILABLE = False
     from rich import box
 
 
@@ -74,6 +92,305 @@ class PipelineStep:
     end_time: Optional[float] = None
     sub_steps: List[str] = None
     current_sub_step: str = ""
+
+
+class ProgressStyle(Enum):
+    """สไตล์ Progress Bar ต่างๆ"""
+    CLASSIC = "classic"
+    MODERN = "modern" 
+    NEON = "neon"
+    ENTERPRISE = "enterprise"
+    RAINBOW = "rainbow"
+    MINIMAL = "minimal"
+
+
+class LogLevel(Enum):
+    """ระดับ Log พร้อมสี"""
+    DEBUG = ("DEBUG", "dim white", "🔍")
+    INFO = ("INFO", "blue", "ℹ️")
+    SUCCESS = ("SUCCESS", "green", "✅")
+    WARNING = ("WARNING", "yellow", "⚠️")
+    ERROR = ("ERROR", "red", "❌")
+    CRITICAL = ("CRITICAL", "bold red on white", "💥")
+
+
+class EnhancedBeautifulLogger:
+    """ระบบ Logging ที่สวยงามแบบ Enhanced"""
+    
+    def __init__(self, name: str = "NICEGOLD", use_rich: bool = True):
+        self.name = name
+        self.use_rich = use_rich and RICH_AVAILABLE
+        self.console = Console() if self.use_rich else None
+        
+        # Fallback colors for non-rich environments
+        self.colors = {
+            'reset': '\033[0m', 'bold': '\033[1m', 'dim': '\033[2m',
+            'green': '\033[92m', 'blue': '\033[94m', 'yellow': '\033[93m',
+            'red': '\033[91m', 'cyan': '\033[96m', 'magenta': '\033[95m',
+            'white': '\033[97m', 'bg_green': '\033[42m', 'bg_red': '\033[41m'
+        }
+        
+    def _log_rich(self, level: LogLevel, message: str, details: Optional[Dict] = None):
+        """Log ด้วย Rich library"""
+        if not self.use_rich:
+            return self._log_fallback(level, message, details)
+            
+        timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+        level_name, color, icon = level.value
+        
+        # สร้าง panel สำหรับ log message
+        content = Text()
+        content.append(f"{icon} {timestamp} ", style="dim")
+        content.append(f"[{level_name}] ", style=f"bold {color}")
+        content.append(f"{self.name} ", style="bold cyan")
+        content.append("→ ", style="dim")
+        content.append(message, style=color)
+        
+        if details:
+            content.append("\n")
+            for key, value in details.items():
+                content.append(f"    • {key}: ", style="dim")
+                content.append(str(value), style="white")
+                content.append("\n")
+        
+        # แสดง panel ที่สวยงาม
+        if level == LogLevel.CRITICAL:
+            panel = Panel(content, border_style="red", box=box.DOUBLE)
+        elif level == LogLevel.ERROR:
+            panel = Panel(content, border_style="red")
+        elif level == LogLevel.WARNING:
+            panel = Panel(content, border_style="yellow")
+        elif level == LogLevel.SUCCESS:
+            panel = Panel(content, border_style="green")
+        else:
+            panel = Panel(content, border_style="blue", box=box.MINIMAL)
+            
+        self.console.print(panel)
+        
+    def _log_fallback(self, level: LogLevel, message: str, details: Optional[Dict] = None):
+        """Log แบบ fallback สำหรับสภาพแวดล้อมที่ไม่มี Rich"""
+        timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+        level_name, _, icon = level.value
+        
+        # เลือกสี
+        if level == LogLevel.ERROR or level == LogLevel.CRITICAL:
+            color = self.colors['red']
+        elif level == LogLevel.WARNING:
+            color = self.colors['yellow']
+        elif level == LogLevel.SUCCESS:
+            color = self.colors['green']
+        elif level == LogLevel.INFO:
+            color = self.colors['blue']
+        else:
+            color = self.colors['dim']
+            
+        # สร้างข้อความ
+        header = f"{color}{self.colors['bold']}{icon} {timestamp} [{level_name}] {self.name}{self.colors['reset']}"
+        msg_line = f"    {color}{message}{self.colors['reset']}"
+        
+        print(header)
+        print(msg_line)
+        
+        if details:
+            for key, value in details.items():
+                print(f"    {self.colors['dim']}• {key}: {value}{self.colors['reset']}")
+        print()
+        
+    def debug(self, message: str, details: Optional[Dict] = None):
+        """Log DEBUG level"""
+        self._log_rich(LogLevel.DEBUG, message, details)
+        
+    def info(self, message: str, details: Optional[Dict] = None):
+        """Log INFO level"""
+        self._log_rich(LogLevel.INFO, message, details)
+        
+    def success(self, message: str, details: Optional[Dict] = None):
+        """Log SUCCESS level"""
+        self._log_rich(LogLevel.SUCCESS, message, details)
+        
+    def warning(self, message: str, details: Optional[Dict] = None):
+        """Log WARNING level"""
+        self._log_rich(LogLevel.WARNING, message, details)
+        
+    def error(self, message: str, details: Optional[Dict] = None):
+        """Log ERROR level"""
+        self._log_rich(LogLevel.ERROR, message, details)
+        
+    def critical(self, message: str, details: Optional[Dict] = None):
+        """Log CRITICAL level"""
+        self._log_rich(LogLevel.CRITICAL, message, details)
+        
+    def step_start(self, step_number: int, step_name: str, description: str = ""):
+        """เริ่มต้นขั้นตอนใหม่"""
+        if self.use_rich:
+            content = Text()
+            content.append("🚀 STEP ", style="bold blue")
+            content.append(f"{step_number}", style="bold cyan")
+            content.append(": ", style="bold blue")
+            content.append(step_name, style="bold white")
+            if description:
+                content.append("\n")
+                content.append(description, style="dim")
+                
+            panel = Panel(
+                content,
+                border_style="blue",
+                box=box.DOUBLE,
+                padding=(0, 1)
+            )
+            self.console.print(panel)
+        else:
+            print(f"\n{self.colors['blue']}{self.colors['bold']}🚀 STEP {step_number}: {step_name}{self.colors['reset']}")
+            if description:
+                print(f"    {self.colors['dim']}{description}{self.colors['reset']}")
+        
+    def step_complete(self, step_number: int, step_name: str, duration: float, details: Optional[Dict] = None):
+        """เสร็จสิ้นขั้นตอน"""
+        duration_str = f"{duration:.2f}s"
+        
+        if self.use_rich:
+            content = Text()
+            content.append("✅ COMPLETED STEP ", style="bold green")
+            content.append(f"{step_number}", style="bold cyan")
+            content.append(": ", style="bold green")
+            content.append(step_name, style="bold white")
+            content.append(f" ({duration_str})", style="dim")
+            
+            if details:
+                content.append("\n")
+                for key, value in details.items():
+                    content.append(f"    ✓ {key}: ", style="green")
+                    content.append(str(value), style="white")
+                    content.append("\n")
+                    
+            panel = Panel(
+                content,
+                border_style="green",
+                padding=(0, 1)
+            )
+            self.console.print(panel)
+        else:
+            print(f"{self.colors['green']}{self.colors['bold']}✅ COMPLETED STEP {step_number}: {step_name} ({duration_str}){self.colors['reset']}")
+            if details:
+                for key, value in details.items():
+                    print(f"    {self.colors['green']}✓ {key}: {value}{self.colors['reset']}")
+        
+    def step_error(self, step_number: int, step_name: str, error: str, details: Optional[Dict] = None):
+        """ขั้นตอนผิดพลาด"""
+        if self.use_rich:
+            content = Text()
+            content.append("❌ FAILED STEP ", style="bold red")
+            content.append(f"{step_number}", style="bold cyan")
+            content.append(": ", style="bold red")
+            content.append(step_name, style="bold white")
+            content.append("\n")
+            content.append(f"Error: {error}", style="red")
+            
+            if details:
+                content.append("\n")
+                for key, value in details.items():
+                    content.append(f"    • {key}: ", style="dim")
+                    content.append(str(value), style="white")
+                    content.append("\n")
+                    
+            panel = Panel(
+                content,
+                border_style="red",
+                box=box.DOUBLE
+            )
+            self.console.print(panel)
+        else:
+            print(f"{self.colors['red']}{self.colors['bold']}❌ FAILED STEP {step_number}: {step_name}{self.colors['reset']}")
+            print(f"    {self.colors['red']}Error: {error}{self.colors['reset']}")
+            if details:
+                for key, value in details.items():
+                    print(f"    {self.colors['dim']}• {key}: {value}{self.colors['reset']}")
+
+
+class EnhancedProgressBar:
+    """Progress Bar แบบ Enhanced พร้อม Animation"""
+    
+    def __init__(self, total: int, description: str = "", style: ProgressStyle = ProgressStyle.ENTERPRISE):
+        self.total = total
+        self.current = 0
+        self.description = description
+        self.style = style
+        self.start_time = time.time()
+        self.use_rich = RICH_AVAILABLE
+        
+        if self.use_rich:
+            self.progress = Progress(
+                SpinnerColumn(),
+                TextColumn("[bold blue]{task.description}", justify="right"),
+                BarColumn(bar_width=None),
+                "[progress.percentage]{task.percentage:>3.1f}%",
+                "•",
+                MofNCompleteColumn(),
+                "•",
+                TimeElapsedColumn(),
+                "•",
+                TimeRemainingColumn(),
+                SpeedColumn(),
+                console=Console()
+            )
+            self.task_id = self.progress.add_task(description, total=total)
+            self.progress.start()
+        else:
+            # Fallback progress bar
+            self.width = 50
+            self.colors = {
+                'green': '\033[92m', 'blue': '\033[94m', 'yellow': '\033[93m',
+                'reset': '\033[0m', 'bold': '\033[1m'
+            }
+    
+    def update(self, advance: int = 1, description: str = None):
+        """อัพเดท progress"""
+        self.current += advance
+        if self.current > self.total:
+            self.current = self.total
+            
+        if self.use_rich:
+            if description:
+                self.progress.update(self.task_id, advance=advance, description=description)
+            else:
+                self.progress.update(self.task_id, advance=advance)
+        else:
+            self._update_fallback(description)
+    
+    def _update_fallback(self, message: str = None):
+        """Fallback progress bar"""
+        percentage = (self.current / self.total) * 100
+        filled_length = int(self.width * self.current / self.total)
+        bar = ('█' * filled_length + '░' * (self.width - filled_length))
+        
+        elapsed = time.time() - self.start_time
+        if self.current > 0:
+            eta = (elapsed / self.current) * (self.total - self.current)
+            eta_str = f"{eta:.0f}s"
+        else:
+            eta_str = "--s"
+        
+        line = (f"\r{self.colors['blue']}{self.colors['bold']}{self.description}{self.colors['reset']} "
+                f"[{bar}] {percentage:6.2f}% ({self.current}/{self.total}) ETA: {eta_str}")
+        
+        if message:
+            line += f" | {message}"
+            
+        sys.stdout.write('\033[K' + line)
+        sys.stdout.flush()
+        
+        if self.current >= self.total:
+            print()
+    
+    def finish(self, final_message: str = "Completed!"):
+        """จบ progress bar"""
+        if self.use_rich:
+            self.progress.update(self.task_id, description=final_message)
+            self.progress.stop()
+        else:
+            self.current = self.total
+            self._update_fallback(final_message)
+            print()
 
 
 class BeautifulProgressTracker:

@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "'NicegoldOutputManager' object has no attribute 'generate_report'",
+  "traceback": "Traceback (most recent call last):\n  File \"/content/drive/MyDrive/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 259, in run_full_pipeline\n    selected_features, selection_results = self.feature_selector.select_features(X, y)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report'\n",
+  "timestamp": "2025-07-01T09:50:46.392948"
+}

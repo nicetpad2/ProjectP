@@ -3,3 +3,5 @@
 2025-07-01 09:32:09 | INFO | Step 1: Loading REAL Market Data - ⚡ RUNNING - Loading from datacsv/ folder only
 2025-07-01 09:32:11 | INFO | SUCCESS in Data Loading: Successfully loaded 1,553 rows of real market data
 2025-07-01 09:32:11 | INFO | Metrics: {'rows': 1553, 'columns': 6}
+2025-07-01 09:50:46 | INFO | Menu 1 Session Completed - Duration: 0:18:37.324069, Success Rate: 100.0%
+2025-07-01 09:50:46 | INFO | Final Results: {'execution_status': 'failed', 'error_message': "❌ Elliott Wave Pipeline failed: 'NicegoldOutputManager' object has no attribute 'generate_report'", 'pipeline_duration': 'N/A'}
