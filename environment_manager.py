@@ -56,16 +56,27 @@ class NicegoldEnvironmentManager:
     def check_package_installed(self, package_name: str, required_version: Optional[str] = None) -> Tuple[bool, str]:
         """ตรวจสอบว่า package ติดตั้งแล้วหรือไม่"""
         try:
+            # Handle package name mapping
+            import_name = package_name.replace('-', '_')
+            if package_name == 'scikit-learn':
+                import_name = 'sklearn'
+            elif package_name == 'PyYAML':
+                import_name = 'yaml'
+            elif package_name == 'opencv-python-headless':
+                import_name = 'cv2'
+            
             result = subprocess.run([
                 str(self.venv_path / "bin" / "python"), "-c",
-                f"import {package_name.replace('-', '_')}; print({package_name.replace('-', '_')}.__version__)"
+                f"import {import_name}; print({import_name}.__version__)"
             ], capture_output=True, text=True, timeout=10)
             
             if result.returncode == 0:
                 installed_version = result.stdout.strip()
                 if required_version:
-                    # Simple version comparison
-                    if installed_version.startswith(required_version.split('.')[0]):
+                    # Simple version comparison - check major version match
+                    installed_major = installed_version.split('.')[0]
+                    required_major = required_version.split('.')[0]
+                    if installed_major == required_major:
                         return True, installed_version
                     else:
                         return False, f"Version mismatch: {installed_version} (required: {required_version})"
