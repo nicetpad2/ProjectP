@@ -25,3 +25,5 @@ AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report
 2025-07-01 11:35:27 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:169 | ❌ Elliott Wave Pipeline failed!
 2025-07-01 15:00:15 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:337 | ❌ AUC Score 0.0000 < 0.70 - Enterprise requirement failed!
 2025-07-01 15:36:23 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:337 | ❌ AUC Score 0.0000 < 0.70 - Enterprise requirement failed!
+2025-07-01 16:10:00 | WARNING | NICEGOLD_Enterprise | main:108 | Operating without intelligent resource management
+2025-07-01 16:24:57 | ERROR | NICEGOLD_Enterprise | _validate_enterprise_requirements:423 | ❌ AUC Score 0.5021 < 0.70 - Enterprise requirement failed!
