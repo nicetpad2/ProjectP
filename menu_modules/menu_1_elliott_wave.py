@@ -24,6 +24,18 @@ import logging
 import traceback
 from pathlib import Path
 
+# Rich imports for beautiful display
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+    from rich.text import Text
+    from rich import box
+    from rich.align import Align
+    RICH_AVAILABLE = True
+except ImportError:
+    RICH_AVAILABLE = False
+
 # Add project root to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -559,11 +571,11 @@ class Menu1ElliottWave:
     
     def _display_pipeline_overview(self):
         """แสดงภาพรวมของ Pipeline แบบสวยงาม"""
-        from rich.console import Console
-        from rich.panel import Panel
-        from rich.table import Table
-        from rich.text import Text
-        from rich import box
+        if not RICH_AVAILABLE:
+            print("🌊 ELLIOTT WAVE CNN-LSTM + DQN SYSTEM")
+            print("Enterprise-Grade AI Trading System")
+            print("🎯 Real-time Progress Tracking & Advanced Logging")
+            return
         
         console = Console()
         
@@ -676,12 +688,14 @@ class Menu1ElliottWave:
     
     def _display_results(self):
         """แสดงผลลัพธ์แบบสวยงาม"""
-        from rich.console import Console
-        from rich.panel import Panel
-        from rich.table import Table
-        from rich.text import Text
-        from rich import box
-        from rich.align import Align
+        if not RICH_AVAILABLE:
+            print("📊 ELLIOTT WAVE PIPELINE RESULTS")
+            print("=" * 50)
+            # Show basic results without Rich
+            if self.results:
+                for key, value in self.results.items():
+                    print(f"{key}: {value}")
+            return
         
         console = Console()
         
