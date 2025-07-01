@@ -1,2 +1,9 @@
 datacsv/XAUUSD_M1.csv
 datacsv/XAUUSD_M15.csv
+core/__pycache__/__init__.cpython-311.pyc
+core/__pycache__/compliance.cpython-311.pyc
+core/__pycache__/config.cpython-311.pyc
+core/__pycache__/logger.cpython-311.pyc
+core/__pycache__/menu_system.cpython-311.pyc
+menu_modules/__pycache__/__init__.cpython-311.pyc
+menu_modules/__pycache__/menu_1_elliott_wave.cpython-311.pyc
