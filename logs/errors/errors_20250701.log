@@ -20,3 +20,5 @@ AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report
 
 2025-07-01 10:39:20 | ERROR | NICEGOLD_Enterprise | _initialize_components:139 | ❌ Component initialization failed: ElliottWavePipelineOrchestrator.__init__() missing 4 required positional arguments: 'data_processor', 'cnn_lstm_engine', 'dqn_agent', and 'feature_selector'
 2025-07-01 10:39:20 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:43 | ❌ Menu 1 initialization failed: Menu initialization error: ElliottWavePipelineOrchestrator.__init__() missing 4 required positional arguments: 'data_processor', 'cnn_lstm_engine', 'dqn_agent', and 'feature_selector'
+2025-07-01 11:35:27 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:270 | ❌ Pipeline execution failed: name 'pd' is not defined
+2025-07-01 11:35:27 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:169 | ❌ Elliott Wave Pipeline failed!

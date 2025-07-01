@@ -975,3 +975,43 @@ AttributeError: 'NicegoldOutputManager' object has no attribute 'generate_report
 2025-07-01 11:22:32 | INFO | NICEGOLD_Enterprise | _analyze_shap_importance:203 | 🎯 Top 5 features: ['local_high', 'local_low', 'price_change', 'support_resistance_ratio', 'bb_position']
 2025-07-01 11:22:32 | INFO | NICEGOLD_Enterprise | select_features:107 | ⚡ Step 2: Optuna Feature Optimization
 2025-07-01 11:22:32 | INFO | NICEGOLD_Enterprise | _optuna_optimization:209 | ⚡ Starting Enterprise Optuna optimization...
+2025-07-01 11:30:59 | INFO | NICEGOLD_Enterprise | main:46 | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 11:30:59 | INFO | NICEGOLD_Enterprise | main:47 | 📌 Using ONLY authorized entry point: ProjectP.py
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | _initialize_components:82 | 🌊 Initializing Elliott Wave Components...
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05}
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | _initialize_components:112 | ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-01 11:31:20 | INFO | NICEGOLD_Enterprise | _initialize_components:116 | ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | _initialize_components:187 | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | __init__:78 | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | __init__:79 | 🛡️ Enterprise ML Protection System initialized
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | __init__:80 |    - sklearn available: True
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | __init__:81 |    - scipy available: True
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | __init__:82 |    - config: {'overfitting_threshold': 0.15, 'noise_threshold': 0.05, 'leak_detection_window': 100, 'min_samples_split': 50, 'stability_window': 1000, 'significance_level': 0.05, 'anti_overfitting': True, 'no_data_leakage': True, 'walk_forward_validation': True, 'enterprise_compliance': True}
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | _initialize_components:140 | ✅ All Elliott Wave components initialized successfully!
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | _import_menu_modules:33 | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | start:292 | 🎛️ Menu System Started
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | handle_menu_choice:104 | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | start_pipeline:102 | 🚀 Elliott Wave Pipeline started
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | run_full_pipeline:154 | 🚀 Starting Elliott Wave Full Pipeline...
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:188 | 📊 Step 1: Loading and processing real market data...
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | load_real_data:65 | 📊 Loading REAL market data from datacsv/...
+2025-07-01 11:31:25 | INFO | NICEGOLD_Enterprise | load_real_data:80 | � Loading REAL data from: XAUUSD_M1.csv
+2025-07-01 11:32:32 | INFO | NICEGOLD_Enterprise | _optuna_optimization:251 | ✅ Enterprise Optuna optimization completed
+2025-07-01 11:32:32 | INFO | NICEGOLD_Enterprise | _optuna_optimization:252 | 🎯 Best AUC: 0.8684 from 98 trials
+2025-07-01 11:32:32 | INFO | NICEGOLD_Enterprise | select_features:111 | 🎯 Step 3: Extracting Best Features
+2025-07-01 11:32:32 | INFO | NICEGOLD_Enterprise | select_features:115 | ✅ Step 4: Final Enterprise Validation
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | select_features:140 | ✅ Enterprise Feature Selection SUCCESS: 15 features selected
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | select_features:142 | 🎯 AUC Achieved: 0.8684 (Target: 0.70) ✅
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:217 | 🏗️ Step 5: Training CNN-LSTM model...
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | train_model:300 | 🚀 Training Elliott Wave model...
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | prepare_sequences:270 | 📊 Preparing sequences for CNN-LSTM...
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | prepare_sequences:290 | ✅ Sequences prepared: (1453, 50, 15)
+2025-07-01 11:32:34 | INFO | NICEGOLD_Enterprise | _build_tensorflow_model:135 | 🏗️ Building TensorFlow CNN-LSTM model...
+2025-07-01 11:32:35 | INFO | NICEGOLD_Enterprise | _build_tensorflow_model:171 | ✅ TensorFlow CNN-LSTM model built successfully (Functional API)
+2025-07-01 11:35:27 | INFO | NICEGOLD_Enterprise | train_model:380 | ✅ Model training completed: CNN-LSTM TensorFlow
+2025-07-01 11:35:27 | INFO | NICEGOLD_Enterprise | execute_full_pipeline:221 | 🤖 Step 6: Training DQN agent...
+2025-07-01 11:35:27 | ERROR | NICEGOLD_Enterprise | execute_full_pipeline:270 | ❌ Pipeline execution failed: name 'pd' is not defined
+2025-07-01 11:35:27 | ERROR | NICEGOLD_Enterprise | run_full_pipeline:169 | ❌ Elliott Wave Pipeline failed!

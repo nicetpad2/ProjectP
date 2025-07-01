@@ -1,0 +1,31 @@
+{
+  "session_info": {
+    "session_id": "menu1_20250701_112134",
+    "start_time": "2025-07-01T11:21:34.823105",
+    "end_time": "2025-07-01T11:35:27.189167",
+    "duration_seconds": 832.365524,
+    "duration_formatted": "0:13:52.365524"
+  },
+  "operation_summary": {
+    "total_steps": 0,
+    "success_count": 0,
+    "warning_count": 0,
+    "error_count": 0,
+    "success_rate": 0
+  },
+  "final_results": {
+    "execution_status": "success",
+    "auc_score": 0.0,
+    "enterprise_compliant": false,
+    "total_features": 0,
+    "pipeline_duration": "N/A"
+  },
+  "performance_metrics": {
+    "total_steps": 0,
+    "completed_steps": 0,
+    "errors": [],
+    "warnings": [],
+    "processing_times": {}
+  },
+  "all_processes": {}
+}
