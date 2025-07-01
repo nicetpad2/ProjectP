@@ -396,8 +396,15 @@ class Menu1ElliottWaveAdvanced:
         try:
             self.logger.info("🔗 Integrating system components...")
             
-            # Initialize pipeline orchestrator
-            self.pipeline_orchestrator = ElliottWavePipelineOrchestrator()
+            # Initialize pipeline orchestrator with required components
+            self.pipeline_orchestrator = ElliottWavePipelineOrchestrator(
+                data_processor=self.data_processor,
+                cnn_lstm_engine=self.cnn_lstm_engine,
+                dqn_agent=self.dqn_agent,
+                feature_selector=self.feature_selector,
+                config=self.config,
+                logger=self.logger
+            )
             self.logger.info("✅ Pipeline orchestrator initialized")
             
             # Integrate components

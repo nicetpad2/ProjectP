@@ -120,6 +120,11 @@ class Menu1ElliottWaveFixed:
             # Pipeline Orchestrator
             self.beautiful_logger.log_info("Initializing Pipeline Orchestrator...")
             self.orchestrator = ElliottWavePipelineOrchestrator(
+                data_processor=self.data_processor,
+                cnn_lstm_engine=self.cnn_lstm_engine,
+                dqn_agent=self.dqn_agent,
+                feature_selector=self.feature_selector,
+                ml_protection=self.ml_protection,
                 config=self.config,
                 logger=self.logger
             )
