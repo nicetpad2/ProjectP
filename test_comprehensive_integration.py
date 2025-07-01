@@ -89,21 +89,6 @@ class ComprehensiveIntegrationTester:
         
         return overall_success
     
-    def _clean_for_json(self, obj):
-        """ทำความสะอาดข้อมูลสำหรับ JSON serialization"""
-        if isinstance(obj, dict):
-            return {key: self._clean_for_json(value) for key, value in obj.items()}
-        elif isinstance(obj, list):
-            return [self._clean_for_json(item) for item in obj]
-        elif isinstance(obj, (np.ndarray,)):
-            return obj.tolist() if obj.size < 100 else f"Array shape: {obj.shape}"
-        elif isinstance(obj, (pd.DataFrame, pd.Series)):
-            return f"DataFrame/Series shape: {obj.shape}"
-        elif isinstance(obj, (str, int, float, bool, type(None))):
-            return obj
-        else:
-            return str(obj)
-    
     def _test_protection_system_standalone(self):
         """ทดสอบ protection system แบบ standalone"""
         try:
@@ -594,15 +579,15 @@ class ComprehensiveIntegrationTester:
             # Overall readiness score
             successful_checks = sum(1 for check in readiness_checks.values() if check.get('success', False))
             total_checks = len(readiness_checks)
-            readiness_score = successful_checks / total_checks if total_checks > 0 else 0
+            readiness_score = successful_checks / total_checks
             
             return {
                 'success': readiness_score >= 0.8,  # 80% of checks must pass
-                'readiness_score': float(readiness_score),
-                'successful_checks': int(successful_checks),
-                'total_checks': int(total_checks),
+                'readiness_score': readiness_score,
+                'successful_checks': successful_checks,
+                'total_checks': total_checks,
                 'readiness_checks': readiness_checks,
-                'production_ready': bool(readiness_score >= 0.8)
+                'production_ready': readiness_score >= 0.8
             }
             
         except Exception as e:
@@ -615,28 +600,15 @@ class ComprehensiveIntegrationTester:
     def _generate_comprehensive_report(self, overall_success: bool):
         """สร้างรายงานการทดสอบแบบครบถ้วน"""
         try:
-            # Clean test results for JSON serialization
-            cleaned_results = {}
-            for test_name, result in self.test_results.items():
-                cleaned_result = {}
-                for key, value in result.items():
-                    if isinstance(value, (str, int, float, bool, type(None))):
-                        cleaned_result[key] = value
-                    elif isinstance(value, (list, dict)):
-                        cleaned_result[key] = self._clean_for_json(value)
-                    else:
-                        cleaned_result[key] = str(value)
-                cleaned_results[test_name] = cleaned_result
-            
             report = {
                 'test_summary': {
                     'timestamp': datetime.now().isoformat(),
-                    'overall_success': bool(overall_success),
+                    'overall_success': overall_success,
                     'total_tests': len(self.test_results),
                     'passed_tests': sum(1 for r in self.test_results.values() if r.get('success', False)),
                     'failed_tests': sum(1 for r in self.test_results.values() if not r.get('success', False))
                 },
-                'test_results': cleaned_results
+                'test_results': self.test_results
             }
             
             # Save detailed report
@@ -644,7 +616,7 @@ class ComprehensiveIntegrationTester:
             report_file.parent.mkdir(exist_ok=True)
             
             with open(report_file, 'w', encoding='utf-8') as f:
-                json.dump(report, f, indent=2, ensure_ascii=False, default=str)
+                json.dump(report, f, indent=2, ensure_ascii=False)
             
             # Log summary
             self.logger.info("📋 COMPREHENSIVE INTEGRATION TEST REPORT")
