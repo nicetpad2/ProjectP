@@ -1,1 +1,8 @@
 2025-07-01 13:54:54 | WARNING | TEST_LOGGER | warning:317 | [WARNING] WARNING: This is a warning message
+2025-07-01 14:56:58 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:32 | ❌ Failed to import Menu 1: No module named 'pandas'
+2025-07-01 15:10:57 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:32 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:18:00 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:32 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.
+2025-07-01 15:24:39 | ERROR | NICEGOLD_Enterprise | _import_menu_modules:32 | ❌ Failed to import Menu 1: Unable to import required dependencies:
+numpy: DLL load failed while importing _umath_linalg: The specified module could not be found.

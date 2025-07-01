@@ -1,0 +1,48 @@
+{
+  "validation_time": "2025-07-01T15:00:14.120531",
+  "tests": {
+    "numpy_shap_compatibility": {
+      "status": "FAILED",
+      "logs": [
+        "\ud83d\udd2c Testing NumPy and SHAP compatibility...",
+        "\u274c NumPy/SHAP compatibility test failed: DLL load failed while importing _umath_linalg: The specified module could not be found."
+      ]
+    },
+    "single_entry_point": {
+      "status": "PASSED",
+      "logs": [
+        "\ud83d\udeaa Testing single entry point policy...",
+        "\u2705 ProjectP.py exists",
+        "\u26a0\ufe0f  ProjectP_Advanced.py should redirect to ProjectP.py",
+        "\u26a0\ufe0f  run_advanced.py should redirect to ProjectP.py",
+        "\u26a0\ufe0f  demo_advanced_logging.py should redirect to ProjectP.py"
+      ]
+    },
+    "cpu_only_operation": {
+      "status": "FAILED",
+      "logs": [
+        "\ud83d\udcbb Testing CPU-only operation...",
+        "\u274c CPU-only operation test failed: DLL load failed while importing _umath_linalg: The specified module could not be found."
+      ]
+    },
+    "core_modules_import": {
+      "status": "FAILED",
+      "logs": [
+        "\ud83d\udce6 Testing core modules import...",
+        "\u2705 core.menu_system imported successfully",
+        "\u2705 core.compliance imported successfully",
+        "\u2705 core.logger imported successfully",
+        "\u2705 core.config imported successfully",
+        "\u274c elliott_wave_modules.feature_selector import failed: DLL load failed while importing _umath_linalg: The specified module could not be found."
+      ]
+    },
+    "enterprise_compliance": {
+      "status": "FAILED",
+      "logs": [
+        "\ud83c\udfe2 Testing enterprise compliance...",
+        "\u274c Enterprise compliance test failed: cannot import name 'ComplianceValidator' from 'core.compliance' (G:\\My Drive\\ProjectP\\core\\compliance.py)"
+      ]
+    }
+  },
+  "overall_status": "NEEDS_FIXES"
+}
