@@ -24,29 +24,16 @@ import pandas as pd
 from typing import Dict, List, Optional, Tuple, Any, Union
 import logging
 from datetime import datetime, timedelta
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+from sklearn.metrics import roc_auc_score, precision_recall_curve, roc_curve
+from sklearn.feature_selection import mutual_info_classif
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
 import warnings
+from scipy import stats
+from scipy.stats import ks_2samp, shapiro
 import sys
 from pathlib import Path
-
-# Import ML libraries with error handling
-try:
-    from sklearn.model_selection import TimeSeriesSplit, cross_val_score
-    from sklearn.metrics import roc_auc_score, precision_recall_curve, roc_curve
-    from sklearn.feature_selection import mutual_info_classif
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.preprocessing import StandardScaler
-    SKLEARN_AVAILABLE = True
-except ImportError:
-    SKLEARN_AVAILABLE = False
-    warnings.warn("Scikit-learn not available, using simplified protection analysis")
-
-try:
-    from scipy import stats
-    from scipy.stats import ks_2samp, shapiro
-    SCIPY_AVAILABLE = True
-except ImportError:
-    SCIPY_AVAILABLE = False
-    warnings.warn("SciPy not available, using simplified statistical analysis")
 
 
 class EnterpriseMLProtectionSystem:
@@ -209,16 +196,13 @@ class EnterpriseMLProtectionSystem:
     def _detect_overfitting(self, X: pd.DataFrame, y: pd.Series, model: Any = None) -> Dict[str, Any]:
         """ตรวจจับ Overfitting ด้วยหลายวิธี"""
         try:
-            # Use simplified method if sklearn not available
-            if not SKLEARN_AVAILABLE:
-                self.logger.info("🔄 Using simplified overfitting detection (sklearn not available)")
-                return self._detect_overfitting_simplified(X, y)
-            
             overfitting_results = {
                 'status': 'ANALYZING',
                 'overfitting_detected': False,
                 'overfitting_score': 0.0,
                 'cross_validation': {},
+                'learning_curves': {},
+                'variance_analysis': {},
                 'details': {}
             }
             
@@ -235,28 +219,22 @@ class EnterpriseMLProtectionSystem:
                 'cv_scores': cv_scores.tolist(),
                 'mean_cv_score': float(cv_scores.mean()),
                 'std_cv_score': float(cv_scores.std()),
-                'coefficient_of_variation': float(cv_scores.std() / cv_scores.mean()) if cv_scores.mean() != 0 else 1.0
+                'coefficient_of_variation': float(cv_scores.std() / cv_scores.mean())
             }
             
-            # Simplified analysis for other components
-            n_samples, n_features = X.shape
-            feature_ratio = n_features / n_samples if n_samples > 0 else 1.0
+            # 2. Train-Validation Split Analysis
+            train_val_analysis = self._train_validation_analysis(X, y, model)
+            overfitting_results['train_validation'] = train_val_analysis
+            
+            # 3. Learning Curve Analysis
+            learning_curves = self._analyze_learning_curves(X, y, model)
+            overfitting_results['learning_curves'] = learning_curves
+            
+            # 4. Feature Importance Stability
+            importance_stability = self._analyze_feature_importance_stability(X, y, model)
+            overfitting_results['feature_importance_stability'] = importance_stability
             
             # Overall overfitting assessment
-            cv_variance = cv_scores.std() if len(cv_scores) > 1 else 0.0
-            overfitting_score = min(cv_variance + feature_ratio * 0.1, 1.0)
-            
-            overfitting_results['overfitting_score'] = overfitting_score
-            overfitting_results['overfitting_detected'] = overfitting_score > self.protection_config['overfitting_threshold']
-            overfitting_results['status'] = 'DETECTED' if overfitting_results['overfitting_detected'] else 'ACCEPTABLE'
-            
-            return overfitting_results
-            
-        except Exception as e:
-            self.logger.error(f"❌ Overfitting detection failed: {str(e)}")
-            # Fallback to simplified method
-            self.logger.info("🔄 Falling back to simplified overfitting detection")
-            return self._detect_overfitting_simplified(X, y)
             overfitting_score = self._compute_overfitting_score(overfitting_results)
             overfitting_results['overfitting_score'] = overfitting_score
             overfitting_results['overfitting_detected'] = overfitting_score > self.protection_config['overfitting_threshold']
@@ -267,56 +245,6 @@ class EnterpriseMLProtectionSystem:
         except Exception as e:
             self.logger.error(f"❌ Overfitting detection failed: {str(e)}")
             return {'status': 'ERROR', 'error': str(e)}
-    
-    def _detect_overfitting_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """ตรวจจับ Overfitting แบบ simplified (ไม่ใช้ sklearn)"""
-        try:
-            overfitting_results = {
-                'status': 'ANALYZING',
-                'overfitting_detected': False,
-                'overfitting_score': 0.0,
-                'cross_validation': {},
-                'details': {}
-            }
-            
-            # Simple check based on data size and feature count
-            n_samples, n_features = X.shape
-            feature_ratio = n_features / n_samples if n_samples > 0 else 1.0
-            
-            # High feature-to-sample ratio indicates potential overfitting risk
-            if feature_ratio > 0.1:  # More than 10% features to samples
-                overfitting_score = min(feature_ratio, 1.0)
-                overfitting_detected = overfitting_score > self.protection_config.get('overfitting_threshold', 0.15)
-            else:
-                overfitting_score = feature_ratio
-                overfitting_detected = False
-            
-            overfitting_results.update({
-                'status': 'DETECTED' if overfitting_detected else 'ACCEPTABLE',
-                'overfitting_detected': overfitting_detected,
-                'overfitting_score': overfitting_score,
-                'cross_validation': {
-                    'method': 'simplified_ratio_check',
-                    'feature_ratio': feature_ratio,
-                    'samples': n_samples,
-                    'features': n_features
-                },
-                'details': {
-                    'method': 'feature_to_sample_ratio',
-                    'threshold': self.protection_config.get('overfitting_threshold', 0.15)
-                }
-            })
-            
-            return overfitting_results
-            
-        except Exception as e:
-            self.logger.error(f"❌ Simplified overfitting detection failed: {str(e)}")
-            return {
-                'status': 'ERROR',
-                'error': str(e),
-                'overfitting_detected': False,
-                'overfitting_score': 0.0
-            }
     
     def _detect_noise_and_quality(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
         """ตรวจจับ Noise และประเมินคุณภาพข้อมูล"""
@@ -365,70 +293,6 @@ class EnterpriseMLProtectionSystem:
         except Exception as e:
             self.logger.error(f"❌ Noise detection failed: {str(e)}")
             return {'status': 'ERROR', 'error': str(e)}
-    
-    def _detect_noise_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """ตรวจจับ Noise แบบ simplified (ไม่ใช้ sklearn)"""
-        try:
-            noise_results = {
-                'status': 'ANALYZING',
-                'noise_level': 0.0,
-                'data_quality_score': 1.0,
-                'details': {}
-            }
-            
-            # Check for missing values
-            missing_ratio = X.isnull().sum().sum() / (X.shape[0] * X.shape[1])
-            
-            # Check for constant features
-            constant_features = []
-            for col in X.columns:
-                if X[col].nunique() <= 1:
-                    constant_features.append(col)
-            
-            constant_ratio = len(constant_features) / len(X.columns) if len(X.columns) > 0 else 0
-            
-            # Check for extreme values (simple outlier detection)
-            outlier_ratio = 0.0
-            numeric_cols = X.select_dtypes(include=[np.number]).columns
-            for col in numeric_cols:
-                if len(X[col]) > 0:
-                    q1 = X[col].quantile(0.25)
-                    q3 = X[col].quantile(0.75)
-                    iqr = q3 - q1
-                    if iqr > 0:
-                        outliers = ((X[col] < q1 - 1.5 * iqr) | (X[col] > q3 + 1.5 * iqr)).sum()
-                        outlier_ratio += outliers / len(X[col])
-            
-            if len(numeric_cols) > 0:
-                outlier_ratio = outlier_ratio / len(numeric_cols)
-            
-            # Calculate overall noise level
-            noise_level = (missing_ratio * 0.4 + constant_ratio * 0.4 + outlier_ratio * 0.2)
-            data_quality_score = max(0.0, 1.0 - noise_level)
-            
-            noise_results.update({
-                'status': 'HIGH' if noise_level > self.protection_config.get('noise_threshold', 0.05) else 'ACCEPTABLE',
-                'noise_level': noise_level,
-                'data_quality_score': data_quality_score,
-                'details': {
-                    'missing_ratio': missing_ratio,
-                    'constant_ratio': constant_ratio,
-                    'outlier_ratio': outlier_ratio,
-                    'constant_features': constant_features,
-                    'method': 'simplified_quality_check'
-                }
-            })
-            
-            return noise_results
-            
-        except Exception as e:
-            self.logger.error(f"❌ Simplified noise detection failed: {str(e)}")
-            return {
-                'status': 'ERROR',
-                'error': str(e),
-                'noise_level': 0.0,
-                'data_quality_score': 1.0
-            }
     
     def _analyze_feature_stability(self, X: pd.DataFrame, y: pd.Series, datetime_col: str = None) -> Dict[str, Any]:
         """วิเคราะห์ความเสถียรของ Features"""
