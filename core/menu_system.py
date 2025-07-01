@@ -63,7 +63,64 @@ class MenuSystem:
         try:
             if choice == '1':
                 self.logger.info("🌊 Starting Elliott Wave Full Pipeline...")
-                return self.menu_1.execute_full_pipeline()
+                
+                # Import Menu1Logger for enterprise-grade logging
+                from core.menu1_logger import (
+                    start_menu1_session, 
+                    complete_menu1_session,
+                    get_menu1_logger
+                )
+                
+                # Start enterprise logging session
+                session_id = f"menu1_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+                menu1_logger = start_menu1_session(session_id)
+                
+                try:
+                    # Execute Menu 1 with enhanced logging
+                    results = self.menu_1.run_full_pipeline()
+                    
+                    if results and not results.get('error', False):
+                        # Successful completion
+                        final_results = {
+                            "execution_status": "success",
+                            "auc_score": results.get('performance_analysis', {}).get('auc_score', 0.0),
+                            "enterprise_compliant": results.get('enterprise_compliance', {}).get('real_data_only', False),
+                            "total_features": results.get('feature_selection', {}).get('selected_features_count', 0),
+                            "pipeline_duration": results.get('execution_time', 'N/A')
+                        }
+                        complete_menu1_session(final_results)
+                        
+                        print("\n🎉 Elliott Wave Pipeline completed successfully!")
+                        print(f"📁 Session logs saved with ID: {session_id}")
+                        input("Press Enter to continue...")
+                        return True
+                    else:
+                        # Failed execution
+                        error_results = {
+                            "execution_status": "failed",
+                            "error_message": results.get('message', 'Unknown error'),
+                            "pipeline_duration": "N/A"
+                        }
+                        complete_menu1_session(error_results)
+                        
+                        print("❌ Elliott Wave Pipeline failed!")
+                        print(f"📋 Check session logs: {session_id}")
+                        input("Press Enter to continue...")
+                        return True
+                        
+                except Exception as pipeline_error:
+                    # Critical pipeline error
+                    error_results = {
+                        "execution_status": "critical_error",
+                        "error_message": str(pipeline_error),
+                        "pipeline_duration": "N/A"
+                    }
+                    complete_menu1_session(error_results)
+                    
+                    print(f"💥 Critical Pipeline Error: {str(pipeline_error)}")
+                    print(f"📋 Full error logs saved: {session_id}")
+                    input("Press Enter to continue...")
+                    return True
                 
             elif choice == '2':
                 print("📊 Data Analysis & Preprocessing")

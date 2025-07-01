@@ -111,9 +111,7 @@ class Menu1Logger:
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(logging.INFO)
         console_formatter = logging.Formatter(
-            f'{self.colors["step"]}%(asctime)s{self.colors["reset"]} | '
-            f'%(levelname_color)s%(levelname)s{self.colors["reset"]} | '
-            f'{self.colors["info"]}%(message)s{self.colors["reset"]}',
+            '%(asctime)s | %(levelname)s | %(message)s',
             datefmt='%H:%M:%S'
         )
         console_handler.setFormatter(console_formatter)

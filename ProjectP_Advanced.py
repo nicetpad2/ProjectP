@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-🏢 NICEGOLD ENTERPRISE PROJECTP - MAIN ENTRY POINT
-Advanced Version with Enterprise Logging & Process Tracking
+🏢 NICEGOLD ENTERPRISE PROJECTP - ADVANCED SUPPORT MODULE
+Advanced Version Components for Enterprise Logging & Process Tracking
+
+⚠️ THIS IS NOT A MAIN ENTRY POINT
+Use ProjectP.py as the only main entry point
 
 Version: 3.0 Advanced Edition
 Date: July 1, 2025
@@ -12,10 +15,6 @@ import os
 from datetime import datetime
 from pathlib import Path
 import traceback
-
-# Add project root to path
-project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
 
 # Import advanced logger first
 from core.advanced_logger import get_advanced_logger
@@ -304,5 +303,10 @@ def main():
         return 1
 
 
+# This module provides advanced functionality to be used by ProjectP.py
+# DO NOT run this file directly - use ProjectP.py instead
 if __name__ == "__main__":
-    sys.exit(main())
+    print("❌ ERROR: This is not a main entry point!")
+    print("🚀 Please use ProjectP.py to run the system:")
+    print("   python ProjectP.py")
+    sys.exit(1)
