@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "'ElliottWaveDataProcessor' object has no attribute 'create_elliott_wave_features'",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 130, in run_full_pipeline\n    features = self.data_processor.create_elliott_wave_features(data)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'ElliottWaveDataProcessor' object has no attribute 'create_elliott_wave_features'\n",
+  "timestamp": "2025-07-01T02:55:30.702789"
+}

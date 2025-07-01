@@ -19,34 +19,42 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
 import logging
 import traceback
-import json
-import pandas as pd
-import numpy as np
+from pathlib import Path
 
-# Import Core Components
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import Core Components after path setup
+from core.project_paths import get_project_paths
 from core.output_manager import NicegoldOutputManager
 
 # Import Elliott Wave Components
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
-from elliott_wave_modules.feature_selector import SHAPOptunaFeatureSelector
-from elliott_wave_modules.pipeline_orchestrator import ElliottWavePipelineOrchestrator
-from elliott_wave_modules.performance_analyzer import ElliottWavePerformanceAnalyzer
+from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
+from elliott_wave_modules.pipeline_orchestrator import (
+    ElliottWavePipelineOrchestrator
+)
+from elliott_wave_modules.performance_analyzer import (
+    ElliottWavePerformanceAnalyzer
+)
+
 
 class Menu1ElliottWave:
     """เมนู 1: Elliott Wave CNN-LSTM + DQN System"""
     
-    def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
+    def __init__(self, config: Optional[Dict] = None,
+                 logger: Optional[logging.Logger] = None):
         self.config = config or {}
         self.logger = logger or logging.getLogger(__name__)
-        self.session_start = datetime.now()
         self.results = {}
         
-        # Initialize Output Manager with proper path structure
-        output_base = "outputs/elliott_wave"
-        self.output_manager = NicegoldOutputManager(output_base)
-        self.session_id = self.output_manager.session_id
+        # Get project paths
+        self.paths = get_project_paths()
+        
+        # Initialize Output Manager with proper path
+        self.output_manager = NicegoldOutputManager()
         
         # Initialize Components
         self._initialize_components()
@@ -74,8 +82,8 @@ class Menu1ElliottWave:
                 logger=self.logger
             )
             
-            # SHAP + Optuna Feature Selector
-            self.feature_selector = SHAPOptunaFeatureSelector(
+            # SHAP + Optuna Feature Selector (Enterprise)
+            self.feature_selector = EnterpriseShapOptunaFeatureSelector(
                 target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
                 max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
                 logger=self.logger

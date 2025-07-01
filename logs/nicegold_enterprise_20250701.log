@@ -1,0 +1,211 @@
+2025-07-01 01:54:40 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 01:54:46 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 01:54:46 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 01:54:49 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 01:54:49 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 01:54:49 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 01:54:49 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 01:54:49 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 01:57:02 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 01:57:02 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 02:03:10 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 02:03:18 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 02:03:18 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 02:03:20 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 02:03:20 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 02:03:20 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 02:03:20 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 02:03:20 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 02:54:07 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 02:54:16 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 02:54:16 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 02:54:19 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 02:54:19 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 02:54:19 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 02:54:19 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 02:54:19 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 02:55:13 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 02:55:13 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 02:55:30 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: 'ElliottWaveDataProcessor' object has no attribute 'create_elliott_wave_features'
+2025-07-01 02:55:30 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py", line 130, in run_full_pipeline
+    features = self.data_processor.create_elliott_wave_features(data)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ElliottWaveDataProcessor' object has no attribute 'create_elliott_wave_features'
+
+2025-07-01 02:55:30 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 02:55:30 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 03:04:52 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 03:05:12 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 03:05:12 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 03:05:17 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 03:05:17 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 03:05:17 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 03:05:17 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 03:05:17 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 03:05:24 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 03:05:34 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 03:05:34 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 03:05:36 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 03:05:36 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 03:05:36 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 03:05:36 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 03:05:36 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 03:06:37 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 03:06:37 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ⚙️ Creating Elliott Wave features...
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave features created: 39 total features
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Preparing ML Training Data
+2025-07-01 03:06:40 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: 'ElliottWaveDataProcessor' object has no attribute 'prepare_ml_data'
+2025-07-01 03:06:40 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py", line 135, in run_full_pipeline
+    X, y = self.data_processor.prepare_ml_data(features)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ElliottWaveDataProcessor' object has no attribute 'prepare_ml_data'
+
+2025-07-01 03:06:40 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 03:06:40 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 03:33:54 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 03:34:57 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 03:35:33 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 03:35:33 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 03:35:37 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 03:44:27 | ERROR | NICEGOLD_Enterprise | 💥 Menu error: [Errno 5] Input/output error
+2025-07-01 04:00:01 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:00:19 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 04:00:19 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 04:00:21 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 04:01:18 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 04:01:18 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ⚙️ Creating Elliott Wave features...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📈 Adding technical indicators...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🌊 Adding Elliott Wave pattern features...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave features created: 1504 rows, 38 features
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Preparing ML Training Data
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Preparing ML training data...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | ✅ ML data prepared: X shape (1503, 37), y shape (1503,)
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 📊 Target distribution: {1: 814, 0: 689}
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Step 4: SHAP + Optuna Feature Selection
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🎯 Starting Enterprise SHAP + Optuna Feature Selection...
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Step 1: SHAP Feature Importance Analysis
+2025-07-01 04:01:23 | INFO | NICEGOLD_Enterprise | 🧠 Analyzing SHAP feature importance...
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: only length-1 arrays can be converted to Python scalars
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py", line 139, in run_full_pipeline
+    selected_features, selection_results = self.feature_selector.select_features(X, y)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ProjectP/elliott_wave_modules/feature_selector.py", line 89, in select_features
+    self.shap_rankings = self._analyze_shap_importance(X, y)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ProjectP/elliott_wave_modules/feature_selector.py", line 168, in _analyze_shap_importance
+    rankings[feature] = float(feature_importance[i])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: only length-1 arrays can be converted to Python scalars
+
+2025-07-01 04:01:45 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 04:01:45 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 04:01:45 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete
+2025-07-01 04:03:27 | INFO | NICEGOLD_Enterprise | 🚀 NICEGOLD Enterprise ProjectP Starting...
+2025-07-01 04:03:42 | INFO | NICEGOLD_Enterprise | 🌊 Initializing Elliott Wave Components...
+2025-07-01 04:03:42 | INFO | NICEGOLD_Enterprise | ℹ️ TensorFlow not available. Using Scikit-learn.
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ DQN Agent initialized (PyTorch: True)
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | 🎯 Enterprise SHAP + Optuna Feature Selector initialized
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave Components Initialized Successfully
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | ✅ Menu 1 Elliott Wave Module Loaded
+2025-07-01 04:03:45 | INFO | NICEGOLD_Enterprise | 🎛️ Menu System Started
+2025-07-01 04:05:27 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline...
+2025-07-01 04:05:27 | INFO | NICEGOLD_Enterprise | 🚀 Starting Elliott Wave Full Pipeline - REAL DATA ONLY...
+2025-07-01 04:05:28 | INFO | NICEGOLD_Enterprise | 🌊 Starting Elliott Wave Full Pipeline - REAL DATA ONLY
+2025-07-01 04:05:28 | INFO | NICEGOLD_Enterprise | 📊 Step 1: Loading REAL market data from datacsv/
+2025-07-01 04:05:28 | INFO | NICEGOLD_Enterprise | 📊 Loading REAL market data from datacsv/...
+2025-07-01 04:05:28 | INFO | NICEGOLD_Enterprise | � Loading REAL data from: XAUUSD_M15.csv
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🧹 Validating and cleaning data...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ✅ Data validation and cleaning completed
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ✅ REAL market data loaded: 1,553 rows
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ⚙️ Step 2: Advanced Feature Engineering
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ⚙️ Creating Elliott Wave features...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 📈 Adding technical indicators...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🌊 Adding Elliott Wave pattern features...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ✅ Elliott Wave features created: 1504 rows, 38 features
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Preparing ML Training Data
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🎯 Preparing ML training data...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | ✅ ML data prepared: X shape (1503, 37), y shape (1503,)
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 📊 Target distribution: {1: 814, 0: 689}
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🧠 Step 4: SHAP + Optuna Feature Selection
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🎯 Starting Enterprise SHAP + Optuna Feature Selection...
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🧠 Step 1: SHAP Feature Importance Analysis
+2025-07-01 04:05:29 | INFO | NICEGOLD_Enterprise | 🧠 Analyzing SHAP feature importance...
+2025-07-01 04:05:51 | INFO | NICEGOLD_Enterprise | ✅ SHAP analysis completed for 37 features
+2025-07-01 04:05:51 | INFO | NICEGOLD_Enterprise | 🎯 Top 5 features: ['local_high', 'local_low', 'price_change', 'bb_position', 'support_resistance_ratio']
+2025-07-01 04:05:51 | INFO | NICEGOLD_Enterprise | ⚡ Step 2: Optuna Feature Optimization
+2025-07-01 04:05:51 | INFO | NICEGOLD_Enterprise | ⚡ Starting Enterprise Optuna optimization...
+2025-07-01 04:12:28 | INFO | NICEGOLD_Enterprise | ✅ Enterprise Optuna optimization completed
+2025-07-01 04:12:28 | INFO | NICEGOLD_Enterprise | 🎯 Best AUC: 0.8102 from 150 trials
+2025-07-01 04:12:28 | INFO | NICEGOLD_Enterprise | 🎯 Step 3: Extracting Best Features
+2025-07-01 04:12:28 | INFO | NICEGOLD_Enterprise | ✅ Step 4: Final Enterprise Validation
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ Enterprise Feature Selection SUCCESS: 8 features selected
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🎯 AUC Achieved: 0.8305 (Target: 0.70) ✅
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🏗️ Step 5: Training CNN-LSTM Elliott Wave Model
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🚀 Training Elliott Wave model...
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🏗️ Building Random Forest fallback model...
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ Random Forest model built successfully
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ Model training completed: Random Forest
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🤖 Step 6: Training DQN Reinforcement Learning Agent
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🚀 Training DQN Agent for 49      0
+50      1
+51      0
+52      1
+53      0
+       ..
+1547    0
+1548    1
+1549    1
+1550    0
+1551    0
+Name: target, Length: 1503, dtype: int64 episodes...
+2025-07-01 04:12:29 | ERROR | NICEGOLD_Enterprise | ❌ DQN Agent training failed: 'Series' object cannot be interpreted as an integer
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | 🔗 Step 7: Running Integrated Pipeline
+2025-07-01 04:12:29 | ERROR | NICEGOLD_Enterprise | ❌ Elliott Wave Pipeline failed: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'
+2025-07-01 04:12:29 | ERROR | NICEGOLD_Enterprise | Traceback (most recent call last):
+  File "/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py", line 179, in run_full_pipeline
+    pipeline_results = self.pipeline_orchestrator.run_integrated_pipeline(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ElliottWavePipelineOrchestrator' object has no attribute 'run_integrated_pipeline'
+
+2025-07-01 04:12:29 | ERROR | NICEGOLD_Enterprise | ❌ Pipeline execution failed!
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ Menu System Shutdown Complete
+2025-07-01 04:12:29 | INFO | NICEGOLD_Enterprise | ✅ NICEGOLD Enterprise ProjectP Shutdown Complete

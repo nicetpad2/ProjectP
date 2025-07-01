@@ -13,11 +13,19 @@ Enterprise Features:
 
 import numpy as np
 import pandas as pd
-from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
 import os
 import glob
+import sys
+from pathlib import Path
+
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import after path setup
+from core.project_paths import get_project_paths
+
 
 class ElliottWaveDataProcessor:
     """ตัวประมวลผลข้อมูล Elliott Wave แบบ Enterprise"""
@@ -27,8 +35,9 @@ class ElliottWaveDataProcessor:
         self.logger = logger or logging.getLogger(__name__)
         self.data_cache = {}
         
-        # Paths
-        self.datacsv_path = self.config.get('paths', {}).get('data', 'datacsv/')
+        # Use ProjectPaths for path management
+        self.paths = get_project_paths()
+        self.datacsv_path = self.paths.datacsv
         
     def load_real_data(self) -> Optional[pd.DataFrame]:
         """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
@@ -36,24 +45,30 @@ class ElliottWaveDataProcessor:
             self.logger.info("📊 Loading REAL market data from datacsv/...")
             
             # Find CSV files in datacsv directory
-            csv_pattern = os.path.join(self.datacsv_path, "*.csv")
-            csv_files = glob.glob(csv_pattern)
+            csv_files = list(self.datacsv_path.glob("*.csv"))
             
             if not csv_files:
-                error_msg = f"❌ NO CSV FILES FOUND in {self.datacsv_path}! Please add real market data files."
+                error_msg = (
+                    f"❌ NO CSV FILES FOUND in {self.datacsv_path}! "
+                    f"Please add real market data files."
+                )
                 self.logger.error(error_msg)
                 raise FileNotFoundError(error_msg)
             
             # Select best data file (prefer M1 for higher granularity)
             data_file = self._select_best_data_file(csv_files)
-            self.logger.info(f"� Loading REAL data from: {os.path.basename(data_file)}")
+            self.logger.info(
+                f"� Loading REAL data from: {data_file.name}"
+            )
             
             # Load ALL data - NO row limits for production
             df = pd.read_csv(data_file)
             
             # Validate data is real market data
             if not self._validate_real_market_data(df):
-                raise ValueError("❌ Data validation failed - not real market data")
+                raise ValueError(
+                    "❌ Data validation failed - not real market data"
+                )
             
             # Clean and process real data
             df = self._validate_and_clean_data(df)
@@ -65,14 +80,14 @@ class ElliottWaveDataProcessor:
             self.logger.error(f"❌ Failed to load REAL data: {str(e)}")
             raise
     
-    def _select_best_data_file(self, csv_files: List[str]) -> str:
+    def _select_best_data_file(self, csv_files: List[Path]) -> Path:
         """เลือกไฟล์ข้อมูลที่ดีที่สุด"""
         # Priority: M1 > M5 > M15 > M30 > H1 > H4 > D1
         timeframe_priority = ['M1', 'M5', 'M15', 'M30', 'H1', 'H4', 'D1']
         
         for timeframe in timeframe_priority:
             for file_path in csv_files:
-                if timeframe in os.path.basename(file_path).upper():
+                if timeframe in file_path.name.upper():
                     return file_path
         
         # Return the first file if no timeframe match
@@ -389,32 +404,151 @@ class ElliottWaveDataProcessor:
         rsi = 100 - (100 / (1 + rs))
         return rsi
     
-    def prepare_data_for_ml(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
+    def create_elliott_wave_features(self, data: pd.DataFrame) -> pd.DataFrame:
+        """สร้างฟีเจอร์สำหรับ Elliott Wave Pattern Recognition"""
+        try:
+            self.logger.info("⚙️ Creating Elliott Wave features...")
+            
+            # Copy original data
+            features = data.copy()
+            
+            # Ensure required columns exist
+            if 'close' not in features.columns:
+                if 'Close' in features.columns:
+                    features = features.rename(columns={'Close': 'close'})
+                else:
+                    raise ValueError("❌ No 'close' or 'Close' column found")
+            
+            # Basic OHLC columns mapping
+            column_mapping = {
+                'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close',
+                'Volume': 'volume'
+            }
+            for old_col, new_col in column_mapping.items():
+                if old_col in features.columns and new_col not in features.columns:
+                    features[new_col] = features[old_col]
+            
+            # Technical Indicators
+            self.logger.info("📈 Adding technical indicators...")
+            
+            # Moving Averages
+            features['sma_5'] = features['close'].rolling(window=5).mean()
+            features['sma_10'] = features['close'].rolling(window=10).mean()
+            features['sma_20'] = features['close'].rolling(window=20).mean()
+            features['sma_50'] = features['close'].rolling(window=50).mean()
+            
+            features['ema_5'] = features['close'].ewm(span=5).mean()
+            features['ema_10'] = features['close'].ewm(span=10).mean()
+            features['ema_20'] = features['close'].ewm(span=20).mean()
+            
+            # RSI
+            delta = features['close'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+            rs = gain / loss
+            features['rsi'] = 100 - (100 / (1 + rs))
+            
+            # MACD
+            ema_12 = features['close'].ewm(span=12).mean()
+            ema_26 = features['close'].ewm(span=26).mean()
+            features['macd'] = ema_12 - ema_26
+            features['macd_signal'] = features['macd'].ewm(span=9).mean()
+            features['macd_histogram'] = features['macd'] - features['macd_signal']
+            
+            # Bollinger Bands
+            bb_period = 20
+            bb_std = 2
+            features['bb_middle'] = features['close'].rolling(window=bb_period).mean()
+            bb_std_dev = features['close'].rolling(window=bb_period).std()
+            features['bb_upper'] = features['bb_middle'] + (bb_std_dev * bb_std)
+            features['bb_lower'] = features['bb_middle'] - (bb_std_dev * bb_std)
+            features['bb_width'] = features['bb_upper'] - features['bb_lower']
+            features['bb_position'] = (features['close'] - features['bb_lower']) / features['bb_width']
+            
+            # Price Action Features
+            features['price_change'] = features['close'].pct_change()
+            features['high_low_ratio'] = features['high'] / features['low']
+            features['close_open_ratio'] = features['close'] / features['open']
+            
+            # Volatility
+            features['volatility'] = features['price_change'].rolling(window=10).std()
+            
+            # Volume features (if available)
+            if 'volume' in features.columns:
+                features['volume_sma'] = features['volume'].rolling(window=10).mean()
+                features['volume_ratio'] = features['volume'] / features['volume_sma']
+            
+            # Elliott Wave Pattern Features
+            self.logger.info("🌊 Adding Elliott Wave pattern features...")
+            
+            # Wave identification features
+            features['local_high'] = features['high'].rolling(window=5, center=True).max() == features['high']
+            features['local_low'] = features['low'].rolling(window=5, center=True).min() == features['low']
+            
+            # Trend strength
+            features['trend_strength'] = (features['close'] - features['close'].shift(20)) / features['close'].shift(20)
+            
+            # Support/Resistance levels
+            features['resistance'] = features['high'].rolling(window=20).max()
+            features['support'] = features['low'].rolling(window=20).min()
+            features['support_resistance_ratio'] = (features['close'] - features['support']) / (features['resistance'] - features['support'])
+            
+            # Momentum indicators
+            features['momentum_5'] = features['close'] / features['close'].shift(5) - 1
+            features['momentum_10'] = features['close'] / features['close'].shift(10) - 1
+            features['momentum_20'] = features['close'] / features['close'].shift(20) - 1
+            
+            # Drop NaN values
+            features = features.dropna()
+            
+            self.logger.info(f"✅ Elliott Wave features created: {len(features)} rows, {len(features.columns)} features")
+            return features
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to create Elliott Wave features: {str(e)}")
+            raise
+    
+    def prepare_ml_data(self, features: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
         """เตรียมข้อมูลสำหรับ Machine Learning"""
         try:
-            self.logger.info("🎯 Preparing data for ML models...")
+            self.logger.info("🎯 Preparing ML training data...")
             
-            # Create target variable (future price movement)
-            future_periods = 5  # Predict 5 periods ahead
-            df['future_close'] = df['close'].shift(-future_periods)
-            df['target'] = (df['future_close'] > df['close']).astype(int)
+            # Create target variable (price direction prediction)
+            # Target: 1 if price goes up in next period, 0 otherwise
+            features = features.copy()
+            features['future_close'] = features['close'].shift(-1)
+            features['target'] = (features['future_close'] > features['close']).astype(int)
             
-            # Remove rows with missing target
-            df = df.dropna(subset=['target'])
+            # Remove rows with NaN target
+            features = features.dropna()
             
             # Separate features and target
-            feature_cols = [col for col in df.columns if col not in ['timestamp', 'target', 'future_close']]
-            X = df[feature_cols].copy()
-            y = df['target'].copy()
+            target_col = 'target'
+            feature_cols = [col for col in features.columns if col not in [
+                'target', 'future_close', 'Date', 'Timestamp', 'date', 'timestamp'
+            ]]
             
-            # Handle any remaining NaN values
-            X = X.ffill().bfill()
+            X = features[feature_cols]
+            y = features[target_col]
             
-            self.logger.info(f"✅ Data prepared: {X.shape[0]} samples, {X.shape[1]} features")
+            # Ensure all features are numeric
+            for col in X.columns:
+                if X[col].dtype == 'object':
+                    try:
+                        X[col] = pd.to_numeric(X[col], errors='coerce')
+                    except (ValueError, TypeError):
+                        X = X.drop(columns=[col])
+            
+            # Remove any remaining NaN values
+            X = X.fillna(method='ffill').fillna(method='bfill').fillna(0)
+            
+            self.logger.info(f"✅ ML data prepared: X shape {X.shape}, y shape {y.shape}")
+            self.logger.info(f"📊 Target distribution: {y.value_counts().to_dict()}")
+            
             return X, y
             
         except Exception as e:
-            self.logger.error(f"❌ Data preparation failed: {str(e)}")
+            self.logger.error(f"❌ Failed to prepare ML data: {str(e)}")
             raise
     
     def get_data_quality_report(self, df: pd.DataFrame) -> Dict[str, Any]:
@@ -427,8 +561,8 @@ class ElliottWaveDataProcessor:
                 'data_types': df.dtypes.to_dict(),
                 'memory_usage': df.memory_usage(deep=True).sum(),
                 'real_data_percentage': 100.0,  # Enterprise requirement
-                'has_simulation': False,         # Enterprise requirement
-                'has_mock_data': False,          # Enterprise requirement
+                'has_fallback': False,         # Enterprise requirement
+                'has_test_data': False,          # Enterprise requirement
                 'date_range': {
                     'start': df['timestamp'].min() if 'timestamp' in df.columns else None,
                     'end': df['timestamp'].max() if 'timestamp' in df.columns else None
@@ -440,47 +574,3 @@ class ElliottWaveDataProcessor:
         except Exception as e:
             self.logger.error(f"❌ Data quality report failed: {str(e)}")
             return {}
-    
-    def create_elliott_wave_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """สร้างฟีเจอร์สำหรับ Elliott Wave analysis"""
-        try:
-            self.logger.info("🌊 Creating Elliott Wave features...")
-            
-            # Use existing technical indicators method
-            df_with_features = self._add_technical_indicators(df)
-            
-            # Add Elliott Wave specific features
-            # Wave pattern features
-            df_with_features['wave_momentum'] = df_with_features['close'].pct_change(5)
-            df_with_features['wave_strength'] = df_with_features['volume'] * abs(df_with_features['wave_momentum'])
-            
-            # Multi-timeframe features
-            for period in [5, 10, 20, 50]:
-                df_with_features[f'sma_{period}'] = df_with_features['close'].rolling(period).mean()
-                df_with_features[f'ema_{period}'] = df_with_features['close'].ewm(span=period).mean()
-                df_with_features[f'volatility_{period}'] = df_with_features['close'].rolling(period).std()
-            
-            # Elliott Wave cycle detection
-            df_with_features['trend_direction'] = np.where(
-                df_with_features['close'] > df_with_features['sma_20'], 1, -1
-            )
-            
-            # Pattern recognition features
-            df_with_features['high_low_ratio'] = df_with_features['high'] / df_with_features['low']
-            df_with_features['body_size'] = abs(df_with_features['close'] - df_with_features['open'])
-            df_with_features['upper_shadow'] = df_with_features['high'] - np.maximum(df_with_features['open'], df_with_features['close'])
-            df_with_features['lower_shadow'] = np.minimum(df_with_features['open'], df_with_features['close']) - df_with_features['low']
-            
-            # Remove NaN values
-            df_with_features = df_with_features.ffill().bfill()
-            
-            self.logger.info(f"✅ Elliott Wave features created: {df_with_features.shape[1]} features")
-            return df_with_features
-            
-        except Exception as e:
-            self.logger.error(f"❌ Elliott Wave feature creation failed: {str(e)}")
-            return df
-    
-    def prepare_ml_data(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
-        """เตรียมข้อมูลสำหรับ ML โดยใช้ Elliott Wave features"""
-        return self.prepare_data_for_ml(df)

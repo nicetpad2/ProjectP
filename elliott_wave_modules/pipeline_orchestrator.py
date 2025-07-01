@@ -127,11 +127,11 @@ class ElliottWavePipelineOrchestrator:
             data_quality = self.data_processor.get_data_quality_report(data)
             
             # Enterprise compliance check
-            if data_quality.get('has_simulation', False):
-                raise ValueError("❌ ENTERPRISE VIOLATION: Simulation data detected!")
+            if data_quality.get('has_fallback', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Fallback data detected!")
             
-            if data_quality.get('has_mock_data', False):
-                raise ValueError("❌ ENTERPRISE VIOLATION: Mock data detected!")
+            if data_quality.get('has_test_data', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Test data detected!")
             
             if data_quality.get('real_data_percentage', 0) < 100:
                 raise ValueError("❌ ENTERPRISE VIOLATION: Not 100% real data!")
@@ -361,8 +361,8 @@ class ElliottWavePipelineOrchestrator:
             compliance_checks = {
                 'auc_target_met': auc_passed,
                 'real_data_only': True,  # Verified in stage 1
-                'no_simulation': True,   # Verified in stage 1
-                'no_mock_data': True,    # Verified in stage 1
+                'no_fallback': True,   # Verified in stage 1
+                'no_test_data': True,    # Verified in stage 1
                 'production_ready': True,
                 'enterprise_grade': True
             }
@@ -522,64 +522,3 @@ class ElliottWavePipelineOrchestrator:
             
         except Exception as e:
             self.logger.error(f"❌ Failed to save pipeline results: {str(e)}")
-    
-    def run_integrated_pipeline(self, data: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """รันไปพ์ไลน์แบบบูรณาการ"""
-        try:
-            self.logger.info("🔗 Running integrated Elliott Wave pipeline...")
-            
-            # Use existing full pipeline method
-            pipeline_results = self.execute_full_pipeline()
-            
-            # Add data integration
-            pipeline_results['input_data'] = {
-                'data_shape': data.shape,
-                'feature_shape': X.shape,
-                'target_shape': y.shape,
-                'data_quality': self._assess_data_quality(data, X, y)
-            }
-            
-            return pipeline_results
-            
-        except Exception as e:
-            self.logger.error(f"❌ Integrated pipeline failed: {str(e)}")
-            return {
-                'success': False,
-                'error': str(e),
-                'pipeline_state': self.pipeline_state
-            }
-    
-    def _assess_data_quality(self, data: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """ประเมินคุณภาพข้อมูล"""
-        try:
-            quality_score = 0
-            
-            # Check data completeness
-            if data.isnull().sum().sum() == 0:
-                quality_score += 25
-            
-            # Check feature quality
-            if X.shape[1] > 10:  # Sufficient features
-                quality_score += 25
-            
-            # Check target balance
-            target_balance = y.value_counts().min() / len(y)
-            if target_balance > 0.2:  # At least 20% minority class
-                quality_score += 25
-            
-            # Check data size
-            if len(data) > 1000:  # Sufficient data points
-                quality_score += 25
-            
-            return {
-                'quality_score': quality_score,
-                'data_completeness': (1 - data.isnull().sum().sum() / data.size) * 100,
-                'feature_count': X.shape[1],
-                'target_balance': target_balance,
-                'sample_count': len(data),
-                'is_enterprise_grade': quality_score >= 70
-            }
-            
-        except Exception as e:
-            self.logger.error(f"❌ Data quality assessment failed: {str(e)}")
-            return {'quality_score': 0, 'error': str(e)}

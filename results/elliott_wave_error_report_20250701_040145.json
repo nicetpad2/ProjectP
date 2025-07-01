@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "only length-1 arrays can be converted to Python scalars",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspaces/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 139, in run_full_pipeline\n    selected_features, selection_results = self.feature_selector.select_features(X, y)\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspaces/ProjectP/elliott_wave_modules/feature_selector.py\", line 89, in select_features\n    self.shap_rankings = self._analyze_shap_importance(X, y)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspaces/ProjectP/elliott_wave_modules/feature_selector.py\", line 168, in _analyze_shap_importance\n    rankings[feature] = float(feature_importance[i])\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: only length-1 arrays can be converted to Python scalars\n",
+  "timestamp": "2025-07-01T04:01:45.646800"
+}

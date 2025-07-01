@@ -29,8 +29,8 @@ data:
   real_data_only: true
   no_mock_data: true
   no_simulation: true
-  datacsv_path: "datacsv/"
-  models_path: "models/"
+  # Paths will be set dynamically by ProjectPaths
+  use_project_paths: true
 
 # Performance Targets
 performance:
@@ -68,14 +68,23 @@ feature_selection:
   timeout: 180
   cv_folds: 5
 
-# Paths
+# Paths Configuration
+# Note: All paths are managed by ProjectPaths for cross-platform compatibility
 paths:
-  data: "datacsv/"
-  models: "models/"
-  results: "results/"
-  logs: "logs/"
-  temp: "temp/"
-  config: "config/"
+  # Paths will be dynamically resolved by core.project_paths
+  use_project_paths: true
+  # These are for reference only, actual paths come from ProjectPaths
+  reference:
+    data: "datacsv/"
+    models: "models/"
+    results: "results/"
+    logs: "logs/"
+    temp: "temp/"
+    config: "config/"
+    outputs: "outputs/"
+    reports: "outputs/reports/"
+    charts: "outputs/charts/"
+    analysis: "outputs/analysis/"
 
 # Logging Configuration
 logging:
