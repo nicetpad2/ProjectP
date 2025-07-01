@@ -677,6 +677,91 @@ class ElliottWaveDataProcessor:
                 features[f'rate_of_change_{period}'] = ((features['close'] - features['close'].shift(period)) / 
                                                        (features['close'].shift(period) + 1e-8)) * 100
             
+            # Enhanced Elliott Wave specific features
+            # Price wave patterns
+            for period in [8, 13, 21, 34, 55]:  # Fibonacci periods
+                features[f'price_wave_{period}'] = (features['close'] - features['close'].shift(period)) / (features['close'].shift(period) + 1e-8)
+                features[f'volume_wave_{period}'] = features['volume'] / (features['volume'].shift(period) + 1e-8)
+                
+                # High-Low waves
+                if 'high' in features.columns and 'low' in features.columns:
+                    features[f'hl_ratio_{period}'] = (features['high'] - features['low']) / (features['close'] + 1e-8)
+                    features[f'hl_position_{period}'] = (features['close'] - features['low']) / (features['high'] - features['low'] + 1e-8)
+            
+            # Volume indicators
+            if 'volume' in features.columns:
+                features['volume_sma_10'] = features['volume'].rolling(window=10).mean()
+                features['volume_sma_20'] = features['volume'].rolling(window=20).mean()
+                features['volume_ratio_10'] = features['volume'] / (features['volume_sma_10'] + 1e-8)
+                features['volume_ratio_20'] = features['volume'] / (features['volume_sma_20'] + 1e-8)
+                
+                # Volume-Price Trend (VPT)
+                price_change_ratio = features['close'].pct_change()
+                features['vpt'] = (features['volume'] * price_change_ratio).cumsum()
+                features['vpt_sma_10'] = features['vpt'].rolling(window=10).mean()
+                
+                # On-Balance Volume (OBV)
+                price_direction = np.where(features['close'] > features['close'].shift(1), 1, 
+                                         np.where(features['close'] < features['close'].shift(1), -1, 0))
+                features['obv'] = (features['volume'] * price_direction).cumsum()
+                features['obv_sma_10'] = features['obv'].rolling(window=10).mean()
+            
+            # Volatility indicators
+            for period in [10, 20]:
+                features[f'volatility_{period}'] = features['close'].rolling(window=period).std()
+                features[f'volatility_ratio_{period}'] = features[f'volatility_{period}'] / (features[f'volatility_{period}'].rolling(window=period).mean() + 1e-8)
+            
+            # Fibonacci retracement levels
+            period = 55
+            high_period = features['high'].rolling(window=period).max()
+            low_period = features['low'].rolling(window=period).min()
+            price_range = high_period - low_period
+            
+            # Fibonacci levels
+            fib_levels = [0.236, 0.382, 0.5, 0.618, 0.786]
+            for level in fib_levels:
+                level_price = high_period - (price_range * level)
+                features[f'fib_{int(level*1000)}_distance'] = np.abs(features['close'] - level_price) / (features['close'] + 1e-8)
+                features[f'fib_{int(level*1000)}_support'] = (features['close'] <= level_price * 1.01).astype(int)
+                features[f'fib_{int(level*1000)}_resistance'] = (features['close'] >= level_price * 0.99).astype(int)
+            
+            # Price channels and patterns
+            for period in [20, 50]:
+                # Donchian Channels
+                high_channel = features['high'].rolling(window=period).max()
+                low_channel = features['low'].rolling(window=period).min()
+                features[f'donchian_high_{period}'] = high_channel
+                features[f'donchian_low_{period}'] = low_channel
+                features[f'donchian_position_{period}'] = (features['close'] - low_channel) / (high_channel - low_channel + 1e-8)
+                
+                # Keltner Channels
+                ema_period = features['close'].ewm(span=period).mean()
+                atr_period = features[f'atr_{min(period, 21)}'] if f'atr_{min(period, 21)}' in features.columns else features['close'].rolling(window=period).std()
+                keltner_upper = ema_period + (2 * atr_period)
+                keltner_lower = ema_period - (2 * atr_period)
+                features[f'keltner_upper_{period}'] = keltner_upper
+                features[f'keltner_lower_{period}'] = keltner_lower
+                features[f'keltner_position_{period}'] = (features['close'] - keltner_lower) / (keltner_upper - keltner_lower + 1e-8)
+                
+            # Trend strength indicators
+            for period in [14, 21, 50]:
+                # ADX (Directional Movement Index)
+                high_diff = features['high'].diff()
+                low_diff = features['low'].diff()
+                plus_dm = np.where((high_diff > low_diff) & (high_diff > 0), high_diff, 0)
+                minus_dm = np.where((low_diff > high_diff) & (low_diff > 0), low_diff, 0)
+                
+                atr_val = features[f'atr_{min(period, 21)}'] if f'atr_{min(period, 21)}' in features.columns else features['close'].rolling(window=period).std()
+                plus_di = 100 * pd.Series(plus_dm).rolling(window=period).mean() / (atr_val + 1e-8)
+                minus_di = 100 * pd.Series(minus_dm).rolling(window=period).mean() / (atr_val + 1e-8)
+                dx = 100 * np.abs(plus_di - minus_di) / (plus_di + minus_di + 1e-8)
+                adx = dx.rolling(window=period).mean()
+                
+                features[f'adx_{period}'] = adx
+                features[f'plus_di_{period}'] = plus_di
+                features[f'minus_di_{period}'] = minus_di
+                features[f'trend_strength_{period}'] = np.where(adx > 25, 1, 0)  # Strong trend indicator
+            
             # Drop NaN values
             features = features.dropna()
             
@@ -692,11 +777,46 @@ class ElliottWaveDataProcessor:
         try:
             self.logger.info("🎯 Preparing ML training data...")
             
-            # Create target variable (price direction prediction)
-            # Target: 1 if price goes up in next period, 0 otherwise
+            # Create enhanced target variable for better prediction
             features = features.copy()
-            features['future_close'] = features['close'].shift(-1)
-            features['target'] = (features['future_close'] > features['close']).astype(int)
+            
+            # Multi-horizon target for more stable prediction
+            horizons = [1, 3, 5]  # 1, 3, and 5 periods ahead
+            target_signals = []
+            
+            for horizon in horizons:
+                future_close = features['close'].shift(-horizon)
+                price_change = (future_close - features['close']) / features['close']
+                
+                # Create binary target with threshold for significance
+                threshold = 0.001  # 0.1% minimum price movement
+                target_h = np.where(price_change > threshold, 1, 
+                                  np.where(price_change < -threshold, 0, np.nan))
+                target_signals.append(pd.Series(target_h, index=features.index))
+            
+            # Combine signals with weighted voting
+            weights = [0.5, 0.3, 0.2]  # Give more weight to shorter horizon
+            combined_signal = np.zeros(len(features))
+            valid_mask = np.ones(len(features), dtype=bool)
+            
+            for i, (signal, weight) in enumerate(zip(target_signals, weights)):
+                signal_valid = ~signal.isna()
+                combined_signal += signal.fillna(0.5) * weight  # Neutral for NaN
+                valid_mask &= signal_valid
+            
+            # Create final target with enhanced logic
+            features['target'] = np.where(valid_mask, 
+                                        (combined_signal > 0.5).astype(int), 
+                                        np.nan)
+            
+            # Add additional target engineering
+            # Volatility-adjusted target (avoid predictions during high volatility)
+            volatility = features['close'].rolling(window=20).std()
+            high_volatility = volatility > volatility.rolling(window=100).quantile(0.8)
+            
+            # Only keep targets during stable periods for better training
+            stable_periods = ~high_volatility
+            features.loc[~stable_periods, 'target'] = np.nan
             
             # Remove rows with NaN target
             features = features.dropna()

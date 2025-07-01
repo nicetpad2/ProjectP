@@ -74,15 +74,15 @@ class EnterpriseShapOptunaFeatureSelector:
     """
     
     def __init__(self, target_auc: float = 0.70, max_features: int = 30,
-                 n_trials: int = 100, timeout: int = 300,
+                 n_trials: int = 150, timeout: int = 480,  # Increased trials and timeout
                  logger: Optional[logging.Logger] = None):
         """Initialize Enterprise Feature Selector
         
         Args:
             target_auc: Minimum AUC target (default 0.70 for enterprise)
             max_features: Maximum number of features to select
-            n_trials: Number of Optuna optimization trials
-            timeout: Timeout in seconds for optimization
+            n_trials: Number of Optuna optimization trials (increased to 150)
+            timeout: Timeout in seconds for optimization (increased to 8 minutes)
             logger: Logger instance
         """
         self.target_auc = target_auc
@@ -92,8 +92,8 @@ class EnterpriseShapOptunaFeatureSelector:
         self.logger = logger or logging.getLogger(__name__)
         
         # Production-grade Optuna parameters
-        self.n_trials = self.n_trials  # Use constructor parameter
-        self.timeout = self.timeout     # Use constructor parameter
+        self.n_trials = max(self.n_trials, 100)  # Minimum 100 trials
+        self.timeout = max(self.timeout, 300)    # Minimum 5 minutes
         self.cv_folds = 5
         
         # Results storage
@@ -179,18 +179,20 @@ class EnterpriseShapOptunaFeatureSelector:
         self.logger.info("🧠 Analyzing SHAP feature importance...")
         
         # Sample data for efficient computation (increased for production)
-        sample_size = min(3000, len(X))
+        sample_size = min(5000, len(X))  # Increased sample size
         sample_indices = np.random.choice(len(X), sample_size, replace=False)
         X_sample = X.iloc[sample_indices]
         y_sample = y.iloc[sample_indices]
         
         # Train production-grade Random Forest for SHAP analysis
         model = RandomForestClassifier(
-            n_estimators=300,  # Increased for stability
+            n_estimators=500,  # Increased for better stability
             random_state=42,
             n_jobs=-1,
-            max_depth=12,
-            min_samples_split=5
+            max_depth=15,  # Increased depth
+            min_samples_split=3,  # Reduced for more granular splits
+            min_samples_leaf=1,
+            class_weight='balanced'  # Handle imbalanced data
         )
         model.fit(X_sample, y_sample)
         
@@ -284,10 +286,10 @@ class EnterpriseShapOptunaFeatureSelector:
     def _objective_function(self, trial, X: pd.DataFrame, y: pd.Series) -> float:
         """Optuna Objective Function for Feature Selection"""
         try:
-            # Select number of features
+            # Select number of features with better range
             n_features = trial.suggest_int(
                 'n_features', 
-                5, 
+                max(8, min(10, len(X.columns)//3)),  # Better minimum range
                 min(self.max_features, len(X.columns))
             )
             
@@ -295,27 +297,33 @@ class EnterpriseShapOptunaFeatureSelector:
             top_features = list(self.shap_rankings.keys())[:n_features]
             X_selected = X[top_features]
             
-            # Model selection
+            # Model selection with enhanced options
             model_type = trial.suggest_categorical('model_type', ['rf', 'gb'])
             
             if model_type == 'rf':
-                # Random Forest hyperparameters
-                n_estimators = trial.suggest_int('rf_n_estimators', 100, 300)
-                max_depth = trial.suggest_int('rf_max_depth', 5, 20)
-                min_samples_split = trial.suggest_int('rf_min_samples_split', 2, 10)
+                # Enhanced Random Forest hyperparameters
+                n_estimators = trial.suggest_int('rf_n_estimators', 300, 800)
+                max_depth = trial.suggest_int('rf_max_depth', 10, 25)
+                min_samples_split = trial.suggest_int('rf_min_samples_split', 2, 6)
+                min_samples_leaf = trial.suggest_int('rf_min_samples_leaf', 1, 3)
+                max_features = trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.7])
                 
                 model = RandomForestClassifier(
                     n_estimators=n_estimators,
                     max_depth=max_depth,
                     min_samples_split=min_samples_split,
+                    min_samples_leaf=min_samples_leaf,
+                    max_features=max_features,
                     random_state=42,
-                    n_jobs=-1
+                    n_jobs=-1,
+                    class_weight='balanced'
                 )
             else:
-                # Gradient Boosting hyperparameters
-                n_estimators = trial.suggest_int('gb_n_estimators', 100, 300)
-                max_depth = trial.suggest_int('gb_max_depth', 3, 12)
-                learning_rate = trial.suggest_float('gb_learning_rate', 0.01, 0.3)
+                # Enhanced Gradient Boosting hyperparameters  
+                n_estimators = trial.suggest_int('gb_n_estimators', 200, 500)
+                max_depth = trial.suggest_int('gb_max_depth', 5, 15)
+                learning_rate = trial.suggest_float('gb_learning_rate', 0.01, 0.25)
+                subsample = trial.suggest_float('gb_subsample', 0.8, 1.0)
                 
                 model = GradientBoostingClassifier(
                     n_estimators=n_estimators,

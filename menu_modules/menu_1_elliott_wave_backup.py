@@ -636,8 +636,9 @@ class Menu1ElliottWaveFixed:
                 except Exception as e:
                     report_content["🧠 Resource Management"] = {
                         "Resource Manager": "⚠️ PARTIAL",
-                        "Status": f"Active but monitoring failed: {str(e)}"
+                        "Status": f"Active but monitoring failed: {e}"
                     }
+            }
             
             # Convert report content to formatted string
             report_string = self._format_report_content(report_content)
