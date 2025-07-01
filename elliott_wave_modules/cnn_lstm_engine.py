@@ -85,8 +85,10 @@ class CNNLSTMElliottWave:
         self.logger.info("🏗️ Building TensorFlow CNN-LSTM model...")
         
         model = Sequential([
+            # Input layer (แก้ไข Keras UserWarning)
+            Input(shape=input_shape),
             # CNN layers
-            Conv1D(filters=64, kernel_size=3, activation='relu', input_shape=input_shape),
+            Conv1D(filters=64, kernel_size=3, activation='relu'),
             BatchNormalization(),
             Conv1D(filters=32, kernel_size=3, activation='relu'),
             BatchNormalization(),

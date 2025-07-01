@@ -336,9 +336,23 @@ class DQNReinforcementAgent:
                 # Use last few values as state
                 state = data.iloc[-self.state_size:, -1].values
             
-            # Normalize state
-            state = (state - np.mean(state)) / (np.std(state) + 1e-8)
-            return state
+            # Normalize state with safe division
+            state_mean = np.mean(state)
+            state_std = np.std(state)
+            
+            # แก้ไข divide by zero และ NaN
+            if np.isnan(state_mean) or np.isinf(state_mean):
+                state_mean = 0.0
+            
+            if np.isnan(state_std) or np.isinf(state_std) or state_std == 0:
+                state_std = 1.0
+            
+            normalized_state = (state - state_mean) / state_std
+            
+            # Check for NaN/inf values และแทนที่ด้วย 0
+            normalized_state = np.nan_to_num(normalized_state, nan=0.0, posinf=0.0, neginf=0.0)
+            
+            return normalized_state
             
         except Exception as e:
             self.logger.error(f"❌ State preparation failed: {str(e)}")
@@ -360,15 +374,27 @@ class DQNReinforcementAgent:
                 current_price = data.iloc[step + self.state_size]['close'] if 'close' in data.columns else data.iloc[step + self.state_size, -1]
                 next_price = data.iloc[step + self.state_size + 1]['close'] if 'close' in data.columns else data.iloc[step + self.state_size + 1, -1]
                 
-                price_change = (next_price - current_price) / current_price
-                
-                # Reward based on action correctness
-                if action == 1:  # Buy
-                    reward = price_change * 100  # Amplify reward
-                elif action == 2:  # Sell
-                    reward = -price_change * 100
-                else:  # Hold
-                    reward = -0.01  # Small penalty for holding
+                # แก้ไข divide by zero และ NaN ใน reward calculation
+                if np.isnan(current_price) or np.isnan(next_price) or current_price == 0:
+                    reward = 0.0
+                else:
+                    price_change = (next_price - current_price) / abs(current_price)
+                    
+                    # ตรวจสอบและแก้ไข NaN/inf values
+                    if np.isnan(price_change) or np.isinf(price_change):
+                        price_change = 0.0
+                    
+                    # Reward based on action correctness
+                    if action == 1:  # Buy
+                        reward = price_change * 100  # Amplify reward
+                    elif action == 2:  # Sell
+                        reward = -price_change * 100
+                    else:  # Hold
+                        reward = -0.01  # Small penalty for holding
+                    
+                    # ตรวจสอบและแก้ไข reward ที่เป็น NaN/inf
+                    if np.isnan(reward) or np.isinf(reward):
+                        reward = 0.0
             else:
                 reward = 0.0
             

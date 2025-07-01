@@ -1,0 +1,6 @@
+{
+  "error": true,
+  "error_message": "'ElliottWavePerformanceAnalyzer' object has no attribute 'analyze_performance'",
+  "traceback": "Traceback (most recent call last):\n  File \"/content/drive/MyDrive/ProjectP/menu_modules/menu_1_elliott_wave.py\", line 188, in run_full_pipeline\n    performance_results = self.performance_analyzer.analyze_performance(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'ElliottWavePerformanceAnalyzer' object has no attribute 'analyze_performance'\n",
+  "timestamp": "2025-07-01T06:12:07.988387"
+}

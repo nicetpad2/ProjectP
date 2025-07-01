@@ -199,7 +199,7 @@ class Menu1ElliottWave:
             
             # Step 8: Performance Analysis
             self.logger.info("📈 Step 8: Comprehensive Performance Analysis")
-            performance_results = self.performance_analyzer.analyze_performance(
+            performance_results = self.performance_analyzer.analyze_results(
                 pipeline_results
             )
             
