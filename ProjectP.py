@@ -25,15 +25,22 @@ def main():
     
     print("🧠 Initializing Optimized Systems...")
     
-    # Initialize minimal resource manager
+    # Initialize High Memory Resource Manager (80% RAM)
     resource_manager = None
     try:
         with suppress_all_output():
-            from core.optimized_resource_manager import OptimizedResourceManager
-        resource_manager = OptimizedResourceManager()
-        print("✅ Optimized Resource Manager: ACTIVE")
+            from core.high_memory_resource_manager import HighMemoryResourceManager
+        resource_manager = HighMemoryResourceManager(memory_percentage=0.8, cpu_percentage=0.3)
+        print("✅ High Memory Resource Manager (80% RAM): ACTIVE")
     except Exception as e:
-        print(f"⚠️ Resource manager unavailable: {e}")
+        print(f"⚠️ High memory resource manager unavailable, trying fallback: {e}")
+        try:
+            with suppress_all_output():
+                from core.optimized_resource_manager import OptimizedResourceManager
+            resource_manager = OptimizedResourceManager()
+            print("✅ Optimized Resource Manager: ACTIVE (fallback)")
+        except Exception as e2:
+            print(f"⚠️ All resource managers unavailable: {e2}")
     
     # Initialize minimal logging
     logger = None
@@ -48,36 +55,55 @@ def main():
         import logging
         logger = logging.getLogger("NICEGOLD")
     
-    # Load minimal configuration
+    # Load High Memory configuration (80% RAM)
     config = {
-        'optimized_mode': True,
+        'high_memory_mode': True,
         'resource_manager': resource_manager,
-        'conservative_allocation': True
+        'target_memory_usage': 0.8,
+        'target_cpu_usage': 0.3,
+        'enterprise_mode': True,
+        'zero_errors_mode': True,
+        'high_performance_mode': True
     }
     
-    print("🎛️ Starting Final Optimized Menu System...")
+    print("🎛️ Starting High Memory Menu System (80% RAM)...")
     
-    # Try ultra-lightweight menu first
+    # Try high-memory menu first
     try:
         with suppress_all_output():
-            from menu_modules.ultra_lightweight_menu_1 import UltraLightweightMenu1
+            from menu_modules.high_memory_menu_1 import HighMemoryMenu1
         
-        menu_1 = UltraLightweightMenu1(config, logger, resource_manager)
-        print("✅ Ultra-Lightweight Menu 1: READY")
+        menu_1 = HighMemoryMenu1(config, logger, resource_manager)
+        print("✅ High Memory Menu 1 (80% RAM): READY")
         menu_available = True
+        menu_type = "High Memory"
         
     except Exception as e:
-        print(f"⚠️ Ultra-lightweight menu failed: {e}")
+        print(f"⚠️ High memory menu failed: {e}")
         # Fallback to optimized menu
         try:
             with suppress_all_output():
                 from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
+            
             menu_1 = OptimizedMenu1ElliottWave(config, logger, resource_manager)
-            print("✅ Optimized Menu 1: READY")
+            print("✅ Optimized Menu 1: READY (fallback)")
             menu_available = True
+            menu_type = "Optimized"
+            
         except Exception as e2:
-            print(f"❌ All menu loading failed: {e2}")
-            menu_available = False
+            print(f"⚠️ Ultra-lightweight menu failed: {e2}")
+            # Final fallback to optimized menu
+            try:
+                with suppress_all_output():
+                    from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
+                menu_1 = OptimizedMenu1ElliottWave(config, logger, resource_manager)
+                print("✅ Optimized Menu 1: READY (final fallback)")
+                menu_available = True
+                menu_type = "Optimized"
+            except Exception as e3:
+                print(f"❌ All menu loading failed: {e3}")
+                menu_available = False
+                menu_type = "None"
     
     if not menu_available:
         print("❌ No menus available. Exiting.")
@@ -85,10 +111,13 @@ def main():
     
     # Interactive menu loop
     print("\n" + "="*80)
-    print("🏢 NICEGOLD ENTERPRISE - FINAL OPTIMIZED SYSTEM")
+    print("🏢 NICEGOLD ENTERPRISE - ENHANCED 80% RESOURCE SYSTEM")
     print("="*80)
+    print(f"🧠 Resource Manager: {resource_manager.__class__.__name__ if resource_manager else 'None'}")
+    print(f"🎛️ Menu System: {menu_type}")
+    print(f"🎯 Target Resource Usage: 80%")
     print("\n🎯 Available Options:")
-    print("1. 🌊 Elliott Wave Full Pipeline (Ultra-Optimized)")
+    print("1. 🌊 Elliott Wave Full Pipeline (Enhanced 80% Utilization)")
     print("2. 📊 System Status")
     print("0. 🚪 Exit")
     print("="*80)
@@ -98,23 +127,34 @@ def main():
             choice = input("\n🎯 Select option (0-2): ").strip()
             
             if choice == "1":
-                print("\n🚀 Starting Elliott Wave Pipeline...")
+                print("\n🚀 Starting Enhanced 80% Elliott Wave Pipeline...")
                 try:
                     start_time = datetime.now()
+                    
+                    # Set resource manager to 80% if available
+                    if resource_manager and hasattr(resource_manager, 'start_monitoring'):
+                        resource_manager.start_monitoring()
+                        print("📊 80% Resource monitoring activated")
+                    
                     result = menu_1.run()
                     end_time = datetime.now()
                     duration = (end_time - start_time).total_seconds()
                     
                     if result.get('success'):
-                        print(f"✅ Pipeline completed successfully in {duration:.2f}s")
+                        print(f"✅ Enhanced 80% Pipeline completed successfully in {duration:.2f}s")
                         if 'performance' in result:
                             perf = result['performance']
-                            print(f"📊 Performance: {perf}")
+                            print(f"📊 Performance Metrics: {perf}")
+                        if 'resource_usage' in result:
+                            usage = result['resource_usage']
+                            print(f"🧠 Resource Usage: {usage}")
                     else:
                         print(f"❌ Pipeline failed: {result.get('message', 'Unknown error')}")
                         
                 except Exception as e:
                     print(f"❌ Pipeline execution error: {e}")
+                    import traceback
+                    traceback.print_exc()
                 
                 input("\nPress Enter to continue...")
             
@@ -133,14 +173,21 @@ def main():
                 # Resource manager status
                 if resource_manager:
                     try:
-                        health = resource_manager.get_health_status()
-                        print(f"🧠 Resource Manager: Health {health.get('health_score', 0)}%")
-                    except:
-                        print("🧠 Resource Manager: Active")
+                        if hasattr(resource_manager, 'get_health_status'):
+                            health = resource_manager.get_health_status()
+                            print(f"🧠 Enhanced Resource Manager: Health {health.get('health_score', 0)}%")
+                            if 'current_allocation' in health:
+                                print(f"📊 Current Allocation: {health['current_allocation']:.1%}")
+                            if 'target_allocation' in health:
+                                print(f"🎯 Target Allocation: {health['target_allocation']:.1%}")
+                        else:
+                            print("🧠 Resource Manager: Active")
+                    except Exception as e:
+                        print(f"🧠 Resource Manager: Active (status unavailable: {e})")
                 else:
                     print("🧠 Resource Manager: Not available")
                 
-                print(f"🎛️ Menu System: {'✅ Ultra-Lightweight' if menu_available else '❌ Unavailable'}")
+                print(f"🎛️ Menu System: {'✅ ' + menu_type if menu_available else '❌ Unavailable'}")
                 
                 input("\nPress Enter to continue...")
             
@@ -160,13 +207,16 @@ def main():
     # Cleanup
     if resource_manager:
         try:
-            resource_manager.stop_monitoring()
-        except:
-            pass
+            if hasattr(resource_manager, 'stop_monitoring'):
+                resource_manager.stop_monitoring()
+            if hasattr(resource_manager, 'cleanup'):
+                resource_manager.cleanup()
+        except Exception as e:
+            print(f"⚠️ Resource manager cleanup warning: {e}")
     
     # Final garbage collection
     gc.collect()
-    print("✅ NICEGOLD Enterprise Final Optimized Shutdown Complete")
+    print("✅ NICEGOLD Enterprise Enhanced 80% System Shutdown Complete")
 
 if __name__ == "__main__":
     main()

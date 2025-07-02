@@ -1,0 +1,73 @@
+{
+  "platform": "Linux",
+  "architecture": "64bit",
+  "python_version": "3.11.2",
+  "python_executable": "/home/ACER/.cache/nicegold_env/nicegold_enterprise_env/bin/python3",
+  "installation_status": "completed",
+  "verified_packages": [
+    {
+      "package": "psutil",
+      "verified": true
+    },
+    {
+      "package": "numpy",
+      "verified": true
+    },
+    {
+      "package": "pandas",
+      "verified": true
+    },
+    {
+      "package": "scikit-learn",
+      "verified": true
+    },
+    {
+      "package": "matplotlib",
+      "verified": true
+    },
+    {
+      "package": "seaborn",
+      "verified": true
+    },
+    {
+      "package": "yfinance",
+      "verified": true
+    },
+    {
+      "package": "TA-Lib",
+      "verified": false
+    },
+    {
+      "package": "plotly",
+      "verified": true
+    },
+    {
+      "package": "dash",
+      "verified": true
+    },
+    {
+      "package": "requests",
+      "verified": true
+    },
+    {
+      "package": "colorama",
+      "verified": true
+    },
+    {
+      "package": "tqdm",
+      "verified": true
+    },
+    {
+      "package": "joblib",
+      "verified": true
+    },
+    {
+      "package": "optuna",
+      "verified": true
+    },
+    {
+      "package": "shap",
+      "verified": true
+    }
+  ]
+}
