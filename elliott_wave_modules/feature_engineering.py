@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-⚙️ ELLIOTT WAVE FEATURE ENGINEERING
-ระบบสร้างฟีเจอร์แบบครบวงจรสำหรับ Elliott Wave Analysis
+ELLIOTT WAVE FEATURE ENGINEERING
+Comprehensive Feature Engineering System for Elliott Wave Analysis
 
 Enterprise Features:
 - Elliott Wave Pattern Features

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-🛡️ ENTERPRISE ML PROTECTION SYSTEM
-ระบบป้องกัน Overfitting, Noise Detection และ Data Leakage ระดับ Enterprise
+ENTERPRISE ML PROTECTION SYSTEM
+Enterprise-level ML Protection: Overfitting, Noise Detection, Data Leakage Prevention
 
-🎯 Core Features:
+Core Features:
 - Advanced Overfitting Detection (Multiple Methods)
 - Intelligent Noise Detection & Filtering
 - Comprehensive Data Leakage Prevention
@@ -1686,7 +1687,435 @@ class EnterpriseMLProtectionSystem:
         
         return status
     
-
-
-# Alias for backward compatibility
-DataProcessor = EnterpriseMLProtectionSystem
+    def _analyze_data_quality(self, X: np.ndarray, y: np.ndarray, process_id: str = None) -> Dict[str, Any]:
+        """🔍 Analyze overall data quality"""
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.data_log("Starting data quality analysis", "Data_Quality", process_id=process_id)
+            
+            # Convert to DataFrame for analysis
+            if isinstance(X, np.ndarray):
+                X_df = pd.DataFrame(X, columns=[f'feature_{i}' for i in range(X.shape[1])])
+            else:
+                X_df = X
+            
+            if isinstance(y, np.ndarray):
+                y_series = pd.Series(y)
+            else:
+                y_series = y
+            
+            quality_results = {
+                'status': 'ANALYZING',
+                'overall_quality_score': 0.0,
+                'issues': [],
+                'warnings': [],
+                'recommendations': []
+            }
+            
+            # Check for missing values
+            missing_info = self._analyze_missing_values(X_df)
+            quality_results['missing_values'] = missing_info
+            
+            # Check feature distributions
+            distribution_info = self._analyze_feature_distributions(X_df)
+            quality_results['distributions'] = distribution_info
+            
+            # Check feature relevance
+            relevance_info = self._analyze_feature_relevance(X_df, y_series)
+            quality_results['relevance'] = relevance_info
+            
+            # Calculate overall quality score
+            missing_penalty = min(missing_info.get('total_missing', 0) / len(X_df) * 2, 0.3)
+            
+            # Count distribution issues
+            dist_issues = sum(1 for col, info in distribution_info.items() 
+                            if info.get('highly_skewed', False) or info.get('heavy_tailed', False))
+            distribution_penalty = min(dist_issues / len(X_df.columns) * 0.5, 0.3)
+            
+            # Relevance penalty
+            irrelevant_features = len(relevance_info.get('irrelevant_features', []))
+            relevance_penalty = min(irrelevant_features / len(X_df.columns) * 0.4, 0.3)
+            
+            # Overall quality score (1.0 = perfect, 0.0 = poor)
+            quality_score = max(1.0 - missing_penalty - distribution_penalty - relevance_penalty, 0.0)
+            quality_results['overall_quality_score'] = quality_score
+            
+            # Add issues and recommendations
+            if missing_penalty > 0.1:
+                quality_results['issues'].append("High missing value rate detected")
+                quality_results['recommendations'].append("Implement missing value imputation")
+            
+            if distribution_penalty > 0.1:
+                quality_results['issues'].append("Significant distribution issues detected")
+                quality_results['recommendations'].append("Apply feature transformation and normalization")
+            
+            if relevance_penalty > 0.1:
+                quality_results['issues'].append("Many irrelevant features detected")
+                quality_results['recommendations'].append("Perform feature selection to remove irrelevant features")
+            
+            # Set status
+            if quality_score >= 0.8:
+                quality_results['status'] = 'EXCELLENT'
+            elif quality_score >= 0.6:
+                quality_results['status'] = 'GOOD'
+            elif quality_score >= 0.4:
+                quality_results['status'] = 'ACCEPTABLE'
+            else:
+                quality_results['status'] = 'POOR'
+            
+            return quality_results
+            
+        except Exception as e:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error("Data quality analysis failed", "Data_Quality", 
+                                process_id=process_id, exception=e)
+            return {
+                'status': 'ERROR',
+                'error': str(e),
+                'overall_quality_score': 0.0,
+                'issues': [f"Analysis failed: {str(e)}"]
+            }
+    
+    def _analyze_feature_correlation(self, X: np.ndarray, feature_names: List[str] = None, 
+                                   process_id: str = None) -> Dict[str, Any]:
+        """🔗 Analyze feature correlations"""
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.data_log("Starting feature correlation analysis", "Correlation_Analysis", process_id=process_id)
+            
+            # Convert to DataFrame for analysis
+            if isinstance(X, np.ndarray):
+                X_df = pd.DataFrame(X, columns=feature_names or [f'feature_{i}' for i in range(X.shape[1])])
+            else:
+                X_df = X
+            
+            correlation_results = {
+                'status': 'ANALYZING',
+                'high_correlations': [],
+                'correlation_matrix_summary': {},
+                'multicollinearity_detected': False,
+                'recommendations': []
+            }
+            
+            # Calculate correlation matrix for numeric features only
+            numeric_features = X_df.select_dtypes(include=[np.number])
+            if len(numeric_features.columns) <= 1:
+                correlation_results['status'] = 'INSUFFICIENT_FEATURES'
+                return correlation_results
+            
+            corr_matrix = numeric_features.corr().abs()
+            
+            # Find high correlations (excluding diagonal)
+            high_corr_threshold = self.protection_config.get('max_feature_correlation', 0.75)
+            
+            high_correlations = []
+            for i in range(len(corr_matrix.columns)):
+                for j in range(i+1, len(corr_matrix.columns)):
+                    corr_value = corr_matrix.iloc[i, j]
+                    if corr_value > high_corr_threshold:
+                        high_correlations.append({
+                            'feature_1': corr_matrix.columns[i],
+                            'feature_2': corr_matrix.columns[j],
+                            'correlation': float(corr_value),
+                            'risk_level': 'HIGH' if corr_value > 0.9 else 'MEDIUM'
+                        })
+            
+            correlation_results['high_correlations'] = high_correlations
+            correlation_results['multicollinearity_detected'] = len(high_correlations) > 0
+            
+            # Summary statistics
+            correlation_results['correlation_matrix_summary'] = {
+                'max_correlation': float(corr_matrix.values[np.triu_indices_from(corr_matrix.values, k=1)].max()),
+                'mean_correlation': float(corr_matrix.values[np.triu_indices_from(corr_matrix.values, k=1)].mean()),
+                'high_correlation_pairs': len(high_correlations)
+            }
+            
+            # Add recommendations
+            if len(high_correlations) > 0:
+                correlation_results['recommendations'].append("Remove or combine highly correlated features")
+                correlation_results['recommendations'].append("Consider PCA or feature selection techniques")
+            
+            correlation_results['status'] = 'COMPLETED'
+            return correlation_results
+            
+        except Exception as e:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error("Feature correlation analysis failed", "Correlation_Analysis", 
+                                process_id=process_id, exception=e)
+            return {
+                'status': 'ERROR',
+                'error': str(e),
+                'high_correlations': [],
+                'multicollinearity_detected': False
+            }
+    
+    def _analyze_noise(self, X: np.ndarray, y: np.ndarray, process_id: str = None) -> Dict[str, Any]:
+        """📊 Analyze noise levels in data"""
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.data_log("Starting noise analysis", "Noise_Analysis", process_id=process_id)
+            
+            # Convert to appropriate format and delegate to existing method
+            if isinstance(X, np.ndarray):
+                X_df = pd.DataFrame(X, columns=[f'feature_{i}' for i in range(X.shape[1])])
+            else:
+                X_df = X
+            
+            if isinstance(y, np.ndarray):
+                y_series = pd.Series(y)
+            else:
+                y_series = y
+            
+            # Use existing noise detection method
+            noise_results = self._detect_noise_and_quality(X_df, y_series)
+            
+            return noise_results
+            
+        except Exception as e:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error("Noise analysis failed", "Noise_Analysis", 
+                                process_id=process_id, exception=e)
+            return {
+                'status': 'ERROR',
+                'error': str(e),
+                'noise_level': 1.0,  # Assume high noise on error
+                'data_quality_score': 0.0
+            }
+    
+    def _validate_time_series_integrity(self, X: np.ndarray, y: np.ndarray, 
+                                      process_id: str = None) -> Dict[str, Any]:
+        """⏰ Validate time series data integrity"""
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.data_log("Starting time series validation", "TimeSeries_Validation", process_id=process_id)
+            
+            timeseries_results = {
+                'status': 'ANALYZING',
+                'is_time_series': False,
+                'temporal_gaps': [],
+                'seasonal_patterns': {},
+                'data_drift': {},
+                'integrity_score': 1.0,
+                'issues': [],
+                'recommendations': []
+            }
+            
+            # For now, assume this is not explicitly time series data
+            # In a real implementation, you would check for datetime columns
+            # and perform proper temporal analysis
+            
+            # Simple validation based on data ordering
+            n_samples = len(X)
+            
+            # Check for data consistency (simplified)
+            if n_samples < 100:
+                timeseries_results['issues'].append("Insufficient data for time series analysis")
+                timeseries_results['integrity_score'] = 0.5
+            
+            # Check for potential data drift by comparing first and last thirds
+            if n_samples >= 300:
+                try:
+                    first_third = X[:n_samples//3]
+                    last_third = X[-n_samples//3:]
+                    
+                    # Simple drift detection using mean differences
+                    drift_scores = []
+                    for col in range(X.shape[1]):
+                        first_mean = np.mean(first_third[:, col])
+                        last_mean = np.mean(last_third[:, col])
+                        first_std = np.std(first_third[:, col])
+                        
+                        if first_std > 0:
+                            drift_score = abs(first_mean - last_mean) / first_std
+                            drift_scores.append(drift_score)
+                    
+                    avg_drift = np.mean(drift_scores) if drift_scores else 0
+                    timeseries_results['data_drift'] = {
+                        'detected': avg_drift > 2.0,
+                        'average_drift_score': float(avg_drift),
+                        'severity': 'HIGH' if avg_drift > 3.0 else 'MEDIUM' if avg_drift > 2.0 else 'LOW'
+                    }
+                    
+                    if avg_drift > 2.0:
+                        timeseries_results['issues'].append("Significant data drift detected")
+                        timeseries_results['recommendations'].append("Check for data distribution changes over time")
+                        timeseries_results['integrity_score'] *= 0.8
+                        
+                except Exception:
+                    # Drift analysis failed, continue with reduced score
+                    timeseries_results['integrity_score'] *= 0.9
+            
+            # Set final status
+            if timeseries_results['integrity_score'] >= 0.8:
+                timeseries_results['status'] = 'GOOD'
+            elif timeseries_results['integrity_score'] >= 0.6:
+                timeseries_results['status'] = 'ACCEPTABLE'
+            else:
+                timeseries_results['status'] = 'POOR'
+            
+            return timeseries_results
+            
+        except Exception as e:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error("Time series validation failed", "TimeSeries_Validation", 
+                                process_id=process_id, exception=e)
+            return {
+                'status': 'ERROR',
+                'error': str(e),
+                'integrity_score': 0.0,
+                'issues': [f"Validation failed: {str(e)}"]
+            }
+    
+    def _assess_enterprise_readiness(self, protection_results: Dict, process_id: str = None) -> Dict[str, Any]:
+        """🏢 Assess overall enterprise readiness"""
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.security("Starting enterprise readiness assessment", "Enterprise_Assessment", process_id=process_id)
+            
+            # Extract scores from analysis results
+            data_quality = protection_results.get('data_quality', {})
+            quality_score = data_quality.get('overall_quality_score', 0.0)
+            
+            correlation_analysis = protection_results.get('correlation_analysis', {})
+            multicollinearity_detected = correlation_analysis.get('multicollinearity_detected', False)
+            
+            noise_analysis = protection_results.get('noise_analysis', {})
+            noise_level = noise_analysis.get('noise_level', 1.0)
+            
+            overfitting_analysis = protection_results.get('overfitting_analysis', {})
+            overfitting_detected = overfitting_analysis.get('overfitting_detected', False)
+            overfitting_score = overfitting_analysis.get('overfitting_score', 0.0)
+            
+            leakage_analysis = protection_results.get('leakage_analysis', {})
+            leakage_detected = leakage_analysis.get('leakage_detected', False)
+            leakage_score = leakage_analysis.get('leakage_score', 0.0)
+            
+            timeseries_analysis = protection_results.get('timeseries_analysis', {})
+            integrity_score = timeseries_analysis.get('integrity_score', 1.0)
+            
+            # Calculate overall risk assessment
+            risk_factors = []
+            
+            # Data quality risk
+            if quality_score < 0.6:
+                risk_factors.append(('poor_data_quality', 0.3))
+            elif quality_score < 0.8:
+                risk_factors.append(('moderate_data_quality', 0.1))
+            
+            # Multicollinearity risk
+            if multicollinearity_detected:
+                risk_factors.append(('multicollinearity', 0.2))
+            
+            # Noise risk
+            noise_threshold = self.protection_config.get('noise_threshold', 0.02)
+            if noise_level > noise_threshold * 5:  # Very high noise
+                risk_factors.append(('high_noise', 0.3))
+            elif noise_level > noise_threshold:
+                risk_factors.append(('moderate_noise', 0.1))
+            
+            # Overfitting risk
+            overfitting_threshold = self.protection_config.get('overfitting_threshold', 0.05)
+            if overfitting_detected and overfitting_score > overfitting_threshold * 2:
+                risk_factors.append(('high_overfitting', 0.4))
+            elif overfitting_detected:
+                risk_factors.append(('moderate_overfitting', 0.2))
+            
+            # Data leakage risk
+            if leakage_detected:
+                risk_factors.append(('data_leakage', 0.5))  # Critical issue
+            
+            # Time series integrity risk
+            if integrity_score < 0.6:
+                risk_factors.append(('poor_temporal_integrity', 0.2))
+            
+            # Calculate total risk score
+            total_risk = sum(weight for _, weight in risk_factors)
+            total_risk = min(total_risk, 1.0)  # Cap at 1.0
+            
+            # Determine protection status and risk level
+            if total_risk < 0.1:
+                protection_status = 'EXCELLENT'
+                risk_level = 'LOW'
+            elif total_risk < 0.25:
+                protection_status = 'GOOD'
+                risk_level = 'LOW'
+            elif total_risk < 0.5:
+                protection_status = 'ACCEPTABLE'
+                risk_level = 'MEDIUM'
+            elif total_risk < 0.75:
+                protection_status = 'POOR'
+                risk_level = 'HIGH'
+            else:
+                protection_status = 'CRITICAL'
+                risk_level = 'CRITICAL'
+            
+            # Enterprise readiness assessment
+            enterprise_ready = (
+                total_risk < 0.25 and
+                quality_score >= 0.8 and
+                not leakage_detected and
+                noise_level <= noise_threshold * 2 and
+                (not overfitting_detected or overfitting_score <= overfitting_threshold)
+            )
+            
+            # Generate alerts and recommendations
+            alerts = []
+            recommendations = []
+            
+            for factor_name, weight in risk_factors:
+                if factor_name == 'data_leakage':
+                    alerts.append("🚨 CRITICAL: Data leakage detected - immediate action required")
+                    recommendations.append("Remove or fix features causing data leakage")
+                elif factor_name in ['high_overfitting', 'high_noise']:
+                    alerts.append(f"⚠️ HIGH RISK: {factor_name.replace('_', ' ').title()} detected")
+                    if 'overfitting' in factor_name:
+                        recommendations.append("Implement stronger regularization or reduce model complexity")
+                    else:
+                        recommendations.append("Apply advanced noise filtering and feature cleaning")
+                elif weight >= 0.2:
+                    alerts.append(f"⚠️ MEDIUM RISK: {factor_name.replace('_', ' ').title()} detected")
+            
+            if not enterprise_ready:
+                alerts.append("❌ System not ready for enterprise deployment")
+                recommendations.append("Address all identified risk factors before production use")
+            
+            # Enterprise assessment summary
+            enterprise_assessment = {
+                'overall_assessment': {
+                    'protection_status': protection_status,
+                    'risk_level': risk_level,
+                    'total_risk_score': total_risk,
+                    'enterprise_ready': enterprise_ready,
+                    'risk_factors': [factor for factor, _ in risk_factors],
+                    'enterprise_score': max(1.0 - total_risk, 0.0)
+                },
+                'quality_metrics': {
+                    'data_quality_score': quality_score,
+                    'noise_level': noise_level,
+                    'overfitting_score': overfitting_score,
+                    'leakage_score': leakage_score,
+                    'integrity_score': integrity_score
+                },
+                'alerts': alerts,
+                'recommendations': recommendations,
+                'enterprise_ready': enterprise_ready
+            }
+            
+            return enterprise_assessment
+            
+        except Exception as e:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.critical("Enterprise readiness assessment failed", "Enterprise_Assessment", 
+                                   process_id=process_id, exception=e)
+            return {
+                'overall_assessment': {
+                    'protection_status': 'ERROR',
+                    'risk_level': 'CRITICAL',
+                    'total_risk_score': 1.0,
+                    'enterprise_ready': False,
+                    'enterprise_score': 0.0
+                },
+                'alerts': [f"Assessment failed: {str(e)}"],
+                'recommendations': ["Fix system errors before proceeding"],
+                'enterprise_ready': False
+            }

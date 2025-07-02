@@ -43,13 +43,32 @@ from core.project_paths import get_project_paths
 # Import Enterprise ML Protection System
 from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
 
+# 🚀 Advanced Logging Integration
+try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
+    from core.real_time_progress_manager import get_progress_manager, ProgressType
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+    print("⚠️ Advanced logging not available, using standard logging")
+
 
 class ElliottWaveDataProcessor:
     """ตัวประมวลผลข้อมูล Elliott Wave แบบ Enterprise"""
     
     def __init__(self, config: Dict = None, logger: logging.Logger = None):
         self.config = config or {}
-        self.logger = logger or logging.getLogger(__name__)
+        
+        # 🚀 Initialize Advanced Logging
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+            self.logger.info("🚀 ElliottWaveDataProcessor initialized with Advanced Logging", 
+                            "Data_Processor")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
+        
         self.data_cache = {}
         
         # Use ProjectPaths for path management
@@ -416,75 +435,6 @@ class ElliottWaveDataProcessor:
         # Simple binary moving average signals
         df['sma_signal'] = np.where(df['sma_10'] > df['sma_20'], 1, 0)
         df['ema_signal'] = np.where(df['ema_10'] > df['ema_20'], 1, 0)
-        
-        return df
-            macd_histogram = macd_line - macd_signal_line
-            
-            suffix = f'_{fast}_{slow}_{signal}'
-            df[f'macd{suffix}'] = macd_line
-            df[f'macd_signal{suffix}'] = macd_signal_line
-            df[f'macd_histogram{suffix}'] = macd_histogram
-            df[f'macd_crossover{suffix}'] = np.where(macd_line > macd_signal_line, 1, -1)
-        
-        # Moving average ratios and signals
-        for period in [5, 10, 20, 50, 100]:
-            df[f'price_sma_ratio_{period}'] = df['close'] / (df[f'sma_{period}'] + 1e-8)
-            df[f'price_ema_ratio_{period}'] = df['close'] / (df[f'ema_{period}'] + 1e-8)
-        
-        # Moving average crossover signals
-        df['sma_5_20_signal'] = np.where(df['sma_5'] > df['sma_20'], 1, -1)
-        df['sma_10_50_signal'] = np.where(df['sma_10'] > df['sma_50'], 1, -1)
-        df['ema_5_20_signal'] = np.where(df['ema_5'] > df['ema_20'], 1, -1)
-        
-        # Bollinger Bands variations
-        for period in [10, 50]:
-            for std_dev in [1.5, 2.5]:
-                bb_middle = df['close'].rolling(window=period).mean()
-                bb_std = df['close'].rolling(window=period).std()
-                df['bb_upper'] = bb_middle + (bb_std * std_dev)
-                df['bb_lower'] = bb_middle - (bb_std * std_dev)
-                df['bb_width'] = df['bb_upper'] - df['bb_lower']
-                df['bb_position'] = (df['close'] - df['bb_lower']) / (df['bb_width'] + 1e-8)
-                
-                suffix = f'_{period}_{int(std_dev*10)}'
-                df[f'bb_width{suffix}'] = df['bb_width']
-                df[f'bb_position{suffix}'] = df['bb_position']
-                df[f'bb_squeeze{suffix}'] = (df['bb_width'] < df['bb_width'].rolling(20).mean()).astype(int)
-        
-        # Stochastic Oscillator
-        for k_period, d_period in [(14, 3), (21, 5)]:
-            low_k = df['low'].rolling(window=k_period).min()
-            high_k = df['high'].rolling(window=k_period).max()
-            k_percent = 100 * ((df['close'] - low_k) / (high_k - low_k + 1e-8))
-            d_percent = k_percent.rolling(window=d_period).mean()
-            
-            suffix = f'_{k_period}_{d_period}'
-            df[f'stoch_k{suffix}'] = k_percent
-            df[f'stoch_d{suffix}'] = d_percent
-            df[f'stoch_oversold{suffix}'] = (k_percent < 20).astype(int)
-            df[f'stoch_overbought{suffix}'] = (k_percent > 80).astype(int)
-        
-        # Williams %R
-        for period in [14, 21]:
-            high_n = df['high'].rolling(window=period).max()
-            low_n = df['low'].rolling(window=period).min()
-            williams_r = -100 * ((high_n - df['close']) / (high_n - low_n + 1e-8))
-            df[f'williams_r_{period}'] = williams_r
-        
-        # Average True Range (ATR)
-        for period in [14, 21]:
-            high_low = df['high'] - df['low']
-            high_close = np.abs(df['high'] - df['close'].shift())
-            low_close = np.abs(df['low'] - df['close'].shift())
-            true_range = np.maximum(high_low, np.maximum(high_close, low_close))
-            df[f'atr_{period}'] = true_range.rolling(window=period).mean()
-            df[f'atr_ratio_{period}'] = true_range / (df[f'atr_{period}'] + 1e-8)
-        
-        # Additional momentum indicators
-        for period in [10, 20, 50]:
-            df[f'momentum_{period}'] = df['close'] / df['close'].shift(period) - 1
-            df[f'rate_of_change_{period}'] = ((df['close'] - df['close'].shift(period)) / 
-                                           (df['close'].shift(period) + 1e-8)) * 100
         
         return df
     

@@ -565,11 +565,17 @@ class RealTimeProgressManager:
             
             # Update Rich progress
             if self.enable_rich and progress_bar.rich_task_id is not None:
-                remaining = progress_bar.total - progress_bar.current
-                if remaining > 0:
-                    self.progress.update(progress_bar.rich_task_id, advance=remaining)
-                if description:
-                    self.progress.update(progress_bar.rich_task_id, description=description)
+                try:
+                    # Check if task exists before updating
+                    if progress_bar.rich_task_id in self.progress._tasks:
+                        remaining = progress_bar.total - progress_bar.current
+                        if remaining > 0:
+                            self.progress.update(progress_bar.rich_task_id, advance=remaining)
+                        if description:
+                            self.progress.update(progress_bar.rich_task_id, description=description)
+                except (KeyError, AttributeError):
+                    # Task ID no longer exists in Rich progress - skip update
+                    pass
             
             self._handle_completion(task_id, True)
             return True

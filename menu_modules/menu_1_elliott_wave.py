@@ -1,13 +1,36 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-🌊 MENU 1: ELLIOTT WAVE CNN-LSTM + DQN SYSTEM - FIXED VERSION
-เมนูหลักสำหรับระบบ Elliott Wave แบบแยกโมดูล (แก้ไข Text และ AttributeError)
+MENU 1: ELLIOTT WAVE CNN-LSTM + DQN SYSTEM - FIXED VERSION
+Main Menu for Ell        # Setup Logging System
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+            self.logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging", 
+                            "Menu1_Elliott_Wave")
+            # No need for SimpleProgressTracker - using AdvancedTerminalLogger
+            self.progress_tracker = None
+            # Still use Beautiful Logger for step-by-step display
+            self.beautiful_logger = setup_simple_beautiful_logging(
+                "ElliottWave_Menu1_Advanced", 
+                f"logs/menu1_elliott_wave_advanced_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+            )
+        else:
+            # Fallback to simple progress tracker
+            self.logger = logging.getLogger("ElliottWave_Menu1")
+            self.progress_tracker = SimpleProgressTracker(self.logger)
+            self.progress_manager = None
+            # Initialize Simple Beautiful Logging (no Rich dependencies)
+            self.beautiful_logger = setup_simple_beautiful_logging(
+                "ElliottWave_Menu1_Simple", 
+                f"logs/menu1_elliott_wave_simple_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+            )ith Modular Architecture
 
 Enterprise Features:
 - CNN-LSTM Elliott Wave Pattern Recognition
 - DQN Reinforcement Learning Agent  
 - SHAP + Optuna AutoTune Feature Selection
-- AUC ≥ 70% Target Achievement
+- AUC >= 70% Target Achievement
 - Zero Noise/Leakage/Overfitting Protection
 - REAL DATA ONLY from datacsv/ folder
 - Beautiful Real-time Progress Tracking
@@ -40,8 +63,18 @@ sys.path.append(str(Path(__file__).parent.parent))
 # Import Core Components after path setup
 from core.project_paths import get_project_paths
 from core.output_manager import NicegoldOutputManager
+
+# 🚀 Advanced Logging Integration (Replace SimpleProgressTracker)
+try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
+    from core.real_time_progress_manager import get_progress_manager, ProgressType
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+    print("⚠️ Advanced logging not available, using simple progress tracker")
+
+# Always import simple beautiful progress for fallback
 from core.simple_beautiful_progress import SimpleProgressTracker, setup_simple_beautiful_logging
-# from core.beautiful_logging import setup_beautiful_logging, BeautifulLogger  # Commented out to avoid Rich deps
 
 # Import Intelligent Resource Management
 try:
@@ -114,8 +147,18 @@ class Menu1ElliottWaveFixed:
                 self.logger.warning(f"⚠️ Could not initialize ML protection: {e}")
                 self.ml_protection = None
         
-        # Initialize Simple Progress Tracker (no Rich dependencies)
-        self.progress_tracker = SimpleProgressTracker(self.logger)
+        # 🚀 Initialize Advanced Progress Tracking
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+            self.logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging", 
+                            "Menu1_Elliott_Wave")
+            # No need for SimpleProgressTracker - using AdvancedTerminalLogger
+            self.progress_tracker = None
+        else:
+            # Fallback to simple progress tracker
+            self.progress_tracker = SimpleProgressTracker(self.logger)
+            self.progress_manager = None
         
         # Initialize Simple Beautiful Logging (no Rich dependencies)
         self.beautiful_logger = setup_simple_beautiful_logging(

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-🎼 ELLIOTT WAVE PIPELINE ORCHESTRATOR
-ตัวควบคุมการทำงานของ Pipeline Elliott Wave แบบครบวงจร
+ELLIOTT WAVE PIPELINE ORCHESTRATOR
+Elliott Wave Pipeline Controller - Complete System Management
 
 Enterprise Features:
 - Complete Pipeline Orchestration
@@ -33,19 +34,43 @@ from typing import Dict, List, Optional, Tuple, Any
 import logging
 import traceback
 import os
+import sys
+from pathlib import Path
+
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# 🚀 Import Advanced Logging System
+try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
+    from core.real_time_progress_manager import get_progress_manager, ProgressType
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+    print("⚠️ Advanced logging not available, using standard logging")
 import json
 
 class ElliottWavePipelineOrchestrator:
     """ตัวควบคุม Pipeline Elliott Wave ระดับ Enterprise"""
     
-    def __init__(self, data_processor, cnn_lstm_engine, dqn_agent, feature_selector, ml_protection=None, config: Dict = None, logger: logging.Logger = None):
+    def __init__(self, data_processor=None, cnn_lstm_engine=None, dqn_agent=None, feature_selector=None, ml_protection=None, config: Dict = None, logger: logging.Logger = None):
+        # Make all components optional for testing purposes
         self.data_processor = data_processor
         self.cnn_lstm_engine = cnn_lstm_engine
         self.dqn_agent = dqn_agent
         self.feature_selector = feature_selector
         self.ml_protection = ml_protection  # Enterprise ML Protection System
         self.config = config or {}
-        self.logger = logger or logging.getLogger(__name__)
+        
+        # 🚀 Initialize Advanced Logging
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+            self.logger.info("🚀 Pipeline Orchestrator initialized with Advanced Logging", 
+                           "Pipeline_Orchestrator")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         # Pipeline state
         self.pipeline_state = {
@@ -63,7 +88,26 @@ class ElliottWavePipelineOrchestrator:
     def execute_full_pipeline(self) -> Dict[str, Any]:
         """ดำเนินการ Pipeline แบบครบวงจร"""
         try:
-            self.logger.info("🚀 Starting Elliott Wave Full Pipeline Execution...")
+            # Validate required components
+            if not self._validate_components():
+                raise ValueError("Missing required components for pipeline execution")
+            
+            # 🚀 Advanced Logging Integration
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info("🚀 Starting Elliott Wave Full Pipeline Execution...", 
+                                "Pipeline_Orchestrator")
+                
+                # Start progress tracking
+                if self.progress_manager:
+                    self.progress_manager.start_process(
+                        process_id="full_pipeline",
+                        name="Elliott Wave Full Pipeline",
+                        process_type=ProgressType.PIPELINE,
+                        total_steps=12  # Updated for all stages
+                    )
+            else:
+                self.logger.info("🚀 Starting Elliott Wave Full Pipeline Execution...")
+            
             self.pipeline_state['start_time'] = datetime.now()
             
             # Pipeline Stages with Enterprise Protection
@@ -86,7 +130,21 @@ class ElliottWavePipelineOrchestrator:
             # Execute stages
             for i, (stage_name, stage_function) in enumerate(stages):
                 try:
-                    self.logger.info(f"📊 Stage {i+1}/9: {stage_name.replace('_', ' ').title()}")
+                    # 🚀 Advanced Logging for each stage
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.info(f"📊 Stage {i+1}/{len(stages)}: {stage_name.replace('_', ' ').title()}", 
+                                       "Pipeline_Orchestrator")
+                        
+                        # Update progress
+                        if self.progress_manager:
+                            self.progress_manager.update_progress(
+                                process_id="full_pipeline",
+                                current_step=i+1,
+                                status_message=f"Processing {stage_name.replace('_', ' ').title()}"
+                            )
+                    else:
+                        self.logger.info(f"📊 Stage {i+1}/{len(stages)}: {stage_name.replace('_', ' ').title()}")
+                    
                     self.pipeline_state['stage'] = stage_name
                     self.pipeline_state['progress'] = int((i / len(stages)) * 100)
                     
@@ -97,10 +155,23 @@ class ElliottWavePipelineOrchestrator:
                     if not stage_result.get('success', False):
                         raise Exception(f"Stage {stage_name} failed: {stage_result.get('error', 'Unknown error')}")
                     
-                    self.logger.info(f"✅ Stage {i+1}/9 completed successfully")
+                    # 🚀 Advanced Success Logging
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.success(f"✅ Stage {i+1}/{len(stages)} completed successfully", 
+                                          "Pipeline_Orchestrator")
+                    else:
+                        self.logger.info(f"✅ Stage {i+1}/{len(stages)} completed successfully")
                     
                 except Exception as e:
-                    self.logger.error(f"❌ Stage {stage_name} failed: {str(e)}")
+                    # 🚀 Advanced Error Logging
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.error(f"❌ Stage {stage_name} failed: {str(e)}", 
+                                        "Pipeline_Orchestrator", 
+                                        data={'error_type': type(e).__name__, 'context': f"Stage {stage_name}"}, 
+                                        exception=e)
+                    else:
+                        self.logger.error(f"❌ Stage {stage_name} failed: {str(e)}")
+                    
                     self.pipeline_state['errors'].append(f"{stage_name}: {str(e)}")
                     
                     # Try to continue with next stage if possible
@@ -115,15 +186,40 @@ class ElliottWavePipelineOrchestrator:
             self.pipeline_state['progress'] = 100
             self.pipeline_state['stage'] = 'completed'
             
+            # 🚀 Advanced Logging for completion
+            if ADVANCED_LOGGING_AVAILABLE:
+                if self.progress_manager:
+                    self.progress_manager.complete_process(
+                        process_id="full_pipeline",
+                        success=True
+                    )
+                
+                self.logger.success("✅ Elliott Wave Full Pipeline Execution Completed Successfully!", 
+                                   "Pipeline_Orchestrator")
+            else:
+                self.logger.info("✅ Elliott Wave Full Pipeline Execution Completed Successfully!")
+            
             # Compile final results
             final_results = self._compile_final_results()
             
-            self.logger.info("✅ Elliott Wave Full Pipeline Execution Completed Successfully!")
             return final_results
             
         except Exception as e:
-            self.logger.error(f"💥 Pipeline execution failed: {str(e)}")
-            self.logger.debug(traceback.format_exc())
+            # 🚀 Advanced Error Logging for pipeline failure
+            if ADVANCED_LOGGING_AVAILABLE:
+                if self.progress_manager:
+                    self.progress_manager.complete_process(
+                        process_id="full_pipeline",
+                        success=False
+                    )
+                
+                self.logger.error(f"💥 Pipeline execution failed: {str(e)}", 
+                                 "Pipeline_Orchestrator",
+                                 data={'error_type': type(e).__name__, 'context': "Pipeline execution failed"}, 
+                                 exception=e)
+            else:
+                self.logger.error(f"💥 Pipeline execution failed: {str(e)}")
+                self.logger.debug(traceback.format_exc())
             
             # Return error results
             return {
@@ -737,3 +833,27 @@ class ElliottWavePipelineOrchestrator:
                 'error': str(e),
                 'timestamp': datetime.now().isoformat()
             }
+    
+    def _validate_components(self) -> bool:
+        """Validate that all required components are available"""
+        required_components = {
+            'data_processor': self.data_processor,
+            'cnn_lstm_engine': self.cnn_lstm_engine,
+            'dqn_agent': self.dqn_agent,
+            'feature_selector': self.feature_selector
+        }
+        
+        missing_components = []
+        for name, component in required_components.items():
+            if component is None:
+                missing_components.append(name)
+        
+        if missing_components:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Missing required components: {', '.join(missing_components)}", 
+                                "Pipeline_Orchestrator")
+            else:
+                self.logger.error(f"Missing required components: {', '.join(missing_components)}")
+            return False
+        
+        return True

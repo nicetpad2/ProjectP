@@ -1,0 +1,5 @@
+{"timestamp": "2025-07-02T00:53:00.446196", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Warning test message", "category": "Test", "process_id": null, "session_id": "20250702_005300"}
+{"timestamp": "2025-07-02T00:53:11.358795", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Some menu modules could not be imported", "category": "Menu_Import", "process_id": null, "session_id": "20250702_005300", "data": {"failed_menus": ["Menu 1"]}}
+{"timestamp": "2025-07-02T00:53:11.367120", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f  DEPENDENCY ISSUES:", "category": "Menu_Display", "process_id": null, "session_id": "20250702_005300"}
+{"timestamp": "2025-07-02T00:53:11.367835", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Menu 1: Dependencies missing", "category": "Menu_Display", "process_id": null, "session_id": "20250702_005300"}
+{"timestamp": "2025-07-02T00:53:11.368531", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\ud83d\udca1 Try option 'D' to fix dependencies", "category": "Menu_Display", "process_id": null, "session_id": "20250702_005300"}

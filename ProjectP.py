@@ -22,29 +22,51 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 # Additional CUDA suppression
 os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices=false'
 os.environ['XLA_FLAGS'] = '--xla_gpu_cuda_data_dir=""'
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'false'
+os.environ['TF_GPU_THREAD_MODE'] = 'gpu_private'
 
-# Suppress all CUDA-related warnings
+# Suppress all CUDA-related warnings and errors
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning)
 warnings.filterwarnings('ignore', message='.*CUDA.*')
 warnings.filterwarnings('ignore', message='.*cuDNN.*')
 warnings.filterwarnings('ignore', message='.*cuBLAS.*')
+warnings.filterwarnings('ignore', message='.*cuFFT.*')
+warnings.filterwarnings('ignore', message='.*Unable to register.*')
+warnings.filterwarnings('ignore', message='.*XLA.*')
+
+# Redirect stderr to suppress CUDA errors at C++ level
+import io
+import contextlib
+
+@contextlib.contextmanager
+def suppress_stderr():
+    with open(os.devnull, "w") as devnull:
+        old_stderr = sys.stderr
+        sys.stderr = devnull
+        try:
+            yield
+        finally:
+            sys.stderr = old_stderr
 
 # Initialize Advanced Logging System First
 try:
-    from core.logging_integration_manager import integrate_logging_system, get_integration_manager
+    with suppress_stderr():
+        from core.logging_integration_manager import integrate_logging_system, get_integration_manager
     print("🚀 Initializing Advanced Terminal Logger System...")
     
     # Quick integration with project
-    integration_success = integrate_logging_system(project_root=".")
+    with suppress_stderr():
+        integration_success = integrate_logging_system(project_root=".")
     
     if integration_success:
         print("✅ Advanced logging system integrated successfully!")
         
         # Get advanced logger
-        from core.advanced_terminal_logger import get_terminal_logger
-        from core.real_time_progress_manager import get_progress_manager
+        with suppress_stderr():
+            from core.advanced_terminal_logger import get_terminal_logger
+            from core.real_time_progress_manager import get_progress_manager
         
         advanced_logger = get_terminal_logger()
         progress_manager = get_progress_manager()
@@ -67,16 +89,18 @@ except ImportError as e:
     progress_manager = None
 
 # Enterprise Compliance Check
-from core.compliance import EnterpriseComplianceValidator
-from core.menu_system import MenuSystem
-from core.logger import setup_enterprise_logger
-from core.config import load_enterprise_config
+with suppress_stderr():
+    from core.compliance import EnterpriseComplianceValidator
+    from core.menu_system import MenuSystem
+    from core.logger import setup_enterprise_logger
+    from core.config import load_enterprise_config
 
 # Import Intelligent Resource Management and Auto-Activation System
 try:
-    from core.intelligent_resource_manager import initialize_intelligent_resources
-    from core.enhanced_intelligent_resource_manager import initialize_enhanced_intelligent_resources
-    from auto_activation_system import auto_activate_full_system
+    with suppress_stderr():
+        from core.intelligent_resource_manager import initialize_intelligent_resources
+        from core.enhanced_intelligent_resource_manager import initialize_enhanced_intelligent_resources
+        from auto_activation_system import auto_activate_full_system
     RESOURCE_MANAGER_AVAILABLE = True
     AUTO_ACTIVATION_AVAILABLE = True
 except ImportError as e:
@@ -119,7 +143,7 @@ def main():
     else:
         print("🤖 Checking for Auto-Activation System...")
     
-    # Ask user for activation mode
+    # Ask user for activation mode with timeout and automation support
     activation_prompt = """
 🎯 NICEGOLD ENTERPRISE ACTIVATION MODE
 ================================================
@@ -133,16 +157,100 @@ def main():
     else:
         print(activation_prompt)
     
-    try:
-        choice = input("\n🎯 Select activation mode (1-3, default: 1): ").strip()
-        if not choice:
-            choice = "1"
-    except KeyboardInterrupt:
+    # Check if running in automated environment (no TTY) or force auto-mode
+    import sys
+    import select
+    import time
+    choice = "1"  # Default to auto-activation
+    
+    # Force auto-activation in these conditions:
+    # 1. No TTY (automated/headless environment)
+    # 2. No stdin available
+    # 3. Environment variable set to force auto-mode
+    force_auto = (
+        not sys.stdin.isatty() or 
+        os.environ.get('NICEGOLD_AUTO_MODE', '').lower() in ['true', '1', 'yes'] or
+        not hasattr(sys.stdin, 'fileno')
+    )
+    
+    if force_auto:
+        # Automated/headless mode - use default auto-activation
+        choice = "1"
         if ADVANCED_LOGGING_AVAILABLE:
-            logger.warning("🛑 Startup cancelled by user", "Main_Entry")
+            logger.info("🤖 Automated environment detected, using auto-activation mode", "Main_Entry")
         else:
-            print("\n🛑 Startup cancelled by user")
-        return
+            print("\n🤖 Automated environment detected, using auto-activation mode")
+    else:
+        # Interactive mode - ask for user input with robust timeout
+        timeout_seconds = 3
+        
+        try:
+            if ADVANCED_LOGGING_AVAILABLE:
+                logger.info(f"⏱️ Waiting for user input (timeout: {timeout_seconds}s)", "Main_Entry")
+            
+            print(f"\n🎯 Select activation mode (1-3, default: 1, auto in {timeout_seconds}s): ", end='', flush=True)
+            
+            # Use select for cross-platform timeout handling
+            if hasattr(select, 'select'):
+                # Unix-like systems
+                ready, _, _ = select.select([sys.stdin], [], [], timeout_seconds)
+                if ready:
+                    user_input = sys.stdin.readline().strip()
+                    if user_input and user_input in ['1', '2', '3']:
+                        choice = user_input
+                    else:
+                        choice = "1"
+                else:
+                    choice = "1"  # Timeout - use default
+                    print("1 (auto-selected)")
+            else:
+                # Windows fallback - try input with signal if available
+                try:
+                    import signal
+                    
+                    def timeout_handler(signum, frame):
+                        raise TimeoutError("Input timeout")
+                    
+                    signal.signal(signal.SIGALRM, timeout_handler)
+                    signal.alarm(timeout_seconds)
+                    
+                    user_input = input().strip()
+                    signal.alarm(0)  # Cancel alarm
+                    
+                    if user_input and user_input in ['1', '2', '3']:
+                        choice = user_input
+                    else:
+                        choice = "1"
+                        
+                except (TimeoutError, AttributeError):
+                    choice = "1"  # Timeout or no signal support
+                    print("1 (auto-selected)")
+                    if hasattr(signal, 'alarm'):
+                        signal.alarm(0)  # Cancel alarm
+                        
+        except (KeyboardInterrupt, EOFError, OSError):
+            choice = "1"  # Default to auto-activation on any input error
+            print("1 (auto-selected)")
+            if ADVANCED_LOGGING_AVAILABLE:
+                logger.info("🤖 Input interrupted, using default auto-activation mode", "Main_Entry")
+            else:
+                print("\n🤖 Input interrupted, using default auto-activation mode")
+        except Exception as e:
+            choice = "1"  # Default to auto-activation on any unexpected error
+            print("1 (auto-selected)")
+            if ADVANCED_LOGGING_AVAILABLE:
+                logger.info(f"🤖 Input error ({e}), using default auto-activation mode", "Main_Entry")
+            else:
+                print(f"\n🤖 Input error ({e}), using default auto-activation mode")
+    
+    # Final validation and confirmation
+    if choice not in ['1', '2', '3']:
+        choice = "1"
+        
+    if ADVANCED_LOGGING_AVAILABLE:
+        logger.success(f"✅ Activation mode confirmed: {choice}", "Main_Entry", process_id=main_process_id)
+    else:
+        print(f"✅ Activation mode confirmed: {choice}")
     
     # Progress update
     if main_process_id:

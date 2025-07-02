@@ -1,0 +1,2 @@
+{"timestamp": "2025-07-01T20:26:06.865177", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Warning test message", "category": "Test", "process_id": null, "session_id": "20250701_202606"}
+{"timestamp": "2025-07-01T20:28:24.717649", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\ud83d\uded1 Startup cancelled by user", "category": "Main_Entry", "process_id": null, "session_id": "20250701_202606"}

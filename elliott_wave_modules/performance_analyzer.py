@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-📊 ELLIOTT WAVE PERFORMANCE ANALYZER
-ตัววิเคราะห์ประสิทธิภาพสำหรับระบบ Elliott Wave
+ELLIOTT WAVE PERFORMANCE ANALYZER
+Performance Analysis System for Elliott Wave Trading
 
 Enterprise Features:
 - Comprehensive Performance Analysis
@@ -445,7 +446,7 @@ class ElliottWavePerformanceAnalyzer:
         
         # AUC recommendations
         if key_metrics.get('auc', 0.0) < self.min_auc:
-            recommendations.append("Improve feature engineering and model architecture to achieve AUC ≥ 70%")
+            recommendations.append("Improve feature engineering and model architecture to achieve AUC >= 70%")
         
         # Sharpe ratio recommendations
         if key_metrics.get('sharpe_ratio', 0.0) < self.min_sharpe_ratio:

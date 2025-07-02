@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 ENTERPRISE SHAP + OPTUNA FEATURE SELECTOR
 Production-Ready Feature Selection System - NO FALLBACKS ALLOWED
@@ -7,7 +6,7 @@ Production-Ready Feature Selection System - NO FALLBACKS ALLOWED
 Enterprise Features:
 - SHAP Feature Importance Analysis (REQUIRED)
 - Optuna Hyperparameter Optimization (REQUIRED)
-- AUC >= 70% Target Achievement
+- AUC ≥ 70% Target Achievement
 - Anti-Overfitting Protection
 - ZERO Fallback/Placeholder/Test Data
 - TimeSeriesSplit Validation
