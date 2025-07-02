@@ -12,13 +12,38 @@ import logging
 
 
 class SimpleBeautifulLogger:
-    """Logger ที่สวยงามแต่ไม่ซับซ้อน"""
+    """Logger ที่สวยงามแต่ไม่ซับซ้อน - Fixed version to avoid closed file streams"""
     
     def __init__(self, name: str):
         self.name = name
-        self.logger = logging.getLogger(name)
+        # Use a safer approach to avoid closed file stream issues
+        self.logger = None
+        try:
+            # Try to get logger, but don't rely on it completely
+            self.logger = logging.getLogger(name)
+            # Test if logger is working
+            self.logger.info("Test message")
+        except (ValueError, OSError) as e:
+            # If logger has issues, disable it
+            print(f"⚠️ Logger issue detected: {e}. Using console-only mode.")
+            self.logger = None
+        
         self.current_step = None
         self.step_start_time = None
+    
+    def _safe_log(self, level: str, message: str):
+        """Safely log message, fallback to console if logger fails"""
+        try:
+            if self.logger:
+                if level == 'info':
+                    self.logger.info(message)
+                elif level == 'warning':
+                    self.logger.warning(message)
+                elif level == 'error':
+                    self.logger.error(message)
+        except (ValueError, OSError, AttributeError):
+            # If logging fails, just continue - console output is already printed
+            pass
     
     def start_step(self, step_num: int, step_name: str, description: str):
         """เริ่ม step ใหม่"""
@@ -31,7 +56,7 @@ class SimpleBeautifulLogger:
         print(f"│ {description}" + " " * (90 - len(description) - 1) + "│")
         print("╰" + "─" * 90 + "╯")
         
-        self.logger.info(f"🚀 Starting Step {step_num}: {step_name}")
+        self._safe_log('info', f"🚀 Starting Step {step_num}: {step_name}")
     
     def complete_step(self, step_num: int, message: str):
         """完成 step"""
@@ -44,7 +69,7 @@ class SimpleBeautifulLogger:
         print(f"│ ⏱️ Duration: {duration:.2f}s" + " " * (90 - len(f"⏱️ Duration: {duration:.2f}s") - 1) + "│")
         print("╰" + "─" * 90 + "╯")
         
-        self.logger.info(f"✅ Step {step_num} completed in {duration:.2f}s")
+        self._safe_log('info', f"✅ Step {step_num} completed in {duration:.2f}s")
     
     def fail_step(self, step_num: int, message: str):
         """step ล้มเหลว"""
@@ -57,27 +82,27 @@ class SimpleBeautifulLogger:
         print(f"│ ⏱️ Duration: {duration:.2f}s" + " " * (90 - len(f"⏱️ Duration: {duration:.2f}s") - 1) + "│")
         print("╰" + "─" * 90 + "╯")
         
-        self.logger.error(f"❌ Step {step_num} failed after {duration:.2f}s")
+        self._safe_log('error', f"❌ Step {step_num} failed after {duration:.2f}s")
     
     def log_info(self, message: str):
         """Log info message"""
         print(f"ℹ️ {message}")
-        self.logger.info(message)
+        self._safe_log('info', message)
     
     def log_warning(self, message: str):
         """Log warning message"""
         print(f"⚠️ {message}")
-        self.logger.warning(message)
+        self._safe_log('warning', message)
     
     def log_error(self, message: str):
         """Log error message"""
         print(f"❌ {message}")
-        self.logger.error(message)
+        self._safe_log('error', message)
     
     def log_success(self, message: str):
         """Log success message"""
         print(f"✅ {message}")
-        self.logger.info(message)
+        self._safe_log('info', message)
 
 
 class SimpleProgressTracker:
@@ -152,3 +177,60 @@ def create_simple_progress_tracker(logger: Optional[logging.Logger] = None) -> S
 # Aliases for backward compatibility
 BeautifulProgressTracker = SimpleProgressTracker
 setup_beautiful_logging = setup_simple_beautiful_logging
+
+
+class PrintBasedBeautifulLogger:
+    """Print-based beautiful logger that avoids all file stream conflicts"""
+    
+    def __init__(self, name="BeautifulLogger"):
+        self.name = name
+        self.start_time = None
+        self.current_step = None
+    
+    def start_step(self, step_num, step_name, description=""):
+        """Start a new step with beautiful formatting"""
+        self.current_step = step_num
+        self.start_time = time.time()
+        
+        print("╭──────────────────────────────────────────────────────────────────────────────────────────╮")
+        print(f"│ ⚡ Starting Step {step_num:<77} │")
+        print(f"│ 🚀 STEP {step_num}: {step_name.upper():<73} │")
+        if description:
+            print(f"│ {description:<88} │")
+        print("╰──────────────────────────────────────────────────────────────────────────────────────────╯")
+    
+    def complete_step(self, step_num, message=""):
+        """Complete a step with timing"""
+        if self.start_time:
+            duration = time.time() - self.start_time
+        else:
+            duration = 0.0
+        
+        print("╭──────────────────────────────────────────────────────────────────────────────────────────╮")
+        print("│ 🎉 Step Completed                                                                         │")
+        print(f"│ ✅ STEP {step_num} COMPLETED{' '*71} │")
+        if message:
+            print(f"│ {message:<88} │")
+        print(f"│ ⏱️ Duration: {duration:.2f}s{' '*74} │")
+        print("╰──────────────────────────────────────────────────────────────────────────────────────────╯")
+    
+    def log_info(self, message):
+        """Log info message"""
+        print(f"ℹ️ {message}")
+    
+    def log_warning(self, message):
+        """Log warning message"""
+        print(f"⚠️ {message}")
+    
+    def log_error(self, message):
+        """Log error message"""
+        print(f"❌ {message}")
+
+
+def setup_print_based_beautiful_logging(name="BeautifulLogger"):
+    """Setup print-based beautiful logging that won't conflict with file streams"""
+    return PrintBasedBeautifulLogger(name)
+
+
+# Additional aliases
+setup_robust_beautiful_logging = setup_print_based_beautiful_logging

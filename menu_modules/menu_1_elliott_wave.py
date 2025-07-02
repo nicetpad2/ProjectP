@@ -6,7 +6,7 @@ Main Menu for Ell        # Setup Logging System
         if ADVANCED_LOGGING_AVAILABLE:
             self.logger = get_terminal_logger()
             self.progress_manager = get_progress_manager()
-            self.logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging", 
+            self.safe_logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging", 
                             "Menu1_Elliott_Wave")
             # No need for SimpleProgressTracker - using AdvancedTerminalLogger
             self.progress_tracker = None
@@ -74,7 +74,8 @@ except ImportError:
     print("⚠️ Advanced logging not available, using simple progress tracker")
 
 # Always import simple beautiful progress for fallback
-from core.simple_beautiful_progress import SimpleProgressTracker, setup_simple_beautiful_logging
+from core.robust_beautiful_progress import setup_robust_beautiful_logging
+from core.simple_beautiful_progress import setup_print_based_beautiful_logging
 
 # Import Intelligent Resource Management
 try:
@@ -120,51 +121,67 @@ class Menu1ElliottWaveFixed:
         # Get project paths
         self.paths = get_project_paths()
         
+        # Create print-based safe logger to avoid ALL file stream conflicts
+        class PrintLogger:
+            def info(self, msg):
+                print(f"INFO: {msg}")
+            def warning(self, msg):
+                print(f"WARNING: {msg}")
+            def error(self, msg):
+                print(f"ERROR: {msg}")
+            def debug(self, msg):
+                print(f"DEBUG: {msg}")
+        
+        self.safe_logger = PrintLogger()
+        # Use safe logger for all operations
+        self.logger = self.safe_logger
+        
         # Initialize Intelligent Resource Management if available
         if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager:
             try:
-                self.logger.info("🧠 Initializing Intelligent Resource Management...")
+                self.safe_logger.info("🧠 Initializing Intelligent Resource Management...")
                 self.resource_manager = initialize_intelligent_resources(
                     allocation_percentage=0.8,
                     enable_monitoring=True
                 )
-                self.logger.info("✅ Intelligent Resource Management activated")
+                self.safe_logger.info("✅ Intelligent Resource Management activated")
             except Exception as e:
-                self.logger.warning(f"⚠️ Could not initialize resource management: {e}")
+                self.safe_logger.warning(f"⚠️ Could not initialize resource management: {e}")
                 self.resource_manager = None
         
         # Initialize Enterprise ML Protection if available
         self.ml_protection = None
         if ML_PROTECTION_AVAILABLE:
             try:
-                self.logger.info("🛡️ Initializing Enterprise ML Protection...")
+                self.safe_logger.info("🛡️ Initializing Enterprise ML Protection...")
                 self.ml_protection = EnterpriseMLProtectionSystem(
                     config=self.config, 
-                    logger=self.logger
+                    logger=self.safe_logger
                 )
-                self.logger.info("✅ Enterprise ML Protection activated")
+                self.safe_logger.info("✅ Enterprise ML Protection activated")
             except Exception as e:
-                self.logger.warning(f"⚠️ Could not initialize ML protection: {e}")
+                self.safe_logger.warning(f"⚠️ Could not initialize ML protection: {e}")
                 self.ml_protection = None
         
         # 🚀 Initialize Advanced Progress Tracking
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger()
-            self.progress_manager = get_progress_manager()
-            self.logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging", 
-                            "Menu1_Elliott_Wave")
-            # No need for SimpleProgressTracker - using AdvancedTerminalLogger
-            self.progress_tracker = None
+            try:
+                self.logger = get_terminal_logger()
+                self.progress_manager = get_progress_manager()
+                self.safe_logger.info("🚀 Menu 1 Elliott Wave initialized with Advanced Logging")
+                # No need for SimpleProgressTracker - using AdvancedTerminalLogger
+                self.progress_tracker = None
+            except Exception as e:
+                self.safe_logger.warning(f"⚠️ Advanced logging failed, using safe logger: {e}")
+                # Keep using safe logger
+                self.progress_tracker = None
         else:
-            # Fallback to simple progress tracker
-            self.progress_tracker = SimpleProgressTracker(self.logger)
+            # Fallback: no progress tracker needed
+            self.progress_tracker = None
             self.progress_manager = None
         
-        # Initialize Simple Beautiful Logging (no Rich dependencies)
-        self.beautiful_logger = setup_simple_beautiful_logging(
-            "ElliottWave_Menu1_Fixed", 
-            f"logs/menu1_elliott_wave_fixed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-        )
+        # Initialize Print-Based Beautiful Logging (completely safe from file conflicts)
+        self.beautiful_logger = setup_print_based_beautiful_logging("ElliottWave_Menu1_Safe")
         
         # Initialize Output Manager with proper path
         self.output_manager = NicegoldOutputManager()
@@ -179,7 +196,7 @@ class Menu1ElliottWaveFixed:
     def _setup_resource_integration(self):
         """ตั้งค่าการรวมเข้ากับ Resource Management"""
         try:
-            self.logger.info("⚡ Setting up Resource Management integration...")
+            self.safe_logger.info("⚡ Setting up Resource Management integration...")
             
             # Get optimized configuration from resource manager
             if hasattr(self.resource_manager, 'get_menu1_optimization_config'):
@@ -188,49 +205,49 @@ class Menu1ElliottWaveFixed:
                 # Merge optimized settings into config
                 if optimized_config:
                     self.config.update(optimized_config)
-                    self.logger.info("✅ Optimized configuration applied from Resource Manager")
+                    self.safe_logger.info("✅ Optimized configuration applied from Resource Manager")
                     
                     # Log key optimization settings
                     data_config = optimized_config.get('data_processing', {})
                     if data_config:
-                        self.logger.info(f"📊 Data Processing Optimization: Chunk Size {data_config.get('chunk_size', 'N/A')}, Workers {data_config.get('parallel_workers', 'N/A')}")
+                        self.safe_logger.info(f"📊 Data Processing Optimization: Chunk Size {data_config.get('chunk_size', 'N/A')}, Workers {data_config.get('parallel_workers', 'N/A')}")
                     
                     elliott_config = optimized_config.get('elliott_wave', {})
                     if elliott_config:
-                        self.logger.info(f"🌊 Elliott Wave Optimization: Batch Size {elliott_config.get('batch_size', 'N/A')}")
+                        self.safe_logger.info(f"🌊 Elliott Wave Optimization: Batch Size {elliott_config.get('batch_size', 'N/A')}")
             
             # Start stage monitoring if available
             if hasattr(self.resource_manager, 'start_stage_monitoring'):
                 self.resource_manager.start_stage_monitoring('menu1_initialization')
                 
         except Exception as e:
-            self.logger.warning(f"⚠️ Resource integration setup failed: {e}")
+            self.safe_logger.warning(f"⚠️ Resource integration setup failed: {e}")
     
     def _initialize_components(self):
         """เริ่มต้น Components ต่างๆ"""
         try:
             self.beautiful_logger.start_step(0, "Component Initialization", "Initializing all Elliott Wave components")
-            self.logger.info("🌊 Initializing Elliott Wave Components...")
+            self.safe_logger.info("🌊 Initializing Elliott Wave Components...")
             
             # Data Processor
             self.beautiful_logger.log_info("Initializing Data Processor...")
             self.data_processor = ElliottWaveDataProcessor(
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # CNN-LSTM Engine
             self.beautiful_logger.log_info("Initializing CNN-LSTM Engine...")
             self.cnn_lstm_engine = CNNLSTMElliottWave(
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # DQN Agent
             self.beautiful_logger.log_info("Initializing DQN Agent...")
             self.dqn_agent = DQNReinforcementAgent(
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # Feature Selector with enhanced parameters
@@ -240,14 +257,14 @@ class Menu1ElliottWaveFixed:
                 max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
                 n_trials=150,  # Enhanced for production quality
                 timeout=600,   # 10 minutes for thorough optimization
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # Enterprise ML Protection System
             self.beautiful_logger.log_info("Initializing ML Protection System...")
             self.ml_protection = EnterpriseMLProtectionSystem(
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # Pipeline Orchestrator
@@ -259,37 +276,45 @@ class Menu1ElliottWaveFixed:
                 feature_selector=self.feature_selector,
                 ml_protection=self.ml_protection,
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             # Performance Analyzer
             self.beautiful_logger.log_info("Initializing Performance Analyzer...")
             self.performance_analyzer = ElliottWavePerformanceAnalyzer(
                 config=self.config,
-                logger=self.logger
+                logger=self.safe_logger
             )
             
             self.beautiful_logger.complete_step(0, "All components initialized successfully")
-            self.logger.info("✅ All Elliott Wave components initialized successfully!")
+            self.safe_logger.info("✅ All Elliott Wave components initialized successfully!")
             
         except Exception as e:
             self.beautiful_logger.log_error(f"Component initialization failed: {str(e)}")
-            self.logger.error(f"❌ Component initialization failed: {str(e)}")
+            self.safe_logger.error(f"❌ Component initialization failed: {str(e)}")
             raise
+    
+    def run(self) -> Dict[str, Any]:
+        """Entry point method for ProjectP.py compatibility"""
+        return self.run_full_pipeline()
     
     def run_full_pipeline(self) -> Dict[str, Any]:
         """รัน Elliott Wave Pipeline แบบเต็มรูปแบบ - ใช้ข้อมูลจริงเท่านั้น"""
         
-        # Start beautiful progress tracking
-        self.progress_tracker.start_pipeline()
+        # Start beautiful progress tracking (safe check)
+        if self.progress_tracker:
+            self.progress_tracker.start_pipeline()
+        
+        # Use beautiful logger to show pipeline start
+        self.beautiful_logger.start_step(0, "🌊 Elliott Wave Pipeline", "Starting Full Pipeline execution with real data")
         
         try:
-            self.logger.info("🚀 Starting Elliott Wave Full Pipeline...")
+            self.safe_logger.info("🚀 Starting Elliott Wave Full Pipeline...")
             
             # Show resource optimization status
             if self.resource_manager:
                 print("⚡ Resource-Optimized Elliott Wave Pipeline Starting...")
-                self.logger.info("⚡ Executing with intelligent resource management")
+                self.safe_logger.info("⚡ Executing with intelligent resource management")
                 
                 # Display allocated resources
                 resource_config = self.resource_manager.resource_config
@@ -305,7 +330,7 @@ class Menu1ElliottWaveFixed:
                 if hasattr(self.resource_manager, 'start_stage_monitoring'):
                     self.resource_manager.start_stage_monitoring('elliott_wave_pipeline')
             
-            self.logger.info("🚀 Starting Elliott Wave Full Pipeline...")
+            self.safe_logger.info("🚀 Starting Elliott Wave Full Pipeline...")
             self._display_pipeline_overview()
             
             # Call execute_full_pipeline for the actual work
@@ -317,17 +342,17 @@ class Menu1ElliottWaveFixed:
             # Return final results
             if success:
                 self.results['execution_status'] = 'success'
-                self.logger.info("✅ Elliott Wave Pipeline completed successfully!")
+                self.safe_logger.info("✅ Elliott Wave Pipeline completed successfully!")
             else:
                 self.results['execution_status'] = 'failed'
-                self.logger.error("❌ Elliott Wave Pipeline failed!")
+                self.safe_logger.error("❌ Elliott Wave Pipeline failed!")
                 
             return self.results
             
         except Exception as e:
             error_msg = f"Elliott Wave Pipeline failed: {str(e)}"
-            self.logger.error(f"❌ {error_msg}")
-            self.logger.error(f"Traceback: {traceback.format_exc()}")
+            self.safe_logger.error(f"❌ {error_msg}")
+            self.safe_logger.error(f"Traceback: {traceback.format_exc()}")
             
             return {
                 'execution_status': 'critical_error',
@@ -340,54 +365,50 @@ class Menu1ElliottWaveFixed:
         try:
             # Step 1: Load and process data
             self._start_stage_resource_monitoring('data_loading', 'Step 1: Loading and processing real market data')
-            self.logger.info("📊 Step 1: Loading and processing real market data...")
+            self.safe_logger.info("📊 Step 1: Loading and processing real market data...")
             data = self.data_processor.load_real_data()
             
             if data is None or len(data) == 0:
-                self.logger.error("❌ No data loaded!")
+                self.safe_logger.error("❌ No data loaded!")
                 return False
                 
-            self.logger.info(f"✅ Successfully loaded {len(data):,} rows of real market data")
+            self.safe_logger.info(f"✅ Successfully loaded {len(data):,} rows of real market data")
             self._show_current_resource_usage()
             self._end_stage_resource_monitoring('data_loading', {'rows_loaded': len(data)})
             
             # Step 2: Create features
             self._start_stage_resource_monitoring('feature_engineering', 'Step 2: Creating Elliott Wave features')
-            self.logger.info("⚙️ Step 2: Creating Elliott Wave features...")
+            self.safe_logger.info("⚙️ Step 2: Creating Elliott Wave features...")
             features = self.data_processor.create_elliott_wave_features(data)
             self._show_current_resource_usage()
             self._end_stage_resource_monitoring('feature_engineering', {'features_created': features.shape[1] if hasattr(features, 'shape') else 0})
             
             # Step 3: Prepare ML data
             self._start_stage_resource_monitoring('data_preparation', 'Step 3: Preparing ML data')
-            self.logger.info("🎯 Step 3: Preparing ML data...")
+            self.safe_logger.info("🎯 Step 3: Preparing ML data...")
             X, y = self.data_processor.prepare_ml_data(features)
             self._show_current_resource_usage()
             self._end_stage_resource_monitoring('data_preparation', {'ml_samples': len(X) if hasattr(X, '__len__') else 0})
             
             # Run ML Protection Analysis if available
             if self.ml_protection:
-                self.logger.info("🛡️ Running Enterprise ML Protection Analysis...")
+                self.safe_logger.info("🛡️ Running Enterprise ML Protection Analysis...")
                 try:
-                    # Get datetime column for time-series validation
-                    datetime_col = None
-                    if hasattr(data, 'columns') and 'Date' in data.columns:
-                        datetime_col = 'Date'
-                    elif hasattr(features, 'columns'):
-                        datetime_cols = [col for col in features.columns if 'date' in col.lower() or 'time' in col.lower()]
-                        if datetime_cols:
-                            datetime_col = datetime_cols[0]
+                    # Get feature names if available
+                    feature_names = None
+                    if hasattr(X, 'columns'):
+                        feature_names = list(X.columns)
                     
                     protection_results = self.ml_protection.comprehensive_protection_analysis(
-                        X=X, y=y, datetime_col=datetime_col
+                        X=X, y=y, feature_names=feature_names
                     )
                     
                     # Store protection results
                     self.results['ml_protection'] = protection_results
-                    self.logger.info("✅ ML Protection Analysis completed")
+                    self.safe_logger.info("✅ ML Protection Analysis completed")
                     
                 except Exception as e:
-                    self.logger.warning(f"⚠️ ML Protection Analysis failed: {e}")
+                    self.safe_logger.warning(f"⚠️ ML Protection Analysis failed: {e}")
             
             # Store data info
             self.results['data_info'] = {
@@ -398,7 +419,7 @@ class Menu1ElliottWaveFixed:
             
             # Step 4: Feature selection with SHAP + Optuna
             self._start_stage_resource_monitoring('feature_selection', 'Step 4: Running SHAP + Optuna feature selection')
-            self.logger.info("🧠 Step 4: Running SHAP + Optuna feature selection...")
+            self.safe_logger.info("🧠 Step 4: Running SHAP + Optuna feature selection...")
             selected_features, selection_results = self.feature_selector.select_features(X, y)
             self._show_current_resource_usage()
             selection_metrics = {'selected_features': len(selected_features) if selected_features else 0}
@@ -408,7 +429,7 @@ class Menu1ElliottWaveFixed:
             
             # Step 5: Train CNN-LSTM
             self._start_stage_resource_monitoring('cnn_lstm_training', 'Step 5: Training CNN-LSTM model')
-            self.logger.info("🏗️ Step 5: Training CNN-LSTM model...")
+            self.safe_logger.info("🏗️ Step 5: Training CNN-LSTM model...")
             cnn_lstm_results = self.cnn_lstm_engine.train_model(X[selected_features], y)
             self._show_current_resource_usage()
             cnn_metrics = {'training_completed': True}
@@ -418,7 +439,7 @@ class Menu1ElliottWaveFixed:
             
             # Step 6: Train DQN
             self._start_stage_resource_monitoring('dqn_training', 'Step 6: Training DQN agent')
-            self.logger.info("🤖 Step 6: Training DQN agent...")
+            self.safe_logger.info("🤖 Step 6: Training DQN agent...")
             # ✅ แก้ไข: ใช้ DataFrame และแทนที่ y ด้วย episodes
             if isinstance(X, pd.DataFrame):
                 dqn_training_data = X[selected_features] if isinstance(selected_features, list) else X
@@ -435,7 +456,7 @@ class Menu1ElliottWaveFixed:
             
             # Step 7: Performance analysis
             self._start_stage_resource_monitoring('performance_analysis', 'Step 7: Analyzing performance')
-            self.logger.info("📈 Step 7: Analyzing performance...")
+            self.safe_logger.info("📈 Step 7: Analyzing performance...")
             # ✅ แก้ไข: ส่ง pipeline_results แทนที่จะส่ง arguments แยก
             pipeline_results = {
                 'cnn_lstm_training': {'cnn_lstm_results': cnn_lstm_results},
@@ -456,7 +477,7 @@ class Menu1ElliottWaveFixed:
             })
             
             # Step 8: Enterprise validation
-            self.logger.info("✅ Step 8: Enterprise compliance validation...")
+            self.safe_logger.info("✅ Step 8: Enterprise compliance validation...")
             enterprise_compliant = self._validate_enterprise_requirements()
             
             self.results['enterprise_compliance'] = {
@@ -473,7 +494,7 @@ class Menu1ElliottWaveFixed:
             return True
                 
         except Exception as e:
-            self.logger.error(f"❌ Pipeline execution failed: {str(e)}")
+            self.safe_logger.error(f"❌ Pipeline execution failed: {str(e)}")
             return False
     
     def _display_pipeline_overview(self):
@@ -531,13 +552,13 @@ class Menu1ElliottWaveFixed:
             auc_score = eval_results.get('auc', cnn_lstm_results.get('auc_score', 0))
             
             if auc_score < 0.70:
-                self.logger.error(f"❌ AUC Score {auc_score:.4f} < 0.70 - Enterprise requirement failed!")
+                self.safe_logger.error(f"❌ AUC Score {auc_score:.4f} < 0.70 - Enterprise requirement failed!")
                 return False
             
             # Check data quality
             data_info = self.results.get('data_info', {})
             if data_info.get('total_rows', 0) == 0:
-                self.logger.error("❌ No data processed - Enterprise requirement failed!")
+                self.safe_logger.error("❌ No data processed - Enterprise requirement failed!")
                 return False
             
             # Check ML Protection results if available
@@ -549,22 +570,22 @@ class Menu1ElliottWaveFixed:
                 if not enterprise_ready:
                     protection_status = overall_assessment.get('protection_status', 'UNKNOWN')
                     risk_level = overall_assessment.get('risk_level', 'UNKNOWN')
-                    self.logger.warning(f"⚠️ ML Protection Warning: Status={protection_status}, Risk={risk_level}")
+                    self.safe_logger.warning(f"⚠️ ML Protection Warning: Status={protection_status}, Risk={risk_level}")
                     
                     # Check for critical alerts
                     alerts = protection_results.get('alerts', [])
                     critical_alerts = [alert for alert in alerts if 'CRITICAL' in alert or 'HIGH RISK' in alert]
                     if critical_alerts:
-                        self.logger.error(f"❌ Critical ML Protection issues detected: {critical_alerts}")
+                        self.safe_logger.error(f"❌ Critical ML Protection issues detected: {critical_alerts}")
                         return False
                 
-                self.logger.info(f"✅ ML Protection Status: {overall_assessment.get('protection_status', 'UNKNOWN')}")
+                self.safe_logger.info(f"✅ ML Protection Status: {overall_assessment.get('protection_status', 'UNKNOWN')}")
             
-            self.logger.info(f"✅ All Enterprise Requirements Met! AUC: {auc_score:.4f}")
+            self.safe_logger.info(f"✅ All Enterprise Requirements Met! AUC: {auc_score:.4f}")
             return True
             
         except Exception as e:
-            self.logger.error(f"💥 Enterprise validation error: {str(e)}")
+            self.safe_logger.error(f"💥 Enterprise validation error: {str(e)}")
             return False
     
     def _display_results(self):
@@ -691,10 +712,10 @@ class Menu1ElliottWaveFixed:
                 "txt"
             )
             
-            self.logger.info(f"📄 Comprehensive report saved: {report_path}")
+            self.safe_logger.info(f"📄 Comprehensive report saved: {report_path}")
             
         except Exception as e:
-            self.logger.error(f"❌ Failed to save results: {str(e)}")
+            self.safe_logger.error(f"❌ Failed to save results: {str(e)}")
     
     def _format_report_content(self, content: dict) -> str:
         """แปลง report content dictionary เป็น formatted string"""
@@ -746,7 +767,7 @@ class Menu1ElliottWaveFixed:
             try:
                 self.resource_manager.start_stage_monitoring(stage_name)
                 print(f"📊 {description} (Resource monitoring active)")
-                self.logger.info(f"📊 Stage '{stage_name}' resource monitoring started")
+                self.safe_logger.info(f"📊 Stage '{stage_name}' resource monitoring started")
             except:
                 pass
     
@@ -759,7 +780,7 @@ class Menu1ElliottWaveFixed:
                     efficiency = summary.get('efficiency_score', 0)
                     duration = summary.get('duration_seconds', 0)
                     print(f"✅ {stage_name} completed - Efficiency: {efficiency:.2f}, Duration: {duration:.1f}s")
-                    self.logger.info(f"✅ Stage '{stage_name}' completed with efficiency {efficiency:.2f}")
+                    self.safe_logger.info(f"✅ Stage '{stage_name}' completed with efficiency {efficiency:.2f}")
                 return summary
             except:
                 pass

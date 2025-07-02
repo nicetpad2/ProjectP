@@ -43,18 +43,25 @@ def main():
             print(f"⚠️ All high memory resource managers unavailable: {e2}")
             resource_manager = None
     
-    # Initialize minimal logging
+    # Initialize safe logging (avoid closed file stream issues)
     logger = None
     try:
-        with suppress_all_output():
-            from core.advanced_terminal_logger import get_terminal_logger
-        logger = get_terminal_logger()
-        logger.success("✅ Advanced logging active", "Startup")
-        print("✅ Advanced Logging: ACTIVE")
-    except Exception as e:
-        print(f"⚠️ Advanced logging unavailable: {e}")
+        # Use simple logging to avoid file stream conflicts
         import logging
-        logger = logging.getLogger("NICEGOLD")
+        logger = logging.getLogger("NICEGOLD_SAFE")
+        logger.handlers.clear()  # Clear any existing handlers
+        
+        # Create a safe console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+        logger.addHandler(console_handler)
+        logger.setLevel(logging.INFO)
+        
+        logger.info("✅ Safe logging initialized")
+        print("✅ Safe Logging: ACTIVE")
+    except Exception as e:
+        print(f"⚠️ Logging setup failed: {e}")
+        logger = None
     
     # Load High Memory configuration (80% RAM)
     config = {
@@ -69,30 +76,39 @@ def main():
     
     print("🎛️ Starting Lightweight High Memory Menu System (80% RAM)...")
     
-    # Try lightweight high-memory menu first
+    # Try proper Elliott Wave Menu 1 first (uses real CSV data)
     try:
         with suppress_all_output():
-            from menu_modules.lightweight_high_memory_menu_1 import LightweightHighMemoryMenu1
+            from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
         
-        menu_1 = LightweightHighMemoryMenu1(config, logger, resource_manager)
-        print("✅ Lightweight High Memory Menu 1 (80% RAM): READY")
+        # Create a safe logger that won't conflict with file streams
+        import logging
+        safe_logger = logging.getLogger("safe_main")
+        if not safe_logger.handlers:
+            console_handler = logging.StreamHandler()
+            console_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+            safe_logger.addHandler(console_handler)
+            safe_logger.setLevel(logging.INFO)
+        
+        menu_1 = Menu1ElliottWave(config, safe_logger, resource_manager)
+        print("✅ Elliott Wave Menu 1 (Real Data): READY")
         menu_available = True
-        menu_type = "Lightweight High Memory"
+        menu_type = "Elliott Wave Real Data"
         
     except Exception as e:
-        print(f"⚠️ Lightweight high memory menu failed: {e}")
-        # Fallback to high memory menu
+        print(f"⚠️ Elliott Wave menu failed: {e}")
+        # Fallback to enhanced 80% menu
         try:
             with suppress_all_output():
-                from menu_modules.high_memory_menu_1 import HighMemoryMenu1
+                from menu_modules.enhanced_80_percent_menu_1 import Enhanced80PercentMenu1
             
-            menu_1 = HighMemoryMenu1(config, logger, resource_manager)
-            print("✅ High Memory Menu 1: READY (fallback)")
+            menu_1 = Enhanced80PercentMenu1(config, logger, resource_manager)
+            print("✅ Enhanced 80% Menu 1: READY (fallback)")
             menu_available = True
-            menu_type = "High Memory"
+            menu_type = "Enhanced 80% Real Data"
             
         except Exception as e2:
-            print(f"⚠️ Ultra-lightweight menu failed: {e2}")
+            print(f"⚠️ Enhanced 80% menu failed: {e2}")
             # Final fallback to optimized menu
             try:
                 with suppress_all_output():

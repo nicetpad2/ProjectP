@@ -1135,6 +1135,16 @@ class EnterpriseMLProtectionSystem:
     
     def _analyze_missing_values(self, X: pd.DataFrame) -> Dict:
         """วิเคราะห์ missing values"""
+        # Check for empty dataset
+        if len(X) == 0 or X.empty:
+            return {
+                'total_missing': 0,
+                'missing_by_column': {},
+                'missing_percentages': {},
+                'columns_with_missing': [],
+                'high_missing_columns': []
+            }
+        
         missing_counts = X.isnull().sum()
         missing_percentages = (missing_counts / len(X)) * 100
         
@@ -1283,34 +1293,68 @@ class EnterpriseMLProtectionSystem:
     def _analyze_feature_relevance(self, X: pd.DataFrame, y: pd.Series) -> Dict:
         """วิเคราะห์ความเกี่ยวข้องของ features"""
         try:
+            # Check for empty dataset
+            if len(X) == 0 or X.empty or len(y) == 0:
+                return {
+                    'relevant_features': [],
+                    'irrelevant_features': [],
+                    'mutual_info_scores': {},
+                    'correlation_scores': {},
+                    'relevance_ratio': 0.0,
+                    'error': 'Empty dataset provided'
+                }
+            
+            # Check if there are numeric columns
+            numeric_X = X.select_dtypes(include=[np.number])
+            if numeric_X.empty:
+                return {
+                    'relevant_features': [],
+                    'irrelevant_features': list(X.columns),
+                    'mutual_info_scores': {},
+                    'correlation_scores': {},
+                    'relevance_ratio': 0.0,
+                    'error': 'No numeric features found'
+                }
+            
             # Mutual information scores
-            mi_scores = mutual_info_classif(X.select_dtypes(include=[np.number]), y, random_state=42)
+            mi_scores = mutual_info_classif(numeric_X, y, random_state=42)
             
             # Correlation with target
             correlations = []
-            for col in X.select_dtypes(include=[np.number]).columns:
-                corr = abs(X[col].corr(y))
-                correlations.append(corr)
+            for col in numeric_X.columns:
+                corr = abs(numeric_X[col].corr(y))
+                correlations.append(corr if not np.isnan(corr) else 0.0)
             
             # Categorize features
             relevant_features = []
             irrelevant_features = []
             
-            for i, (col, mi_score, corr) in enumerate(zip(X.columns, mi_scores, correlations)):
+            for i, (col, mi_score, corr) in enumerate(zip(numeric_X.columns, mi_scores, correlations)):
                 if mi_score > 0.01 or corr > 0.05:
                     relevant_features.append(col)
                 else:
                     irrelevant_features.append(col)
             
+            # Calculate relevance ratio safely
+            total_columns = len(X.columns)
+            relevance_ratio = len(relevant_features) / total_columns if total_columns > 0 else 0.0
+            
             return {
                 'relevant_features': relevant_features,
                 'irrelevant_features': irrelevant_features,
-                'mutual_info_scores': dict(zip(X.columns, mi_scores.tolist())),
-                'correlation_scores': dict(zip(X.columns, correlations)),
-                'relevance_ratio': len(relevant_features) / len(X.columns)
+                'mutual_info_scores': dict(zip(numeric_X.columns, mi_scores.tolist())),
+                'correlation_scores': dict(zip(numeric_X.columns, correlations)),
+                'relevance_ratio': relevance_ratio
             }
         except Exception as e:
-            return {'error': f'Feature relevance analysis failed: {str(e)}'}
+            return {
+                'relevant_features': [],
+                'irrelevant_features': list(X.columns) if not X.empty else [],
+                'mutual_info_scores': {},
+                'correlation_scores': {},
+                'relevance_ratio': 0.0,
+                'error': f'Feature relevance analysis failed: {str(e)}'
+            }
     
     def _compute_noise_level(self, noise_results: Dict) -> float:
         """คำนวณระดับ noise โดยรวม"""
@@ -1692,6 +1736,17 @@ class EnterpriseMLProtectionSystem:
         try:
             if ADVANCED_LOGGING_AVAILABLE:
                 self.logger.data_log("Starting data quality analysis", "Data_Quality", process_id=process_id)
+            
+            # Check for empty data
+            if len(X) == 0 or len(y) == 0:
+                return {
+                    'status': 'ERROR',
+                    'overall_quality_score': 0.0,
+                    'issues': ['Empty dataset provided'],
+                    'warnings': [],
+                    'recommendations': ['Provide valid data with samples'],
+                    'error': 'Empty dataset'
+                }
             
             # Convert to DataFrame for analysis
             if isinstance(X, np.ndarray):

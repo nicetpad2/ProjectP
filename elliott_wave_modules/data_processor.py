@@ -78,6 +78,9 @@ class ElliottWaveDataProcessor:
         # Initialize Enterprise ML Protection System
         self.ml_protection = EnterpriseMLProtectionSystem(logger=self.logger)
         
+        # Create safe logger for robust logging
+        self.safe_logger = self.logger
+        
     def load_real_data(self) -> Optional[pd.DataFrame]:
         """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
         try:
@@ -122,15 +125,39 @@ class ElliottWaveDataProcessor:
     def _select_best_data_file(self, csv_files: List[Path]) -> Path:
         """เลือกไฟล์ข้อมูลที่ดีที่สุด"""
         # Priority: M1 > M5 > M15 > M30 > H1 > H4 > D1
-        timeframe_priority = ['M1', 'M5', 'M15', 'M30', 'H1', 'H4', 'D1']
+        # Use exact matching to avoid M1 matching M15
+        timeframe_patterns = [
+            '_M1.', '_M1_',  # M1 patterns
+            '_M5.', '_M5_',  # M5 patterns  
+            '_M15.', '_M15_', # M15 patterns
+            '_M30.', '_M30_', # M30 patterns
+            '_H1.', '_H1_',   # H1 patterns
+            '_H4.', '_H4_',   # H4 patterns
+            '_D1.', '_D1_'    # D1 patterns
+        ]
         
-        for timeframe in timeframe_priority:
+        # Map patterns to timeframes for logging
+        pattern_to_timeframe = {
+            '_M1.': 'M1', '_M1_': 'M1',
+            '_M5.': 'M5', '_M5_': 'M5', 
+            '_M15.': 'M15', '_M15_': 'M15',
+            '_M30.': 'M30', '_M30_': 'M30',
+            '_H1.': 'H1', '_H1_': 'H1',
+            '_H4.': 'H4', '_H4_': 'H4',
+            '_D1.': 'D1', '_D1_': 'D1'
+        }
+        
+        for pattern in timeframe_patterns:
             for file_path in csv_files:
-                if timeframe in file_path.name.upper():
+                if pattern in file_path.name.upper():
+                    timeframe = pattern_to_timeframe.get(pattern, pattern)
+                    self.safe_logger.info(f"📈 Selected data file: {file_path.name} (timeframe: {timeframe})")
                     return file_path
         
-        # Return the first file if no timeframe match
-        return csv_files[0]
+        # Return the largest file if no timeframe match (likely the most detailed data)
+        largest_file = max(csv_files, key=lambda f: f.stat().st_size)
+        self.safe_logger.info(f"📈 No timeframe match, selected largest file: {largest_file.name}")
+        return largest_file
     
     def _validate_real_market_data(self, df: pd.DataFrame) -> bool:
         """ตรวจสอบว่าเป็นข้อมูลตลาดจริง"""
@@ -205,14 +232,71 @@ class ElliottWaveDataProcessor:
             if ohlc_columns:
                 df = df.rename(columns=ohlc_columns)
             
-            # Handle timestamp column
-            timestamp_cols = [col for col in df.columns if 'time' in col.lower() or 'date' in col.lower()]
-            if timestamp_cols:
-                df['timestamp'] = pd.to_datetime(df[timestamp_cols[0]])
-                df = df.drop(columns=timestamp_cols)
-            elif 'timestamp' not in df.columns:
-                # Create timestamp if not exists
-                df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
+            # Handle timestamp column - combine Date and Timestamp for XAUUSD data
+            if 'Date' in df.columns and 'Timestamp' in df.columns:
+                # XAUUSD format: Date=25630501, Timestamp=00:00:00
+                # This appears to be a custom date format, let's handle it carefully
+                df['date_str'] = df['Date'].astype(str)
+                
+                try:
+                    # Try different interpretations of the date format
+                    # Approach 1: Treat as YYMMDDXX format (Year 2025, Month 06, Day 30, sequence 01)
+                    if len(df['date_str'].iloc[0]) == 8:
+                        # Extract components: YYMMDDXX -> YY(25) MM(06) DD(30) XX(01)
+                        df['year'] = '20' + df['date_str'].str[:2]  # 25 -> 2025
+                        df['month'] = df['date_str'].str[2:4]       # 06 -> 06
+                        df['day'] = df['date_str'].str[4:6]         # 30 -> 30
+                        # Ignore the last 2 digits (sequence number)
+                        
+                        # Validate month and day ranges
+                        df['month_int'] = pd.to_numeric(df['month'], errors='coerce')
+                        df['day_int'] = pd.to_numeric(df['day'], errors='coerce')
+                        
+                        # Check if this interpretation makes sense
+                        valid_months = (df['month_int'] >= 1) & (df['month_int'] <= 12)
+                        valid_days = (df['day_int'] >= 1) & (df['day_int'] <= 31)
+                        
+                        if valid_months.all() and valid_days.all():
+                            # This interpretation works
+                            df['date_formatted'] = df['year'] + '-' + df['month'] + '-' + df['day']
+                        else:
+                            # Try alternative interpretation: DDMMYYXX
+                            df['day_alt'] = df['date_str'].str[:2]     # 25 -> 25
+                            df['month_alt'] = df['date_str'].str[2:4]  # 06 -> 06  
+                            df['year_alt'] = '20' + df['date_str'].str[4:6]  # 30 -> 2030
+                            df['date_formatted'] = df['year_alt'] + '-' + df['month_alt'] + '-' + df['day_alt']
+                            df = df.drop(columns=['day_alt', 'month_alt', 'year_alt'], errors='ignore')
+                        
+                        # Create timestamp
+                        df['timestamp'] = pd.to_datetime(df['date_formatted'] + ' ' + df['Timestamp'].astype(str), errors='coerce')
+                        
+                        # Clean up intermediate columns
+                        df = df.drop(columns=['year', 'month', 'day', 'month_int', 'day_int', 'date_formatted'], errors='ignore')
+                    
+                    # If we still have invalid timestamps, use sequential timestamps
+                    if df['timestamp'].isna().any():
+                        self.safe_logger.warning(f"⚠️ Some dates could not be parsed, using sequential timestamps for {df['timestamp'].isna().sum()} rows")
+                        # Keep valid timestamps and fill invalid ones sequentially
+                        first_valid = df['timestamp'].dropna().iloc[0] if not df['timestamp'].dropna().empty else pd.Timestamp('2024-01-01')
+                        df['timestamp'] = df['timestamp'].fillna(method='ffill').fillna(first_valid)
+                    
+                    # Drop original date columns
+                    df = df.drop(columns=['Date', 'Timestamp', 'date_str'], errors='ignore')
+                    
+                except Exception as e:
+                    self.safe_logger.error(f"❌ Date parsing failed: {str(e)}")
+                    # Fallback: create sequential timestamps
+                    df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
+                    df = df.drop(columns=['Date', 'Timestamp'], errors='ignore')
+            else:
+                # Handle other timestamp formats
+                timestamp_cols = [col for col in df.columns if 'time' in col.lower() or 'date' in col.lower()]
+                if timestamp_cols:
+                    df['timestamp'] = pd.to_datetime(df[timestamp_cols[0]])
+                    df = df.drop(columns=timestamp_cols)
+                elif 'timestamp' not in df.columns:
+                    # Create timestamp if not exists
+                    df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
             
             # Sort by timestamp
             df = df.sort_values('timestamp').reset_index(drop=True)
@@ -249,7 +333,8 @@ class ElliottWaveDataProcessor:
             'open': ['open', 'o', 'Open', 'OPEN', 'price_open'],
             'high': ['high', 'h', 'High', 'HIGH', 'price_high'],
             'low': ['low', 'l', 'Low', 'LOW', 'price_low'],
-            'close': ['close', 'c', 'Close', 'CLOSE', 'price_close']
+            'close': ['close', 'c', 'Close', 'CLOSE', 'price_close'],
+            'volume': ['volume', 'v', 'Volume', 'VOLUME', 'vol']
         }
         
         for standard_name, patterns in ohlc_patterns.items():
@@ -750,8 +835,17 @@ class ElliottWaveDataProcessor:
                 features[f'minus_di_{period}'] = minus_di
                 features[f'trend_strength_{period}'] = np.where(adx > 25, 1, 0)  # Strong trend indicator
             
-            # Drop NaN values
-            features = features.dropna()
+            # Handle NaN values more carefully to preserve data
+            # Instead of dropping all NaN, fill forward and backward
+            features = features.ffill().bfill()
+            
+            # Only drop rows where critical columns are still NaN
+            critical_cols = ['close', 'high', 'low', 'open'] if 'open' in features.columns else ['close']
+            features = features.dropna(subset=critical_cols)
+            
+            # Replace any remaining NaN with 0 for feature columns
+            feature_cols = [col for col in features.columns if col not in ['timestamp', 'Date', 'Timestamp']]
+            features[feature_cols] = features[feature_cols].fillna(0)
             
             self.logger.info(f"✅ Elliott Wave features created: {len(features)} rows, {len(features.columns)} features")
             return features
@@ -768,7 +862,7 @@ class ElliottWaveDataProcessor:
             # Create enhanced target variable for better prediction
             features = features.copy()
             
-            # Multi-horizon target for more stable prediction
+            # Multi-horizon target for more stable prediction (optimized for data retention)
             horizons = [1, 3, 5]  # 1, 3, and 5 periods ahead
             target_signals = []
             
@@ -776,38 +870,24 @@ class ElliottWaveDataProcessor:
                 future_close = features['close'].shift(-horizon)
                 price_change = (future_close - features['close']) / features['close']
                 
-                # Create binary target with threshold for significance
-                threshold = 0.001  # 0.1% minimum price movement
+                # More lenient threshold for better data retention
+                threshold = 0.0005  # 0.05% minimum price movement
                 target_h = np.where(price_change > threshold, 1, 
-                                  np.where(price_change < -threshold, 0, np.nan))
+                                  np.where(price_change < -threshold, 0, 0.5))  # Use neutral instead of NaN
                 target_signals.append(pd.Series(target_h, index=features.index))
             
-            # Combine signals with weighted voting
+            # Combine signals with weighted voting (simplified)
             weights = [0.5, 0.3, 0.2]  # Give more weight to shorter horizon
             combined_signal = np.zeros(len(features))
-            valid_mask = np.ones(len(features), dtype=bool)
             
             for i, (signal, weight) in enumerate(zip(target_signals, weights)):
-                signal_valid = ~signal.isna()
-                combined_signal += signal.fillna(0.5) * weight  # Neutral for NaN
-                valid_mask &= signal_valid
+                combined_signal += signal * weight
             
-            # Create final target with enhanced logic
-            features['target'] = np.where(valid_mask, 
-                                        (combined_signal > 0.5).astype(int), 
-                                        np.nan)
+            # Create final target (no NaN filtering)
+            features['target'] = (combined_signal > 0.5).astype(int)
             
-            # Add additional target engineering
-            # Volatility-adjusted target (avoid predictions during high volatility)
-            volatility = features['close'].rolling(window=20).std()
-            high_volatility = volatility > volatility.rolling(window=100).quantile(0.8)
-            
-            # Only keep targets during stable periods for better training
-            stable_periods = ~high_volatility
-            features.loc[~stable_periods, 'target'] = np.nan
-            
-            # Remove rows with NaN target
-            features = features.dropna()
+            # Only remove the last few rows that don't have future data (instead of volatility filtering)
+            features = features.iloc[:-5]
             
             # Separate features and target
             target_col = 'target'

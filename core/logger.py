@@ -166,31 +166,45 @@ class EnterpriseLogger:
         self.log_counts = defaultdict(int)
     
     def setup_logger(self, log_level: str = "INFO"):
-        """Setup advanced logger with multiple handlers"""
-        # Clear existing handlers
-        self.logger.handlers.clear()
+        """Setup advanced logger with multiple handlers - improved error handling"""
+        # Clear existing handlers safely
+        for handler in self.logger.handlers[:]:
+            try:
+                handler.close()
+            except:
+                pass
+            self.logger.removeHandler(handler)
+        
         self.logger.setLevel(getattr(logging, log_level.upper()))
         
         # Console handler with colors
-        console_handler = self._create_console_handler()
-        self.logger.addHandler(console_handler)
+        try:
+            console_handler = self._create_console_handler()
+            self.logger.addHandler(console_handler)
+        except Exception as e:
+            print(f"⚠️ Could not create console handler: {e}")
         
         if self.enable_file_logging:
-            # Main log file handler
-            main_file_handler = self._create_file_handler("main")
-            self.logger.addHandler(main_file_handler)
-            
-            # Error-specific handler
-            error_handler = self._create_file_handler("error", logging.ERROR)
-            self.logger.addHandler(error_handler)
-            
-            # Warning-specific handler
-            warning_handler = self._create_file_handler("warning", logging.WARNING)
-            self.logger.addHandler(warning_handler)
+            try:
+                # Main log file handler
+                main_file_handler = self._create_file_handler("main")
+                self.logger.addHandler(main_file_handler)
+                
+                # Error-specific handler
+                error_handler = self._create_file_handler("error", logging.ERROR)
+                self.logger.addHandler(error_handler)
+                
+                # Warning-specific handler
+                warning_handler = self._create_file_handler("warning", logging.WARNING)
+                self.logger.addHandler(warning_handler)
+            except Exception as e:
+                print(f"⚠️ Could not create file handlers: {e}")
+                # Continue without file logging if it fails
     
     def _create_console_handler(self) -> logging.StreamHandler:
-        """Create colored console handler"""
+        """Create colored console handler - with improved error handling"""
         try:
+            # Try to create a proper UTF-8 handler
             handler = logging.StreamHandler(
                 io.TextIOWrapper(
                     sys.stdout.buffer, 
@@ -199,7 +213,24 @@ class EnterpriseLogger:
                 )
             )
         except (AttributeError, OSError):
-            handler = logging.StreamHandler(sys.stdout)
+            try:
+                # Fallback to standard stdout
+                handler = logging.StreamHandler(sys.stdout)
+            except:
+                # Last resort: stderr
+                handler = logging.StreamHandler(sys.stderr)
+        
+        # Add safety filter to prevent closed stream errors
+        def safe_console_filter(record):
+            try:
+                # Test if the stream is still open
+                handler.stream.write('')
+                return True
+            except (ValueError, OSError):
+                # Stream is closed, skip this record
+                return False
+        
+        handler.addFilter(safe_console_filter)
         
         if self.enable_colors:
             formatter = ColoredFormatter(
@@ -217,7 +248,7 @@ class EnterpriseLogger:
         return handler
     
     def _create_file_handler(self, file_type: str, min_level: int = logging.DEBUG) -> logging.FileHandler:
-        """Create file handler for specific log types"""
+        """Create file handler for specific log types - with improved error handling"""
         timestamp = datetime.now().strftime('%Y%m%d')
         
         if file_type == "error":
@@ -228,9 +259,22 @@ class EnterpriseLogger:
             filename = f"logs/nicegold_enterprise_{timestamp}.log"
         
         try:
-            handler = logging.FileHandler(filename, encoding='utf-8')
-        except (OSError, UnicodeError):
-            handler = logging.FileHandler(filename)
+            # Create handler with explicit error handling
+            handler = logging.FileHandler(filename, encoding='utf-8', mode='a')
+            
+            # Add a custom filter to prevent closed file errors
+            def safe_filter(record):
+                try:
+                    return True
+                except (ValueError, OSError):
+                    return False
+            
+            handler.addFilter(safe_filter)
+            
+        except (OSError, UnicodeError) as e:
+            print(f"⚠️ Warning: Could not create file handler for {filename}: {e}")
+            # Return a null handler if file creation fails
+            handler = logging.NullHandler()
         
         formatter = logging.Formatter(
             '%(asctime)s | %(levelname)s | %(name)s | %(funcName)s:%(lineno)d | %(message)s',
