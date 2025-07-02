@@ -25,22 +25,23 @@ def main():
     
     print("🧠 Initializing Optimized Systems...")
     
-    # Initialize High Memory Resource Manager (80% RAM)
+    # Initialize Lightweight High Memory Resource Manager (80% RAM)
     resource_manager = None
     try:
         with suppress_all_output():
-            from core.high_memory_resource_manager import HighMemoryResourceManager
-        resource_manager = HighMemoryResourceManager(memory_percentage=0.8, cpu_percentage=0.3)
-        print("✅ High Memory Resource Manager (80% RAM): ACTIVE")
+            from core.lightweight_resource_manager import LightweightResourceManager
+        resource_manager = LightweightResourceManager(memory_percentage=0.8, cpu_percentage=0.3)
+        print("✅ Lightweight Resource Manager (80% RAM, Zero Dependencies): ACTIVE")
     except Exception as e:
-        print(f"⚠️ High memory resource manager unavailable, trying fallback: {e}")
+        print(f"⚠️ Lightweight resource manager unavailable: {e}")
         try:
             with suppress_all_output():
-                from core.optimized_resource_manager import OptimizedResourceManager
-            resource_manager = OptimizedResourceManager()
-            print("✅ Optimized Resource Manager: ACTIVE (fallback)")
+                from core.high_memory_resource_manager import HighMemoryResourceManager
+            resource_manager = HighMemoryResourceManager(memory_percentage=0.8, cpu_percentage=0.3)
+            print("✅ High Memory Resource Manager (80% RAM): ACTIVE (fallback)")
         except Exception as e2:
-            print(f"⚠️ All resource managers unavailable: {e2}")
+            print(f"⚠️ All high memory resource managers unavailable: {e2}")
+            resource_manager = None
     
     # Initialize minimal logging
     logger = None
@@ -66,29 +67,29 @@ def main():
         'high_performance_mode': True
     }
     
-    print("🎛️ Starting High Memory Menu System (80% RAM)...")
+    print("🎛️ Starting Lightweight High Memory Menu System (80% RAM)...")
     
-    # Try high-memory menu first
+    # Try lightweight high-memory menu first
     try:
         with suppress_all_output():
-            from menu_modules.high_memory_menu_1 import HighMemoryMenu1
+            from menu_modules.lightweight_high_memory_menu_1 import LightweightHighMemoryMenu1
         
-        menu_1 = HighMemoryMenu1(config, logger, resource_manager)
-        print("✅ High Memory Menu 1 (80% RAM): READY")
+        menu_1 = LightweightHighMemoryMenu1(config, logger, resource_manager)
+        print("✅ Lightweight High Memory Menu 1 (80% RAM): READY")
         menu_available = True
-        menu_type = "High Memory"
+        menu_type = "Lightweight High Memory"
         
     except Exception as e:
-        print(f"⚠️ High memory menu failed: {e}")
-        # Fallback to optimized menu
+        print(f"⚠️ Lightweight high memory menu failed: {e}")
+        # Fallback to high memory menu
         try:
             with suppress_all_output():
-                from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
+                from menu_modules.high_memory_menu_1 import HighMemoryMenu1
             
-            menu_1 = OptimizedMenu1ElliottWave(config, logger, resource_manager)
-            print("✅ Optimized Menu 1: READY (fallback)")
+            menu_1 = HighMemoryMenu1(config, logger, resource_manager)
+            print("✅ High Memory Menu 1: READY (fallback)")
             menu_available = True
-            menu_type = "Optimized"
+            menu_type = "High Memory"
             
         except Exception as e2:
             print(f"⚠️ Ultra-lightweight menu failed: {e2}")

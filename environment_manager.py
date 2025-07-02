@@ -39,7 +39,7 @@ class NicegoldEnvironmentManager:
             'optuna': '3.5.0',
             'PyYAML': '6.0.2',
             'matplotlib': '3.5.0',
-            'plotly': '5.0.0'
+            'plotly': '6.2.0'
         }
     
     def print_header(self):
