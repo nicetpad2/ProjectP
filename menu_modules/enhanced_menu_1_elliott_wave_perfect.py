@@ -5,31 +5,11 @@
 เมนูที่ 1 พัฒนาให้สมบูรณ์แบบที่สุด - Enterprise Grade Trading System
 
 🚀 NEW ENHANCEMENTS:
-✅ Enhanced Performance Optimizati    def _start_real_time_dashboard(self):
-        """🎮 Start Real-time Analytics Dashboard"""
-        try:
-            self.logger.info("🎮 Starting Real-time Analytics Dashboard...")
-            
-            # Dashboard components
-            self.dashboard_components = {
-                'performance_panel': True,
-                'elliott_wave_detector': True,
-                'risk_monitor': True,
-                'market_regime_indicator': True,
-                'adaptive_learning_status': True
-            }
-            
-            self.logger.info("✅ Real-time Analytics Dashboard started successfully")
-            
-        except Exception as e:
-            self.logger.error(f"❌ Real-time Dashboard startup failed: {e}")
-            self.dashboard_active = Falseessing)
-✅ Advanced Real-time Analytics Dashboard
-✅ Intelligent Adaptive Learning System
-✅ Enterprise-grade Risk Management
-✅ Market Regime Detection System
-✅ 80% Resource Utilization Strategy
-✅ AUC Target: 75%+ (upgraded from 70%)
+✅ Enhanced Performance Optimization with Advanced Resource Management
+✅ Real-time Analytics Dashboard with ML-powered Insights
+✅ Adaptive Learning System with Market Regime Detection
+✅ Enterprise-grade Error Handling and Recovery
+✅ Advanced Elliott Wave Detection with Deep Learning
 
 🏆 Enterprise Features:
 - CNN-LSTM Elliott Wave Pattern Recognition
@@ -63,6 +43,15 @@ import numpy as np
 warnings.filterwarnings('ignore')
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+# Additional CUDA suppression
+import tensorflow as tf
+if hasattr(tf, 'config'):
+    try:
+        tf.config.set_visible_devices([], 'GPU')
+    except:
+        pass
 
 # Add project root to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
@@ -98,7 +87,7 @@ from elliott_wave_modules.performance_analyzer import ElliottWavePerformanceAnal
 from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
 
 
-class EnhancedMenu1ElliottWavePerfection:
+class EnhancedMenu1ElliottWavePerfect:
     """🎯 เมนูที่ 1 พัฒนาให้สมบูรณ์แบบที่สุด - Enterprise Perfect Edition"""
     
     def __init__(self, config: Optional[Dict] = None,
