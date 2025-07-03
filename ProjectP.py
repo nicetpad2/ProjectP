@@ -39,23 +39,32 @@ def main():
     print("🧠 Initializing Enterprise Systems...")
     print("=" * 60)
     
-    # Initialize Enterprise Resource Manager with conservative settings
+    # Initialize Enhanced 80% Resource Manager (Enterprise Strategy)
     resource_manager = None
     try:
         with suppress_all_output():
-            from core.lightweight_resource_manager import LightweightResourceManager
-        resource_manager = LightweightResourceManager(memory_percentage=0.7, cpu_percentage=0.3)
-        print("✅ Enterprise Resource Manager (70% RAM): ACTIVE")
+            from core.enhanced_80_percent_resource_manager import Enhanced80PercentResourceManager
+        resource_manager = Enhanced80PercentResourceManager(
+            target_allocation=0.80  # 80% resource utilization target
+        )
+        print("✅ Enhanced 80% Resource Manager (80% RAM): ACTIVE")
     except Exception as e:
-        print(f"⚠️ Resource manager unavailable: {e}")
+        print(f"⚠️ Enhanced 80% RM unavailable: {e}")
         try:
             with suppress_all_output():
-                from core.high_memory_resource_manager import HighMemoryResourceManager
-            resource_manager = HighMemoryResourceManager(memory_percentage=0.7, cpu_percentage=0.3)
-            print("✅ High Memory Resource Manager (70% RAM): ACTIVE")
+                from core.lightweight_resource_manager import LightweightResourceManager
+            resource_manager = LightweightResourceManager(memory_percentage=0.8, cpu_percentage=0.35)
+            print("✅ Lightweight Resource Manager (80% RAM): ACTIVE")
         except Exception as e2:
-            print(f"⚠️ All resource managers unavailable: {e2}")
-            resource_manager = None
+            print(f"⚠️ Lightweight RM unavailable: {e2}")
+            try:
+                with suppress_all_output():
+                    from core.high_memory_resource_manager import HighMemoryResourceManager
+                resource_manager = HighMemoryResourceManager(memory_percentage=0.8, cpu_percentage=0.35)
+                print("✅ High Memory Resource Manager (80% RAM): ACTIVE")
+            except Exception as e3:
+                print(f"⚠️ All resource managers unavailable: {e3}")
+                resource_manager = None
     
     # Initialize Enterprise Logging System
     logger = None
@@ -78,19 +87,21 @@ def main():
         logger.info("✅ Basic Enterprise Logging initialized")
         print("✅ Basic Logging: ACTIVE")
     
-    # Enterprise Configuration
+    # Enterprise Configuration with 80% Resource Strategy
     config = {
         'enterprise_mode': True,
         'resource_manager': resource_manager,
-        'target_memory_usage': 0.7,  # Conservative 70%
-        'target_cpu_usage': 0.3,     # Conservative 30%
+        'target_memory_usage': 0.8,      # 80% RAM target
+        'target_cpu_usage': 0.35,        # 35% CPU for enhanced performance
         'zero_errors_mode': True,
         'real_data_only': True,
         'enterprise_ml_protection': True,
         'elliott_wave_cnn_lstm': True,
         'dqn_reinforcement_learning': True,
         'shap_optuna_features': True,
-        'auc_target': 0.70
+        'auc_target': 0.75,              # Upgraded to 75% AUC target
+        'enhanced_performance': True,
+        'resource_utilization_strategy': '80_percent'
     }
     
     print("🎛️ Loading Enterprise Elliott Wave Menu System...")
@@ -171,12 +182,12 @@ def main():
     print(f"🎛️ Menu System: {menu_type}")
     print(f"🧠 Resource Manager: {resource_manager.__class__.__name__ if resource_manager else 'Basic'}")
     print(f"📝 Logging: {'Enterprise Advanced' if 'advanced' in str(type(logger)) else 'Enterprise Basic'}")
-    print(f"🎯 Target Resource Usage: 70% RAM, 30% CPU")
+    print(f"🎯 Target Resource Usage: 80% RAM, 35% CPU")
     print(f"📊 Data Source: Real Market Data (XAUUSD)")
     print(f"🤖 AI Components: CNN-LSTM + DQN + SHAP/Optuna")
     print("="*80)
     print("1. 🌊 Elliott Wave Full Pipeline (Enhanced 80% Utilization)")
-    print("2. 📊 System Status")
+    print("2. 📊 System Status & Resource Monitor")
     print("0. 🚪 Exit")
     print("="*80)
     
@@ -270,35 +281,95 @@ def main():
                     print("\n⚠️ Non-interactive environment - continuing automatically...")
             
             elif choice == "2":
-                print("\n📊 SYSTEM STATUS")
-                print("=" * 40)
+                print("\n📊 ENHANCED SYSTEM STATUS & RESOURCE MONITOR")
+                print("=" * 60)
                 
-                # Memory status
+                # System Resource Status
                 memory = psutil.virtual_memory()
-                print(f"💾 Memory: {memory.percent:.1f}% used ({memory.used/(1024**3):.1f}GB/{memory.total/(1024**3):.1f}GB)")
-                
-                # CPU status
                 cpu = psutil.cpu_percent(interval=1)
-                print(f"🖥️ CPU: {cpu:.1f}% usage")
                 
-                # Resource manager status
+                print(f"💾 Memory Status:")
+                print(f"   Current Usage: {memory.percent:.1f}% ({memory.used/(1024**3):.1f}GB/{memory.total/(1024**3):.1f}GB)")
+                print(f"   Available: {memory.available/(1024**3):.1f}GB")
+                print(f"   Target (80%): {memory.total * 0.8 / (1024**3):.1f}GB")
+                
+                if memory.percent >= 80:
+                    print("   Status: ✅ 80%+ utilization achieved")
+                elif memory.percent >= 70:
+                    print("   Status: ⚠️ Good utilization (70%+)")
+                else:
+                    print("   Status: ❌ Under-utilized (<70%)")
+                
+                print(f"\n🖥️ CPU Status:")
+                print(f"   Current Usage: {cpu:.1f}%")
+                print(f"   Target: 35%")
+                
+                # Enhanced Resource Manager Status
                 if resource_manager:
+                    print(f"\n🧠 Enhanced 80% Resource Manager:")
                     try:
                         if hasattr(resource_manager, 'get_health_status'):
                             health = resource_manager.get_health_status()
-                            print(f"🧠 Enhanced Resource Manager: Health {health.get('health_score', 0)}%")
+                            print(f"   Health Score: {health.get('health_score', 0)}%")
+                            print(f"   Status: {'✅ Excellent' if health.get('health_score', 0) >= 90 else '⚠️ Good' if health.get('health_score', 0) >= 70 else '❌ Needs attention'}")
+                            
                             if 'current_allocation' in health:
-                                print(f"📊 Current Allocation: {health['current_allocation']:.1%}")
+                                alloc = health['current_allocation'] * 100
+                                print(f"   Current Allocation: {alloc:.1f}%")
+                                
                             if 'target_allocation' in health:
-                                print(f"🎯 Target Allocation: {health['target_allocation']:.1%}")
+                                target = health['target_allocation'] * 100
+                                print(f"   Target Allocation: {target:.1f}%")
+                                
+                            if 'memory_efficiency' in health:
+                                print(f"   Memory Efficiency: {health['memory_efficiency']:.1f}%")
+                                
+                            if 'performance_score' in health:
+                                print(f"   Performance Score: {health['performance_score']:.1f}%")
+                                
+                        elif hasattr(resource_manager, 'get_resource_status'):
+                            status = resource_manager.get_resource_status()
+                            print(f"   Status: {status}")
                         else:
-                            print("🧠 Resource Manager: Active")
+                            print("   Status: ✅ Active (basic)")
+                            
+                        # Check if 80% strategy is working
+                        if hasattr(resource_manager, 'memory_percentage'):
+                            print(f"   Memory Target: {resource_manager.memory_percentage * 100}%")
+                        if hasattr(resource_manager, 'cpu_percentage'):
+                            print(f"   CPU Target: {resource_manager.cpu_percentage * 100}%")
+                            
                     except Exception as e:
-                        print(f"🧠 Resource Manager: Active (status unavailable: {e})")
+                        print(f"   Status: ⚠️ Active (status error: {e})")
                 else:
-                    print("🧠 Resource Manager: Not available")
+                    print(f"\n🧠 Resource Manager: ❌ Not available")
                 
-                print(f"🎛️ Menu System: {'✅ ' + menu_type if menu_available else '❌ Unavailable'}")
+                # Menu System Status
+                print(f"\n🎛️ Menu System Status:")
+                print(f"   Type: {menu_type}")
+                print(f"   Status: {'✅ Available' if menu_available else '❌ Unavailable'}")
+                
+                # Configuration Status
+                print(f"\n⚙️ Configuration Status:")
+                print(f"   Memory Target: {config.get('target_memory_usage', 0) * 100}%")
+                print(f"   CPU Target: {config.get('target_cpu_usage', 0) * 100}%")
+                print(f"   AUC Target: {config.get('auc_target', 0) * 100}%")
+                print(f"   Strategy: {config.get('resource_utilization_strategy', 'standard')}")
+                
+                # Performance Recommendations
+                print(f"\n🎯 Performance Analysis:")
+                if memory.percent < 70:
+                    print("   📈 Recommendation: System can utilize more RAM for better performance")
+                    print("   💡 Suggestion: Increase data batch sizes or model complexity")
+                elif memory.percent >= 80:
+                    print("   ✅ Excellent: Optimal 80% RAM utilization achieved")
+                else:
+                    print("   ✅ Good: RAM utilization is within acceptable range")
+                
+                if cpu < 30:
+                    print("   📈 CPU has capacity for more intensive processing")
+                elif cpu >= 35:
+                    print("   ✅ CPU utilization is at target level")
                 
                 # Only wait for input in interactive environments
                 if sys.stdin.isatty():
