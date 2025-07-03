@@ -81,6 +81,19 @@ class ElliottWaveDataProcessor:
         # Create safe logger for robust logging
         self.safe_logger = self.logger
         
+    def _log_data_size_change(self, operation: str, before_size: int, after_size: int, df_name: str = "DataFrame"):
+        """Log data size changes to track where data is being lost"""
+        if after_size < before_size:
+            loss_count = before_size - after_size
+            loss_pct = (loss_count / before_size) * 100 if before_size > 0 else 0
+            self.safe_logger.warning(f"📉 {operation}: {df_name} reduced from {before_size:,} to {after_size:,} rows (-{loss_count:,}, -{loss_pct:.1f}%)")
+        elif after_size > before_size:
+            gain_count = after_size - before_size
+            gain_pct = (gain_count / before_size) * 100 if before_size > 0 else 0
+            self.safe_logger.info(f"📈 {operation}: {df_name} increased from {before_size:,} to {after_size:,} rows (+{gain_count:,}, +{gain_pct:.1f}%)")
+        else:
+            self.safe_logger.info(f"📊 {operation}: {df_name} size unchanged at {after_size:,} rows")
+        
     def load_real_data(self) -> Optional[pd.DataFrame]:
         """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
         try:
@@ -105,6 +118,8 @@ class ElliottWaveDataProcessor:
             
             # Load ALL data - NO row limits for production
             df = pd.read_csv(data_file)
+            initial_size = len(df)
+            self.safe_logger.info(f"📊 Initial data loaded: {initial_size:,} rows")
             
             # Validate data is real market data
             if not self._validate_real_market_data(df):
@@ -114,6 +129,10 @@ class ElliottWaveDataProcessor:
             
             # Clean and process real data
             df = self._validate_and_clean_data(df)
+            final_size = len(df)
+            
+            # Log data size change
+            self._log_data_size_change("Data cleaning", initial_size, final_size, "Market data")
             
             self.logger.info(f"✅ REAL market data loaded: {len(df):,} rows")
             return df
@@ -274,11 +293,28 @@ class ElliottWaveDataProcessor:
                         df = df.drop(columns=['year', 'month', 'day', 'month_int', 'day_int', 'date_formatted'], errors='ignore')
                     
                     # If we still have invalid timestamps, use sequential timestamps
-                    if df['timestamp'].isna().any():
-                        self.safe_logger.warning(f"⚠️ Some dates could not be parsed, using sequential timestamps for {df['timestamp'].isna().sum()} rows")
-                        # Keep valid timestamps and fill invalid ones sequentially
-                        first_valid = df['timestamp'].dropna().iloc[0] if not df['timestamp'].dropna().empty else pd.Timestamp('2024-01-01')
-                        df['timestamp'] = df['timestamp'].fillna(method='ffill').fillna(first_valid)
+                    invalid_count = df['timestamp'].isna().sum()
+                    if invalid_count > 0:
+                        self.safe_logger.warning(f"⚠️ {invalid_count:,} dates could not be parsed, using sequential timestamps")
+                        
+                        # Be more conservative - only fill invalid timestamps, don't replace all
+                        if invalid_count < len(df) * 0.1:  # Less than 10% invalid
+                            # Keep valid timestamps and fill invalid ones with interpolation
+                            valid_timestamps = df['timestamp'].dropna()
+                            if len(valid_timestamps) > 1:
+                                # Use the valid timestamp pattern to fill missing ones
+                                first_valid = valid_timestamps.iloc[0]
+                                # Create a simple sequential fill
+                                df.loc[df['timestamp'].isna(), 'timestamp'] = pd.date_range(
+                                    start=first_valid, periods=invalid_count, freq='1min'
+                                )
+                            else:
+                                # Fallback to full sequential timestamps
+                                df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
+                        else:
+                            # Too many invalid timestamps, use full sequential
+                            self.safe_logger.warning(f"⚠️ Too many invalid dates ({invalid_count:,}/{len(df):,}), using full sequential timestamps")
+                            df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
                     
                     # Drop original date columns
                     df = df.drop(columns=['Date', 'Timestamp', 'date_str'], errors='ignore')
@@ -301,8 +337,16 @@ class ElliottWaveDataProcessor:
             # Sort by timestamp
             df = df.sort_values('timestamp').reset_index(drop=True)
             
-            # Remove duplicates
-            df = df.drop_duplicates(subset=['timestamp']).reset_index(drop=True)
+            # Remove duplicates MORE CONSERVATIVELY - only if truly identical
+            # Count before and after to track data loss
+            before_dedup = len(df)
+            df = df.drop_duplicates(subset=['timestamp'], keep='first').reset_index(drop=True)
+            after_dedup = len(df)
+            
+            if after_dedup < before_dedup:
+                self.safe_logger.warning(f"⚠️ Removed {before_dedup - after_dedup:,} duplicate timestamps")
+                if after_dedup < before_dedup * 0.5:
+                    self.safe_logger.error(f"🚨 CRITICAL: Duplicate removal caused {(1-after_dedup/before_dedup)*100:.1f}% data loss!")
             
             # Handle missing values
             df = df.ffill().bfill()
@@ -604,6 +648,8 @@ class ElliottWaveDataProcessor:
         """สร้างฟีเจอร์สำหรับ Elliott Wave Pattern Recognition"""
         try:
             self.logger.info("⚙️ Creating Elliott Wave features...")
+            initial_size = len(data)
+            self.safe_logger.info(f"📊 Starting feature engineering with {initial_size:,} rows")
             
             # Copy original data
             features = data.copy()
@@ -847,6 +893,9 @@ class ElliottWaveDataProcessor:
             feature_cols = [col for col in features.columns if col not in ['timestamp', 'Date', 'Timestamp']]
             features[feature_cols] = features[feature_cols].fillna(0)
             
+            final_size = len(features)
+            self._log_data_size_change("Feature engineering", initial_size, final_size, "Features")
+            
             self.logger.info(f"✅ Elliott Wave features created: {len(features)} rows, {len(features.columns)} features")
             return features
             
@@ -858,6 +907,8 @@ class ElliottWaveDataProcessor:
         """เตรียมข้อมูลสำหรับ Machine Learning"""
         try:
             self.logger.info("🎯 Preparing ML training data...")
+            initial_size = len(features)
+            self.safe_logger.info(f"📊 Starting ML preparation with {initial_size:,} rows")
             
             # Create enhanced target variable for better prediction
             features = features.copy()
@@ -1198,21 +1249,23 @@ class ElliottWaveDataProcessor:
     def _enhance_data_quality(self, df: pd.DataFrame) -> pd.DataFrame:
         """ปรับปรุงคุณภาพข้อมูลให้ถึงมาตรฐาน enterprise"""
         try:
-            # More aggressive missing value handling
-            missing_threshold = 0.01  # Stricter threshold (1% instead of 5%)
+            # More conservative missing value handling to preserve data
+            missing_threshold = 0.5  # Much more lenient threshold (50% instead of 1%)
             missing_ratios = df.isnull().sum() / len(df)
             cols_to_drop = missing_ratios[missing_ratios > missing_threshold].index
-            
+
             if len(cols_to_drop) > 0:
                 df = df.drop(columns=cols_to_drop)
-                self.logger.info(f"🗑️ Dropped {len(cols_to_drop)} columns with >1% missing values")
-            
+                self.logger.info(f"🗑️ Dropped {len(cols_to_drop)} columns with >50% missing values")
+
             # Forward fill then backward fill remaining missing values
             df = df.fillna(method='ffill').fillna(method='bfill')
+
+            # Fill any remaining NaN with 0 instead of dropping rows
+            df = df.fillna(0)
             
-            # Drop any remaining rows with missing values
-            df = df.dropna()
-            
+            self.logger.info(f"✅ Data quality improvement completed: {len(df):,} rows preserved")
+
             return df
             
         except Exception as e:

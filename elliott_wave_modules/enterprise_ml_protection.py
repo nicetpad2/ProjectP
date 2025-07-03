@@ -141,6 +141,49 @@ class EnterpriseMLProtectionSystem:
                                         process_id: str = None) -> Dict[str, Any]:
         """🎯 การวิเคราะห์ป้องกันแบบครบถ้วน"""
         
+        # Critical check for empty or insufficient data
+        if X is None or y is None:
+            error_msg = "❌ Cannot analyze protection: X or y is None"
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.critical(error_msg, "Protection_Analysis", process_id=process_id)
+            return {
+                'error': error_msg,
+                'timestamp': datetime.now().isoformat(),
+                'enterprise_ready': False,
+                'critical_issues': [error_msg]
+            }
+        
+        # Convert to DataFrame if needed
+        if isinstance(X, np.ndarray):
+            feature_names = feature_names or [f'feature_{i}' for i in range(X.shape[1])]
+            X = pd.DataFrame(X, columns=feature_names)
+        
+        if isinstance(y, np.ndarray):
+            y = pd.Series(y)
+        
+        # Check for empty or insufficient data
+        if len(X) == 0 or len(y) == 0:
+            error_msg = f"❌ Cannot analyze protection: Empty dataset (X: {len(X)}, y: {len(y)})"
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.critical(error_msg, "Protection_Analysis", process_id=process_id)
+            return {
+                'error': error_msg,
+                'timestamp': datetime.now().isoformat(),
+                'enterprise_ready': False,
+                'critical_issues': [error_msg]
+            }
+        
+        if len(X) < 10:
+            error_msg = f"❌ Cannot analyze protection: Insufficient data (only {len(X)} samples, need at least 10)"
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.critical(error_msg, "Protection_Analysis", process_id=process_id)
+            return {
+                'error': error_msg,
+                'timestamp': datetime.now().isoformat(),
+                'enterprise_ready': False,
+                'critical_issues': [error_msg]
+            }
+        
         # Start progress tracking
         main_progress_id = None
         if ADVANCED_LOGGING_AVAILABLE and self.progress_manager:
