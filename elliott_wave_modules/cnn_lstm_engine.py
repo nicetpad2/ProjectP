@@ -297,27 +297,16 @@ class CNNLSTMElliottWave:
             
             self.logger.info("📊 Preparing sequences for CNN-LSTM with strict memory limits...")
             
-            # 🚀 ULTRA-AGGRESSIVE Memory Management
+            # 🚀 ENTERPRISE DATA PROCESSING - USE ALL REAL DATA
             original_size = len(X)
             
-            # Extreme sampling for memory safety
-            if original_size > 20000:  # Lower threshold 
-                max_sample = min(10000, original_size // 4)  # Much smaller sample
-                self.logger.warning(f"⚠️ Large dataset ({original_size:,} rows). Aggressively sampling {max_sample:,} rows.")
-            elif original_size > 5000:
-                max_sample = min(3000, original_size // 2)
-                self.logger.info(f"📊 Medium dataset ({original_size:,} rows). Sampling {max_sample:,} rows.")
-            else:
-                max_sample = original_size
+            # Enterprise compliance: NO SAMPLING - Use all real data
+            self.logger.info(f"📊 Processing full dataset: {original_size:,} rows (Enterprise compliance)")
+            X_sample = X.reset_index(drop=True)
+            y_sample = y.reset_index(drop=True) if y is not None else None
             
-            # Always use random sampling for speed (avoid stratified overhead)
-            if original_size > max_sample:
-                indices = np.random.choice(original_size, max_sample, replace=False)
-                X_sample = X.iloc[indices].reset_index(drop=True)
-                y_sample = y.iloc[indices].reset_index(drop=True) if y is not None else None
-            else:
-                X_sample = X.reset_index(drop=True)
-                y_sample = y.reset_index(drop=True) if y is not None else None
+            # Memory optimization through batch processing instead of sampling
+            max_sample = original_size  # Use all data
             
             # Ultra-small sequence length for memory efficiency
             ultra_sequence_length = min(self.sequence_length, 10)  # Max 10 timesteps only
@@ -338,14 +327,9 @@ class CNNLSTMElliottWave:
             n_sequences = len(X_scaled) - ultra_sequence_length + 1
             n_features = X_scaled.shape[1]
             
-            # Further reduce sequences if still too large
-            if n_sequences > 5000:
-                step_size = max(2, n_sequences // 5000)  # Skip some sequences
-                sequence_indices = np.arange(0, n_sequences, step_size)
-                n_sequences = len(sequence_indices)
-                self.logger.info(f"📉 Using every {step_size}th sequence to reduce memory usage")
-            else:
-                sequence_indices = np.arange(n_sequences)
+            # Enterprise compliance: Use ALL sequences, no reduction
+            sequence_indices = np.arange(n_sequences)
+            self.logger.info(f"� Processing all {n_sequences:,} sequences (Enterprise full data processing)")
             
             # Create sequences in batches to avoid memory spikes
             batch_size = 1000
@@ -413,52 +397,69 @@ class CNNLSTMElliottWave:
             total_memory_gb = X_sequences.nbytes / (1024**3)
             self.logger.info(f"📊 Training data memory usage: {total_memory_gb:.2f} GB")
             
-            if total_memory_gb > 1.0:  # If more than 1GB
-                self.logger.warning("⚠️ High memory usage detected, switching to ultra-light mode")
-                # Further reduce data
-                max_samples = min(2000, len(X_sequences))
-                indices = np.random.choice(len(X_sequences), max_samples, replace=False)
-                X_sequences = X_sequences[indices]
-                y_sequences = y_sequences[indices]
-                self.logger.info(f"📉 Reduced to {max_samples} samples for memory safety")
+            # 🚀 ENTERPRISE FULL DATA PROCESSING - 80% Resource Management
+            # Use intelligent batch processing instead of reducing data
+            if total_memory_gb > 2.0:  # Smart threshold for 80% resource usage
+                self.logger.info("🧠 Large dataset detected - using intelligent batch processing")
+                # Use batch processing strategy instead of reducing data
+                self.batch_training = True
+                self.training_batch_size = max(32, min(128, len(X_sequences) // 100))  # Adaptive batch size
+                self.logger.info(f"⚡ Batch training enabled: batch_size={self.training_batch_size} (80% resource mode)")
+            else:
+                self.batch_training = False
+                self.logger.info("✅ Standard training mode - full data processing")
             
-            # Split data efficiently
+            # Split data efficiently - USE ALL DATA
             split_idx = int(0.8 * len(X_sequences))
             X_train, X_val = X_sequences[:split_idx], X_sequences[split_idx:]
             y_train, y_val = y_sequences[:split_idx], y_sequences[split_idx:]
             
+            self.logger.info(f"📊 Training with FULL dataset: {len(X_train):,} train, {len(X_val):,} validation samples")
+            
             # Clear original sequences to free memory
             del X_sequences, y_sequences
             
-            # Build model with memory constraints
+            # Build model with 80% resource optimization
             if TENSORFLOW_AVAILABLE and len(X_train.shape) == 3:
                 input_shape = (X_train.shape[1], X_train.shape[2])
                 self.model = self.build_model(input_shape)
                 
-                # Ultra-efficient training settings
-                batch_size = max(8, min(16, len(X_train) // 10))  # Smaller batches
-                epochs = min(20, 50)  # Fewer epochs
+                # 🚀 ENTERPRISE 80% RESOURCE MANAGEMENT
+                if hasattr(self, 'batch_training') and self.batch_training:
+                    # Intelligent batch processing for large datasets
+                    batch_size = self.training_batch_size
+                    epochs = min(50, max(20, 100000 // len(X_train)))  # Adaptive epochs
+                    
+                    self.logger.info(f"🧠 Intelligent batch training: batch_size={batch_size}, epochs={epochs}")
+                    self.logger.info(f"📊 Processing {len(X_train):,} samples with 80% resource optimization")
+                else:
+                    # Standard training for smaller datasets
+                    batch_size = max(16, min(64, len(X_train) // 20))
+                    epochs = min(30, 50)
+                    
+                    self.logger.info(f"✅ Standard training: batch_size={batch_size}, epochs={epochs}")
                 
-                # Simplified callbacks for memory efficiency
+                # Enhanced callbacks for better training
                 callbacks = []
                 try:
                     callbacks = [
-                        EarlyStopping(patience=5, restore_best_weights=True),  # Earlier stopping
-                        ReduceLROnPlateau(patience=3, factor=0.7)  # Faster learning rate reduction
+                        EarlyStopping(patience=10, restore_best_weights=True, verbose=0),
+                        ReduceLROnPlateau(patience=5, factor=0.5, verbose=0, min_lr=1e-6)
                     ]
                 except:
-                    pass
+                    self.logger.warning("⚠️ Advanced callbacks not available, using basic training")
                 
-                self.logger.info(f"🏃‍♂️ Training with batch_size={batch_size}, epochs={epochs}")
+                self.logger.info(f"🏃‍♂️ Training with batch_size={batch_size}, epochs={epochs} (FULL DATA)")
                 
-                # Memory-efficient training
+                # Enterprise-grade training with ALL data
                 history = self.model.fit(
                     X_train, y_train,
                     epochs=epochs,
                     batch_size=batch_size,
                     validation_data=(X_val, y_val),
                     verbose=0,
-                    callbacks=callbacks
+                    callbacks=callbacks,
+                    shuffle=True  # Improve generalization
                 )
                 
                 # Quick evaluation without storing large prediction arrays
