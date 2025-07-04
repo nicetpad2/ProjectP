@@ -8,6 +8,8 @@
 
 ### ✅ วิธีรันที่ถูกต้อง
 ```bash
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
 python ProjectP.py
 ```
 

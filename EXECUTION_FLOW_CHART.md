@@ -20,9 +20,7 @@
     │ Health <90% ❌ → Fix First
     ▼
 🔧 Activate Environment
-    │ ./activate_nicegold_env.sh
-    │ OR
-    │ source /home/ACER/.cache/nicegold_env/bin/activate
+    │ source activate_nicegold_env.sh
     ▼
 ✅ Verify Activation
     │ which python → /home/ACER/.cache/nicegold_env/bin/python ✅
@@ -85,7 +83,7 @@
 🚨 ERROR: Package import errors
     │
     ▼
-🔧 FIX: ./activate_nicegold_env.sh
+🔧 FIX: source activate_nicegold_env.sh
     │
     ▼
 ✅ Return to Main Flow
@@ -107,7 +105,7 @@
 
 ### ❌ **Permission Denied Error**
 ```
-🔒 ./activate_nicegold_env.sh: Permission denied
+🔒 source activate_nicegold_env.sh: Permission denied
     │
     ▼
 🚨 ERROR: Cannot execute script
@@ -128,13 +126,13 @@
 Start
   │
   ├─ 🏃 Quick & Easy?
-  │   └─ ✅ Use: ./activate_nicegold_env.sh
+  │   └─ ✅ Use: source activate_nicegold_env.sh
   │
   ├─ 🧪 Need Manual Control?
   │   └─ ✅ Use: source /home/ACER/.cache/nicegold_env/bin/activate
   │
   └─ ⚡ One Command Execution?
-      └─ ✅ Use: cd /mnt/data/projects/ProjectP && ./activate_nicegold_env.sh && python ProjectP.py
+      └─ ✅ Use: cd /mnt/data/projects/ProjectP && source activate_nicegold_env.sh && python ProjectP.py
 ```
 
 ### 🤔 **Which Menu Option?**
@@ -165,7 +163,7 @@ Start
 ```
 1. 📁 cd /mnt/data/projects/ProjectP
 2. 🔍 ./environment_manager.py
-3. 🔧 ./activate_nicegold_env.sh
+3. 🔧 source activate_nicegold_env.sh
 4. 🧪 python -c "import numpy; print('Ready')"
 5. 🚀 python ProjectP.py
 6. 🎯 Select Menu Option
@@ -176,7 +174,7 @@ Start
 ### 🎯 **Pattern 2: Production Workflow**
 ```
 1. 📁 cd /mnt/data/projects/ProjectP
-2. 🔧 ./activate_nicegold_env.sh
+2. 🔧 source activate_nicegold_env.sh
 3. 🚀 python ProjectP.py
 4. 🌊 Select Menu 1 (Full Pipeline)
 5. ⏳ Wait for completion
@@ -189,7 +187,7 @@ Start
 ```
 1. 📁 cd /mnt/data/projects/ProjectP
 2. 🔍 ./environment_manager.py --diagnose
-3. 🔧 source /home/ACER/.cache/nicegold_env/bin/activate
+3. 🔧 source activate_nicegold_env.sh
 4. 🧪 python -c "from core.menu_system import MenuSystem; print('OK')"
 5. 🚀 python ProjectP.py
 6. 🔍 Test each menu option

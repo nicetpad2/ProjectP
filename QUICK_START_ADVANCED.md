@@ -1,23 +1,34 @@
 # 🌊 NICEGOLD ENTERPRISE - QUICK START GUIDE
 
-## 🚀 How to Use Advanced Menu 1
+## 🚀 How to Use the System
 
-### Method 1: Advanced Version (Recommended)
+### Standard Environment Setup (Required)
+```bash
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
+```
+
+### Method 1: Main System (Recommended)
+```bash
+python ProjectP.py
+```
+
+### Method 2: Advanced Version
 ```bash
 python ProjectP_Advanced.py
 ```
 
-### Method 2: Quick Launcher
+### Method 3: Quick Launcher
 ```bash
 python run_advanced.py
 ```
 
-### Method 3: Demo Script
+### Method 4: Demo Script
 ```bash
 python demo_advanced_logging.py
 ```
 
-### Method 4: Test System
+### Method 5: Test System
 ```bash
 python test_advanced_system.py
 ```

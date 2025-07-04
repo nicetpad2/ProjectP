@@ -25,13 +25,13 @@ FORBIDDEN:
 ### 🎯 **Method 1: Standard (แนะนำ)**
 ```bash
 cd /mnt/data/projects/ProjectP
-./activate_nicegold_env.sh
+source activate_nicegold_env.sh
 python ProjectP.py
 ```
 
 ### 🎯 **Method 2: One Command**
 ```bash
-cd /mnt/data/projects/ProjectP && ./activate_nicegold_env.sh && python ProjectP.py
+cd /mnt/data/projects/ProjectP && source activate_nicegold_env.sh && python ProjectP.py
 ```
 
 ### 🎯 **Method 3: Manual Activation**
@@ -92,7 +92,7 @@ Environment Manager:
 #### **Environment Not Found**
 ```bash
 chmod +x activate_nicegold_env.sh
-./activate_nicegold_env.sh
+source activate_nicegold_env.sh
 ```
 
 #### **Python Not Found**

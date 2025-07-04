@@ -42,7 +42,8 @@ Total Packages: 50+ enterprise packages
 ### 🔧 **Required Activation Script**
 ```bash
 # Primary activation script (ต้องใช้นี้)
-/mnt/data/projects/ProjectP/activate_nicegold_env.sh
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
 
 # Alternative method
 source /home/ACER/.cache/nicegold_env/nicegold_enterprise_env/bin/activate
@@ -107,7 +108,8 @@ Ready for execution: ✅ YES
 
 #### **2. Package Verification**
 ```bash
-source /home/ACER/.cache/nicegold_env/bin/activate
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
 python -c "
 import numpy; print(f'✅ NumPy: {numpy.__version__}')
 import pandas; print(f'✅ Pandas: {pandas.__version__}')
@@ -167,7 +169,7 @@ python /mnt/data/projects/ProjectP/ProjectP.py
 ```bash
 # ✅ CORRECT METHOD
 user@system:~$ cd /mnt/data/projects/ProjectP
-user@system:/mnt/data/projects/ProjectP$ ./activate_nicegold_env.sh
+user@system:/mnt/data/projects/ProjectP$ source activate_nicegold_env.sh
 🔧 Activating NICEGOLD Environment...
 ✅ Environment activated: /home/ACER/.cache/nicegold_env/
 user@system:/mnt/data/projects/ProjectP$ python ProjectP.py
@@ -181,7 +183,7 @@ user@system:/mnt/data/projects/ProjectP$ python ProjectP.py
 user@system:~$ cd /mnt/data/projects/ProjectP
 user@system:/mnt/data/projects/ProjectP$ ./environment_manager.py
 Environment Health: ✅ 95% HEALTHY
-user@system:/mnt/data/projects/ProjectP$ ./activate_nicegold_env.sh
+user@system:/mnt/data/projects/ProjectP$ source activate_nicegold_env.sh
 ✅ Environment activated
 user@system:/mnt/data/projects/ProjectP$ python ProjectP.py
 ```
@@ -191,7 +193,7 @@ user@system:/mnt/data/projects/ProjectP$ python ProjectP.py
 # ✅ CORRECT METHOD WITH FULL VERIFICATION
 cd /mnt/data/projects/ProjectP
 ./environment_manager.py --health
-source /home/ACER/.cache/nicegold_env/bin/activate
+source activate_nicegold_env.sh
 which python
 python -c "import numpy; print('✅ Ready')"
 python ProjectP.py

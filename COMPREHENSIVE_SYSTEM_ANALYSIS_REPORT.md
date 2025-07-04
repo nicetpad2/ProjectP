@@ -920,23 +920,29 @@ Manual Reviews:
 
 ### 📋 **Standard Operating Procedure**
 ```bash
-# 1. Start the system
+# 1. Navigate to project directory
+cd /mnt/data/projects/ProjectP
+
+# 2. Activate environment
+source activate_nicegold_env.sh
+
+# 3. Start the system
 python ProjectP.py
 
-# 2. Main menu will appear with options:
+# 4. Main menu will appear with options:
 #    1. Elliott Wave Full Pipeline (95% ready)
 #    2-5. Future development features
 #    D. Dependency Check & Fix
 #    E. Exit System
 #    R. Reset & Restart
 
-# 3. For first-time setup or dependency issues:
+# 5. For first-time setup or dependency issues:
 #    Select option 'D' to fix dependencies
 
-# 4. Once dependencies are fixed:
+# 6. Once dependencies are fixed:
 #    Select option '1' for Elliott Wave Pipeline
 
-# 5. Monitor progress through beautiful tracking
+# 7. Monitor progress through beautiful tracking
 #    Results will be saved automatically
 ```
 

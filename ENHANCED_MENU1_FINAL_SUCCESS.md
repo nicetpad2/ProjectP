@@ -74,7 +74,8 @@
 
 #### 1. **ทดสอบ Beautiful Progress System:**
 ```bash
-cd /content/drive/MyDrive/ProjectP
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
 python3 demo_beautiful_progress.py
 ```
 

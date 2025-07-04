@@ -607,7 +607,7 @@ Health: 90-95% (All critical dependencies installed)
 
 # 🚀 Activation Commands
 ./activate_nicegold_env.sh                    # Primary activation
-source /home/ACER/.cache/nicegold_env/bin/activate  # Alternative  
+source activate_nicegold_env.sh              # Alternative  
 ./environment_manager.py                      # Health management
 ```
 

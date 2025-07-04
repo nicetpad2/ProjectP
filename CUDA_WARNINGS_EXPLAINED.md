@@ -35,7 +35,8 @@ failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERRO
 
 ### 🎯 **วิธีที่ 1: ใช้ Clean Start (แนะนำ)**
 ```bash
-cd /content/drive/MyDrive/ProjectP
+cd /mnt/data/projects/ProjectP
+source activate_nicegold_env.sh
 python start_clean.py
 ```
 
