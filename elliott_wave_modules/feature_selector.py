@@ -255,9 +255,32 @@ class EnterpriseShapOptunaFeatureSelector:
             if isinstance(shap_values, list):
                 shap_values = shap_values[1]  # Use positive class
             
-            # Calculate feature importance rankings
+            # Calculate feature importance rankings with robust scalar extraction
             feature_importance = np.abs(shap_values).mean(axis=0)
-            shap_rankings = dict(zip(X_sample.columns, feature_importance))
+            
+            # CRITICAL FIX: Ensure all values are scalars, not arrays
+            shap_rankings = {}
+            for i, feature_name in enumerate(X_sample.columns):
+                importance_value = feature_importance[i]
+                
+                # Convert arrays to scalars if needed
+                if hasattr(importance_value, 'shape') and importance_value.shape:
+                    # If it's an array, take the first element or mean
+                    if isinstance(importance_value, np.ndarray):
+                        if importance_value.size == 1:
+                            importance_value = float(importance_value.item())
+                        else:
+                            importance_value = float(np.mean(importance_value))
+                    else:
+                        importance_value = float(importance_value)
+                elif isinstance(importance_value, (list, tuple)):
+                    # Handle list/tuple cases
+                    importance_value = float(np.mean(importance_value))
+                else:
+                    # Ensure it's a float
+                    importance_value = float(importance_value)
+                
+                shap_rankings[feature_name] = importance_value
             
             if shap_progress:
                 self.progress_manager.complete_progress(shap_progress, 
@@ -489,7 +512,7 @@ class EnterpriseShapOptunaFeatureSelector:
             'cv_auc_mean': cv_scores.mean(),
             'cv_auc_std': cv_scores.std(),
             'cv_scores': cv_scores.tolist(),
-            'model_type': model_name,
+            'model_type': 'RandomForestClassifier',
             'n_features': len(self.selected_features),
             'validation_method': 'TimeSeriesSplit',
             'target_achieved': cv_scores.mean() >= self.target_auc

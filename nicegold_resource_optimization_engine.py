@@ -218,9 +218,34 @@ class ProductionFeatureSelector:
         if isinstance(shap_values, list):
             shap_values = shap_values[1]
         
-        # Calculate feature importance
+        # Calculate feature importance with robust scalar conversion
         feature_importance = np.abs(shap_values).mean(axis=0)
-        return dict(zip(X_sample.columns, feature_importance))
+        
+        # CRITICAL FIX: Ensure all values are scalars, not arrays
+        feature_importance_dict = {}
+        for i, feature_name in enumerate(X_sample.columns):
+            importance_value = feature_importance[i]
+            
+            # Convert arrays to scalars if needed
+            if hasattr(importance_value, 'shape') and importance_value.shape:
+                # If it's an array, take the first element or mean
+                if isinstance(importance_value, np.ndarray):
+                    if importance_value.size == 1:
+                        importance_value = float(importance_value.item())
+                    else:
+                        importance_value = float(np.mean(importance_value))
+                else:
+                    importance_value = float(importance_value)
+            elif isinstance(importance_value, (list, tuple)):
+                # Handle list/tuple cases
+                importance_value = float(np.mean(importance_value))
+            else:
+                # Ensure it's a float
+                importance_value = float(importance_value)
+            
+            feature_importance_dict[feature_name] = importance_value
+        
+        return feature_importance_dict
     
     def _resource_controlled_optuna(self, X: pd.DataFrame, y: pd.Series, 
                                    shap_results: Dict[str, float]) -> Dict[str, Any]:

@@ -92,6 +92,18 @@ try:
 except ImportError:
     ML_PROTECTION_AVAILABLE = False
 
+# Import Performance Optimization Engine
+try:
+    from performance_integration_patch import (
+        OptimizedPipelineIntegrator, 
+        apply_performance_optimization,
+        integrate_optimization_with_menu1
+    )
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = True
+except ImportError:
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = False
+    print("⚠️ Performance optimization not available, using standard processing")
+
 # Import Elliott Wave Components
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
@@ -189,6 +201,17 @@ class Menu1ElliottWaveFixed:
         # Setup Resource Management Integration
         if self.resource_manager:
             self._setup_resource_integration()
+        
+        # 🚀 Initialize Performance Optimization
+        self.performance_integrator = None
+        if PERFORMANCE_OPTIMIZATION_AVAILABLE:
+            try:
+                self.safe_logger.info("⚡ Initializing Performance Optimization Engine...")
+                self.performance_integrator = OptimizedPipelineIntegrator(use_optimization=True)
+                self.safe_logger.info("✅ Performance Optimization Engine activated")
+            except Exception as e:
+                self.safe_logger.warning(f"⚠️ Could not initialize performance optimization: {e}")
+                self.performance_integrator = None
         
         # Initialize Components
         self._initialize_components()
@@ -390,18 +413,25 @@ class Menu1ElliottWaveFixed:
             self._show_current_resource_usage()
             self._end_stage_resource_monitoring('data_preparation', {'ml_samples': len(X) if hasattr(X, '__len__') else 0})
             
-            # Run ML Protection Analysis if available
+            # Run ML Protection Analysis with Performance Optimization
             if self.ml_protection:
                 self.safe_logger.info("🛡️ Running Enterprise ML Protection Analysis...")
                 try:
-                    # Get feature names if available
-                    feature_names = None
-                    if hasattr(X, 'columns'):
-                        feature_names = list(X.columns)
-                    
-                    protection_results = self.ml_protection.comprehensive_protection_analysis(
-                        X=X, y=y, feature_names=feature_names
-                    )
+                    # Use performance optimization if available
+                    if self.performance_integrator:
+                        self.safe_logger.info("⚡ Using optimized ML Protection Analysis")
+                        protection_results = self.performance_integrator.optimized_ml_protection(
+                            X, y, fallback_protection=self.ml_protection
+                        )
+                    else:
+                        # Fallback to standard ML protection
+                        feature_names = None
+                        if hasattr(X, 'columns'):
+                            feature_names = list(X.columns)
+                        
+                        protection_results = self.ml_protection.comprehensive_protection_analysis(
+                            X=X, y=y, feature_names=feature_names
+                        )
                     
                     # Store protection results
                     self.results['ml_protection'] = protection_results
@@ -409,6 +439,8 @@ class Menu1ElliottWaveFixed:
                     
                 except Exception as e:
                     self.safe_logger.warning(f"⚠️ ML Protection Analysis failed: {e}")
+                    # Store error info
+                    self.results['ml_protection'] = {'error': str(e), 'status': 'failed'}
             
             # Store data info
             self.results['data_info'] = {
@@ -417,15 +449,39 @@ class Menu1ElliottWaveFixed:
                 'target_count': len(y) if hasattr(y, '__len__') else 0
             }
             
-            # Step 4: Feature selection with SHAP + Optuna
-            self._start_stage_resource_monitoring('feature_selection', 'Step 4: Running SHAP + Optuna feature selection')
-            self.safe_logger.info("🧠 Step 4: Running SHAP + Optuna feature selection...")
-            selected_features, selection_results = self.feature_selector.select_features(X, y)
-            self._show_current_resource_usage()
-            selection_metrics = {'selected_features': len(selected_features) if selected_features else 0}
-            if selection_results and 'best_auc' in selection_results:
-                selection_metrics['auc_achieved'] = selection_results['best_auc']
-            self._end_stage_resource_monitoring('feature_selection', selection_metrics)
+            # Step 4: Feature selection with Performance Optimization
+            self._start_stage_resource_monitoring('feature_selection', 'Step 4: Running optimized SHAP + Optuna feature selection')
+            self.safe_logger.info("🧠 Step 4: Running optimized SHAP + Optuna feature selection...")
+            
+            try:
+                # Use performance optimization if available
+                if self.performance_integrator:
+                    self.safe_logger.info("⚡ Using optimized feature selection")
+                    selected_features, selection_results = self.performance_integrator.optimized_feature_selection(
+                        X, y, fallback_selector=self.feature_selector
+                    )
+                else:
+                    # Fallback to standard feature selection
+                    selected_features, selection_results = self.feature_selector.select_features(X, y)
+                
+                self._show_current_resource_usage()
+                selection_metrics = {'selected_features': len(selected_features) if selected_features else 0}
+                if selection_results and 'best_auc' in selection_results:
+                    selection_metrics['auc_achieved'] = selection_results['best_auc']
+                elif selection_results and isinstance(selection_results, dict):
+                    # Handle optimized results structure
+                    validation_results = selection_results.get('validation_results', {})
+                    if 'cv_auc_mean' in validation_results:
+                        selection_metrics['auc_achieved'] = validation_results['cv_auc_mean']
+                
+                self._end_stage_resource_monitoring('feature_selection', selection_metrics)
+                
+            except Exception as e:
+                self.safe_logger.error(f"❌ Feature selection failed: {e}")
+                # Use fallback feature selection or exit
+                selected_features = list(X.columns[:min(15, len(X.columns))]) if hasattr(X, 'columns') else None
+                selection_results = {'error': str(e), 'fallback_features': len(selected_features) if selected_features else 0}
+                self._end_stage_resource_monitoring('feature_selection', {'error': True})
             
             # Step 5: Train CNN-LSTM
             self._start_stage_resource_monitoring('cnn_lstm_training', 'Step 5: Training CNN-LSTM model')
