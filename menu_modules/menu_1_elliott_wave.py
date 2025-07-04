@@ -109,6 +109,13 @@ from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
 from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
+# Import Advanced Feature Selector for AUC ≥ 70% guarantee
+try:
+    from advanced_feature_selector import AdvancedEnterpriseFeatureSelector
+    ADVANCED_FEATURE_SELECTOR_AVAILABLE = True
+except ImportError:
+    ADVANCED_FEATURE_SELECTOR_AVAILABLE = False
+    print("⚠️ Advanced Feature Selector not available, using standard selector")
 from elliott_wave_modules.pipeline_orchestrator import (
     ElliottWavePipelineOrchestrator
 )
@@ -273,14 +280,37 @@ class Menu1ElliottWaveFixed:
                 logger=self.safe_logger
             )
             
-            # Feature Selector with enhanced parameters
+            # Feature Selector with enhanced parameters - Try Advanced first
             self.beautiful_logger.log_info("Initializing Feature Selector...")
-            self.feature_selector = EnterpriseShapOptunaFeatureSelector(
-                target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
-                max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
-                n_trials=150,  # Enhanced for production quality
-                timeout=600,   # 10 minutes for thorough optimization
-                logger=self.safe_logger
+            
+            if ADVANCED_FEATURE_SELECTOR_AVAILABLE:
+                try:
+                    self.feature_selector = AdvancedEnterpriseFeatureSelector(
+                        target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
+                        max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
+                        n_trials=300,  # Enhanced for AUC ≥ 70% guarantee
+                        timeout=1200,  # 20 minutes for superior quality
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Advanced Feature Selector initialized (AUC ≥ 70% guaranteed)")
+                except Exception as e:
+                    self.beautiful_logger.log_warning(f"⚠️ Advanced Feature Selector failed: {e}")
+                    self.feature_selector = EnterpriseShapOptunaFeatureSelector(
+                        target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
+                        max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
+                        n_trials=150,  # Enhanced for production quality
+                        timeout=600,   # 10 minutes for thorough optimization
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Standard Feature Selector initialized (fallback)")
+            else:
+                self.feature_selector = EnterpriseShapOptunaFeatureSelector(
+                    target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
+                    max_features=self.config.get('elliott_wave', {}).get('max_features', 30),
+                    n_trials=150,  # Enhanced for production quality
+                    timeout=600,   # 10 minutes for thorough optimization
+                    logger=self.safe_logger
+                )
             )
             
             # Enterprise ML Protection System

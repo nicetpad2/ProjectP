@@ -49,7 +49,7 @@ from optuna.pruners import MedianPruner
 
 # ML Imports
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.model_selection import cross_val_score, TimeSeriesSplit
+from sklearn.model_selection import cross_val_score, TimeSeriesSplit, StratifiedKFold
 from sklearn.metrics import roc_auc_score, accuracy_score
 
 
@@ -59,22 +59,22 @@ class EnterpriseShapOptunaFeatureSelector:
     Production-ready feature selection with strict compliance
     """
     
-    def __init__(self, target_auc: float = 0.70, max_features: int = 20,
-                 n_trials: int = 50, timeout: int = 300,
+    def __init__(self, target_auc: float = 0.75, max_features: int = 25,
+                 n_trials: int = 150, timeout: int = 600,
                  logger: Optional[logging.Logger] = None):
-        """Initialize Enterprise Feature Selector - Optimized for Production
+        """Initialize Enterprise Feature Selector - Enhanced for Quality
         
         Args:
-            target_auc: Target AUC to achieve (default: 0.70)
-            max_features: Maximum features to select (default: 20)
-            n_trials: Optuna optimization trials (default: 50)
-            timeout: Optimization timeout in seconds (default: 300)
+            target_auc: Target AUC to achieve (default: 0.75 for enterprise quality)
+            max_features: Maximum features to select (default: 25)
+            n_trials: Optuna optimization trials (default: 150 for thorough search)
+            timeout: Optimization timeout in seconds (default: 600)
             logger: Logger instance (optional)
         """
         self.target_auc = target_auc
         self.max_features = max_features
-        self.n_trials = min(n_trials, 100)  # Cap at 100 for efficiency
-        self.timeout = min(timeout, 600)     # Cap at 10 minutes
+        self.n_trials = n_trials
+        self.timeout = timeout
         
         # Initialize Advanced Logging
         if ADVANCED_LOGGING_AVAILABLE:
@@ -86,16 +86,27 @@ class EnterpriseShapOptunaFeatureSelector:
             self.logger = logger or logging.getLogger(__name__)
             self.progress_manager = None
         
-        # Ultra-optimized parameters for enterprise production efficiency
-        self.cv_folds = 3  # Minimal splits for speed
-        self.shap_sample_size = min(2000, max(500, len(X) // 10) if 'X' in locals() else 2000)  # Dynamic SHAP sample
-        self.optuna_sample_ratio = 0.15  # Use only 15% of data for Optuna (reduced from 30%)
+        # Enterprise Quality Parameters - Anti-overfitting & Anti-leakage
+        self.cv_folds = 5  # More robust cross-validation
+        self.shap_sample_size = 3000  # Sufficient sample for stable SHAP values
+        self.optuna_sample_ratio = 0.7  # Use more data for better optimization
         
-        # Aggressive resource management settings
-        self.early_stopping_patience = 8  # Much faster convergence
-        self.min_feature_importance = 0.015  # Higher threshold for feature filtering
-        self.max_correlation_threshold = 0.75  # Stricter correlation limit
-        self.max_cpu_cores = min(2, max(1, os.cpu_count() // 4)) if hasattr(os, 'cpu_count') else 1
+        # Enhanced Quality Control Settings
+        self.early_stopping_patience = 25  # More patience for better results
+        self.min_feature_importance = 0.005  # Lower threshold for more features
+        self.max_correlation_threshold = 0.85  # Prevent multicollinearity
+        self.max_cpu_cores = min(4, max(2, os.cpu_count() // 2)) if hasattr(os, 'cpu_count') else 2
+        
+        # Anti-overfitting measures
+        self.regularization_strength = 0.01
+        self.validation_strategy = 'TimeSeriesSplit'
+        self.monitor_train_val_gap = True
+        self.max_train_val_gap = 0.05  # 5% maximum gap
+        
+        # Data leakage prevention
+        self.check_future_leakage = True
+        self.max_target_correlation = 0.95  # Flag suspicious correlations
+        self.temporal_validation = True
         
         # Results storage
         self.shap_rankings = {}
@@ -354,101 +365,165 @@ class EnterpriseShapOptunaFeatureSelector:
             raise
     
     def _anti_overfitting_objective(self, trial, X, y):
-        """Anti-overfitting objective function with regularization"""
+        """Enhanced anti-overfitting objective function with strict validation"""
         
-        # Model selection with overfitting prevention
-        model_name = trial.suggest_categorical('model', ['rf', 'gb'])
-        
-        if model_name == 'rf':
-            # More conservative Random Forest parameters
-            model = RandomForestClassifier(
-                n_estimators=trial.suggest_int('rf_n_estimators', 100, 300),
-                max_depth=trial.suggest_int('rf_max_depth', 5, 12),  # Reduced depth
-                min_samples_split=trial.suggest_int('rf_min_samples_split', 5, 20),  # Increased
-                min_samples_leaf=trial.suggest_int('rf_min_samples_leaf', 2, 10),  # Increased
-                max_features=trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.5]),
-                random_state=42,
-                n_jobs=-1,
-                class_weight='balanced'
-            )
-        else:
-            # More conservative Gradient Boosting parameters
-            model = GradientBoostingClassifier(
-                n_estimators=trial.suggest_int('gb_n_estimators', 50, 150),  # Reduced
-                max_depth=trial.suggest_int('gb_max_depth', 3, 8),  # Reduced depth
-                learning_rate=trial.suggest_float('gb_learning_rate', 0.01, 0.2),
-                subsample=trial.suggest_float('gb_subsample', 0.6, 0.9),  # Regularization
-                min_samples_split=trial.suggest_int('gb_min_samples_split', 5, 20),
-                min_samples_leaf=trial.suggest_int('gb_min_samples_leaf', 2, 10),
-                random_state=42
-            )
-        
-        # Feature selection with regularization
-        feature_selection_method = trial.suggest_categorical('feature_method', ['shap_top', 'mixed'])
-        n_features = trial.suggest_int('n_features', 10, min(25, len(X.columns)))  # Reduced max
-        
-        if feature_selection_method == 'shap_top':
-            # Use top SHAP features only
-            shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
-            selected_features = [feat for feat, _ in shap_ranking[:n_features]]
-        else:
-            # Mixed approach: combine top SHAP with diversity
-            shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
-            top_shap = [feat for feat, _ in shap_ranking[:n_features//2]]
-            
-            # Add diverse features (low correlation with top SHAP)
-            remaining_features = [feat for feat in X.columns if feat not in top_shap]
-            if remaining_features:
-                selected_remaining = trial.suggest_categorical(
-                    'diverse_features',
-                    remaining_features[:min(10, len(remaining_features))]
-                )
-                selected_features = top_shap + [selected_remaining]
+        # Data leakage check first
+        if self.check_future_leakage:
+            suspicious_features = self._detect_data_leakage(X, y)
+            if suspicious_features:
+                self.logger.warning(f"⚠️ Suspicious features detected: {suspicious_features}")
+                # Remove suspicious features from consideration
+                X_clean = X.drop(columns=suspicious_features, errors='ignore')
             else:
-                selected_features = top_shap
+                X_clean = X
+        else:
+            X_clean = X
         
-        X_selected = X[selected_features]
+        # Model selection with enhanced regularization
+        model_name = trial.suggest_categorical('model', ['rf_regularized', 'gb_regularized'])
         
-        # Cross-validation with anti-overfitting measures
-        tscv = TimeSeriesSplit(n_splits=5, test_size=len(X)//10)  # Larger test sets
+        if model_name == 'rf_regularized':
+            # Enhanced Random Forest with strict regularization
+            model = RandomForestClassifier(
+                n_estimators=trial.suggest_int('rf_n_estimators', 100, 500),
+                max_depth=trial.suggest_int('rf_max_depth', 4, 10),  # Limit depth for regularization
+                min_samples_split=trial.suggest_int('rf_min_samples_split', 10, 50),  # Higher minimum
+                min_samples_leaf=trial.suggest_int('rf_min_samples_leaf', 5, 25),    # Higher minimum
+                max_features=trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.3, 0.5]),
+                random_state=42,
+                n_jobs=self.max_cpu_cores,
+                class_weight='balanced',
+                bootstrap=True,  # Enable bootstrap for variance reduction
+                oob_score=True   # Out-of-bag score for additional validation
+            )
+        else:
+            # Enhanced Gradient Boosting with regularization
+            model = GradientBoostingClassifier(
+                n_estimators=trial.suggest_int('gb_n_estimators', 100, 300),
+                max_depth=trial.suggest_int('gb_max_depth', 3, 7),  # Limit depth
+                learning_rate=trial.suggest_float('gb_learning_rate', 0.01, 0.15),  # Lower learning rate
+                subsample=trial.suggest_float('gb_subsample', 0.6, 0.9),  # Regularization
+                min_samples_split=trial.suggest_int('gb_min_samples_split', 10, 50),
+                min_samples_leaf=trial.suggest_int('gb_min_samples_leaf', 5, 25),
+                max_features=trial.suggest_categorical('gb_max_features', ['sqrt', 'log2', 0.3]),
+                random_state=42,
+                validation_fraction=0.1,  # Use validation fraction for early stopping
+                n_iter_no_change=10       # Early stopping patience
+            )
         
-        # Calculate both training and validation scores
+        # Enhanced feature selection with correlation analysis
+        n_features = trial.suggest_int('n_features', 10, min(self.max_features, len(X_clean.columns)))
+        
+        # Get SHAP-based features but check correlations
+        shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
+        candidate_features = []
+        
+        for feat, importance in shap_ranking:
+            if feat in X_clean.columns and len(candidate_features) < n_features:
+                # Check correlation with already selected features
+                if not candidate_features:
+                    candidate_features.append(feat)
+                else:
+                    # Calculate correlation with existing features
+                    correlations = []
+                    for existing_feat in candidate_features:
+                        if existing_feat in X_clean.columns:
+                            corr = abs(X_clean[feat].corr(X_clean[existing_feat]))
+                            correlations.append(corr)
+                    
+                    # Only add if not too correlated with existing features
+                    max_corr = max(correlations) if correlations else 0
+                    if max_corr < self.max_correlation_threshold:
+                        candidate_features.append(feat)
+        
+        # Ensure we have enough features
+        if len(candidate_features) < n_features:
+            remaining_features = [f for f in X_clean.columns if f not in candidate_features]
+            candidate_features.extend(remaining_features[:n_features - len(candidate_features)])
+        
+        selected_features = candidate_features[:n_features]
+        X_selected = X_clean[selected_features]
+        
+        # Enhanced cross-validation with temporal awareness
+        if self.validation_strategy == 'TimeSeriesSplit':
+            from sklearn.model_selection import TimeSeriesSplit
+            cv = TimeSeriesSplit(n_splits=self.cv_folds, test_size=len(X_selected)//10)
+        else:
+            from sklearn.model_selection import StratifiedKFold
+            cv = StratifiedKFold(n_splits=self.cv_folds, shuffle=True, random_state=42)
+        
+        # Calculate both training and validation scores for overfitting detection
         train_scores = []
         val_scores = []
         
-        for train_idx, val_idx in tscv.split(X_selected):
+        for train_idx, val_idx in cv.split(X_selected, y):
             X_train_fold, X_val_fold = X_selected.iloc[train_idx], X_selected.iloc[val_idx]
             y_train_fold, y_val_fold = y.iloc[train_idx], y.iloc[val_idx]
             
             # Fit model
             model.fit(X_train_fold, y_train_fold)
             
-            # Get scores
+            # Get predictions
             train_pred = model.predict_proba(X_train_fold)[:, 1]
             val_pred = model.predict_proba(X_val_fold)[:, 1]
             
+            # Calculate AUC scores
             train_auc = roc_auc_score(y_train_fold, train_pred)
             val_auc = roc_auc_score(y_val_fold, val_pred)
             
             train_scores.append(train_auc)
             val_scores.append(val_auc)
         
-        # Calculate overfitting penalty
+        # Calculate metrics
         mean_train_auc = np.mean(train_scores)
         mean_val_auc = np.mean(val_scores)
         overfitting_gap = mean_train_auc - mean_val_auc
         
-        # Penalty for overfitting
-        overfitting_penalty = max(0, overfitting_gap * 2)  # Strong penalty
+        # Apply penalties for overfitting and poor generalization
+        overfitting_penalty = 0.0
+        if self.monitor_train_val_gap and overfitting_gap > self.max_train_val_gap:
+            overfitting_penalty = overfitting_gap * 2.0  # Strong penalty for overfitting
         
-        # Final score with anti-overfitting measure
-        final_score = mean_val_auc - overfitting_penalty
+        # Stability penalty (low validation score variance is better)
+        stability_bonus = 0.0
+        val_std = np.std(val_scores)
+        if val_std < 0.05:  # Stable performance across folds
+            stability_bonus = 0.02
         
-        # Additional penalty for too many features (complexity penalty)
+        # Final score with all adjustments
+        final_score = mean_val_auc - overfitting_penalty + stability_bonus
+        
+        # Feature complexity penalty (encourage simpler models)
         complexity_penalty = len(selected_features) * 0.001
         final_score -= complexity_penalty
         
         return final_score
+    
+    def _detect_data_leakage(self, X: pd.DataFrame, y: pd.Series) -> List[str]:
+        """Detect potential data leakage in features"""
+        suspicious_features = []
+        
+        for col in X.select_dtypes(include=[np.number]).columns:
+            # Check correlation with target
+            correlation = abs(X[col].corr(y))
+            
+            if correlation > self.max_target_correlation:
+                suspicious_features.append(col)
+                self.logger.warning(f"⚠️ Suspicious correlation: {col} = {correlation:.3f}")
+            
+            # Check for perfect separation (another sign of leakage)
+            if len(X[col].value_counts()) <= 2:  # Binary or constant feature
+                unique_values = X[col].unique()
+                if len(unique_values) == 2:
+                    # Check if it perfectly separates target
+                    for val in unique_values:
+                        subset_y = y[X[col] == val]
+                        if len(subset_y.unique()) == 1:  # Perfect separation
+                            suspicious_features.append(col)
+                            self.logger.warning(f"⚠️ Perfect separation detected: {col}")
+                            break
+        
+        return list(set(suspicious_features))  # Remove duplicates
     
     def _extract_best_features(self) -> List[str]:
         """Extract best features from optimization results"""
@@ -480,42 +555,131 @@ class EnterpriseShapOptunaFeatureSelector:
         return selected_features
     
     def _validate_selection(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """Final validation of selected features - Fast Version"""
+        """Enhanced validation with enterprise quality checks"""
         if not self.selected_features:
             raise ValueError("No features selected")
         
         X_selected = X[self.selected_features]
         
-        # Get best model parameters (simplified)
+        # Get best model parameters from optimization
         best_params = self.optimization_results.get('best_params', {})
         
-        # Ultra-fast validation model with minimal parameters
-        model = RandomForestClassifier(
-            n_estimators=best_params.get('rf_n_estimators', 25),  # Reduced default
-            max_depth=best_params.get('rf_max_depth', 5),         # Reduced default
-            min_samples_split=best_params.get('rf_min_samples_split', 20),  # Increased default
-            min_samples_leaf=best_params.get('rf_min_samples_leaf', 10),    # Increased default
-            max_features=best_params.get('rf_max_features', 'sqrt'),
-            random_state=42,
-            n_jobs=self.max_cpu_cores,  # Use controlled CPU cores
-            class_weight='balanced'
-        )
+        # Build enhanced validation model based on best trial
+        model_type = best_params.get('model', 'rf_regularized')
         
-        # Ultra-fast cross-validation with minimal splits
-        tscv = TimeSeriesSplit(n_splits=2)  # Reduced to absolute minimum
-        cv_scores = cross_val_score(model, X_selected, y, cv=tscv, scoring='roc_auc')
+        if model_type == 'rf_regularized':
+            model = RandomForestClassifier(
+                n_estimators=best_params.get('rf_n_estimators', 200),
+                max_depth=best_params.get('rf_max_depth', 8),
+                min_samples_split=best_params.get('rf_min_samples_split', 20),
+                min_samples_leaf=best_params.get('rf_min_samples_leaf', 10),
+                max_features=best_params.get('rf_max_features', 'sqrt'),
+                random_state=42,
+                n_jobs=self.max_cpu_cores,
+                class_weight='balanced',
+                bootstrap=True,
+                oob_score=True
+            )
+        else:
+            model = GradientBoostingClassifier(
+                n_estimators=best_params.get('gb_n_estimators', 150),
+                max_depth=best_params.get('gb_max_depth', 6),
+                learning_rate=best_params.get('gb_learning_rate', 0.1),
+                subsample=best_params.get('gb_subsample', 0.8),
+                min_samples_split=best_params.get('gb_min_samples_split', 20),
+                min_samples_leaf=best_params.get('gb_min_samples_leaf', 10),
+                max_features=best_params.get('gb_max_features', 'sqrt'),
+                random_state=42,
+                validation_fraction=0.1,
+                n_iter_no_change=10
+            )
         
-        self.best_auc = cv_scores.mean()
+        # Enhanced cross-validation with multiple metrics
+        if self.validation_strategy == 'TimeSeriesSplit':
+            cv = TimeSeriesSplit(n_splits=self.cv_folds, test_size=len(X_selected)//8)
+        else:
+            cv = StratifiedKFold(n_splits=self.cv_folds, shuffle=True, random_state=42)
+        
+        # Collect comprehensive metrics
+        auc_scores = []
+        accuracy_scores = []
+        precision_scores = []
+        recall_scores = []
+        f1_scores = []
+        train_scores = []
+        
+        from sklearn.metrics import precision_score, recall_score, f1_score
+        
+        for train_idx, val_idx in cv.split(X_selected, y):
+            X_train_fold, X_val_fold = X_selected.iloc[train_idx], X_selected.iloc[val_idx]
+            y_train_fold, y_val_fold = y.iloc[train_idx], y.iloc[val_idx]
+            
+            # Fit model
+            model.fit(X_train_fold, y_train_fold)
+            
+            # Validation predictions
+            val_pred_proba = model.predict_proba(X_val_fold)[:, 1]
+            val_pred = (val_pred_proba > 0.5).astype(int)
+            
+            # Training predictions for overfitting check
+            train_pred_proba = model.predict_proba(X_train_fold)[:, 1]
+            
+            # Calculate metrics
+            auc_scores.append(roc_auc_score(y_val_fold, val_pred_proba))
+            accuracy_scores.append(accuracy_score(y_val_fold, val_pred))
+            precision_scores.append(precision_score(y_val_fold, val_pred, average='weighted', zero_division=0))
+            recall_scores.append(recall_score(y_val_fold, val_pred, average='weighted', zero_division=0))
+            f1_scores.append(f1_score(y_val_fold, val_pred, average='weighted', zero_division=0))
+            train_scores.append(roc_auc_score(y_train_fold, train_pred_proba))
+        
+        # Calculate final metrics
+        mean_auc = np.mean(auc_scores)
+        std_auc = np.std(auc_scores)
+        mean_train_auc = np.mean(train_scores)
+        overfitting_gap = mean_train_auc - mean_auc
+        
+        # Update best AUC and model
+        self.best_auc = mean_auc
         self.best_model = model
         
+        # Enterprise quality assessment
+        quality_checks = {
+            'auc_target_met': mean_auc >= self.target_auc,
+            'min_auc_met': mean_auc >= 0.70,  # Enterprise minimum
+            'overfitting_controlled': overfitting_gap <= self.max_train_val_gap,
+            'stable_performance': std_auc <= 0.05,  # Low variance across folds
+            'feature_count_reasonable': len(self.selected_features) <= self.max_features
+        }
+        
+        # Calculate enterprise readiness score
+        quality_score = sum(quality_checks.values()) / len(quality_checks)
+        enterprise_ready = quality_score >= 0.8 and mean_auc >= self.target_auc
+        
+        # Data leakage final check
+        suspicious_features = self._detect_data_leakage(X[self.selected_features], y)
+        data_leakage_detected = len(suspicious_features) > 0
+        
         return {
-            'cv_auc_mean': cv_scores.mean(),
-            'cv_auc_std': cv_scores.std(),
-            'cv_scores': cv_scores.tolist(),
-            'model_type': 'RandomForestClassifier',
+            'cv_auc_mean': float(mean_auc),
+            'cv_auc_std': float(std_auc),
+            'cv_accuracy_mean': float(np.mean(accuracy_scores)),
+            'cv_precision_mean': float(np.mean(precision_scores)),
+            'cv_recall_mean': float(np.mean(recall_scores)),
+            'cv_f1_mean': float(np.mean(f1_scores)),
+            'train_auc_mean': float(mean_train_auc),
+            'overfitting_gap': float(overfitting_gap),
+            'cv_scores': [float(score) for score in auc_scores],
+            'model_type': model_type,
             'n_features': len(self.selected_features),
-            'validation_method': 'TimeSeriesSplit',
-            'target_achieved': cv_scores.mean() >= self.target_auc
+            'validation_method': self.validation_strategy,
+            'quality_checks': quality_checks,
+            'quality_score': float(quality_score),
+            'enterprise_ready': bool(enterprise_ready),
+            'target_achieved': bool(mean_auc >= self.target_auc),
+            'overfitting_controlled': bool(overfitting_gap <= self.max_train_val_gap),
+            'data_leakage_detected': bool(data_leakage_detected),
+            'suspicious_features': suspicious_features,
+            'enterprise_grade': 'A' if mean_auc >= 0.80 else 'B' if mean_auc >= 0.70 else 'C'
         }
     
     def get_feature_importance_report(self) -> Dict[str, Any]:
