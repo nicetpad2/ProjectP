@@ -44,29 +44,10 @@ try:
     RICH_AVAILABLE = True
 except ImportError:
     RICH_AVAILABLE = False
-    print("💡 Installing rich for beautiful progress bars...")
-    import subprocess
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "rich>=12.0.0"])
-        from rich.console import Console
-        from rich.progress import (
-            Progress, SpinnerColumn, BarColumn, TextColumn, 
-            TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn,
-            TaskProgressColumn, SpeedColumn
-        )
-        from rich.panel import Panel
-        from rich.table import Table
-        from rich.live import Live
-        from rich.text import Text
-        from rich.align import Align
-        from rich import box
-        from rich.status import Status
-        from rich.tree import Tree
-        from rich.columns import Columns
-        RICH_AVAILABLE = True
-    except Exception:
-        RICH_AVAILABLE = False
-    from rich import box
+    # Skip automatic installation to prevent hanging
+    print("ℹ️ Rich not available, using fallback progress display")
+    # Skip automatic installation to prevent hanging
+    print("ℹ️ Rich not available, using fallback progress display")
 
 
 class StepStatus(Enum):
@@ -393,7 +374,7 @@ class EnhancedProgressBar:
             print()
 
 
-class BeautifulProgressTracker:
+class BeautifulProgress:
     """ระบบติดตาม Progress แบบสวยงาม"""
     
     def __init__(self, logger: Optional[logging.Logger] = None):
@@ -718,14 +699,14 @@ class BeautifulProgressTracker:
 
 
 # Global progress tracker instance
-_progress_tracker: Optional[BeautifulProgressTracker] = None
+_progress_tracker: Optional[BeautifulProgress] = None
 
 
-def get_progress_tracker() -> BeautifulProgressTracker:
+def get_progress_tracker() -> BeautifulProgress:
     """ได้ Progress Tracker แบบ Singleton"""
     global _progress_tracker
     if _progress_tracker is None:
-        _progress_tracker = BeautifulProgressTracker()
+        _progress_tracker = BeautifulProgress()
     return _progress_tracker
 
 
@@ -780,3 +761,6 @@ if __name__ == "__main__":
             break
     
     tracker.complete_pipeline(True)
+
+# Keep backward compatibility
+BeautifulProgressTracker = BeautifulProgress

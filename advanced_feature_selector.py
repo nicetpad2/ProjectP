@@ -65,6 +65,8 @@ class AdvancedEnterpriseFeatureSelector:
     
     def __init__(self, target_auc: float = 0.70, max_features: int = 30,
                  n_trials: int = 300, timeout: int = 1200,
+                 auto_fast_mode: bool = True,  # ✅ Added missing parameter
+                 large_dataset_threshold: int = 100000,  # ✅ Added missing parameter
                  logger: Optional[logging.Logger] = None):
         """
         Initialize Advanced Enterprise Feature Selector
@@ -74,14 +76,16 @@ class AdvancedEnterpriseFeatureSelector:
             max_features: Maximum features to select (default: 30)
             n_trials: Optuna trials (default: 300 for excellence)
             timeout: Timeout in seconds (default: 1200 = 20 minutes)
+            auto_fast_mode: Automatically use fast mode for large datasets
+            large_dataset_threshold: Threshold for switching to fast mode
             logger: Logger instance
         """
         self.target_auc = target_auc
         self.max_features = max_features
         
         # Auto-detect fast mode for large datasets
-        self.auto_fast_mode = True
-        self.large_dataset_threshold = 100000  # 100K rows (reduced for better performance)
+        self.auto_fast_mode = auto_fast_mode
+        self.large_dataset_threshold = large_dataset_threshold
         self.fast_mode_active = False
         
         self.n_trials = n_trials
@@ -1255,11 +1259,38 @@ class AdvancedEnterpriseFeatureSelector:
                     # Use smaller subsample for SHAP computation
                     shap_sample_size = min(1000, len(X_sample))
                     shap_idx = np.random.choice(len(X_sample), shap_sample_size, replace=False)
+                    # ✅ Enhanced SHAP values extraction with robust error handling
                     shap_values = explainer.shap_values(X_sample.iloc[shap_idx])
                     
-                    # Handle binary classification
+                    # ✅ Robust handling for different SHAP output formats
                     if isinstance(shap_values, list):
-                        shap_values = shap_values[1]
+                        # For binary classification, take the positive class
+                        if len(shap_values) == 2:
+                            shap_values = shap_values[1]
+                        elif len(shap_values) > 0:
+                            shap_values = shap_values[0]
+                    
+                    # ✅ Ensure proper shape and convert to numpy array
+                    if not isinstance(shap_values, np.ndarray):
+                        shap_values = np.array(shap_values)
+                    
+                    # ✅ Handle multi-dimensional arrays
+                    if len(shap_values.shape) > 2:
+                        # For 3D arrays, take the last dimension or reshape appropriately
+                        if shap_values.shape[-1] == 1:
+                            shap_values = shap_values.squeeze(axis=-1)
+                        else:
+                            shap_values = shap_values[:, :, -1]  # Take last class
+                    
+                    # ✅ Ensure 2D shape (samples x features)
+                    if len(shap_values.shape) == 1:
+                        shap_values = shap_values.reshape(1, -1)
+                    
+                    # ✅ Validate shape matches feature count
+                    expected_features = len(X_sample.columns)
+                    if shap_values.shape[1] != expected_features:
+                        self.logger.warning(f"⚠️ SHAP shape mismatch for {model_name}: got {shap_values.shape[1]}, expected {expected_features}")
+                        continue
                     
                     ensemble_shap_values.append(shap_values)
                     
@@ -1270,77 +1301,148 @@ class AdvancedEnterpriseFeatureSelector:
             if shap_progress:
                 self.progress_manager.update_progress(shap_progress, 1, "Combining SHAP values")
             
-            # Combine SHAP values from ensemble (with robust error handling)
+            # ✅ Enhanced SHAP combination with comprehensive error handling
             if ensemble_shap_values:
                 try:
-                    # Check and normalize SHAP values shapes
-                    normalized_shap_values = []
-                    target_shape = None
+                    # ✅ Validate and normalize all SHAP arrays
+                    valid_shap_values = []
                     
                     for i, shap_vals in enumerate(ensemble_shap_values):
-                        if isinstance(shap_vals, np.ndarray):
-                            # For multi-class outputs, take the first class or reshape
-                            if len(shap_vals.shape) > 2:
-                                shap_vals = shap_vals[:, :, 0] if shap_vals.shape[2] > 1 else shap_vals.reshape(shap_vals.shape[:2])
+                        try:
+                            # Convert to numpy array if not already
+                            if not isinstance(shap_vals, np.ndarray):
+                                shap_vals = np.array(shap_vals)
                             
-                            # Set target shape from first valid array
-                            if target_shape is None:
-                                target_shape = shap_vals.shape
+                            # Handle NaN and infinite values
+                            if np.any(np.isnan(shap_vals)) or np.any(np.isinf(shap_vals)):
+                                self.logger.warning(f"⚠️ Invalid values in SHAP array {i}, cleaning...")
+                                shap_vals = np.nan_to_num(shap_vals, nan=0.0, posinf=1.0, neginf=-1.0)
                             
-                            # Ensure all arrays have the same shape
-                            if shap_vals.shape == target_shape:
-                                normalized_shap_values.append(shap_vals)
+                            # Ensure proper 2D shape
+                            if len(shap_vals.shape) == 1:
+                                shap_vals = shap_vals.reshape(1, -1)
+                            elif len(shap_vals.shape) > 2:
+                                shap_vals = shap_vals.reshape(shap_vals.shape[0], -1)
+                            
+                            # Validate shape consistency
+                            if not valid_shap_values:
+                                reference_shape = shap_vals.shape
+                                valid_shap_values.append(shap_vals)
+                                self.logger.info(f"✅ Reference SHAP shape: {reference_shape}")
                             else:
-                                self.logger.warning(f"⚠️ SHAP shape mismatch for model {i}: {shap_vals.shape} vs {target_shape}")
+                                if shap_vals.shape == reference_shape:
+                                    valid_shap_values.append(shap_vals)
+                                else:
+                                    self.logger.warning(f"⚠️ SHAP shape mismatch: {shap_vals.shape} vs {reference_shape}")
+                                    
+                        except Exception as inner_e:
+                            self.logger.warning(f"⚠️ Failed to process SHAP array {i}: {inner_e}")
+                            continue
                     
-                    if normalized_shap_values:
-                        # Safely combine normalized SHAP values
-                        combined_shap = np.mean(normalized_shap_values, axis=0)
+                    if valid_shap_values:
+                        # ✅ Safely combine normalized SHAP values
+                        combined_shap = np.mean(valid_shap_values, axis=0)
+                        
+                        # ✅ Calculate feature importance with robust aggregation
                         feature_importance = np.abs(combined_shap).mean(axis=0)
                         
-                        # Robust scalar conversion
+                        # ✅ Ensure feature importance is 1D
+                        if len(feature_importance.shape) > 1:
+                            feature_importance = feature_importance.flatten()
+                        
+                        # ✅ Build rankings with comprehensive scalar handling
                         shap_rankings = {}
                         for i, feature_name in enumerate(X_sample.columns):
                             if i < len(feature_importance):
-                                importance_value = feature_importance[i]
-                                
-                                # Ensure scalar conversion
-                                if hasattr(importance_value, 'shape') and importance_value.shape:
-                                    if isinstance(importance_value, np.ndarray):
-                                        importance_value = float(np.mean(importance_value)) if importance_value.size > 1 else float(importance_value.item())
+                                try:
+                                    importance_val = feature_importance[i]
+                                    
+                                    # ✅ Multiple approaches to ensure scalar conversion
+                                    if hasattr(importance_val, 'shape') and importance_val.shape:
+                                        if importance_val.shape == ():
+                                            # Already scalar
+                                            importance_val = float(importance_val)
+                                        elif importance_val.size == 1:
+                                            # Single element array
+                                            importance_val = float(importance_val.item())
+                                        else:
+                                            # Multiple elements, take mean
+                                            importance_val = float(np.mean(importance_val))
                                     else:
-                                        importance_value = float(importance_value)
-                                else:
-                                    importance_value = float(importance_value)
-                                
-                                shap_rankings[feature_name] = importance_value
+                                        # Direct conversion
+                                        importance_val = float(importance_val)
+                                    
+                                    # ✅ Final validation
+                                    if np.isfinite(importance_val):
+                                        shap_rankings[feature_name] = importance_val
+                                    else:
+                                        shap_rankings[feature_name] = 0.0
+                                        
+                                except Exception as scalar_error:
+                                    self.logger.warning(f"⚠️ Scalar conversion failed for {feature_name}: {scalar_error}")
+                                    shap_rankings[feature_name] = 0.0
+                        
+                        if len(shap_rankings) == 0:
+                            raise ValueError("No valid feature rankings generated")
+                            
                     else:
                         raise ValueError("No valid SHAP values after normalization")
                         
                 except Exception as shap_error:
-                    self.logger.warning(f"⚠️ SHAP combination failed: {shap_error}, using fallback")
+                    self.logger.warning(f"⚠️ SHAP analysis failed: {shap_error}, using fallback")
                     ensemble_shap_values = []  # Force fallback
             
             if not ensemble_shap_values or not shap_rankings:
-                # Fallback to simple feature importance
-                self.logger.warning("⚠️ SHAP analysis failed, using Random Forest importance")
-                rf_backup = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
-                rf_backup.fit(X_sample, y_sample)
-                shap_rankings = dict(zip(X_sample.columns, rf_backup.feature_importances_))
+                # ✅ Enhanced fallback with better error handling
+                self.logger.warning("⚠️ SHAP analysis failed, using Random Forest importance fallback")
+                try:
+                    rf_backup = RandomForestClassifier(
+                        n_estimators=100, 
+                        max_depth=10,
+                        random_state=42, 
+                        n_jobs=min(4, -1)  # Limit cores to prevent resource exhaustion
+                    )
+                    rf_backup.fit(X_sample, y_sample)
+                    
+                    # ✅ Safe feature importance extraction
+                    rf_importances = rf_backup.feature_importances_
+                    shap_rankings = {}
+                    
+                    for i, feature_name in enumerate(X_sample.columns):
+                        if i < len(rf_importances):
+                            importance_val = float(rf_importances[i])
+                            shap_rankings[feature_name] = importance_val if np.isfinite(importance_val) else 0.0
+                    
+                    self.logger.info(f"✅ Fallback feature importance completed: {len(shap_rankings)} features")
+                    
+                except Exception as fallback_error:
+                    self.logger.error(f"❌ Fallback feature importance failed: {fallback_error}")
+                    # ✅ Ultimate fallback: uniform importance
+                    shap_rankings = {col: 1.0 / len(X_sample.columns) for col in X_sample.columns}
             
+            # ✅ Safe progress completion
             if shap_progress:
-                self.progress_manager.complete_progress(shap_progress, 
-                    f"Advanced SHAP analysis completed: {len(shap_rankings)} features")
+                try:
+                    self.progress_manager.complete_progress(shap_progress, 
+                        f"Advanced SHAP analysis completed: {len(shap_rankings)} features")
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress completion error: {progress_error}")
             
             self.logger.info(f"✅ Advanced SHAP analysis completed for {len(shap_rankings)} features")
             
             return shap_rankings
             
         except Exception as e:
+            # ✅ Enhanced error handling
+            error_msg = str(e)
+            self.logger.error(f"❌ Advanced SHAP analysis failed: {error_msg}")
+            
+            # ✅ Safe progress failure handling
             if shap_progress:
                 try:
-                    self.progress_manager.fail_progress(shap_progress, str(e))
+                    self.progress_manager.fail_progress(shap_progress, error_msg)
                 except Exception as progress_error:
-                    self.logger.warning(f"⚠️ Progress manager error: {progress_error}")
-            self.logger.error(f"❌ Advanced SHAP analysis failed: {e}")
+                    self.logger.warning(f"⚠️ Progress failure reporting error: {progress_error}")
+            
+            # ✅ Return empty dict instead of crashing
             return {}

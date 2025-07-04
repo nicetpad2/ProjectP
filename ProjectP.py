@@ -23,22 +23,21 @@ print("=" * 80)
 def main():
     """Comprehensive optimized main entry point with complete Menu 1 implementation"""
     
-    with suppress_all_output():
-        # Core system imports
-        import os
-        import sys
-        import gc
-        import psutil
-        from datetime import datetime
-        import logging
-        import traceback
-        
-        # Initialize safe logging first
-        from safe_logger import initialize_safe_system_logging
-        safe_logger = initialize_safe_system_logging()
-        
-        # Force minimal memory usage
-        gc.set_threshold(100, 5, 5)
+    # Import necessary modules without suppressing output during development
+    import os
+    import sys
+    import gc
+    import psutil
+    from datetime import datetime
+    import logging
+    import traceback
+    
+    # Initialize safe logging first
+    from safe_logger import initialize_safe_system_logging
+    safe_logger = initialize_safe_system_logging()
+    
+    # Force minimal memory usage
+    gc.set_threshold(100, 5, 5)
     
     print("🧠 Initializing Enterprise Systems...")
     print("=" * 60)
@@ -46,8 +45,7 @@ def main():
     # Initialize Enhanced 80% Resource Manager (Enterprise Strategy)
     resource_manager = None
     try:
-        with suppress_all_output():
-            from core.enhanced_80_percent_resource_manager import Enhanced80PercentResourceManager
+        from core.enhanced_80_percent_resource_manager import Enhanced80PercentResourceManager
         resource_manager = Enhanced80PercentResourceManager(
             target_allocation=0.80  # 80% resource utilization target
         )
@@ -55,15 +53,13 @@ def main():
     except Exception as e:
         print(f"⚠️ Enhanced 80% RM unavailable: {e}")
         try:
-            with suppress_all_output():
-                from core.lightweight_resource_manager import LightweightResourceManager
+            from core.lightweight_resource_manager import LightweightResourceManager
             resource_manager = LightweightResourceManager(memory_percentage=0.8, cpu_percentage=0.35)
             print("✅ Lightweight Resource Manager (80% RAM): ACTIVE")
         except Exception as e2:
             print(f"⚠️ Lightweight RM unavailable: {e2}")
             try:
-                with suppress_all_output():
-                    from core.high_memory_resource_manager import HighMemoryResourceManager
+                from core.high_memory_resource_manager import HighMemoryResourceManager
                 resource_manager = HighMemoryResourceManager(memory_percentage=0.8, cpu_percentage=0.35)
                 print("✅ High Memory Resource Manager (80% RAM): ACTIVE")
             except Exception as e3:
@@ -73,8 +69,7 @@ def main():
     # Initialize Enterprise Logging System
     logger = None
     try:
-        with suppress_all_output():
-            from core.advanced_terminal_logger import get_terminal_logger
+        from core.advanced_terminal_logger import get_terminal_logger
         logger = get_terminal_logger()
         logger.success("✅ Advanced Enterprise Logging active", "Startup")
         print("✅ Enterprise Logging: ACTIVE")

@@ -50,67 +50,31 @@ class MenuSystem:
                 "📋 Loading Menu Modules", 3, ProgressType.PROCESSING
             )
         
-        # Try to import Lightweight High Memory Menu 1 with detailed error handling
+        # Try to import Menu 1 with fast fallback strategy
         try:
             if import_progress:
-                self.progress_manager.update_progress(import_progress, 1, "Loading Lightweight High Memory Menu 1")
+                self.progress_manager.update_progress(import_progress, 1, "Loading Menu 1 Elliott Wave")
             
-            from menu_modules.lightweight_high_memory_menu_1 import LightweightHighMemoryMenu1
-            self.menu_1 = LightweightHighMemoryMenu1(self.config, self.logger, self.resource_manager)
+            # Try fast loading menu first
+            from menu_modules.menu_1_elliott_wave import menu_1_elliott_wave
+            self.menu_1 = menu_1_elliott_wave
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.success("✅ Lightweight High Memory Menu 1 Module Loaded (80% RAM)", "Menu_Import")
+                self.logger.success("✅ Menu 1 Elliott Wave Module Loaded (Fast)", "Menu_Import")
             else:
-                self.logger.info("✅ Lightweight High Memory Menu 1 Module Loaded (80% RAM)")
-            
-            # If resource manager is available, show integration status
-            if self.resource_manager:
-                if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.system("✅ Lightweight High Memory Menu 1 integrated with Resource Management", "Menu_Import")
-                else:
-                    self.logger.info("✅ Lightweight High Memory Menu 1 integrated with Resource Management")
+                self.logger.info("✅ Menu 1 Elliott Wave Module Loaded (Fast)")
             
         except ImportError as e:
-            error_msg = f"Unable to import Lightweight High Memory Menu 1 dependencies:\n{str(e)}"
-            self.menu_errors.append(("Lightweight High Memory Menu 1", error_msg))
+            error_msg = f"Unable to import Menu 1 Elliott Wave dependencies:\n{str(e)}"
+            self.menu_errors.append(("Menu 1 Elliott Wave", error_msg))
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"Failed to import Lightweight High Memory Menu 1", "Menu_Import", 
+                self.logger.error(f"Failed to import Menu 1 Elliott Wave", "Menu_Import", 
                                 data={'error': error_msg}, exception=e)
             else:
-                self.logger.error(f"❌ Failed to import Lightweight High Memory Menu 1: {error_msg}")
+                self.logger.error(f"❌ Failed to import Menu 1 Elliott Wave: {error_msg}")
             
-            # Try fallback to high memory menu
-            try:
-                from menu_modules.high_memory_menu_1 import HighMemoryMenu1
-                self.menu_1 = HighMemoryMenu1(self.config, self.logger, self.resource_manager)
-                if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.warning("⚠️ Using High Memory Menu 1 fallback", "Menu_Import")
-                else:
-                    self.logger.info("⚠️ Using High Memory Menu 1 fallback")
-            except Exception as e2:
-                self.menu_errors.append(("High Memory Menu 1", str(e2)))
-            
-        except Exception as e:
-            error_msg = f"Lightweight High Memory Menu 1 initialization error: {str(e)}"
-            self.menu_errors.append(("Lightweight High Memory Menu 1", error_msg))
-            
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"Lightweight High Memory Menu 1 initialization failed", "Menu_Import", 
-                                data={'error': error_msg}, exception=e)
-            else:
-                self.logger.error(f"❌ Lightweight High Memory Menu 1 initialization failed: {error_msg}")
-            
-            # Try fallback to high memory menu
-            try:
-                from menu_modules.high_memory_menu_1 import HighMemoryMenu1
-                self.menu_1 = HighMemoryMenu1(self.config, self.logger, self.resource_manager)
-                if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.warning("⚠️ Using High Memory Menu 1 fallback", "Menu_Import")
-                else:
-                    self.logger.info("⚠️ Using High Memory Menu 1 fallback")
-            except Exception as e2:
-                self.menu_errors.append(("High Memory Menu 1", str(e2)))
+            self.menu_1 = None
         
         # Complete menu import
         if import_progress:
