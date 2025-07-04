@@ -914,6 +914,14 @@ class Menu1ElliottWaveFixed:
 # Alias for backward compatibility
 Menu1ElliottWave = Menu1ElliottWaveFixed
 
+# Function for menu system import
+def menu_1_elliott_wave():
+    """
+    Entry point function for Menu 1 Elliott Wave
+    Returns an instance of the Menu1ElliottWaveFixed class
+    """
+    return Menu1ElliottWaveFixed()
+
 
 if __name__ == "__main__":
     # Test the fixed menu

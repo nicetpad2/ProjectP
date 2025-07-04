@@ -500,9 +500,9 @@ class CNNLSTMElliottWave:
                     
                     # Quick metrics calculation
                     y_pred = (y_pred_proba_flat > 0.5).astype(int)
-                    val_precision = precision_score(y_val, y_pred, average='binary', zero_division=0.7)
-                    val_recall = recall_score(y_val, y_pred, average='binary', zero_division=0.7)
-                    val_f1 = f1_score(y_val, y_pred, average='binary', zero_division=0.7)
+                    val_precision = precision_score(y_val, y_pred, average='binary', zero_division=0.0)
+                    val_recall = recall_score(y_val, y_pred, average='binary', zero_division=0.0)
+                    val_f1 = f1_score(y_val, y_pred, average='binary', zero_division=0.0)
                     
                     # Clear prediction arrays to free memory
                     del val_predictions, y_pred_proba_flat, y_pred
