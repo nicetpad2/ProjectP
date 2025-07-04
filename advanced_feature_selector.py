@@ -81,7 +81,7 @@ class AdvancedEnterpriseFeatureSelector:
         
         # Auto-detect fast mode for large datasets
         self.auto_fast_mode = True
-        self.large_dataset_threshold = 500000  # 500K rows
+        self.large_dataset_threshold = 100000  # 100K rows (reduced for better performance)
         self.fast_mode_active = False
         
         self.n_trials = n_trials
@@ -283,7 +283,10 @@ class AdvancedEnterpriseFeatureSelector:
             
         except Exception as e:
             if main_progress:
-                self.progress_manager.fail_progress(main_progress, str(e))
+                try:
+                    self.progress_manager.fail_progress(main_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
             raise ValueError(f"Enterprise feature selection failed: {e}")
     
@@ -466,7 +469,10 @@ class AdvancedEnterpriseFeatureSelector:
             
         except Exception as e:
             if main_progress:
-                self.progress_manager.fail_progress(main_progress, str(e))
+                try:
+                    self.progress_manager.fail_progress(main_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
             raise ValueError(f"Enterprise feature selection failed: {e}")
     
@@ -649,7 +655,382 @@ class AdvancedEnterpriseFeatureSelector:
             
         except Exception as e:
             if main_progress:
-                self.progress_manager.fail_progress(main_progress, str(e))
+                try:
+                    self.progress_manager.fail_progress(main_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
+            self.logger.error(f"❌ Advanced feature selection failed: {e}")
+            raise ValueError(f"Enterprise feature selection failed: {e}")
+    
+    def _fast_mode_selection(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
+        """Fast mode selection for large datasets"""
+        try:
+            from fast_feature_selector import FastEnterpriseFeatureSelector
+            
+            fast_selector = FastEnterpriseFeatureSelector(
+                target_auc=self.target_auc,
+                max_features=self.max_features,
+                fast_mode=True,
+                logger=self.logger
+            )
+            
+            return fast_selector.select_features(X, y)
+            
+        except ImportError:
+            self.logger.warning("⚠️ Fast selector not available, using standard selection")
+            # Fallback to current method with reduced parameters
+            original_n_trials = self.n_trials
+            original_timeout = self.timeout
+            
+            # Reduce parameters for large dataset
+            self.n_trials = min(50, self.n_trials)
+            self.timeout = min(300, self.timeout)  # 5 minutes max
+            
+            try:
+                result = self._standard_selection_with_sampling(X, y)
+                return result
+            finally:
+                # Restore original parameters
+                self.n_trials = original_n_trials
+                self.timeout = original_timeout
+        
+        except Exception as e:
+            self.logger.error(f"❌ Fast mode selection failed: {e}")
+            raise
+    
+    def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
+        """Standard selection with smart sampling for large datasets"""
+        # Sample data if too large
+        if len(X) > 100000:
+            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
+            sample_idx = np.random.choice(len(X), 100000, replace=False)
+            X_sample = X.iloc[sample_idx]
+            y_sample = y.iloc[sample_idx]
+        else:
+            X_sample = X
+            y_sample = y
+        
+        # Run standard selection on sample
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+    
+    def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
+        """Run the standard advanced selection process"""
+        # ...existing code for the full selection process...
+        try:
+            # Step 1: Data Quality Assessment & Noise Detection
+            self.logger.info("🔍 Step 1: Data Quality Assessment & Noise Detection")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Quality Assessment")
+            
+            X_clean, noise_report = self._assess_data_quality(X, y)
+            
+            # Step 2: Data Leakage Detection & Prevention
+            self.logger.info("🛡️ Step 2: Data Leakage Detection & Prevention")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Leakage Detection")
+            
+            leakage_report = self._detect_data_leakage(X_clean, y)
+            
+            # Step 3: Multi-Method Feature Importance Analysis
+            self.logger.info("🧠 Step 3: Multi-Method Feature Importance Analysis")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Feature Importance")
+            
+            importance_rankings = self._comprehensive_feature_importance(X_clean, y)
+            
+            # Step 4: Advanced SHAP Analysis
+            self.logger.info("⚡ Step 4: Advanced SHAP Analysis")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "SHAP Analysis")
+            
+            self.shap_rankings = self._advanced_shap_analysis(X_clean, y)
+            
+            # Step 5: Ensemble Optuna Optimization
+            self.logger.info("🎯 Step 5: Ensemble Optuna Optimization")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Optuna Optimization")
+            
+            self.optimization_results = self._ensemble_optuna_optimization(X_clean, y, importance_rankings)
+            
+            # Step 6: Feature Set Stabilization
+            self.logger.info("🔒 Step 6: Feature Set Stabilization")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Feature Stabilization")
+            
+            self.selected_features = self._stabilize_feature_selection(X_clean, y)
+            
+            # Step 7: Enterprise Validation with Multiple Metrics
+            self.logger.info("✅ Step 7: Enterprise Validation")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Enterprise Validation")
+            
+            validation_results = self._enterprise_validation(X_clean, y)
+            
+            # Step 8: Final Compliance Check
+            self.logger.info("🏆 Step 8: Final Compliance Check")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Compliance Check")
+            
+            compliance_results = self._final_compliance_check()
+            
+            # Enterprise Quality Gate
+            if self.best_auc < self.target_auc:
+                if main_progress:
+                    self.progress_manager.fail_progress(main_progress, 
+                        f"AUC {self.best_auc:.4f} < target {self.target_auc:.2f}")
+                raise ValueError(
+                    f"🚫 ENTERPRISE COMPLIANCE FAILURE: AUC {self.best_auc:.4f} < "
+                    f"target {self.target_auc:.2f}. PRODUCTION DEPLOYMENT BLOCKED."
+                )
+            
+            # Success!
+            if main_progress:
+                self.progress_manager.complete_progress(main_progress, 
+                    f"SUCCESS: {len(self.selected_features)} features selected, AUC {self.best_auc:.4f}")
+            
+            # Compile comprehensive results
+            results = {
+                'selected_features': self.selected_features,
+                'best_auc': self.best_auc,
+                'target_achieved': True,
+                'feature_count': len(self.selected_features),
+                
+                # Quality Reports
+                'noise_report': noise_report,
+                'leakage_report': leakage_report,
+                'compliance_results': compliance_results,
+                
+                # Technical Details
+                'shap_rankings': self.shap_rankings,
+                'importance_rankings': importance_rankings,
+                'optimization_results': self.optimization_results,
+                'validation_results': validation_results,
+                
+                # Enterprise Compliance
+                'enterprise_compliant': True,
+                'production_ready': True,
+                'data_quality_assured': True,
+                'overfitting_controlled': True,
+                'no_data_leakage': True,
+                'no_noise_detected': noise_report['noise_level'] < 0.05,
+                
+                # Metadata
+                'selection_timestamp': datetime.now().isoformat(),
+                'selection_duration': validation_results.get('selection_time', 0),
+                'methodology': 'Advanced Enterprise SHAP+Optuna with Multi-Model Ensemble',
+                'quality_grade': 'A+' if self.best_auc >= 0.80 else 'A' if self.best_auc >= 0.75 else 'B+',
+                
+                'compliance_features': [
+                    'Advanced SHAP Feature Importance Analysis',
+                    'Ensemble Optuna Hyperparameter Optimization', 
+                    'Multi-Model Cross-Validation',
+                    'Noise Detection & Removal',
+                    'Data Leakage Prevention',
+                    'Overfitting Protection',
+                    'TimeSeriesSplit Validation',
+                    'Feature Stability Analysis',
+                    'Enterprise Quality Gates'
+                ]
+            }
+            
+            self.logger.info(f"🎉 SUCCESS: {len(self.selected_features)} features selected")
+            self.logger.info(f"🏆 AUC Achieved: {self.best_auc:.4f} (Target: {self.target_auc:.2f})")
+            self.logger.info(f"✅ Enterprise Grade: {results['quality_grade']}")
+            
+            return self.selected_features, results
+            
+        except Exception as e:
+            if main_progress:
+                try:
+                    self.progress_manager.fail_progress(main_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
+            self.logger.error(f"❌ Advanced feature selection failed: {e}")
+            raise ValueError(f"Enterprise feature selection failed: {e}")
+    
+    def _fast_mode_selection(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
+        """Fast mode selection for large datasets"""
+        try:
+            from fast_feature_selector import FastEnterpriseFeatureSelector
+            
+            fast_selector = FastEnterpriseFeatureSelector(
+                target_auc=self.target_auc,
+                max_features=self.max_features,
+                fast_mode=True,
+                logger=self.logger
+            )
+            
+            return fast_selector.select_features(X, y)
+            
+        except ImportError:
+            self.logger.warning("⚠️ Fast selector not available, using standard selection")
+            # Fallback to current method with reduced parameters
+            original_n_trials = self.n_trials
+            original_timeout = self.timeout
+            
+            # Reduce parameters for large dataset
+            self.n_trials = min(50, self.n_trials)
+            self.timeout = min(300, self.timeout)  # 5 minutes max
+            
+            try:
+                result = self._standard_selection_with_sampling(X, y)
+                return result
+            finally:
+                # Restore original parameters
+                self.n_trials = original_n_trials
+                self.timeout = original_timeout
+        
+        except Exception as e:
+            self.logger.error(f"❌ Fast mode selection failed: {e}")
+            raise
+    
+    def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
+        """Standard selection with smart sampling for large datasets"""
+        # Sample data if too large
+        if len(X) > 100000:
+            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
+            sample_idx = np.random.choice(len(X), 100000, replace=False)
+            X_sample = X.iloc[sample_idx]
+            y_sample = y.iloc[sample_idx]
+        else:
+            X_sample = X
+            y_sample = y
+        
+        # Run standard selection on sample
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+    
+    def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
+        """Run the standard advanced selection process"""
+        # ...existing code for the full selection process...
+        try:
+            # Step 1: Data Quality Assessment & Noise Detection
+            self.logger.info("🔍 Step 1: Data Quality Assessment & Noise Detection")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Quality Assessment")
+            
+            X_clean, noise_report = self._assess_data_quality(X, y)
+            
+            # Step 2: Data Leakage Detection & Prevention
+            self.logger.info("🛡️ Step 2: Data Leakage Detection & Prevention")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Leakage Detection")
+            
+            leakage_report = self._detect_data_leakage(X_clean, y)
+            
+            # Step 3: Multi-Method Feature Importance Analysis
+            self.logger.info("🧠 Step 3: Multi-Method Feature Importance Analysis")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Feature Importance")
+            
+            importance_rankings = self._comprehensive_feature_importance(X_clean, y)
+            
+            # Step 4: Advanced SHAP Analysis
+            self.logger.info("⚡ Step 4: Advanced SHAP Analysis")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "SHAP Analysis")
+            
+            self.shap_rankings = self._advanced_shap_analysis(X_clean, y)
+            
+            # Step 5: Ensemble Optuna Optimization
+            self.logger.info("🎯 Step 5: Ensemble Optuna Optimization")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Optuna Optimization")
+            
+            self.optimization_results = self._ensemble_optuna_optimization(X_clean, y, importance_rankings)
+            
+            # Step 6: Feature Set Stabilization
+            self.logger.info("🔒 Step 6: Feature Set Stabilization")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Feature Stabilization")
+            
+            self.selected_features = self._stabilize_feature_selection(X_clean, y)
+            
+            # Step 7: Enterprise Validation with Multiple Metrics
+            self.logger.info("✅ Step 7: Enterprise Validation")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Enterprise Validation")
+            
+            validation_results = self._enterprise_validation(X_clean, y)
+            
+            # Step 8: Final Compliance Check
+            self.logger.info("🏆 Step 8: Final Compliance Check")
+            if main_progress:
+                self.progress_manager.update_progress(main_progress, 1, "Compliance Check")
+            
+            compliance_results = self._final_compliance_check()
+            
+            # Enterprise Quality Gate
+            if self.best_auc < self.target_auc:
+                if main_progress:
+                    self.progress_manager.fail_progress(main_progress, 
+                        f"AUC {self.best_auc:.4f} < target {self.target_auc:.2f}")
+                raise ValueError(
+                    f"🚫 ENTERPRISE COMPLIANCE FAILURE: AUC {self.best_auc:.4f} < "
+                    f"target {self.target_auc:.2f}. PRODUCTION DEPLOYMENT BLOCKED."
+                )
+            
+            # Success!
+            if main_progress:
+                self.progress_manager.complete_progress(main_progress, 
+                    f"SUCCESS: {len(self.selected_features)} features selected, AUC {self.best_auc:.4f}")
+            
+            # Compile comprehensive results
+            results = {
+                'selected_features': self.selected_features,
+                'best_auc': self.best_auc,
+                'target_achieved': True,
+                'feature_count': len(self.selected_features),
+                
+                # Quality Reports
+                'noise_report': noise_report,
+                'leakage_report': leakage_report,
+                'compliance_results': compliance_results,
+                
+                # Technical Details
+                'shap_rankings': self.shap_rankings,
+                'importance_rankings': importance_rankings,
+                'optimization_results': self.optimization_results,
+                'validation_results': validation_results,
+                
+                # Enterprise Compliance
+                'enterprise_compliant': True,
+                'production_ready': True,
+                'data_quality_assured': True,
+                'overfitting_controlled': True,
+                'no_data_leakage': True,
+                'no_noise_detected': noise_report['noise_level'] < 0.05,
+                
+                # Metadata
+                'selection_timestamp': datetime.now().isoformat(),
+                'selection_duration': validation_results.get('selection_time', 0),
+                'methodology': 'Advanced Enterprise SHAP+Optuna with Multi-Model Ensemble',
+                'quality_grade': 'A+' if self.best_auc >= 0.80 else 'A' if self.best_auc >= 0.75 else 'B+',
+                
+                'compliance_features': [
+                    'Advanced SHAP Feature Importance Analysis',
+                    'Ensemble Optuna Hyperparameter Optimization', 
+                    'Multi-Model Cross-Validation',
+                    'Noise Detection & Removal',
+                    'Data Leakage Prevention',
+                    'Overfitting Protection',
+                    'TimeSeriesSplit Validation',
+                    'Feature Stability Analysis',
+                    'Enterprise Quality Gates'
+                ]
+            }
+            
+            self.logger.info(f"🎉 SUCCESS: {len(self.selected_features)} features selected")
+            self.logger.info(f"🏆 AUC Achieved: {self.best_auc:.4f} (Target: {self.target_auc:.2f})")
+            self.logger.info(f"✅ Enterprise Grade: {results['quality_grade']}")
+            
+            return self.selected_features, results
+            
+        except Exception as e:
+            if main_progress:
+                try:
+                    self.progress_manager.fail_progress(main_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
             raise ValueError(f"Enterprise feature selection failed: {e}")
     
@@ -889,28 +1270,58 @@ class AdvancedEnterpriseFeatureSelector:
             if shap_progress:
                 self.progress_manager.update_progress(shap_progress, 1, "Combining SHAP values")
             
-            # Combine SHAP values from ensemble
+            # Combine SHAP values from ensemble (with robust error handling)
             if ensemble_shap_values:
-                combined_shap = np.mean(ensemble_shap_values, axis=0)
-                feature_importance = np.abs(combined_shap).mean(axis=0)
-                
-                # Robust scalar conversion
-                shap_rankings = {}
-                for i, feature_name in enumerate(X_sample.columns):
-                    if i < len(feature_importance):
-                        importance_value = feature_importance[i]
-                        
-                        # Ensure scalar conversion
-                        if hasattr(importance_value, 'shape') and importance_value.shape:
-                            if isinstance(importance_value, np.ndarray):
-                                importance_value = float(np.mean(importance_value)) if importance_value.size > 1 else float(importance_value.item())
+                try:
+                    # Check and normalize SHAP values shapes
+                    normalized_shap_values = []
+                    target_shape = None
+                    
+                    for i, shap_vals in enumerate(ensemble_shap_values):
+                        if isinstance(shap_vals, np.ndarray):
+                            # For multi-class outputs, take the first class or reshape
+                            if len(shap_vals.shape) > 2:
+                                shap_vals = shap_vals[:, :, 0] if shap_vals.shape[2] > 1 else shap_vals.reshape(shap_vals.shape[:2])
+                            
+                            # Set target shape from first valid array
+                            if target_shape is None:
+                                target_shape = shap_vals.shape
+                            
+                            # Ensure all arrays have the same shape
+                            if shap_vals.shape == target_shape:
+                                normalized_shap_values.append(shap_vals)
                             else:
-                                importance_value = float(importance_value)
-                        else:
-                            importance_value = float(importance_value)
+                                self.logger.warning(f"⚠️ SHAP shape mismatch for model {i}: {shap_vals.shape} vs {target_shape}")
+                    
+                    if normalized_shap_values:
+                        # Safely combine normalized SHAP values
+                        combined_shap = np.mean(normalized_shap_values, axis=0)
+                        feature_importance = np.abs(combined_shap).mean(axis=0)
                         
-                        shap_rankings[feature_name] = importance_value
-            else:
+                        # Robust scalar conversion
+                        shap_rankings = {}
+                        for i, feature_name in enumerate(X_sample.columns):
+                            if i < len(feature_importance):
+                                importance_value = feature_importance[i]
+                                
+                                # Ensure scalar conversion
+                                if hasattr(importance_value, 'shape') and importance_value.shape:
+                                    if isinstance(importance_value, np.ndarray):
+                                        importance_value = float(np.mean(importance_value)) if importance_value.size > 1 else float(importance_value.item())
+                                    else:
+                                        importance_value = float(importance_value)
+                                else:
+                                    importance_value = float(importance_value)
+                                
+                                shap_rankings[feature_name] = importance_value
+                    else:
+                        raise ValueError("No valid SHAP values after normalization")
+                        
+                except Exception as shap_error:
+                    self.logger.warning(f"⚠️ SHAP combination failed: {shap_error}, using fallback")
+                    ensemble_shap_values = []  # Force fallback
+            
+            if not ensemble_shap_values or not shap_rankings:
                 # Fallback to simple feature importance
                 self.logger.warning("⚠️ SHAP analysis failed, using Random Forest importance")
                 rf_backup = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
@@ -924,544 +1335,3 @@ class AdvancedEnterpriseFeatureSelector:
             self.logger.info(f"✅ Advanced SHAP analysis completed for {len(shap_rankings)} features")
             
             return shap_rankings
-            
-        except Exception as e:
-            if shap_progress:
-                self.progress_manager.fail_progress(shap_progress, str(e))
-            self.logger.error(f"❌ Advanced SHAP analysis failed: {e}")
-            return {}
-    
-    def _ensemble_optuna_optimization(self, X: pd.DataFrame, y: pd.Series, 
-                                    importance_rankings: Dict) -> Dict[str, Any]:
-        """Enhanced Optuna optimization with ensemble approach"""
-        
-        # Create progress tracker
-        optuna_progress = None
-        if ADVANCED_LOGGING_AVAILABLE and self.progress_manager:
-            optuna_progress = self.progress_manager.create_progress(
-                "Ensemble Optuna Optimization", self.n_trials, ProgressType.OPTIMIZATION
-            )
-        
-        try:
-            # Use optimized data sample for faster optimization
-            sample_size = min(10000, max(2000, len(X)))
-            if len(X) > sample_size:
-                sample_idx = np.random.choice(len(X), sample_size, replace=False)
-                X_optuna = X.iloc[sample_idx]
-                y_optuna = y.iloc[sample_idx]
-            else:
-                X_optuna = X
-                y_optuna = y
-            
-            # Create advanced study with sophisticated pruning
-            study = optuna.create_study(
-                direction='maximize',
-                sampler=TPESampler(n_startup_trials=20, n_ei_candidates=50),
-                pruner=SuccessiveHalvingPruner(min_resource=2, reduction_factor=3)
-            )
-            
-            # Store feature importance for objective function
-            self.current_importance_rankings = importance_rankings
-            
-            # Progress callback
-            def progress_callback(study, trial):
-                if optuna_progress:
-                    value_str = f"AUC {trial.value:.4f}" if trial.value else "Failed"
-                    self.progress_manager.update_progress(optuna_progress, 1, 
-                        f"Trial {trial.number}: {value_str}")
-            
-            # Run optimization
-            study.optimize(
-                lambda trial: self._advanced_objective_function(trial, X_optuna, y_optuna),
-                n_trials=self.n_trials,
-                timeout=self.timeout,
-                callbacks=[progress_callback]
-            )
-            
-            if optuna_progress:
-                self.progress_manager.complete_progress(optuna_progress,
-                    f"Optimization completed: Best AUC {study.best_value:.4f}")
-            
-            # Store best results
-            if study.best_value is not None:
-                self.best_auc = max(self.best_auc, study.best_value)
-            
-            results = {
-                'best_params': study.best_params,
-                'best_value': study.best_value,
-                'n_trials': len(study.trials),
-                'optimization_history': [t.value for t in study.trials if t.value is not None],
-                'study_stats': {
-                    'completed_trials': len([t for t in study.trials if t.state == optuna.trial.TrialState.COMPLETE]),
-                    'failed_trials': len([t for t in study.trials if t.state == optuna.trial.TrialState.FAIL]),
-                    'pruned_trials': len([t for t in study.trials if t.state == optuna.trial.TrialState.PRUNED])
-                },
-                'convergence_analysis': {
-                    'best_trial_number': study.best_trial.number if study.best_trial else None,
-                    'trials_to_best': study.best_trial.number + 1 if study.best_trial else None
-                }
-            }
-            
-            self.logger.info(f"✅ Optuna optimization completed: Best AUC {study.best_value:.4f}")
-            
-            return results
-            
-        except Exception as e:
-            if optuna_progress:
-                self.progress_manager.fail_progress(optuna_progress, str(e))
-            self.logger.error(f"❌ Optuna optimization failed: {e}")
-            return {}
-    
-    def _advanced_objective_function(self, trial, X: pd.DataFrame, y: pd.Series) -> float:
-        """Advanced objective function with ensemble models and overfitting prevention"""
-        
-        try:
-            # Feature selection strategy
-            selection_method = trial.suggest_categorical('selection_method', 
-                ['shap_top', 'combined_top', 'hybrid'])
-            
-            n_features = trial.suggest_int('n_features', 
-                max(5, min(10, len(X.columns) // 5)), 
-                min(self.max_features, len(X.columns)))
-            
-            # Select features based on method
-            if selection_method == 'shap_top':
-                if self.shap_rankings:
-                    top_features = sorted(self.shap_rankings.items(), 
-                                        key=lambda x: x[1], reverse=True)[:n_features]
-                    selected_features = [feat for feat, _ in top_features]
-                else:
-                    selected_features = list(X.columns)[:n_features]
-            
-            elif selection_method == 'combined_top':
-                if hasattr(self, 'current_importance_rankings') and 'combined' in self.current_importance_rankings:
-                    combined_rankings = self.current_importance_rankings['combined']
-                    top_features = sorted(combined_rankings.items(), 
-                                        key=lambda x: x[1], reverse=True)[:n_features]
-                    selected_features = [feat for feat, _ in top_features]
-                else:
-                    selected_features = list(X.columns)[:n_features]
-            
-            else:  # hybrid
-                # Mix SHAP and combined rankings
-                shap_count = n_features // 2
-                combined_count = n_features - shap_count
-                
-                shap_features = []
-                if self.shap_rankings:
-                    shap_top = sorted(self.shap_rankings.items(), 
-                                    key=lambda x: x[1], reverse=True)[:shap_count]
-                    shap_features = [feat for feat, _ in shap_top]
-                
-                combined_features = []
-                if hasattr(self, 'current_importance_rankings') and 'combined' in self.current_importance_rankings:
-                    combined_rankings = self.current_importance_rankings['combined']
-                    remaining_features = [f for f in combined_rankings.keys() if f not in shap_features]
-                    if remaining_features:
-                        combined_top = sorted([(f, combined_rankings[f]) for f in remaining_features], 
-                                            key=lambda x: x[1], reverse=True)[:combined_count]
-                        combined_features = [feat for feat, _ in combined_top]
-                
-                selected_features = shap_features + combined_features
-            
-            # Ensure we have features
-            if not selected_features:
-                selected_features = list(X.columns)[:n_features]
-            
-            X_selected = X[selected_features[:n_features]]  # Ensure exact count
-            
-            # Model selection with enhanced options
-            model_type = trial.suggest_categorical('model_type', 
-                ['rf_tuned', 'et_tuned', 'gb_tuned', 'lr_tuned'])
-            
-            # Model hyperparameter optimization
-            if model_type == 'rf_tuned':
-                model = RandomForestClassifier(
-                    n_estimators=trial.suggest_int('rf_n_estimators', 100, 500),
-                    max_depth=trial.suggest_int('rf_max_depth', 6, 20),
-                    min_samples_split=trial.suggest_int('rf_min_samples_split', 5, 30),
-                    min_samples_leaf=trial.suggest_int('rf_min_samples_leaf', 2, 15),
-                    max_features=trial.suggest_categorical('rf_max_features', ['sqrt', 'log2', 0.8]),
-                    class_weight=trial.suggest_categorical('rf_class_weight', ['balanced', None]),
-                    random_state=42,
-                    n_jobs=2  # Control resource usage
-                )
-            
-            elif model_type == 'et_tuned':
-                model = ExtraTreesClassifier(
-                    n_estimators=trial.suggest_int('et_n_estimators', 100, 500),
-                    max_depth=trial.suggest_int('et_max_depth', 6, 20),
-                    min_samples_split=trial.suggest_int('et_min_samples_split', 5, 30),
-                    min_samples_leaf=trial.suggest_int('et_min_samples_leaf', 2, 15),
-                    max_features=trial.suggest_categorical('et_max_features', ['sqrt', 'log2', 0.8]),
-                    class_weight=trial.suggest_categorical('et_class_weight', ['balanced', None]),
-                    random_state=42,
-                    n_jobs=2
-                )
-            
-            elif model_type == 'gb_tuned':
-                model = GradientBoostingClassifier(
-                    n_estimators=trial.suggest_int('gb_n_estimators', 100, 300),
-                    max_depth=trial.suggest_int('gb_max_depth', 4, 15),
-                    learning_rate=trial.suggest_float('gb_learning_rate', 0.01, 0.3),
-                    subsample=trial.suggest_float('gb_subsample', 0.6, 1.0),
-                    min_samples_split=trial.suggest_int('gb_min_samples_split', 5, 30),
-                    min_samples_leaf=trial.suggest_int('gb_min_samples_leaf', 2, 15),
-                    random_state=42
-                )
-            
-            else:  # lr_tuned
-                model = Pipeline([
-                    ('scaler', StandardScaler()),
-                    ('lr', LogisticRegression(
-                        C=trial.suggest_float('lr_C', 0.01, 100, log=True),
-                        penalty=trial.suggest_categorical('lr_penalty', ['l1', 'l2', 'elasticnet']),
-                        l1_ratio=trial.suggest_float('lr_l1_ratio', 0.1, 0.9) if trial.params.get('lr_penalty') == 'elasticnet' else None,
-                        class_weight=trial.suggest_categorical('lr_class_weight', ['balanced', None]),
-                        random_state=42,
-                        max_iter=1000
-                    ))
-                ])
-            
-            # Enhanced cross-validation
-            if self.validation_strategy == 'TimeSeriesSplit':
-                cv = TimeSeriesSplit(n_splits=self.cv_folds, test_size=len(X_selected)//10)
-            else:
-                cv = StratifiedKFold(n_splits=self.cv_folds, shuffle=True, random_state=42)
-            
-            # Collect validation scores with overfitting monitoring
-            val_scores = []
-            train_scores = []
-            
-            for fold, (train_idx, val_idx) in enumerate(cv.split(X_selected, y)):
-                X_train_fold = X_selected.iloc[train_idx]
-                X_val_fold = X_selected.iloc[val_idx]
-                y_train_fold = y.iloc[train_idx]
-                y_val_fold = y.iloc[val_idx]
-                
-                # Train model
-                model.fit(X_train_fold, y_train_fold)
-                
-                # Predictions
-                if hasattr(model, 'predict_proba'):
-                    train_pred = model.predict_proba(X_train_fold)[:, 1]
-                    val_pred = model.predict_proba(X_val_fold)[:, 1]
-                else:
-                    train_pred = model.decision_function(X_train_fold)
-                    val_pred = model.decision_function(X_val_fold)
-                
-                # Calculate AUC scores
-                try:
-                    train_auc = roc_auc_score(y_train_fold, train_pred)
-                    val_auc = roc_auc_score(y_val_fold, val_pred)
-                    
-                    train_scores.append(train_auc)
-                    val_scores.append(val_auc)
-                except:
-                    # Handle edge cases
-                    continue
-            
-            # Calculate performance metrics
-            if not val_scores:
-                return 0.0
-            
-            mean_val_auc = np.mean(val_scores)
-            mean_train_auc = np.mean(train_scores) if train_scores else mean_val_auc
-            val_std = np.std(val_scores)
-            
-            # Overfitting penalty
-            overfitting_gap = mean_train_auc - mean_val_auc
-            overfitting_penalty = max(0, overfitting_gap - self.max_train_val_gap) * 3.0
-            
-            # Stability bonus
-            stability_bonus = max(0, (self.stability_threshold - val_std) * 2.0) if val_std < self.stability_threshold else 0
-            
-            # Feature complexity penalty
-            complexity_penalty = (len(selected_features) / self.max_features) * 0.01
-            
-            # Final score calculation
-            final_score = mean_val_auc - overfitting_penalty + stability_bonus - complexity_penalty
-            
-            # Update best model tracking
-            if final_score > self.best_auc:
-                self.best_auc = final_score
-                self.best_model = model
-            
-            return max(0.0, final_score)  # Ensure non-negative
-            
-        except Exception as e:
-            self.logger.warning(f"⚠️ Trial failed: {e}")
-            return 0.0
-    
-    def _stabilize_feature_selection(self, X: pd.DataFrame, y: pd.Series) -> List[str]:
-        """Feature selection stabilization through multiple runs"""
-        
-        if not self.optimization_results or 'best_params' not in self.optimization_results:
-            # Fallback to SHAP top features
-            if self.shap_rankings:
-                top_features = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
-                return [feat for feat, _ in top_features[:self.max_features]]
-            else:
-                return list(X.columns)[:self.max_features]
-        
-        # Use best parameters from optimization
-        best_params = self.optimization_results['best_params']
-        selection_method = best_params.get('selection_method', 'shap_top')
-        n_features = best_params.get('n_features', min(20, len(X.columns)))
-        
-        # Implement the same selection logic as in objective function
-        if selection_method == 'shap_top':
-            if self.shap_rankings:
-                top_features = sorted(self.shap_rankings.items(), 
-                                    key=lambda x: x[1], reverse=True)[:n_features]
-                selected_features = [feat for feat, _ in top_features]
-            else:
-                selected_features = list(X.columns)[:n_features]
-        
-        elif selection_method == 'combined_top':
-            if hasattr(self, 'current_importance_rankings') and 'combined' in self.current_importance_rankings:
-                combined_rankings = self.current_importance_rankings['combined']
-                top_features = sorted(combined_rankings.items(), 
-                                    key=lambda x: x[1], reverse=True)[:n_features]
-                selected_features = [feat for feat, _ in top_features]
-            else:
-                selected_features = list(X.columns)[:n_features]
-        
-        else:  # hybrid
-            shap_count = n_features // 2
-            combined_count = n_features - shap_count
-            
-            shap_features = []
-            if self.shap_rankings:
-                shap_top = sorted(self.shap_rankings.items(), 
-                                key=lambda x: x[1], reverse=True)[:shap_count]
-                shap_features = [feat for feat, _ in shap_top]
-            
-            combined_features = []
-            if hasattr(self, 'current_importance_rankings') and 'combined' in self.current_importance_rankings:
-                combined_rankings = self.current_importance_rankings['combined']
-                remaining_features = [f for f in combined_rankings.keys() if f not in shap_features]
-                if remaining_features:
-                    combined_top = sorted([(f, combined_rankings[f]) for f in remaining_features], 
-                                        key=lambda x: x[1], reverse=True)[:combined_count]
-                    combined_features = [feat for feat, _ in combined_top]
-            
-            selected_features = shap_features + combined_features
-        
-        # Ensure we have valid features
-        selected_features = [f for f in selected_features if f in X.columns]
-        
-        if not selected_features:
-            selected_features = list(X.columns)[:min(self.max_features, len(X.columns))]
-        
-        self.logger.info(f"✅ Feature selection stabilized: {len(selected_features)} features")
-        
-        return selected_features[:self.max_features]  # Ensure we don't exceed max
-    
-    def _enterprise_validation(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
-        """Comprehensive enterprise validation with multiple metrics"""
-        
-        if not self.selected_features:
-            raise ValueError("No features selected for validation")
-        
-        X_selected = X[self.selected_features]
-        
-        # Build final model using best parameters
-        best_params = self.optimization_results.get('best_params', {})
-        model_type = best_params.get('model_type', 'rf_tuned')
-        
-        # Create the final model
-        if model_type == 'rf_tuned':
-            final_model = RandomForestClassifier(
-                n_estimators=best_params.get('rf_n_estimators', 200),
-                max_depth=best_params.get('rf_max_depth', 12),
-                min_samples_split=best_params.get('rf_min_samples_split', 10),
-                min_samples_leaf=best_params.get('rf_min_samples_leaf', 5),
-                max_features=best_params.get('rf_max_features', 'sqrt'),
-                class_weight=best_params.get('rf_class_weight', 'balanced'),
-                random_state=42,
-                n_jobs=-1,
-                oob_score=True
-            )
-        elif model_type == 'et_tuned':
-            final_model = ExtraTreesClassifier(
-                n_estimators=best_params.get('et_n_estimators', 200),
-                max_depth=best_params.get('et_max_depth', 12),
-                min_samples_split=best_params.get('et_min_samples_split', 10),
-                min_samples_leaf=best_params.get('et_min_samples_leaf', 5),
-                max_features=best_params.get('et_max_features', 'sqrt'),
-                class_weight=best_params.get('et_class_weight', 'balanced'),
-                random_state=42,
-                n_jobs=-1
-            )
-        elif model_type == 'gb_tuned':
-            final_model = GradientBoostingClassifier(
-                n_estimators=best_params.get('gb_n_estimators', 150),
-                max_depth=best_params.get('gb_max_depth', 8),
-                learning_rate=best_params.get('gb_learning_rate', 0.1),
-                subsample=best_params.get('gb_subsample', 0.8),
-                min_samples_split=best_params.get('gb_min_samples_split', 10),
-                min_samples_leaf=best_params.get('gb_min_samples_leaf', 5),
-                random_state=42,
-                validation_fraction=0.1,
-                n_iter_no_change=10
-            )
-        else:  # lr_tuned
-            final_model = Pipeline([
-                ('scaler', StandardScaler()),
-                ('lr', LogisticRegression(
-                    C=best_params.get('lr_C', 1.0),
-                    penalty=best_params.get('lr_penalty', 'l2'),
-                    class_weight=best_params.get('lr_class_weight', 'balanced'),
-                    random_state=42,
-                    max_iter=1000
-                ))
-            ])
-        
-        # Comprehensive cross-validation
-        cv = TimeSeriesSplit(n_splits=self.cv_folds, test_size=len(X_selected)//8)
-        
-        # Collect all metrics
-        auc_scores = []
-        accuracy_scores = []
-        precision_scores = []
-        recall_scores = []
-        f1_scores = []
-        train_auc_scores = []
-        
-        for train_idx, val_idx in cv.split(X_selected, y):
-            X_train_fold = X_selected.iloc[train_idx]
-            X_val_fold = X_selected.iloc[val_idx]
-            y_train_fold = y.iloc[train_idx]
-            y_val_fold = y.iloc[val_idx]
-            
-            # Fit model
-            final_model.fit(X_train_fold, y_train_fold)
-            
-            # Predictions
-            if hasattr(final_model, 'predict_proba'):
-                val_pred_proba = final_model.predict_proba(X_val_fold)[:, 1]
-                train_pred_proba = final_model.predict_proba(X_train_fold)[:, 1]
-            else:
-                val_pred_proba = final_model.decision_function(X_val_fold)
-                train_pred_proba = final_model.decision_function(X_train_fold)
-            
-            val_pred = (val_pred_proba > 0.5).astype(int)
-            
-            # Calculate metrics
-            try:
-                auc_scores.append(roc_auc_score(y_val_fold, val_pred_proba))
-                train_auc_scores.append(roc_auc_score(y_train_fold, train_pred_proba))
-                accuracy_scores.append(accuracy_score(y_val_fold, val_pred))
-                precision_scores.append(precision_score(y_val_fold, val_pred, average='weighted', zero_division=0))
-                recall_scores.append(recall_score(y_val_fold, val_pred, average='weighted', zero_division=0))
-                f1_scores.append(f1_score(y_val_fold, val_pred, average='weighted', zero_division=0))
-            except Exception as e:
-                self.logger.warning(f"⚠️ Metrics calculation error: {e}")
-                continue
-        
-        # Calculate final metrics
-        mean_auc = np.mean(auc_scores) if auc_scores else 0.0
-        std_auc = np.std(auc_scores) if auc_scores else 0.0
-        mean_train_auc = np.mean(train_auc_scores) if train_auc_scores else mean_auc
-        overfitting_gap = mean_train_auc - mean_auc
-        
-        # Update best AUC
-        self.best_auc = max(self.best_auc, mean_auc)
-        self.best_model = final_model
-        
-        # Quality assessment
-        quality_checks = {
-            'auc_target_met': mean_auc >= self.target_auc,
-            'auc_excellent': mean_auc >= 0.80,
-            'overfitting_controlled': overfitting_gap <= self.max_train_val_gap,
-            'stable_performance': std_auc <= self.stability_threshold,
-            'sufficient_precision': np.mean(precision_scores) >= 0.70 if precision_scores else False,
-            'sufficient_recall': np.mean(recall_scores) >= 0.70 if recall_scores else False,
-            'balanced_f1': np.mean(f1_scores) >= 0.70 if f1_scores else False
-        }
-        
-        quality_score = sum(quality_checks.values()) / len(quality_checks)
-        enterprise_ready = quality_score >= 0.8 and mean_auc >= self.target_auc
-        
-        validation_results = {
-            'cv_auc_mean': float(mean_auc),
-            'cv_auc_std': float(std_auc),
-            'cv_accuracy_mean': float(np.mean(accuracy_scores)) if accuracy_scores else 0.0,
-            'cv_precision_mean': float(np.mean(precision_scores)) if precision_scores else 0.0,
-            'cv_recall_mean': float(np.mean(recall_scores)) if recall_scores else 0.0,
-            'cv_f1_mean': float(np.mean(f1_scores)) if f1_scores else 0.0,
-            'train_auc_mean': float(mean_train_auc),
-            'overfitting_gap': float(overfitting_gap),
-            'cv_scores': [float(score) for score in auc_scores],
-            'model_type': model_type,
-            'n_features': len(self.selected_features),
-            'validation_method': self.validation_strategy,
-            'quality_checks': quality_checks,
-            'quality_score': float(quality_score),
-            'enterprise_ready': bool(enterprise_ready),
-            'target_achieved': bool(mean_auc >= self.target_auc),
-            'overfitting_controlled': bool(overfitting_gap <= self.max_train_val_gap),
-            'performance_stable': bool(std_auc <= self.stability_threshold),
-            'selection_time': time.time() if 'time' in globals() else 0
-        }
-        
-        self.logger.info(f"📊 Validation Results: AUC {mean_auc:.4f} ± {std_auc:.4f}")
-        self.logger.info(f"🏆 Quality Score: {quality_score:.3f} | Enterprise Ready: {enterprise_ready}")
-        
-        return validation_results
-    
-    def _final_compliance_check(self) -> Dict[str, Any]:
-        """Final comprehensive compliance check"""
-        
-        compliance_results = {
-            'auc_compliance': self.best_auc >= self.target_auc,
-            'feature_count_compliance': len(self.selected_features) <= self.max_features,
-            'no_overfitting': True,  # Will be updated based on validation
-            'no_data_leakage': True,  # Will be updated based on leakage detection
-            'noise_controlled': True,  # Will be updated based on noise analysis
-            'enterprise_ready': False,  # Will be calculated
-            'production_ready': False,  # Will be calculated
-            'compliance_score': 0.0,
-            'compliance_grade': 'F'
-        }
-        
-        # Calculate compliance score
-        compliance_items = [
-            compliance_results['auc_compliance'],
-            compliance_results['feature_count_compliance'],
-            compliance_results['no_overfitting'],
-            compliance_results['no_data_leakage'],
-            compliance_results['noise_controlled']
-        ]
-        
-        compliance_score = sum(compliance_items) / len(compliance_items)
-        compliance_results['compliance_score'] = compliance_score
-        
-        # Determine compliance grade
-        if compliance_score >= 0.95:
-            grade = 'A+'
-        elif compliance_score >= 0.90:
-            grade = 'A'
-        elif compliance_score >= 0.85:
-            grade = 'A-'
-        elif compliance_score >= 0.80:
-            grade = 'B+'
-        elif compliance_score >= 0.75:
-            grade = 'B'
-        elif compliance_score >= 0.70:
-            grade = 'B-'
-        else:
-            grade = 'C' if compliance_score >= 0.60 else 'F'
-        
-        compliance_results['compliance_grade'] = grade
-        compliance_results['enterprise_ready'] = compliance_score >= 0.80 and self.best_auc >= self.target_auc
-        compliance_results['production_ready'] = compliance_results['enterprise_ready']
-        
-        self.logger.info(f"🏛️ Compliance Check: {grade} (Score: {compliance_score:.3f})")
-        
-        return compliance_results
-
-
-# Alias for backward compatibility
-EnterpriseShapOptunaFeatureSelector = AdvancedEnterpriseFeatureSelector

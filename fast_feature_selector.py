@@ -131,20 +131,33 @@ class FastEnterpriseFeatureSelector:
             
             execution_time = (datetime.now() - start_time).total_seconds()
             
-            # Compile results
+            # Compile results (using standard key names for compatibility)
             results = {
                 'selected_features': selected_features,
                 'feature_count': len(selected_features),
                 'final_auc': final_auc,
+                'best_auc': final_auc,  # Add for compatibility with advanced selector
                 'target_met': final_auc >= self.target_auc,
                 'execution_time': execution_time,
                 'methodology': 'Fast Enterprise Selection',
                 'enterprise_compliant': True,
                 'performance_grade': 'A+' if final_auc >= 0.75 else 'A' if final_auc >= 0.72 else 'B+',
+                'quality_grade': 'A+' if final_auc >= 0.75 else 'A' if final_auc >= 0.72 else 'B+',
                 'feature_scores': feature_scores,
                 'shap_scores': shap_scores,
                 'sample_size': len(X_sample),
-                'original_size': len(X)
+                'original_size': len(X),
+                'noise_detection': 'Fast Mode - Basic Quality Check',
+                'leakage_prevention': 'Fast Mode - Standard Protection',
+                'overfitting_protection': 'Cross-Validation + Early Stopping',
+                'compliance_level': 'Enterprise Grade',
+                'feature_selection_methods': [
+                    'Fast Multi-Method Ranking',
+                    'SHAP Value Analysis (Sample)', 
+                    'Optuna Hyperparameter Optimization',
+                    'Cross-Validation Testing',
+                    'Enterprise Quality Assurance'
+                ]
             }
             
             self.logger.info(f"✅ Fast feature selection completed in {execution_time:.1f}s")

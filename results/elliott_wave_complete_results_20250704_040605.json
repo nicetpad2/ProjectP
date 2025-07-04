@@ -1,0 +1,882 @@
+{
+  "ml_protection": {
+    "timestamp": "2025-07-04T03:50:59.993650",
+    "data_shape": [
+      1771964,
+      154
+    ],
+    "protection_analysis": {
+      "leakage": {
+        "leakage_detected": false,
+        "suspicious_features": [],
+        "max_correlation": 0.27071811619463504,
+        "status": "CLEAN"
+      },
+      "overfitting": {
+        "overfitting_detected": true,
+        "train_auc": 0.895632183908046,
+        "test_auc": 0.714595532422468,
+        "overfitting_gap": 0.18103665148557802,
+        "status": "WARNING"
+      },
+      "quality": {
+        "missing_data_ratio": 0.0,
+        "duplicate_ratio": 0.0,
+        "zero_variance_features": 0,
+        "data_quality_score": 1.0,
+        "status": "GOOD"
+      }
+    },
+    "enterprise_ready": true,
+    "critical_issues": [],
+    "resource_optimized": true,
+    "final_assessment": {
+      "enterprise_ready": true,
+      "warnings_count": 1,
+      "critical_issues_count": 0,
+      "overall_status": "ENTERPRISE_READY"
+    }
+  },
+  "data_info": {
+    "total_rows": 1771969,
+    "features_count": 154,
+    "target_count": 1771964
+  },
+  "cnn_lstm_results": {
+    "success": false,
+    "error": "Random ops require a seed to be set when determinism is enabled. Please set a seed before running the op, e.g. by calling tf.random.set_seed(1)."
+  },
+  "dqn_results": {
+    "success": true,
+    "total_episodes": 50,
+    "final_epsilon": 0.778312557068642,
+    "avg_reward": 500.911283301868,
+    "best_reward": 1264.05322020783,
+    "episode_results": [
+      {
+        "episode": 1,
+        "reward": -9.561693357483689,
+        "epsilon": 0.995,
+        "avg_loss": 13.636479731665718,
+        "avg_q_value": -0.040279677601324185,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 2,
+        "reward": 159.52521271141532,
+        "epsilon": 0.990025,
+        "avg_loss": 16.892773628234863,
+        "avg_q_value": 3.29821056035161,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 3,
+        "reward": -239.69437648361242,
+        "epsilon": 0.985074875,
+        "avg_loss": 13.89366659641266,
+        "avg_q_value": 3.1943762629628183,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 4,
+        "reward": -123.98845826692481,
+        "epsilon": 0.9801495006250001,
+        "avg_loss": 12.6028803730011,
+        "avg_q_value": 3.162865947842598,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 5,
+        "reward": -36.189773650587284,
+        "epsilon": 0.9752487531218751,
+        "avg_loss": 11.413511778831483,
+        "avg_q_value": 3.1374878397583963,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 6,
+        "reward": 313.8155990509793,
+        "epsilon": 0.9703725093562657,
+        "avg_loss": 10.510762914419175,
+        "avg_q_value": 3.1958721843957902,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 7,
+        "reward": 221.0974042271431,
+        "epsilon": 0.9655206468094844,
+        "avg_loss": 9.72556357741356,
+        "avg_q_value": 3.2412406274676324,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 8,
+        "reward": 169.81789279471016,
+        "epsilon": 0.960693043575437,
+        "avg_loss": 9.119876448631286,
+        "avg_q_value": 3.2458753784894943,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 9,
+        "reward": 20.565235389165256,
+        "epsilon": 0.9558895783575597,
+        "avg_loss": 8.434215511322021,
+        "avg_q_value": 3.267375085175037,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 10,
+        "reward": 279.6537527411062,
+        "epsilon": 0.9511101304657719,
+        "avg_loss": 8.034284587860107,
+        "avg_q_value": 3.2094376633763315,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 11,
+        "reward": 371.96897138239746,
+        "epsilon": 0.946354579813443,
+        "avg_loss": 7.477188463926315,
+        "avg_q_value": 3.3315433285236358,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 12,
+        "reward": 185.62779832492032,
+        "epsilon": 0.9416228069143757,
+        "avg_loss": 14.41096620941162,
+        "avg_q_value": 7.228167882919312,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 13,
+        "reward": -20.348040196080646,
+        "epsilon": 0.9369146928798039,
+        "avg_loss": 12.47964130783081,
+        "avg_q_value": 7.41131080532074,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 14,
+        "reward": -20.187371502685615,
+        "epsilon": 0.9322301194154049,
+        "avg_loss": 11.347107104539871,
+        "avg_q_value": 7.382558427810669,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 15,
+        "reward": -85.6629731103251,
+        "epsilon": 0.9275689688183278,
+        "avg_loss": 10.811853220701218,
+        "avg_q_value": 7.496452308177948,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 16,
+        "reward": 314.1499964184394,
+        "epsilon": 0.9229311239742362,
+        "avg_loss": 10.499642808914185,
+        "avg_q_value": 7.356704811573029,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 17,
+        "reward": 324.5314482700024,
+        "epsilon": 0.918316468354365,
+        "avg_loss": 10.225793651342393,
+        "avg_q_value": 7.428557200908661,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 18,
+        "reward": 138.1234052973202,
+        "epsilon": 0.9137248860125932,
+        "avg_loss": 9.749007675409317,
+        "avg_q_value": 7.421433447837829,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 19,
+        "reward": 583.7049998323488,
+        "epsilon": 0.9091562615825302,
+        "avg_loss": 9.721901257514954,
+        "avg_q_value": 7.413591497898102,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 20,
+        "reward": 345.42434896918934,
+        "epsilon": 0.9046104802746175,
+        "avg_loss": 9.163930898427964,
+        "avg_q_value": 7.512433981418609,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 21,
+        "reward": 470.08630100038,
+        "epsilon": 0.9000874278732445,
+        "avg_loss": 9.138349383831024,
+        "avg_q_value": 7.5639095249176025,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 22,
+        "reward": 455.91130576528656,
+        "epsilon": 0.8955869907338783,
+        "avg_loss": 15.771333305835723,
+        "avg_q_value": 11.489477766513824,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 23,
+        "reward": 238.6497512034318,
+        "epsilon": 0.8911090557802088,
+        "avg_loss": 13.715905474662781,
+        "avg_q_value": 11.64639187860489,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 24,
+        "reward": 483.3791765534681,
+        "epsilon": 0.8866535105013078,
+        "avg_loss": 12.733525021553039,
+        "avg_q_value": 11.696903882026673,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 25,
+        "reward": 250.7833573133811,
+        "epsilon": 0.8822202429488013,
+        "avg_loss": 12.481115757465362,
+        "avg_q_value": 11.804768972873688,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 26,
+        "reward": 256.323255460377,
+        "epsilon": 0.8778091417340573,
+        "avg_loss": 12.393323704004288,
+        "avg_q_value": 11.695088178634643,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 27,
+        "reward": 427.2549400989646,
+        "epsilon": 0.8734200960253871,
+        "avg_loss": 11.799158371686936,
+        "avg_q_value": 11.743512813568115,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 28,
+        "reward": 456.1465727694305,
+        "epsilon": 0.8690529955452602,
+        "avg_loss": 11.650797088623047,
+        "avg_q_value": 11.684810280799866,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 29,
+        "reward": 235.51611169650542,
+        "epsilon": 0.8647077305675338,
+        "avg_loss": 11.53806677055359,
+        "avg_q_value": 11.729789029121399,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 30,
+        "reward": 984.8058271534458,
+        "epsilon": 0.8603841919146962,
+        "avg_loss": 11.270922392606735,
+        "avg_q_value": 11.753594272136688,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 31,
+        "reward": 872.9992463498261,
+        "epsilon": 0.8560822709551227,
+        "avg_loss": 11.274592019319535,
+        "avg_q_value": 11.858057106018066,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 32,
+        "reward": 530.999733014512,
+        "epsilon": 0.851801859600347,
+        "avg_loss": 16.967563495159148,
+        "avg_q_value": 15.620492938995362,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 33,
+        "reward": 687.6918903746565,
+        "epsilon": 0.8475428503023453,
+        "avg_loss": 14.957531725883484,
+        "avg_q_value": 15.7666149892807,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 34,
+        "reward": 827.7100991692637,
+        "epsilon": 0.8433051360508336,
+        "avg_loss": 14.600664677143097,
+        "avg_q_value": 15.738843940734863,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 35,
+        "reward": 863.3326335311305,
+        "epsilon": 0.8390886103705794,
+        "avg_loss": 14.12951097869873,
+        "avg_q_value": 15.807537352561951,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 36,
+        "reward": 723.4758500655337,
+        "epsilon": 0.8348931673187264,
+        "avg_loss": 14.127091847419738,
+        "avg_q_value": 15.812824069023133,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 37,
+        "reward": 843.9400787496687,
+        "epsilon": 0.8307187014821328,
+        "avg_loss": 14.009225403785706,
+        "avg_q_value": 15.938899488449097,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 38,
+        "reward": 676.9178805758899,
+        "epsilon": 0.8265651079747222,
+        "avg_loss": 13.599248298168183,
+        "avg_q_value": 16.035325480461122,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 39,
+        "reward": 855.6472520550708,
+        "epsilon": 0.8224322824348486,
+        "avg_loss": 13.635542338371277,
+        "avg_q_value": 16.07100165939331,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 40,
+        "reward": 1037.4793345773417,
+        "epsilon": 0.8183201210226743,
+        "avg_loss": 13.265880976438522,
+        "avg_q_value": 15.98113032245636,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 41,
+        "reward": 625.0546202200703,
+        "epsilon": 0.8142285204175609,
+        "avg_loss": 13.02483652973175,
+        "avg_q_value": 16.11467088317871,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 42,
+        "reward": 877.1613495433022,
+        "epsilon": 0.810157377815473,
+        "avg_loss": 18.647245535850526,
+        "avg_q_value": 19.920756784439085,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 43,
+        "reward": 1107.9492883587968,
+        "epsilon": 0.8061065909263957,
+        "avg_loss": 17.361402838230134,
+        "avg_q_value": 20.00799662208557,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 44,
+        "reward": 1038.720258548871,
+        "epsilon": 0.8020760579717637,
+        "avg_loss": 16.782176623821258,
+        "avg_q_value": 20.09975036430359,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 45,
+        "reward": 1105.0494116076718,
+        "epsilon": 0.798065677681905,
+        "avg_loss": 16.345125616550444,
+        "avg_q_value": 20.174657139778137,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 46,
+        "reward": 1130.2350570864978,
+        "epsilon": 0.7940753492934954,
+        "avg_loss": 16.14746068763733,
+        "avg_q_value": 20.010046060562132,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 47,
+        "reward": 800.9394149424758,
+        "epsilon": 0.7901049725470279,
+        "avg_loss": 15.969514678955077,
+        "avg_q_value": 20.182754967689515,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 48,
+        "reward": 1264.05322020783,
+        "epsilon": 0.7861544476842928,
+        "avg_loss": 15.748864207267761,
+        "avg_q_value": 20.167842779159546,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 49,
+        "reward": 1241.4012839326747,
+        "epsilon": 0.7822236754458713,
+        "avg_loss": 15.80647676563263,
+        "avg_q_value": 20.203750799179076,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 50,
+        "reward": 783.5762843262078,
+        "epsilon": 0.778312557068642,
+        "avg_loss": 15.699695292472839,
+        "avg_q_value": 20.317951313972472,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      }
+    ]
+  },
+  "performance_analysis": {
+    "ml_performance": {
+      "cnn_lstm_metrics": {
+        "auc": 0.0,
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      "feature_selection_metrics": {
+        "best_auc": 0.0,
+        "selected_features": 12,
+        "target_achieved": false
+      },
+      "ml_performance_score": 0.0,
+      "auc_target_met": false,
+      "model_quality": "Poor"
+    },
+    "trading_performance": {
+      "trading_metrics": {
+        "total_return_pct": 0.0,
+        "sharpe_ratio": 0.0,
+        "win_rate": 0.5,
+        "max_drawdown": 0.0,
+        "profit_factor": 0.8,
+        "total_trades": 0,
+        "final_balance": 10000.0
+      },
+      "trading_performance_score": 55.0,
+      "sharpe_target_met": false,
+      "drawdown_acceptable": true,
+      "win_rate_acceptable": false
+    },
+    "risk_analysis": {
+      "risk_metrics": {
+        "data_quality_risk": 0.0,
+        "model_risk": 15.0,
+        "overfitting_risk": 0.0,
+        "overall_risk_score": 7.5
+      },
+      "risk_assessment": "Low",
+      "risk_factors": [
+        "AUC below target (0.7)",
+        "Limited training data"
+      ]
+    },
+    "overall_performance": {
+      "overall_score": 40.5,
+      "performance_grade": "F",
+      "key_metrics": {
+        "auc": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "win_rate": 50.0,
+        "total_return": 0.0
+      },
+      "component_scores": {
+        "ml_score": 0.0,
+        "trading_score": 55.0,
+        "risk_score": 92.5
+      },
+      "enterprise_ready": false,
+      "production_ready": false
+    },
+    "enterprise_grade": {
+      "enterprise_criteria": {
+        "performance_threshold": false,
+        "production_ready": false,
+        "auc_requirement": false,
+        "risk_acceptable": true,
+        "enterprise_grade": false
+      },
+      "enterprise_score": 20.0,
+      "enterprise_ready": false,
+      "certification_level": "Development Grade"
+    },
+    "recommendations": [
+      "Improve feature engineering and model architecture to achieve AUC >= 70%",
+      "Optimize trading strategy to improve risk-adjusted returns",
+      "Refine entry and exit signals to improve win rate",
+      "System requires significant improvements before enterprise deployment"
+    ],
+    "analysis_timestamp": "2025-07-04T04:06:05.944859"
+  },
+  "selected_features": [
+    "hl_ratio_13",
+    "hl_ratio_21",
+    "fib_236_distance",
+    "price_wave_13",
+    "bb_position",
+    "volatility_10",
+    "bb_position_50_25",
+    "sma_100",
+    "macd_signal",
+    "rsi_30",
+    "vpt",
+    "stoch_d_21_5"
+  ],
+  "selection_results": {
+    "selected_features": [
+      "hl_ratio_13",
+      "hl_ratio_21",
+      "fib_236_distance",
+      "price_wave_13",
+      "bb_position",
+      "volatility_10",
+      "bb_position_50_25",
+      "sma_100",
+      "macd_signal",
+      "rsi_30",
+      "vpt",
+      "stoch_d_21_5"
+    ],
+    "execution_time": 504.2599313259125,
+    "feature_count": 12,
+    "auc_achieved": 0.0,
+    "target_met": false,
+    "enterprise_compliant": true,
+    "production_ready": true,
+    "quality_grade": "B",
+    "methodology": "Efficient SHAP+Optuna Fallback",
+    "resource_optimized": true,
+    "performance": {
+      "auc": 0.0,
+      "feature_count": 12,
+      "selection_time": 504.2599313259125,
+      "quality_score": 0.8
+    },
+    "shap_analysis": {
+      "open": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "close": 0.002657805126551157,
+      "volume": 0.005394267778694178,
+      "sma_5": 0.0,
+      "sma_10": 0.002243119311702774,
+      "sma_20": 0.0008066842132306439,
+      "sma_50": 0.0012134652585881235,
+      "sma_100": 0.0008310577720097548,
+      "ema_5": 0.002429598569001952,
+      "ema_10": 0.0009606669737591495,
+      "ema_20": 0.0011354089608298643,
+      "ema_50": 0.0,
+      "ema_100": 0.0,
+      "rsi": 0.001376902184934923,
+      "macd": 0.002966276142425896,
+      "macd_signal": 0.0005978808071240264,
+      "macd_histogram": 0.001765891330532504,
+      "bb_middle": 0.0,
+      "bb_upper": 0.0,
+      "bb_lower": 0.0,
+      "bb_width": 0.010462178896669307,
+      "bb_position": 0.0,
+      "rsi_21": 0.0,
+      "rsi_21_oversold": 0.0,
+      "rsi_21_overbought": 0.0,
+      "rsi_30": 0.002439162584291845,
+      "rsi_30_oversold": 0.0,
+      "rsi_30_overbought": 0.0,
+      "macd_8_21_5": 0.002614254635747869,
+      "macd_signal_8_21_5": 0.002350248757435746,
+      "macd_histogram_8_21_5": 0.0009938758391868897,
+      "macd_crossover_8_21_5": 0.0,
+      "macd_19_39_9": 0.0,
+      "macd_signal_19_39_9": 0.0011436403034049134,
+      "macd_histogram_19_39_9": 0.0,
+      "macd_crossover_19_39_9": 0.0,
+      "price_sma_ratio_5": 0.0028203169367346857,
+      "price_ema_ratio_5": 0.003099264369963337,
+      "price_sma_ratio_10": 0.00257861787629266,
+      "price_ema_ratio_10": 0.0,
+      "price_sma_ratio_20": 0.0,
+      "price_ema_ratio_20": 0.0004884426816618837,
+      "price_sma_ratio_50": 0.0,
+      "price_ema_ratio_50": 0.0033385369297245027,
+      "price_sma_ratio_100": 0.0015899596322552331,
+      "price_ema_ratio_100": 0.002294145605324373,
+      "sma_5_20_signal": 0.002062478564421108,
+      "sma_10_50_signal": 0.0,
+      "ema_5_20_signal": 0.0,
+      "bb_width_10_15": 0.007998541582628247,
+      "bb_position_10_15": 0.0020220114578708764,
+      "bb_squeeze_10_15": 0.0,
+      "bb_width_10_25": 0.0012953793017133242,
+      "bb_position_10_25": 0.0004827898960001563,
+      "bb_squeeze_10_25": 0.0,
+      "bb_width_50_15": 0.008351195156548266,
+      "bb_position_50_15": 0.0002858524187045641,
+      "bb_squeeze_50_15": 0.0,
+      "bb_width_50_25": 0.003937546177755829,
+      "bb_position_50_25": 0.0,
+      "bb_squeeze_50_25": 0.0,
+      "stoch_k_14_3": 0.00044805598892557104,
+      "stoch_d_14_3": 0.0,
+      "stoch_oversold_14_3": 0.0,
+      "stoch_overbought_14_3": 0.0,
+      "stoch_k_21_5": 0.001418041216705524,
+      "stoch_d_21_5": 0.0022812665607787985,
+      "stoch_oversold_21_5": 0.0,
+      "stoch_overbought_21_5": 0.0,
+      "williams_r_14": 0.0,
+      "williams_r_21": 0.0005299146053202487,
+      "atr_14": 0.005063570817567701,
+      "atr_ratio_14": 0.0008906429423977203,
+      "atr_21": 0.0012102521210331472,
+      "atr_ratio_21": 0.0029196693919151025,
+      "momentum_10": 0.00451574668708277,
+      "rate_of_change_10": 0.0006846868464866099,
+      "momentum_20": 0.0,
+      "rate_of_change_20": 0.0012013549174749198,
+      "momentum_50": 0.0005492979767050628,
+      "rate_of_change_50": 0.0,
+      "price_wave_8": 0.0002987129981408838,
+      "volume_wave_8": 0.003100085273870306,
+      "hl_ratio_8": 0.005783248152772447,
+      "hl_position_8": 0.0018918002581994092,
+      "price_wave_13": 0.003861261580723588,
+      "volume_wave_13": 0.0,
+      "hl_ratio_13": 0.015368789205869272,
+      "hl_position_13": 0.0008058307994535481,
+      "price_wave_21": 0.0,
+      "volume_wave_21": 0.0025724606809804026,
+      "hl_ratio_21": 0.0007030010285491942,
+      "hl_position_21": 0.0004888420946681537,
+      "price_wave_34": 0.0011743971797154823,
+      "volume_wave_34": 0.0,
+      "hl_ratio_34": 0.001100423530125444,
+      "hl_position_34": 0.0014533401723492807,
+      "price_wave_55": 0.0035506663692275345,
+      "volume_wave_55": 0.0010818382011757782,
+      "hl_ratio_55": 0.0081449670939907,
+      "hl_position_55": 0.0,
+      "volume_sma_10": 0.0071330716007061805,
+      "volume_sma_20": 0.0005713961782067441,
+      "volume_ratio_10": 0.0005471234567901229,
+      "volume_ratio_20": 0.0011825404342461886,
+      "vpt": 0.0,
+      "vpt_sma_10": 0.0,
+      "obv": 0.00181124165163915,
+      "obv_sma_10": 0.00046113284978591503,
+      "volatility_10": 0.004046481530038799,
+      "volatility_ratio_10": 0.0007997054164389688,
+      "volatility_20": 0.004365069861792506,
+      "volatility_ratio_20": 0.0,
+      "fib_236_distance": 0.004067224772120619,
+      "fib_236_support": 0.0,
+      "fib_236_resistance": 0.0,
+      "fib_382_distance": 0.0,
+      "fib_382_support": 0.0,
+      "fib_382_resistance": 0.0,
+      "fib_500_distance": 0.003686587296185642,
+      "fib_500_support": 0.0,
+      "fib_500_resistance": 0.0,
+      "fib_618_distance": 0.0020055141555623012,
+      "fib_618_support": 0.0,
+      "fib_618_resistance": 0.0,
+      "fib_786_distance": 0.014218662887501954,
+      "fib_786_support": 0.0,
+      "fib_786_resistance": 0.0,
+      "donchian_high_20": 0.00174634820004452,
+      "donchian_low_20": 0.0009000762451720262,
+      "donchian_position_20": 0.0005884451654115693,
+      "keltner_upper_20": 0.0,
+      "keltner_lower_20": 0.0015284851371424593,
+      "keltner_position_20": 0.000531400966183576,
+      "donchian_high_50": 0.0,
+      "donchian_low_50": 0.0,
+      "donchian_position_50": 0.0012278252526558703,
+      "keltner_upper_50": 0.0,
+      "keltner_lower_50": 0.0,
+      "keltner_position_50": 0.0,
+      "adx_14": 0.0,
+      "plus_di_14": 0.0,
+      "minus_di_14": 0.0007508891547113491,
+      "trend_strength_14": 0.0,
+      "adx_21": 0.0010496021781826745,
+      "plus_di_21": 0.0004981084823568991,
+      "minus_di_21": 0.0,
+      "trend_strength_21": 0.0005349894395051009,
+      "adx_50": 0.0,
+      "plus_di_50": 0.0,
+      "minus_di_50": 0.0008811769548069672,
+      "trend_strength_50": 0.0
+    },
+    "optuna_optimization": {
+      "best_params": {
+        "n_features": 12,
+        "n_estimators": 26,
+        "max_depth": 5,
+        "min_samples_split": 24,
+        "min_samples_leaf": 11
+      },
+      "best_value": 0.7419849036676016,
+      "completed_trials": 6
+    },
+    "validation_results": {
+      "cv_auc_mean": 0.7212491713512913,
+      "cv_auc_std": 0.006695493226260637,
+      "target_achieved": true,
+      "model_type": "RandomForest_Production",
+      "n_features": 12,
+      "production_ready": true
+    },
+    "resource_limits": {
+      "max_cpu_cores": 1,
+      "max_memory_gb": 3,
+      "shap_sample_limit": 1200,
+      "optuna_data_ratio": 0.1,
+      "max_trials": 8,
+      "max_timeout": 45,
+      "cv_splits": 3,
+      "rf_trees": 15,
+      "rf_depth": 4,
+      "batch_size": 750
+    },
+    "enterprise_grade": true
+  },
+  "enterprise_compliance": {
+    "real_data_only": true,
+    "no_simulation": true,
+    "no_mock_data": true,
+    "auc_target_achieved": false,
+    "enterprise_ready": false
+  }
+}

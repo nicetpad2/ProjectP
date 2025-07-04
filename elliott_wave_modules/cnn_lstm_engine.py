@@ -62,6 +62,20 @@ try:
     # Silent TensorFlow warnings
     tf.get_logger().setLevel('ERROR')
     
+    # 🎯 ENTERPRISE FIX: Set random seeds for determinism
+    try:
+        tf.random.set_seed(42)
+        tf.config.experimental.enable_op_determinism()
+    except Exception as e:
+        # Fallback for older TensorFlow versions
+        tf.random.set_seed(42)
+        print(f"ℹ️ TensorFlow determinism not fully supported: {e}")
+    
+    # Additional determinism settings
+    import random
+    random.seed(42)
+    np.random.seed(42)
+    
     # Check CUDA availability
     try:
         CUDA_AVAILABLE = len(tf.config.list_physical_devices('GPU')) > 0
@@ -183,6 +197,9 @@ class CNNLSTMElliottWave:
             
             model = Model(inputs=inputs, outputs=outputs, name='ElliottWave_CNN_LSTM')
             
+            # 🎯 Set additional seed for optimizer
+            tf.random.set_seed(42)
+            
             model.compile(
                 optimizer=Adam(learning_rate=0.001),
                 loss='binary_crossentropy',
@@ -216,6 +233,9 @@ class CNNLSTMElliottWave:
             model.add(Dense(25, activation='relu'))
             model.add(BatchNormalization())
             model.add(Dense(1, activation='sigmoid'))
+            
+            # 🎯 Set additional seed for optimizer
+            tf.random.set_seed(42)
             
             model.compile(
                 optimizer=Adam(learning_rate=0.001),
@@ -320,6 +340,20 @@ class CNNLSTMElliottWave:
         try:
             self.logger.info("🚀 Training Elliott Wave model...")
             
+            # 🎯 ENTERPRISE FIX: Ensure deterministic training
+            if TENSORFLOW_AVAILABLE:
+                try:
+                    tf.random.set_seed(42)
+                    if hasattr(tf.config.experimental, 'enable_op_determinism'):
+                        tf.config.experimental.enable_op_determinism()
+                except Exception as seed_error:
+                    self.logger.warning(f"⚠️ Could not set TensorFlow determinism: {seed_error}")
+            
+            # Set Python and NumPy seeds as backup
+            import random
+            random.seed(42)
+            np.random.seed(42)
+            
             # Prepare data
             X_sequences, y_sequences = self.prepare_sequences(X, y)
             
@@ -327,22 +361,38 @@ class CNNLSTMElliottWave:
                 raise ValueError("Failed to prepare training data")
             
             # Split data
-            X_train, X_val, y_train, y_val = train_test_split(
-                X_sequences, y_sequences, test_size=0.2, random_state=42
-            )
+            if SKLEARN_AVAILABLE:
+                X_train, X_val, y_train, y_val = train_test_split(
+                    X_sequences, y_sequences, test_size=0.2, random_state=42
+                )
+            else:
+                # Simple split without sklearn
+                split_idx = int(0.8 * len(X_sequences))
+                X_train, X_val = X_sequences[:split_idx], X_sequences[split_idx:]
+                y_train, y_val = y_sequences[:split_idx], y_sequences[split_idx:]
             
             # Build model
             if TENSORFLOW_AVAILABLE and len(X_sequences.shape) == 3:
                 input_shape = (X_sequences.shape[1], X_sequences.shape[2])
                 self.model = self.build_model(input_shape)
                 
-                # Train TensorFlow model
+                # Train TensorFlow model with deterministic settings
+                callbacks = []
+                try:
+                    callbacks = [
+                        EarlyStopping(patience=10, restore_best_weights=True),
+                        ReduceLROnPlateau(patience=5, factor=0.5)
+                    ]
+                except:
+                    pass  # Skip callbacks if not available
+                
                 history = self.model.fit(
                     X_train, y_train,
                     epochs=50,
                     batch_size=32,
                     validation_data=(X_val, y_val),
-                    verbose=0
+                    verbose=0,
+                    callbacks=callbacks
                 )
                 
                 # Evaluate
