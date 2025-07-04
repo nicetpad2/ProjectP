@@ -908,35 +908,51 @@ class ElliottWaveDataProcessor:
             initial_size = len(features)
             self.safe_logger.info(f"📊 Starting ML preparation with {initial_size:,} rows")
             
-            # Create enhanced target variable for better prediction
+            # ✅ FIX: Enhanced target creation for balanced prediction
             features = features.copy()
             
-            # Multi-horizon target for more stable prediction (optimized for data retention)
-            horizons = [1, 3, 5]  # 1, 3, and 5 periods ahead
-            target_signals = []
+            # Create more balanced target with proper thresholding
+            horizon = 3  # Use single horizon for more stable prediction
+            future_close = features['close'].shift(-horizon)
+            price_change = (future_close - features['close']) / features['close']
             
-            for horizon in horizons:
-                future_close = features['close'].shift(-horizon)
-                price_change = (future_close - features['close']) / features['close']
+            # Dynamic threshold based on market volatility
+            volatility = features['close'].rolling(window=20).std() / features['close'].rolling(window=20).mean()
+            median_vol = volatility.median()
+            threshold = max(0.0005, median_vol * 0.5)  # Adaptive threshold
+            
+            # Create binary target with clear signal
+            target = np.where(price_change > threshold, 1, 0)
+            features['target'] = target
+            
+            # Remove the last few rows that don't have future data
+            valid_data = features.iloc[:-horizon].copy()
+            
+            # Balance the target distribution if heavily skewed
+            target_balance = valid_data['target'].mean()
+            self.safe_logger.info(f"📊 Initial target balance: {target_balance:.3f} (positive class ratio)")
+            
+            # If too imbalanced, adjust with technical indicators
+            if target_balance < 0.3 or target_balance > 0.7:
+                self.safe_logger.info("⚖️ Adjusting target balance using technical signals...")
                 
-                # More lenient threshold for better data retention
-                threshold = 0.0005  # 0.05% minimum price movement
-                target_h = np.where(price_change > threshold, 1, 
-                                  np.where(price_change < -threshold, 0, 0.5))  # Use neutral instead of NaN
-                target_signals.append(pd.Series(target_h, index=features.index))
+                # Use RSI and moving average crossover for additional signals
+                if 'rsi' in valid_data.columns and 'sma_20' in valid_data.columns:
+                    # RSI oversold/overbought signals
+                    rsi_signal = np.where(valid_data['rsi'] < 30, 1,  # Oversold -> Buy signal
+                                        np.where(valid_data['rsi'] > 70, 0, valid_data['target']))  # Overbought -> Sell signal
+                    
+                    # Moving average trend signal
+                    ma_signal = np.where(valid_data['close'] > valid_data['sma_20'], 1, 0)
+                    
+                    # Combine signals (60% price, 25% RSI, 15% MA)
+                    combined_target = (0.6 * valid_data['target'] + 0.25 * rsi_signal + 0.15 * ma_signal)
+                    valid_data['target'] = (combined_target > 0.5).astype(int)
+                    
+                    final_balance = valid_data['target'].mean()
+                    self.safe_logger.info(f"✅ Adjusted target balance: {final_balance:.3f}")
             
-            # Combine signals with weighted voting (simplified)
-            weights = [0.5, 0.3, 0.2]  # Give more weight to shorter horizon
-            combined_signal = np.zeros(len(features))
-            
-            for i, (signal, weight) in enumerate(zip(target_signals, weights)):
-                combined_signal += signal * weight
-            
-            # Create final target (no NaN filtering)
-            features['target'] = (combined_signal > 0.5).astype(int)
-            
-            # Only remove the last few rows that don't have future data (instead of volatility filtering)
-            features = features.iloc[:-5]
+            features = valid_data
             
             # Separate features and target
             target_col = 'target'

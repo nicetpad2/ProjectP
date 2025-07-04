@@ -1335,3 +1335,12 @@ class AdvancedEnterpriseFeatureSelector:
             self.logger.info(f"✅ Advanced SHAP analysis completed for {len(shap_rankings)} features")
             
             return shap_rankings
+            
+        except Exception as e:
+            if shap_progress:
+                try:
+                    self.progress_manager.fail_progress(shap_progress, str(e))
+                except Exception as progress_error:
+                    self.logger.warning(f"⚠️ Progress manager error: {progress_error}")
+            self.logger.error(f"❌ Advanced SHAP analysis failed: {e}")
+            return {}

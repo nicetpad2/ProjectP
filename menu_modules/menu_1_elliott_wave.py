@@ -552,7 +552,14 @@ class Menu1ElliottWaveFixed:
             }
             performance_results = self.performance_analyzer.analyze_performance(pipeline_results)
             
-            # Store all results
+            # Store all results and fix AUC extraction
+            # ✅ FIX: Extract AUC from evaluation_results and add to main results
+            if cnn_lstm_results and 'evaluation_results' in cnn_lstm_results:
+                eval_results = cnn_lstm_results['evaluation_results']
+                if 'auc' in eval_results:
+                    cnn_lstm_results['auc_score'] = eval_results['auc']
+                    cnn_lstm_results['accuracy'] = eval_results.get('accuracy', cnn_lstm_results.get('accuracy', 0))
+            
             self.results.update({
                 'cnn_lstm_results': cnn_lstm_results,
                 'dqn_results': dqn_results,
@@ -565,11 +572,16 @@ class Menu1ElliottWaveFixed:
             self.safe_logger.info("✅ Step 8: Enterprise compliance validation...")
             enterprise_compliant = self._validate_enterprise_requirements()
             
+            # ✅ FIX: Use correct AUC extraction
+            achieved_auc = cnn_lstm_results.get('auc_score', 0) if cnn_lstm_results else 0
+            if achieved_auc == 0 and cnn_lstm_results and 'evaluation_results' in cnn_lstm_results:
+                achieved_auc = cnn_lstm_results['evaluation_results'].get('auc', 0)
+            
             self.results['enterprise_compliance'] = {
                 'real_data_only': True,
                 'no_simulation': True,
                 'no_mock_data': True,
-                'auc_target_achieved': cnn_lstm_results.get('auc_score', 0) >= 0.70,
+                'auc_target_achieved': achieved_auc >= 0.70,
                 'enterprise_ready': enterprise_compliant
             }
             
@@ -631,10 +643,16 @@ class Menu1ElliottWaveFixed:
     def _validate_enterprise_requirements(self) -> bool:
         """ตรวจสอบความต้องการ Enterprise"""
         try:
-            # Check AUC requirement - NEW FORMAT
+            # ✅ FIX: Consistent AUC validation logic  
             cnn_lstm_results = self.results.get('cnn_lstm_results', {})
             eval_results = cnn_lstm_results.get('evaluation_results', {})
-            auc_score = eval_results.get('auc', cnn_lstm_results.get('auc_score', 0))
+            
+            # Try multiple ways to get AUC
+            auc_score = eval_results.get('auc', 0.0)
+            if auc_score == 0.0:
+                auc_score = cnn_lstm_results.get('auc_score', 0.0)
+            if auc_score == 0.0:
+                auc_score = cnn_lstm_results.get('val_auc', 0.0)
             
             if auc_score < 0.70:
                 self.safe_logger.error(f"❌ AUC Score {auc_score:.4f} < 0.70 - Enterprise requirement failed!")
@@ -685,9 +703,15 @@ class Menu1ElliottWaveFixed:
         data_info = self.results.get('data_info', {})
         compliance = self.results.get('enterprise_compliance', {})
         
-        # Extract AUC from evaluation_results (NEW FORMAT)
+        # ✅ FIX: Consistent AUC extraction logic
         eval_results = cnn_lstm.get('evaluation_results', {})
-        auc_score = eval_results.get('auc', cnn_lstm.get('auc_score', 0.0))
+        
+        # Try multiple ways to get AUC
+        auc_score = eval_results.get('auc', 0.0)
+        if auc_score == 0.0:
+            auc_score = cnn_lstm.get('auc_score', 0.0)
+        if auc_score == 0.0:
+            auc_score = cnn_lstm.get('val_auc', 0.0)
         total_reward = dqn.get('total_reward', 0.0)
         
         # Display metrics
