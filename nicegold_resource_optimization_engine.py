@@ -43,9 +43,12 @@ warnings.filterwarnings('ignore')
 
 # Advanced Logging Integration
 try:
+    from safe_logger import get_safe_logger, suppress_optuna_logging
     from core.advanced_terminal_logger import get_terminal_logger, LogLevel
     from core.real_time_progress_manager import get_progress_manager, ProgressType
     ADVANCED_LOGGING_AVAILABLE = True
+    # Initialize safe logging immediately
+    suppress_optuna_logging()
 except ImportError:
     ADVANCED_LOGGING_AVAILABLE = False
     import logging
@@ -122,11 +125,20 @@ class ProductionFeatureSelector:
         self.target_auc = target_auc
         self.limits = resource_optimizer.production_limits
         
+        # Initialize safe logger
+        try:
+            from safe_logger import get_safe_logger
+            self.safe_logger = get_safe_logger("ResourceOptimizer")
+        except ImportError:
+            self.safe_logger = None
+            
         if ADVANCED_LOGGING_AVAILABLE:
             self.logger = get_terminal_logger()
             self.progress_manager = get_progress_manager()
         else:
+            import logging
             self.logger = logging.getLogger(__name__)
+            self.logger.setLevel(logging.WARNING)  # Suppress internal logging
     
     def enterprise_feature_selection(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
         """Enterprise-grade feature selection with AUC ≥ 70% guarantee"""
@@ -352,7 +364,12 @@ class ProductionFeatureSelector:
         X_subset = X.iloc[subset_idx]
         y_subset = y.iloc[subset_idx]
         
-        # Create study with aggressive pruning
+        # Create study with aggressive pruning and safe logging
+        import optuna
+        
+        # Suppress optuna logging completely
+        optuna.logging.set_verbosity(optuna.logging.ERROR)
+        
         study = optuna.create_study(
             direction='maximize',
             pruner=MedianPruner(n_startup_trials=2, n_warmup_steps=2)

@@ -311,7 +311,6 @@ class Menu1ElliottWaveFixed:
                     timeout=600,   # 10 minutes for thorough optimization
                     logger=self.safe_logger
                 )
-            )
             
             # Enterprise ML Protection System
             self.beautiful_logger.log_info("Initializing ML Protection System...")

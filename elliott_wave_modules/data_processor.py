@@ -295,10 +295,12 @@ class ElliottWaveDataProcessor:
                     # If we still have invalid timestamps, use sequential timestamps
                     invalid_count = df['timestamp'].isna().sum()
                     if invalid_count > 0:
-                        self.safe_logger.warning(f"⚠️ {invalid_count:,} dates could not be parsed, using sequential timestamps")
-                        
-                        # Be more conservative - only fill invalid timestamps, don't replace all
-                        if invalid_count < len(df) * 0.1:  # Less than 10% invalid
+                        # For very large datasets with date issues, use optimized sequential timestamps
+                        if invalid_count >= len(df) * 0.5:  # More than 50% invalid
+                            self.safe_logger.info(f"ℹ️ Using optimized sequential timestamps for {len(df):,} rows (faster processing)")
+                            df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
+                        else:
+                            self.safe_logger.warning(f"⚠️ {invalid_count:,} dates could not be parsed, using sequential timestamps")
                             # Keep valid timestamps and fill invalid ones with interpolation
                             valid_timestamps = df['timestamp'].dropna()
                             if len(valid_timestamps) > 1:
@@ -311,10 +313,6 @@ class ElliottWaveDataProcessor:
                             else:
                                 # Fallback to full sequential timestamps
                                 df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
-                        else:
-                            # Too many invalid timestamps, use full sequential
-                            self.safe_logger.warning(f"⚠️ Too many invalid dates ({invalid_count:,}/{len(df):,}), using full sequential timestamps")
-                            df['timestamp'] = pd.date_range(start='2024-01-01', periods=len(df), freq='1min')
                     
                     # Drop original date columns
                     df = df.drop(columns=['Date', 'Timestamp', 'date_str'], errors='ignore')

@@ -33,6 +33,10 @@ def main():
         import logging
         import traceback
         
+        # Initialize safe logging first
+        from safe_logger import initialize_safe_system_logging
+        safe_logger = initialize_safe_system_logging()
+        
         # Force minimal memory usage
         gc.set_threshold(100, 5, 5)
     
