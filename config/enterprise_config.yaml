@@ -13,7 +13,7 @@ elliott_wave:
   cnn_lstm_enabled: true
   dqn_enabled: true
   target_auc: 0.70
-  max_features: 30
+  max_features: 25
   sequence_length: 50
   enterprise_grade: true
 

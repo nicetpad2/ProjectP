@@ -393,10 +393,14 @@ class Menu1ElliottWaveFixed:
             
             # Return final results
             if success:
+                self.results['success'] = True
                 self.results['execution_status'] = 'success'
+                self.results['message'] = 'Elliott Wave Pipeline completed successfully!'
                 self.safe_logger.info("✅ Elliott Wave Pipeline completed successfully!")
             else:
+                self.results['success'] = False
                 self.results['execution_status'] = 'failed'
+                self.results['message'] = 'Elliott Wave Pipeline failed!'
                 self.safe_logger.error("❌ Elliott Wave Pipeline failed!")
                 
             return self.results
@@ -407,8 +411,10 @@ class Menu1ElliottWaveFixed:
             self.safe_logger.error(f"Traceback: {traceback.format_exc()}")
             
             return {
+                'success': False,
                 'execution_status': 'critical_error',
                 'error_message': str(e),
+                'message': f'Elliott Wave Pipeline failed: {str(e)}',
                 'pipeline_duration': 'N/A'
             }
 

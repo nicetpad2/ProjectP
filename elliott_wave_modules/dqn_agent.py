@@ -539,25 +539,35 @@ class DQNReinforcementAgent:
                     if current_idx >= len(data) or next_idx >= len(data):
                         return next_state, 0.0, True
                     
-                    # Safe column access with multiple fallbacks
-                    current_price = 1.0  # Default price
-                    next_price = 1.0     # Default price
+                    # Enhanced price extraction with better fallbacks
+                    current_price = None
+                    next_price = None
                     
-                    try:
-                        if 'close' in data.columns:
-                            current_price = float(data.iloc[current_idx]['close'])
-                            next_price = float(data.iloc[next_idx]['close'])
-                        elif len(data.columns) > 0:
-                            # Use last column as price
-                            current_price = float(data.iloc[current_idx, -1])
-                            next_price = float(data.iloc[next_idx, -1])
+                    # Try multiple price columns in order of preference
+                    price_columns = ['close', 'Close', 'price', 'Price']
+                    for col in price_columns:
+                        if col in data.columns:
+                            try:
+                                current_price = float(data.iloc[current_idx][col])
+                                next_price = float(data.iloc[next_idx][col])
+                                break
+                            except (ValueError, TypeError):
+                                continue
+                    
+                    # If no price column found, use first numeric column
+                    if current_price is None:
+                        numeric_cols = data.select_dtypes(include=[np.number]).columns
+                        if len(numeric_cols) > 0:
+                            try:
+                                current_price = float(data.iloc[current_idx][numeric_cols[0]])
+                                next_price = float(data.iloc[next_idx][numeric_cols[0]])
+                            except (ValueError, TypeError):
+                                # Use synthetic price based on features
+                                current_price = float(data.iloc[current_idx].mean())
+                                next_price = float(data.iloc[next_idx].mean())
                         else:
-                            # Use index values as fallback
+                            # Last resort: use row index as price
                             current_price = float(current_idx)
-                            next_price = float(next_idx)
-                    except (IndexError, ValueError, TypeError) as price_error:
-                        self.logger.debug(f"Price extraction error: {str(price_error)}")
-                        current_price = 1.0
                         next_price = 1.0
                     
                     # Sanitize price values
@@ -567,18 +577,18 @@ class DQNReinforcementAgent:
                     # Calculate price change with safe division
                     price_change = safe_division(next_price - current_price, abs(current_price), default=0.0)
                     
-                    # Enterprise reward logic with risk management
+                    # Enhanced reward logic with better scaling
                     if action == 1:  # Buy
-                        reward = price_change * 100  # Amplify positive moves
-                        reward += 0.1 if price_change > 0 else -0.5  # Bonus/penalty
+                        reward = price_change * 1000  # More aggressive amplification
+                        reward += 1.0 if price_change > 0 else -2.0  # Stronger penalties
                     elif action == 2:  # Sell
-                        reward = -price_change * 100  # Profit from price drops
-                        reward += 0.1 if price_change < 0 else -0.5  # Bonus/penalty
+                        reward = -price_change * 1000  # Profit from price drops
+                        reward += 1.0 if price_change < 0 else -2.0  # Stronger penalties
                     else:  # Hold
-                        reward = -0.01  # Small holding cost
+                        reward = -0.1  # Larger holding cost to encourage action
                         # Bonus for holding during stable periods
                         if abs(price_change) < 0.001:
-                            reward = 0.05
+                            reward = 0.5
                     
                     # Apply risk-adjusted scaling
                     if abs(price_change) > 0.05:  # Large moves are riskier

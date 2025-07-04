@@ -412,7 +412,7 @@ class EnterpriseShapOptunaFeatureSelector:
             )
         
         # Enhanced feature selection with correlation analysis
-        n_features = trial.suggest_int('n_features', 10, min(self.max_features, len(X_clean.columns)))
+        n_features = trial.suggest_int('n_features', 10, min(25, self.max_features, len(X_clean.columns)))
         
         # Get SHAP-based features but check correlations
         shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
@@ -441,7 +441,7 @@ class EnterpriseShapOptunaFeatureSelector:
             remaining_features = [f for f in X_clean.columns if f not in candidate_features]
             candidate_features.extend(remaining_features[:n_features - len(candidate_features)])
         
-        selected_features = candidate_features[:n_features]
+        selected_features = candidate_features[:min(n_features, 25)]
         X_selected = X_clean[selected_features]
         
         # Enhanced cross-validation with temporal awareness
@@ -530,7 +530,7 @@ class EnterpriseShapOptunaFeatureSelector:
         if not self.optimization_results or 'best_params' not in self.optimization_results:
             # Fallback to top SHAP features
             shap_ranking = sorted(self.shap_rankings.items(), key=lambda x: x[1], reverse=True)
-            return [feat for feat, _ in shap_ranking[:self.max_features]]
+            return [feat for feat, _ in shap_ranking[:min(self.max_features, 25)]]
         
         best_params = self.optimization_results['best_params']
         

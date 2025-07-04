@@ -36,7 +36,7 @@ def load_enterprise_config(config_path: Optional[str] = None) -> Dict[str, Any]:
             "cnn_lstm_enabled": True,
             "dqn_enabled": True,
             "target_auc": 0.70,
-            "max_features": 30,
+            "max_features": 25,
             "enterprise_grade": True
         },
         "ml_protection": {
@@ -140,3 +140,19 @@ class EnterpriseConfig:
     def is_enterprise_grade(self) -> bool:
         """ตรวจสอบว่าเป็น enterprise grade หรือไม่"""
         return self.get('elliott_wave.enterprise_grade', True)
+
+
+def get_config() -> EnterpriseConfig:
+    """Get default enterprise configuration"""
+    return EnterpriseConfig()
+
+
+# Global config instance for easy access
+_global_config = None
+
+def get_global_config() -> EnterpriseConfig:
+    """Get global configuration instance"""
+    global _global_config
+    if _global_config is None:
+        _global_config = EnterpriseConfig()
+    return _global_config
