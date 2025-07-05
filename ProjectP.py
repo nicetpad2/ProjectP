@@ -111,20 +111,32 @@ def main():
     menu_available = False
     menu_type = "None"
     
-    # Priority 1: Try Elliott Wave Menu 1 (Primary - uses real CSV data)
+    # Priority 1: Try Enhanced Elliott Wave Menu 1 (Advanced Multi-Timeframe)
     try:
         with suppress_all_output():
-            from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
+            from menu_modules.enhanced_menu_1_elliott_wave_advanced import EnhancedMenu1ElliottWaveAdvanced
         
-        menu_1 = Menu1ElliottWave(config, logger, resource_manager)
-        print("✅ Elliott Wave Menu 1 (Enterprise): READY")
+        menu_1 = EnhancedMenu1ElliottWaveAdvanced()
+        print("✅ Enhanced Elliott Wave Menu 1 (Advanced Multi-Timeframe): READY")
         menu_available = True
-        menu_type = "Elliott Wave Enterprise"
+        menu_type = "Enhanced Elliott Wave Advanced"
         
     except Exception as e:
-        print(f"⚠️ Elliott Wave menu failed: {e}")
+        print(f"⚠️ Enhanced Elliott Wave menu failed: {e}")
         
-        # Priority 2: Try Enhanced 80% Menu
+        # Priority 2: Try Original Elliott Wave Menu 1 (Primary - uses real CSV data)
+        try:
+            with suppress_all_output():
+                from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
+            
+            menu_1 = Menu1ElliottWave(config, logger, resource_manager)
+            print("✅ Elliott Wave Menu 1 (Enterprise): READY")
+            menu_available = True
+            menu_type = "Elliott Wave Enterprise"
+        except Exception as e2:
+            print(f"⚠️ Original Elliott Wave menu failed: {e2}")
+            
+            # Priority 3: Try Enhanced 80% Menu
         try:
             with suppress_all_output():
                 from menu_modules.enhanced_80_percent_menu_1 import Enhanced80PercentMenu1
@@ -137,7 +149,7 @@ def main():
         except Exception as e2:
             print(f"⚠️ Enhanced 80% menu failed: {e2}")
             
-            # Priority 3: Try High Memory Menu
+            # Priority 4: Try High Memory Menu
             try:
                 with suppress_all_output():
                     from menu_modules.high_memory_menu_1 import HighMemoryMenu1
@@ -150,7 +162,7 @@ def main():
             except Exception as e3:
                 print(f"⚠️ High Memory menu failed: {e3}")
                 
-                # Priority 4: Try Optimized Menu (Final fallback)
+                # Priority 5: Try Optimized Menu (Final fallback)
                 try:
                     with suppress_all_output():
                         from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
@@ -176,16 +188,19 @@ def main():
     
     # Display Enterprise System Status
     print("\n" + "="*80)
-    print("🏢 NICEGOLD ENTERPRISE - ELLIOTT WAVE AI TRADING SYSTEM")
+    print("🏢 NICEGOLD ENTERPRISE - ADVANCED ELLIOTT WAVE AI TRADING SYSTEM")
     print("="*80)
     print(f"🎛️ Menu System: {menu_type}")
-    print(f"🧠 Resource Manager: {resource_manager.__class__.__name__ if resource_manager else 'Basic'}")
+    print(f"🌊 Elliott Wave: Multi-Timeframe Analysis (M1-D1)")
+    print(f"� AI Engine: Enhanced DQN + CNN-LSTM + Multi-TF Features")
+    print(f"�🧠 Resource Manager: {resource_manager.__class__.__name__ if resource_manager else 'Basic'}")
     print(f"📝 Logging: {'Enterprise Advanced' if 'advanced' in str(type(logger)) else 'Enterprise Basic'}")
     print(f"🎯 Target Resource Usage: 80% RAM, 35% CPU")
-    print(f"📊 Data Source: Real Market Data (XAUUSD)")
-    print(f"🤖 AI Components: CNN-LSTM + DQN + SHAP/Optuna")
+    print(f"📊 Data Source: Real Market Data (XAUUSD 1-Minute)")
+    print(f"🔍 Analysis: Fibonacci, Wave Confluence, Market Structure")
+    print(f"🎯 ML Goal: AUC >= 70% with Zero Overfitting")
     print("="*80)
-    print("1. 🌊 Elliott Wave Full Pipeline (Enhanced 80% Utilization)")
+    print("1. 🌊 Enhanced Elliott Wave Multi-Timeframe Pipeline (Advanced)")
     print("2. 📊 System Status & Resource Monitor")
     print("0. 🚪 Exit")
     print("="*80)

@@ -1,0 +1,8 @@
+{
+  "start_time": 1751689020.9139757,
+  "tests_passed": 0,
+  "tests_failed": 1,
+  "test_details": {
+    "module_import": "FAILED: cannot import name 'AdvancedMultiTimeframeElliottWave' from 'elliott_wave_modules.advanced_multi_timeframe_elliott_wave' (/mnt/data/projects/ProjectP/elliott_wave_modules/advanced_multi_timeframe_elliott_wave.py)"
+  }
+}
