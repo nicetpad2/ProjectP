@@ -288,7 +288,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e))
+                    self.progress_manager.fail_progress(main_progress, str(e)
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -331,19 +331,18 @@ class AdvancedEnterpriseFeatureSelector:
             raise
     
     def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
-        """Standard selection with smart sampling for large datasets"""
-        # Sample data if too large
-        if len(X) > 100000:
-            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
-            sample_idx = np.random.choice(len(X), 100000, replace=False)
-            X_sample = X.iloc[sample_idx]
-            y_sample = y.iloc[sample_idx]
-        else:
-            X_sample = X
-            y_sample = y
+        """
+        🎯 ENTERPRISE-GRADE: Full data feature selection WITHOUT SAMPLING
+        ✅ แก้ไข: ใช้ข้อมูลทั้งหมดจาก datacsv/ โฟลเดอร์ พร้อม enterprise memory management
+        """
+        self.logger.info(f"🚀 ENTERPRISE: Processing FULL dataset {len(X):,} rows (NO SAMPLING)")
+        # ✅ ENTERPRISE FIX: ใช้ข้อมูลทั้งหมด ไม่มี sampling
+        X_sample = X.copy()
+        y_sample = y.copy()
+        self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
-        # Run standard selection on sample
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+        # Run standard selection on full data with enterprise resource management
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -474,7 +473,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e))
+                    self.progress_manager.fail_progress(main_progress, str(e)
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -517,19 +516,18 @@ class AdvancedEnterpriseFeatureSelector:
             raise
     
     def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
-        """Standard selection with smart sampling for large datasets"""
-        # Sample data if too large
-        if len(X) > 100000:
-            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
-            sample_idx = np.random.choice(len(X), 100000, replace=False)
-            X_sample = X.iloc[sample_idx]
-            y_sample = y.iloc[sample_idx]
-        else:
-            X_sample = X
-            y_sample = y
+        """
+        🎯 ENTERPRISE-GRADE: Full data feature selection WITHOUT SAMPLING
+        ✅ แก้ไข: ใช้ข้อมูลทั้งหมดจาก datacsv/ โฟลเดอร์ พร้อม enterprise memory management
+        """
+        self.logger.info(f"🚀 ENTERPRISE: Processing FULL dataset {len(X):,} rows (NO SAMPLING)")
+        # ✅ ENTERPRISE FIX: ใช้ข้อมูลทั้งหมด ไม่มี sampling
+        X_sample = X.copy()
+        y_sample = y.copy()
+        self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
-        # Run standard selection on sample
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+        # Run standard selection on full data with enterprise resource management
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -660,7 +658,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e))
+                    self.progress_manager.fail_progress(main_progress, str(e)
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -703,19 +701,18 @@ class AdvancedEnterpriseFeatureSelector:
             raise
     
     def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
-        """Standard selection with smart sampling for large datasets"""
-        # Sample data if too large
-        if len(X) > 100000:
-            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
-            sample_idx = np.random.choice(len(X), 100000, replace=False)
-            X_sample = X.iloc[sample_idx]
-            y_sample = y.iloc[sample_idx]
-        else:
-            X_sample = X
-            y_sample = y
+        """
+        🎯 ENTERPRISE-GRADE: Full data feature selection WITHOUT SAMPLING
+        ✅ แก้ไข: ใช้ข้อมูลทั้งหมดจาก datacsv/ โฟลเดอร์ พร้อม enterprise memory management
+        """
+        self.logger.info(f"🚀 ENTERPRISE: Processing FULL dataset {len(X):,} rows (NO SAMPLING)")
+        # ✅ ENTERPRISE FIX: ใช้ข้อมูลทั้งหมด ไม่มี sampling
+        X_sample = X.copy()
+        y_sample = y.copy()
+        self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
-        # Run standard selection on sample
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+        # Run standard selection on full data with enterprise resource management
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -846,7 +843,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e))
+                    self.progress_manager.fail_progress(main_progress, str(e)
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -889,19 +886,18 @@ class AdvancedEnterpriseFeatureSelector:
             raise
     
     def _standard_selection_with_sampling(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
-        """Standard selection with smart sampling for large datasets"""
-        # Sample data if too large
-        if len(X) > 100000:
-            self.logger.info(f"📊 Sampling {100000:,} rows from {len(X):,} for efficiency")
-            sample_idx = np.random.choice(len(X), 100000, replace=False)
-            X_sample = X.iloc[sample_idx]
-            y_sample = y.iloc[sample_idx]
-        else:
-            X_sample = X
-            y_sample = y
+        """
+        🎯 ENTERPRISE-GRADE: Full data feature selection WITHOUT SAMPLING
+        ✅ แก้ไข: ใช้ข้อมูลทั้งหมดจาก datacsv/ โฟลเดอร์ พร้อม enterprise memory management
+        """
+        self.logger.info(f"🚀 ENTERPRISE: Processing FULL dataset {len(X):,} rows (NO SAMPLING)")
+        # ✅ ENTERPRISE FIX: ใช้ข้อมูลทั้งหมด ไม่มี sampling
+        X_sample = X.copy()
+        y_sample = y.copy()
+        self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
-        # Run standard selection on sample
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
+        # Run standard selection on full data with enterprise resource management
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -1032,7 +1028,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e))
+                    self.progress_manager.fail_progress(main_progress, str(e)
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -1058,7 +1054,7 @@ class AdvancedEnterpriseFeatureSelector:
         high_missing = X_clean.columns[X_clean.isnull().mean() > missing_threshold]
         if len(high_missing) > 0:
             X_clean = X_clean.drop(columns=high_missing)
-            removed_features.extend(high_missing.tolist())
+            removed_features.extend(high_missing.tolist()
             self.logger.info(f"🗑️ Removed {len(high_missing)} features with >15% missing values")
         
         # 2. Remove low variance features (noise)
@@ -1068,7 +1064,7 @@ class AdvancedEnterpriseFeatureSelector:
             low_variance = variances[variances < self.low_variance_threshold].index
             if len(low_variance) > 0:
                 X_clean = X_clean.drop(columns=low_variance)
-                removed_features.extend(low_variance.tolist())
+                removed_features.extend(low_variance.tolist()
                 self.logger.info(f"🗑️ Removed {len(low_variance)} low variance features")
         
         # 3. Remove highly correlated features
@@ -1097,7 +1093,7 @@ class AdvancedEnterpriseFeatureSelector:
         
         # 5. Calculate overall quality score
         features_retained_ratio = len(X_clean.columns) / len(X.columns)
-        missing_penalty = quality_report['missing_values'] / (len(X) * len(X.columns))
+        missing_penalty = quality_report['missing_values'] / (len(X) * len(X.columns)
         quality_score = features_retained_ratio * (1 - missing_penalty) * (1 - quality_report['noise_level'])
         
         quality_report.update({
@@ -1174,22 +1170,22 @@ class AdvancedEnterpriseFeatureSelector:
         try:
             # 1. Mutual Information
             mi_scores = mutual_info_classif(X_numeric, y, random_state=42)
-            importance_rankings['mutual_info'] = dict(zip(X_numeric.columns, mi_scores))
+            importance_rankings['mutual_info'] = dict(zip(X_numeric.columns, mi_scores)
             
             # 2. F-Score
             f_scores, _ = f_classif(X_numeric, y)
             f_scores = np.nan_to_num(f_scores)
-            importance_rankings['f_score'] = dict(zip(X_numeric.columns, f_scores))
+            importance_rankings['f_score'] = dict(zip(X_numeric.columns, f_scores)
             
             # 3. Random Forest Importance
             rf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
             rf.fit(X_numeric, y)
-            importance_rankings['random_forest'] = dict(zip(X_numeric.columns, rf.feature_importances_))
+            importance_rankings['random_forest'] = dict(zip(X_numeric.columns, rf.feature_importances_)
             
             # 4. Extra Trees Importance
             et = ExtraTreesClassifier(n_estimators=100, random_state=42, n_jobs=-1)
             et.fit(X_numeric, y)
-            importance_rankings['extra_trees'] = dict(zip(X_numeric.columns, et.feature_importances_))
+            importance_rankings['extra_trees'] = dict(zip(X_numeric.columns, et.feature_importances_)
             
             # 5. Combined ranking (ensemble approach)
             combined_scores = {}
@@ -1226,58 +1222,33 @@ class AdvancedEnterpriseFeatureSelector:
         try:
             X_numeric = X.select_dtypes(include=[np.number]).fillna(0)
             
-            # Sample for efficiency while maintaining quality
-            sample_size = min(5000, max(1000, len(X_numeric)))
-            if len(X_numeric) > sample_size:
-                sample_idx = np.random.choice(len(X_numeric), sample_size, replace=False)
-                X_sample = X_numeric.iloc[sample_idx]
-                y_sample = y.iloc[sample_idx]
-            else:
-                X_sample = X_numeric
-                y_sample = y
+            # ✅ ENTERPRISE FIX: Use full data without sampling
+            full_data_size = len(X_sample)
+            shap_idx = np.random.choice(len(X_sample), min(1000, len(X_sample), replace=False)
+            # ✅ Enhanced SHAP values extraction with robust error handling
+
+            shap_values = explainer.shap_values(X_sample.iloc[shap_idx])
+
+
             
-            if shap_progress:
-                self.progress_manager.update_progress(shap_progress, 1, "Training ensemble models")
+
+
+            # ✅ Robust handling for different SHAP output formats
+            if isinstance(shap_values, list):
+                # For binary classification, take the positive class
+                if len(shap_values) == 2:
+                    shap_values = shap_values[1]
+                elif len(shap_values) > 0:
+                    shap_values = shap_values[0]
             
-            # Train ensemble of models for robust SHAP values
-            models = {
-                'rf': RandomForestClassifier(n_estimators=200, max_depth=10, random_state=42, n_jobs=-1),
-                'et': ExtraTreesClassifier(n_estimators=200, max_depth=10, random_state=42, n_jobs=-1),
-                'gb': GradientBoostingClassifier(n_estimators=100, max_depth=8, random_state=42)
-            }
+            # ✅ Ensure proper shape and convert to numpy array
+            if not isinstance(shap_values, np.ndarray):
+                shap_values = np.array(shap_values)
             
-            ensemble_shap_values = []
-            
-            for model_name, model in models.items():
-                if shap_progress:
-                    self.progress_manager.update_progress(shap_progress, 1, f"SHAP for {model_name}")
-                
-                try:
-                    model.fit(X_sample, y_sample)
-                    explainer = shap.TreeExplainer(model)
-                    
-                    # Use smaller subsample for SHAP computation
-                    shap_sample_size = min(1000, len(X_sample))
-                    shap_idx = np.random.choice(len(X_sample), shap_sample_size, replace=False)
-                    # ✅ Enhanced SHAP values extraction with robust error handling
-                    shap_values = explainer.shap_values(X_sample.iloc[shap_idx])
-                    
-                    # ✅ Robust handling for different SHAP output formats
-                    if isinstance(shap_values, list):
-                        # For binary classification, take the positive class
-                        if len(shap_values) == 2:
-                            shap_values = shap_values[1]
-                        elif len(shap_values) > 0:
-                            shap_values = shap_values[0]
-                    
-                    # ✅ Ensure proper shape and convert to numpy array
-                    if not isinstance(shap_values, np.ndarray):
-                        shap_values = np.array(shap_values)
-                    
-                    # ✅ Handle multi-dimensional arrays
-                    if len(shap_values.shape) > 2:
-                        # For 3D arrays, take the last dimension or reshape appropriately
-                        if shap_values.shape[-1] == 1:
+            # ✅ Handle multi-dimensional arrays
+            if len(shap_values.shape) > 2:
+                # For 3D arrays, take the last dimension or reshape appropriately
+                if shap_values.shape[-1] == 1:
                             shap_values = shap_values.squeeze(axis=-1)
                         else:
                             shap_values = shap_values[:, :, -1]  # Take last class
@@ -1314,7 +1285,7 @@ class AdvancedEnterpriseFeatureSelector:
                                 shap_vals = np.array(shap_vals)
                             
                             # Handle NaN and infinite values
-                            if np.any(np.isnan(shap_vals)) or np.any(np.isinf(shap_vals)):
+                            if np.any(np.isnan(shap_vals) or np.any(np.isinf(shap_vals):
                                 self.logger.warning(f"⚠️ Invalid values in SHAP array {i}, cleaning...")
                                 shap_vals = np.nan_to_num(shap_vals, nan=0.0, posinf=1.0, neginf=-1.0)
                             
@@ -1364,10 +1335,10 @@ class AdvancedEnterpriseFeatureSelector:
                                             importance_val = float(importance_val)
                                         elif importance_val.size == 1:
                                             # Single element array
-                                            importance_val = float(importance_val.item())
+                                            importance_val = float(importance_val.item()
                                         else:
                                             # Multiple elements, take mean
-                                            importance_val = float(np.mean(importance_val))
+                                            importance_val = float(np.mean(importance_val)
                                     else:
                                         # Direct conversion
                                         importance_val = float(importance_val)

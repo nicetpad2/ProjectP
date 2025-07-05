@@ -269,7 +269,7 @@ class FastEnterpriseFeatureSelector:
             
             # ✅ Enhanced SHAP analysis with comprehensive error handling
             explainer = shap.TreeExplainer(model)
-            shap_values = explainer.shap_values(X_shap.iloc[:200])  # Very small sample
+            shap_values = explainer.shap_values(X_shap)  # Full dataset for enterprise compliance
             
             # ✅ Robust handling for different SHAP output formats
             if isinstance(shap_values, list):

@@ -1,0 +1,47 @@
+================================================================================
+📊 ELLIOTT WAVE PIPELINE - COMPLETE ANALYSIS REPORT
+================================================================================
+Generated: 2025-07-04 10:39:17
+
+
+📊 Data Summary
+--------------
+  • Total Rows: 1,771,969
+  • Selected Features: 154
+  • Data Source: REAL Market Data (datacsv/)
+
+
+🧠 Model Performance
+-------------------
+  • CNN-LSTM AUC: 0.7334
+  • DQN Total Reward: 0.00
+  • Target AUC ≥ 0.70: ✅ ACHIEVED
+
+
+🏆 Enterprise Compliance
+-----------------------
+  • Real Data Only: ✅ CONFIRMED
+  • No Simulation: ✅ CONFIRMED
+  • No Mock Data: ✅ CONFIRMED
+  • Production Ready: ✅ CONFIRMED
+
+
+🛡️ ML Protection
+----------------
+  • Protection Status: UNKNOWN
+  • Risk Level: UNKNOWN
+  • Enterprise Ready: ❌ NO
+  • Data Leakage: ⚠️ DETECTED
+  • Overfitting: ⚠️ DETECTED
+
+
+🧠 Resource Management
+---------------------
+  • Resource Manager: ✅ ACTIVE
+  • CPU Usage: 2.6%
+  • Memory Usage: 0.0%
+  • Allocation Strategy: 80% Optimal Allocation
+
+================================================================================
+🏆 Report completed successfully!
+================================================================================

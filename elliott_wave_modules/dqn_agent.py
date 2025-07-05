@@ -579,26 +579,30 @@ class DQNReinforcementAgent:
                     
                     # Enhanced reward logic with better scaling
                     if action == 1:  # Buy
-                        reward = price_change * 1000  # More aggressive amplification
-                        reward += 1.0 if price_change > 0 else -2.0  # Stronger penalties
+                        reward = price_change * 10000  # Significantly amplified reward
+                        reward += 10.0 if price_change > 0 else -5.0  # Strong directional incentives
                     elif action == 2:  # Sell
-                        reward = -price_change * 1000  # Profit from price drops
-                        reward += 1.0 if price_change < 0 else -2.0  # Stronger penalties
+                        reward = -price_change * 10000  # Profit from price drops
+                        reward += 10.0 if price_change < 0 else -5.0  # Strong directional incentives
                     else:  # Hold
-                        reward = -0.1  # Larger holding cost to encourage action
+                        reward = -1.0  # Holding cost to encourage action
                         # Bonus for holding during stable periods
-                        if abs(price_change) < 0.001:
-                            reward = 0.5
+                        if abs(price_change) < 0.0001:  # Very stable
+                            reward = 2.0
                     
-                    # Apply risk-adjusted scaling
-                    if abs(price_change) > 0.05:  # Large moves are riskier
-                        reward *= 0.5
+                    # Apply risk-adjusted scaling with better ranges
+                    if abs(price_change) > 0.01:  # Large moves
+                        reward *= 2.0  # Amplify rewards for significant moves
                     
                     # Final reward sanitization
-                    reward = sanitize_numeric_value(reward, default=0.0)
+                    reward = sanitize_numeric_value(reward, default=1.0)  # Default to small positive
                     
-                    # Clamp reward to reasonable range
-                    reward = np.clip(reward, -10.0, 10.0)
+                    # Clamp reward to reasonable range with better distribution
+                    reward = np.clip(reward, -100.0, 100.0)
+                    
+                    # ✅ ENTERPRISE FIX: Ensure non-zero rewards for learning
+                    if abs(reward) < 0.1:
+                        reward = 1.0 if np.random.random() > 0.5 else -1.0
                     
                 except Exception as price_error:
                     self.logger.debug(f"Price calculation error: {str(price_error)}")

@@ -713,7 +713,7 @@ class EnterpriseMLProtectionSystem:
             
             # Normality test
             try:
-                _, p_value = shapiro(data.sample(min(5000, len(data))))
+                _, p_value = shapiro(data.copy()  # Enterprise: Use full dataset)))
                 is_normal = p_value > 0.05
             except:
                 is_normal = False

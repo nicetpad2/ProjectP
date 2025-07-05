@@ -1,0 +1,2 @@
+{"timestamp": "2025-07-04T08:48:31.148895", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f Advanced feature selection failed: name 'X' is not defined", "category": "Warning", "process_id": null, "session_id": "20250704_084342"}
+{"timestamp": "2025-07-04T14:06:40.690114", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\ud83d\udea8 Critical resource usage", "category": "Enhanced80RM", "process_id": null, "session_id": "20250704_084342", "data": {"cpu": 92.1, "memory": 15.1}}

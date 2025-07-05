@@ -424,7 +424,7 @@ class ProductionFeatureSelector:
         n_features = best_params.get('n_features', 8)
         
         # Get top features from SHAP
-        shap_sample = X.sample(min(800, len(X)), random_state=42)
+        shap_sample = X.copy()  # Enterprise: Use full dataset
         y_sample = y.loc[shap_sample.index]
         shap_results = self._efficient_shap_analysis(shap_sample, y_sample)
         

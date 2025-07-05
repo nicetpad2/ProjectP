@@ -1252,7 +1252,7 @@ class EnterpriseMLProtectionSystem:
             # Normality test (with fallback)
             try:
                 if self.scipy_available:
-                    _, p_value = shapiro(data.sample(min(5000, len(data))))
+                    _, p_value = shapiro(data.copy()  # Enterprise: Use full dataset)))
                     is_normal = p_value > 0.05
                 else:
                     # Simple normality check using skewness and kurtosis
