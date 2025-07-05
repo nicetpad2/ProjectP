@@ -288,7 +288,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e)
+                    self.progress_manager.fail_progress(main_progress, str(e))
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -342,7 +342,7 @@ class AdvancedEnterpriseFeatureSelector:
         self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
         # Run standard selection on full data with enterprise resource management
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -473,7 +473,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e)
+                    self.progress_manager.fail_progress(main_progress, str(e))
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -527,7 +527,7 @@ class AdvancedEnterpriseFeatureSelector:
         self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
         # Run standard selection on full data with enterprise resource management
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -658,7 +658,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e)
+                    self.progress_manager.fail_progress(main_progress, str(e))
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -712,7 +712,7 @@ class AdvancedEnterpriseFeatureSelector:
         self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
         # Run standard selection on full data with enterprise resource management
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -843,7 +843,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e)
+                    self.progress_manager.fail_progress(main_progress, str(e))
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
@@ -897,7 +897,7 @@ class AdvancedEnterpriseFeatureSelector:
         self.logger.info(f"✅ Enterprise compliance: Using ALL {len(X_sample):,} rows from datacsv/")
         
         # Run standard selection on full data with enterprise resource management
-        return self._run_standard_selection(X_sample, y_sample, original_size=len(X)
+        return self._run_standard_selection(X_sample, y_sample, original_size=len(X))
     
     def _run_standard_selection(self, X: pd.DataFrame, y: pd.Series, original_size: int = None) -> Tuple[List[str], Dict[str, Any]]:
         """Run the standard advanced selection process"""
@@ -1028,7 +1028,7 @@ class AdvancedEnterpriseFeatureSelector:
         except Exception as e:
             if main_progress:
                 try:
-                    self.progress_manager.fail_progress(main_progress, str(e)
+                    self.progress_manager.fail_progress(main_progress, str(e))
                 except Exception as progress_error:
                     self.logger.warning(f"⚠️ Progress manager error during main failure: {progress_error}")
             self.logger.error(f"❌ Advanced feature selection failed: {e}")
