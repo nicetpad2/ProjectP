@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-04T05:28:57.226525", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f Optuna optimization failed: The `low` value must be smaller than or equal to the `high` value (low=8, high=3)., using top features", "category": "Warning", "process_id": null, "session_id": "20250704_052857"}

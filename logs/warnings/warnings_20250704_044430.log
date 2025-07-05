@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-04T04:44:31.670087", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f SHAP analysis failed: only length-1 arrays can be converted to Python scalars, using feature scores", "category": "Warning", "process_id": null, "session_id": "20250704_044430"}

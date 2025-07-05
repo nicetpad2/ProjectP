@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-04T04:01:04.940460", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Model training failed: Random ops require a seed to be set when determinism is enabled. Please set a seed before running the op, e.g. by calling tf.random.set_seed(1).", "category": "Error", "process_id": null, "session_id": "20250704_034721"}

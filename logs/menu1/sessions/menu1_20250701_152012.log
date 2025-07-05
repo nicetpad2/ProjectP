@@ -1,3 +1,0 @@
-2025-07-01 15:20:12 | INFO | Menu 1 Full Pipeline Session Started - menu1_20250701_152012
-2025-07-01 15:36:23 | INFO | Menu 1 Session Completed - Duration: 0:16:11.109532, Success Rate: 0.0%
-2025-07-01 15:36:23 | INFO | Final Results: {'execution_status': 'success', 'auc_score': 0.0, 'enterprise_compliant': True, 'total_features': 0, 'pipeline_duration': 'N/A'}

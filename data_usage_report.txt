@@ -1,6 +1,0 @@
-DATA USAGE ANALYSIS REPORT
-========================================
-
-Original data rows: 1,890,141
-Final ML data rows: 1,503
-Data utilization: 0.08%

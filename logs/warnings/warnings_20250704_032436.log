@@ -1,2 +1,0 @@
-{"timestamp": "2025-07-04T03:27:31.207893", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f 1,771,969 dates could not be parsed, using sequential timestamps", "category": "Warning", "process_id": null, "session_id": "20250704_032436"}
-{"timestamp": "2025-07-04T03:27:31.209783", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f Too many invalid dates (1,771,969/1,771,969), using full sequential timestamps", "category": "Warning", "process_id": null, "session_id": "20250704_032436"}

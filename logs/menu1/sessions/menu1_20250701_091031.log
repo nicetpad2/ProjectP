@@ -1,5 +1,0 @@
-2025-07-01 09:10:31 | INFO | Menu 1 Full Pipeline Session Started - menu1_20250701_091031
-2025-07-01 09:10:31 | INFO | Menu 1 Full Pipeline Session Started - menu1_20250701_091031
-2025-07-01 09:10:31 | INFO | Step 1: Loading REAL Market Data - ⚡ RUNNING - Loading from datacsv/ folder only
-2025-07-01 09:10:38 | INFO | SUCCESS in Data Loading: Successfully loaded 1,553 rows of real market data
-2025-07-01 09:10:38 | INFO | Metrics: {'rows': 1553, 'columns': 6}

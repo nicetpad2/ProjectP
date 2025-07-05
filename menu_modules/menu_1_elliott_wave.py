@@ -601,6 +601,121 @@ class Menu1ElliottWaveFixed:
                 'quality_validation': {'quality_score': 85.0}
             }
             performance_results = self.performance_analyzer.analyze_performance(pipeline_results)
+            self._show_current_resource_usage()
+            self._end_stage_resource_monitoring('performance_analysis', {'analysis_completed': True})
+            
+            # Step 8: Advanced Trading Signal Generation 🎯
+            self._start_stage_resource_monitoring('signal_generation', 'Step 8: Generating advanced trading signals')
+            self.safe_logger.info("🎯 Step 8: Generating advanced trading signals...")
+            
+            try:
+                # Import and initialize the advanced signal generator
+                from elliott_wave_modules.advanced_trading_signals import AdvancedTradingSignalGenerator
+                
+                # Prepare models for signal generation
+                trained_models = {}
+                if cnn_lstm_results and 'model' in cnn_lstm_results:
+                    trained_models['cnn_lstm'] = cnn_lstm_results['model']
+                if dqn_results and 'model' in dqn_results:
+                    trained_models['dqn'] = dqn_results['model']
+                
+                # Initialize signal generator
+                signal_generator = AdvancedTradingSignalGenerator(
+                    models=trained_models,
+                    config={
+                        'min_confidence_threshold': 0.75,  # Higher threshold for enterprise
+                        'max_position_size': 0.02,
+                        'min_risk_reward_ratio': 2.0,  # Conservative 2:1 ratio
+                        'elliott_wave_weight': 0.35,
+                        'technical_indicators_weight': 0.25,
+                        'ml_prediction_weight': 0.30,
+                        'market_regime_weight': 0.10
+                    },
+                    logger=self.safe_logger
+                )
+                
+                # Generate current signal using latest data
+                current_price = data['close'].iloc[-1] if 'close' in data.columns else 0
+                current_signal = signal_generator.generate_signal(
+                    data=data.tail(200),  # Use last 200 rows for analysis
+                    current_price=current_price,
+                    timestamp=datetime.now()
+                )
+                
+                # Generate signals for the last 50 data points to show signal history
+                signal_history = []
+                for i in range(-50, 0):
+                    try:
+                        hist_data = data.iloc[:len(data)+i]
+                        if len(hist_data) > 100:  # Ensure enough data
+                            hist_price = hist_data['close'].iloc[-1]
+                            hist_signal = signal_generator.generate_signal(
+                                data=hist_data.tail(200),
+                                current_price=hist_price,
+                                timestamp=datetime.now() + timedelta(minutes=i)
+                            )
+                            if hist_signal:
+                                signal_history.append(hist_signal)
+                    except:
+                        continue
+                
+                # Calculate signal performance metrics
+                signal_performance = self._calculate_signal_performance(signal_history, data)
+                
+                # Create comprehensive signal results
+                signal_results = {
+                    'current_signal': {
+                        'type': current_signal.signal_type.value if current_signal else 'HOLD',
+                        'strength': current_signal.strength.name if current_signal else 'WEAK',
+                        'confidence': current_signal.confidence if current_signal else 0.0,
+                        'price': current_signal.price if current_signal else current_price,
+                        'target_price': current_signal.target_price if current_signal else current_price,
+                        'stop_loss': current_signal.stop_loss if current_signal else current_price,
+                        'risk_reward_ratio': current_signal.risk_reward_ratio if current_signal else 0.0,
+                        'position_size': current_signal.position_size if current_signal else 0.0,
+                        'elliott_wave_pattern': current_signal.elliott_wave_pattern if current_signal else 'UNKNOWN',
+                        'market_regime': current_signal.market_regime if current_signal else 'UNKNOWN',
+                        'reasoning': current_signal.reasoning if current_signal else 'No signal generated'
+                    } if current_signal else {
+                        'type': 'HOLD',
+                        'strength': 'WEAK',
+                        'confidence': 0.0,
+                        'reasoning': 'No signal meets confidence threshold'
+                    },
+                    'signal_history': [
+                        {
+                            'timestamp': sig.timestamp.isoformat(),
+                            'type': sig.signal_type.value,
+                            'confidence': sig.confidence,
+                            'price': sig.price,
+                            'target': sig.target_price,
+                            'stop_loss': sig.stop_loss
+                        } for sig in signal_history[-10:]  # Last 10 signals
+                    ],
+                    'signal_performance': signal_performance,
+                    'signal_summary': signal_generator.get_signal_summary()
+                }
+                
+                # Store signal results
+                self.results['trading_signals'] = signal_results
+                
+                # Display current signal
+                self._display_current_signal(current_signal)
+                
+                self.safe_logger.info(f"✅ Generated trading signals - Current: {signal_results['current_signal']['type']}")
+                self._end_stage_resource_monitoring('signal_generation', {
+                    'current_signal': signal_results['current_signal']['type'],
+                    'confidence': signal_results['current_signal']['confidence'],
+                    'signals_in_history': len(signal_history)
+                })
+                
+            except Exception as signal_error:
+                self.safe_logger.error(f"❌ Signal generation failed: {signal_error}")
+                self.results['trading_signals'] = {
+                    'error': str(signal_error),
+                    'current_signal': {'type': 'HOLD', 'confidence': 0.0, 'reasoning': 'Signal generation failed'}
+                }
+                self._end_stage_resource_monitoring('signal_generation', {'error': True})
             
             # Store all results and fix AUC extraction
             # ✅ FIX: Extract AUC from evaluation_results and add to main results
@@ -776,6 +891,26 @@ class Menu1ElliottWaveFixed:
         print(f"  • Selected Features: {data_info.get('features_count', 0)}")
         print()
         
+        # Display Trading Signals Section
+        trading_signals = self.results.get('trading_signals', {})
+        if trading_signals and 'current_signal' in trading_signals:
+            current_signal = trading_signals['current_signal']
+            signal_performance = trading_signals.get('signal_performance', {})
+            
+            print("🎯 TRADING SIGNALS ANALYSIS:")
+            print(f"  • Current Signal: {current_signal.get('type', 'UNKNOWN')}")
+            print(f"  • Signal Confidence: {current_signal.get('confidence', 0):.1%}")
+            if current_signal.get('type') != 'HOLD':
+                print(f"  • Target Price: ${current_signal.get('target_price', 0):.2f}")
+                print(f"  • Risk/Reward: {current_signal.get('risk_reward_ratio', 0):.2f}:1")
+            
+            # Signal Performance Summary
+            if signal_performance and 'win_rate' in signal_performance:
+                print(f"  • Signal Win Rate: {signal_performance.get('win_rate', 0):.1%}")
+                print(f"  • Avg Return: {signal_performance.get('avg_return', 0):.2%}")
+                print(f"  • Total Signals: {signal_performance.get('total_signals', 0)}")
+            print()
+
         print("🏢 ENTERPRISE COMPLIANCE:")
         compliance_items = [
             ("Real Data Only", compliance.get('real_data_only', False)),
@@ -959,7 +1094,147 @@ class Menu1ElliottWaveFixed:
             except:
                 pass
         return False
-
+    
+    def _display_current_signal(self, signal):
+        """แสดงสัญญาณการซื้อขายปัจจุบันแบบสวยงาม"""
+        print("\n" + "="*80)
+        print("🎯 ADVANCED TRADING SIGNAL - REAL-TIME ANALYSIS")
+        print("="*80)
+        
+        if not signal:
+            print("⚠️  NO SIGNAL GENERATED")
+            print("📊 Reason: Signal confidence below minimum threshold")
+            print("💡 Recommendation: HOLD current position")
+            return
+        
+        # Signal type with color coding
+        signal_emoji = {
+            'BUY': '🟢',
+            'SELL': '🔴', 
+            'HOLD': '🟡',
+            'STRONG_BUY': '🟢🟢',
+            'STRONG_SELL': '🔴🔴'
+        }
+        
+        emoji = signal_emoji.get(signal.signal_type.value, '⚪')
+        
+        print(f"{emoji} SIGNAL TYPE: {signal.signal_type.value}")
+        print(f"⚡ STRENGTH: {signal.strength.name} ({signal.strength.value}/5)")
+        print(f"🎯 CONFIDENCE: {signal.confidence:.1%}")
+        print(f"💰 CURRENT PRICE: ${signal.price:.2f}")
+        
+        if signal.signal_type.value in ['BUY', 'STRONG_BUY']:
+            print(f"🎯 TARGET PRICE: ${signal.target_price:.2f}")
+            print(f"🛡️ STOP LOSS: ${signal.stop_loss:.2f}")
+            print(f"📊 RISK/REWARD: {signal.risk_reward_ratio:.2f}:1")
+            print(f"📈 POSITION SIZE: {signal.position_size:.2%} of capital")
+            
+        elif signal.signal_type.value in ['SELL', 'STRONG_SELL']:
+            print(f"🎯 TARGET PRICE: ${signal.target_price:.2f}")
+            print(f"🛡️ STOP LOSS: ${signal.stop_loss:.2f}")
+            print(f"📊 RISK/REWARD: {signal.risk_reward_ratio:.2f}:1")
+            print(f"📈 POSITION SIZE: {signal.position_size:.2%} of capital")
+        
+        print(f"\n🌊 ELLIOTT WAVE: {signal.elliott_wave_pattern}")
+        print(f"🏛️ MARKET REGIME: {signal.market_regime}")
+        print(f"🧠 REASONING: {signal.reasoning}")
+        
+        # Technical indicators summary
+        if hasattr(signal, 'technical_indicators') and signal.technical_indicators:
+            print(f"\n📊 TECHNICAL INDICATORS:")
+            for indicator, value in signal.technical_indicators.items():
+                if isinstance(value, (int, float)):
+                    print(f"  • {indicator}: {value:.3f}")
+                else:
+                    print(f"  • {indicator}: {value}")
+        
+        print("="*80)
+    
+    def _calculate_signal_performance(self, signal_history: List, data: pd.DataFrame) -> Dict:
+        """คำนวณประสิทธิภาพของสัญญาณการซื้อขาย"""
+        try:
+            if not signal_history or len(signal_history) < 2:
+                return {
+                    'total_signals': len(signal_history),
+                    'profitable_signals': 0,
+                    'win_rate': 0.0,
+                    'avg_return': 0.0,
+                    'max_drawdown': 0.0,
+                    'sharpe_ratio': 0.0,
+                    'note': 'Insufficient signal history for performance analysis'
+                }
+            
+            # Calculate basic performance metrics
+            total_signals = len(signal_history)
+            buy_signals = [s for s in signal_history if s.signal_type.value in ['BUY', 'STRONG_BUY']]
+            sell_signals = [s for s in signal_history if s.signal_type.value in ['SELL', 'STRONG_SELL']]
+            
+            # Simulate signal performance (simplified)
+            returns = []
+            for i, signal in enumerate(signal_history[:-1]):
+                if signal.signal_type.value in ['BUY', 'STRONG_BUY', 'SELL', 'STRONG_SELL']:
+                    # Calculate hypothetical return based on next signal or price movement
+                    entry_price = signal.price
+                    if i + 1 < len(signal_history):
+                        exit_price = signal_history[i + 1].price
+                    else:
+                        exit_price = data['close'].iloc[-1] if 'close' in data.columns else entry_price
+                    
+                    if signal.signal_type.value in ['BUY', 'STRONG_BUY']:
+                        return_pct = (exit_price - entry_price) / entry_price
+                    else:  # SELL signals
+                        return_pct = (entry_price - exit_price) / entry_price
+                    
+                    returns.append(return_pct)
+            
+            if not returns:
+                return {
+                    'total_signals': total_signals,
+                    'profitable_signals': 0,
+                    'win_rate': 0.0,
+                    'avg_return': 0.0,
+                    'max_drawdown': 0.0,
+                    'sharpe_ratio': 0.0,
+                    'note': 'No actionable signals for performance calculation'
+                }
+            
+            # Performance calculations
+            profitable_signals = len([r for r in returns if r > 0])
+            win_rate = profitable_signals / len(returns) if returns else 0
+            avg_return = np.mean(returns) if returns else 0
+            
+            # Calculate max drawdown
+            cumulative_returns = np.cumsum(returns)
+            running_max = np.maximum.accumulate(cumulative_returns)
+            drawdowns = cumulative_returns - running_max
+            max_drawdown = np.min(drawdowns) if len(drawdowns) > 0 else 0
+            
+            # Calculate Sharpe ratio (simplified)
+            return_std = np.std(returns) if len(returns) > 1 else 0
+            sharpe_ratio = (avg_return / return_std) if return_std > 0 else 0
+            
+            return {
+                'total_signals': total_signals,
+                'actionable_signals': len(returns),
+                'profitable_signals': profitable_signals,
+                'win_rate': win_rate,
+                'avg_return': avg_return,
+                'max_drawdown': max_drawdown,
+                'sharpe_ratio': sharpe_ratio,
+                'total_return': sum(returns),
+                'best_signal': max(returns) if returns else 0,
+                'worst_signal': min(returns) if returns else 0,
+                'buy_signals': len(buy_signals),
+                'sell_signals': len(sell_signals)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error calculating signal performance: {e}")
+            return {
+                'total_signals': len(signal_history) if signal_history else 0,
+                'error': str(e),
+                'note': 'Performance calculation failed'
+            }
 
 # Alias for backward compatibility
 Menu1ElliottWave = Menu1ElliottWaveFixed

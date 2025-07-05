@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-04T05:50:08.760336", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Some menu modules could not be imported", "category": "Menu_Import", "process_id": null, "session_id": "20250704_054916", "data": {"failed_menus": ["Menu 1 Elliott Wave"]}}

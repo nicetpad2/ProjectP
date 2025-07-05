@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-02T06:43:09.547983", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Data validation failed: month must be in 1..12: 2025-63-05 00:00:00, at position 0", "category": "Error", "process_id": null, "session_id": "20250702_064300"}

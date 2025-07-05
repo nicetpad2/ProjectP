@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-05T00:11:44.667986", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Enterprise feature selection failed: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()", "category": "Error", "process_id": null, "session_id": "20250705_001143"}

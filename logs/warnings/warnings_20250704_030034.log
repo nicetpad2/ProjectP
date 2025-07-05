@@ -1,2 +1,0 @@
-{"timestamp": "2025-07-04T03:01:36.896279", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "Advanced selector failed: 3, using production selector", "category": "Optimization_Engine", "process_id": null, "session_id": "20250704_030034"}
-{"timestamp": "2025-07-04T03:02:08.687778", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f Advanced feature selection failed: 6", "category": "Warning", "process_id": null, "session_id": "20250704_030034"}
