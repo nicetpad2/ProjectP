@@ -358,6 +358,9 @@ class FixedAdvancedFeatureSelector:
     def _full_selection_fixed(self, X: pd.DataFrame, y: pd.Series) -> Tuple[List[str], Dict[str, Any]]:
         """Full advanced selection with CPU control"""
         
+        # Initialize timing
+        start_time = datetime.now()
+        
         # Create main progress tracker
         main_progress = None
         if self.progress_manager:

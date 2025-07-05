@@ -117,6 +117,13 @@ try:
 except ImportError:
     ENTERPRISE_FULL_DATA_SELECTOR_AVAILABLE = False
 
+# Import Fixed Advanced Feature Selector as primary choice
+try:
+    from fixed_advanced_feature_selector import FixedAdvancedFeatureSelector
+    FIXED_FEATURE_SELECTOR_AVAILABLE = True
+except ImportError:
+    FIXED_FEATURE_SELECTOR_AVAILABLE = False
+
 # Import Advanced Feature Selector as fallback
 try:
     from advanced_feature_selector import AdvancedEnterpriseFeatureSelector
@@ -304,8 +311,18 @@ class Menu1ElliottWaveFixed:
                 except Exception as e:
                     self.beautiful_logger.log_warning(f"⚠️ Enterprise Full Data Selector failed: {e}")
                     
+                    # Fallback to Fixed Advanced Feature Selector (PRIORITY)
+                    if FIXED_FEATURE_SELECTOR_AVAILABLE:
+                        self.feature_selector = FixedAdvancedFeatureSelector(
+                            target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
+                            max_features=self.config.get('elliott_wave', {}).get('max_features', 25),
+                            max_cpu_percent=80.0,
+                            logger=self.safe_logger
+                        )
+                        self.beautiful_logger.log_info("✅ Fixed Advanced Feature Selector initialized (CPU-controlled, variable scope fixed)")
+                    
                     # Fallback to Advanced Feature Selector
-                    if ADVANCED_FEATURE_SELECTOR_AVAILABLE:
+                    elif ADVANCED_FEATURE_SELECTOR_AVAILABLE:
                         self.feature_selector = AdvancedEnterpriseFeatureSelector(
                             target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
                             max_features=self.config.get('elliott_wave', {}).get('max_features', 25),
@@ -325,7 +342,20 @@ class Menu1ElliottWaveFixed:
                         )
                         self.beautiful_logger.log_info("✅ Standard Feature Selector initialized (final fallback)")
             
-            # Fallback if Enterprise Full Data Selector not available
+            # Fallback priority: Fixed > Advanced > Standard
+            elif FIXED_FEATURE_SELECTOR_AVAILABLE:
+                try:
+                    self.feature_selector = FixedAdvancedFeatureSelector(
+                        target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
+                        max_features=self.config.get('elliott_wave', {}).get('max_features', 25),
+                        max_cpu_percent=80.0,
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Fixed Advanced Feature Selector initialized (CPU-controlled)")
+                except Exception as e:
+                    self.beautiful_logger.log_warning(f"⚠️ Fixed Feature Selector failed: {e}")
+                    
+            # Fallback if Fixed Feature Selector not available
             elif ADVANCED_FEATURE_SELECTOR_AVAILABLE:
                 try:
                     self.feature_selector = AdvancedEnterpriseFeatureSelector(
