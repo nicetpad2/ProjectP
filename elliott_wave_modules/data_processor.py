@@ -95,9 +95,16 @@ class ElliottWaveDataProcessor:
             self.safe_logger.info(f"📊 {operation}: {df_name} size unchanged at {after_size:,} rows")
         
     def load_real_data(self) -> Optional[pd.DataFrame]:
-        """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น"""
+        """โหลดข้อมูลจริงจากโฟลเดอร์ datacsv เท่านั้น - NO LIMITS MODE"""
         try:
-            self.logger.info("📊 Loading REAL market data from datacsv/...")
+            # 🎯 CHECK FULL POWER CONFIG - LOAD ALL DATA, NO LIMITS
+            load_all_data = self.config.get('data_processor', {}).get('load_all_data', True)
+            sampling_disabled = self.config.get('data_processor', {}).get('sampling_disabled', True)
+            
+            if load_all_data and sampling_disabled:
+                self.logger.info("🚀 FULL POWER MODE: Loading ALL data, NO sampling, NO limits")
+            else:
+                self.logger.info("📊 Loading REAL market data from datacsv/...")
             
             # Find CSV files in datacsv directory
             csv_files = list(self.datacsv_path.glob("*.csv"))
@@ -1328,5 +1335,3 @@ class ElliottWaveDataProcessor:
         except Exception as e:
             self.logger.error(f"❌ Feature optimization failed: {str(e)}")
             return df
-
-# ...existing code...

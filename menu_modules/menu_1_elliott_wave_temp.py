@@ -110,6 +110,14 @@ from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
 from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
 
+# 🎯 80% RESOURCE CONTROLLER - CONTROLLED RESOURCE USAGE + FULL DATA
+try:
+    from resource_controller_80_percent import initialize_80_percent_controller, ResourceController80Percent
+    RESOURCE_CONTROLLER_80_AVAILABLE = True
+except ImportError:
+    RESOURCE_CONTROLLER_80_AVAILABLE = False
+    print("⚠️ 80% Resource Controller not available, using standard resource management")
+
 # 🚀 ULTIMATE FULL POWER CONFIGURATION - NO LIMITS
 try:
     from ultimate_full_power_config import ULTIMATE_FULL_POWER_CONFIG, apply_full_power_mode
@@ -185,10 +193,26 @@ class Menu1ElliottWaveFixed:
         # Use safe logger for all operations
         self.logger = self.safe_logger
         
-        # Initialize Intelligent Resource Management if available
-        if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager:
+        # 🎯 Initialize 80% Resource Controller - CONTROLLED USAGE + FULL DATA
+        self.resource_controller_80 = None
+        if RESOURCE_CONTROLLER_80_AVAILABLE:
             try:
-                self.safe_logger.info("🧠 Initializing Intelligent Resource Management...")
+                self.safe_logger.info("🎯 Initializing 80% Resource Controller...")
+                self.resource_controller_80 = initialize_80_percent_controller(self.safe_logger)
+                # Apply 80% limits but keep full data processing
+                controller_config = self.resource_controller_80.apply_80_percent_limits()
+                # Merge with existing config
+                self.config.update(controller_config)
+                self.safe_logger.info("✅ 80% Resource Controller ACTIVATED")
+                self.safe_logger.info("📊 Policy: 80% Resources + 100% Data Usage")
+            except Exception as e:
+                self.safe_logger.warning(f"⚠️ Could not initialize 80% resource controller: {e}")
+                self.resource_controller_80 = None
+        
+        # Initialize Intelligent Resource Management if available (fallback)
+        if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager and not self.resource_controller_80:
+            try:
+                self.safe_logger.info("🧠 Initializing Intelligent Resource Management (fallback)...")
                 self.resource_manager = initialize_intelligent_resources(
                     allocation_percentage=0.8,
                     enable_monitoring=True
@@ -1292,35 +1316,15 @@ class Menu1ElliottWaveFixed:
             logger=self.safe_logger
         )
         self.beautiful_logger.log_info("✅ Standard Feature Selector initialized (ENHANCED)")
-
-# Alias for backward compatibility
-Menu1ElliottWave = Menu1ElliottWaveFixed
-
-# Function for menu system import
-def menu_1_elliott_wave():
-    """
-    Entry point function for Menu 1 Elliott Wave
-    Returns an instance of the Menu1ElliottWaveFixed class
-    """
-    return Menu1ElliottWaveFixed()
-
-
-if __name__ == "__main__":
-    # Test the fixed menu
-    print("🧪 Testing Elliott Wave Menu 1 (FIXED VERSION)")
-    print("=" * 60)
     
-    try:
-        menu = Menu1ElliottWaveFixed()
-        print("✅ Menu initialized successfully")
-        
-        results = menu.run_full_pipeline()
-        print("✅ Pipeline completed")
-        
-        execution_status = results.get('execution_status', 'unknown')
-        print(f"📊 Status: {execution_status}")
-        
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        import traceback
-        traceback.print_exc()
+    def _apply_80_percent_throttling(self, stage_name: str):
+        """ใช้การควบคุม throttling สำหรับ 80% resource limit"""
+        if self.resource_controller_80:
+            # ตรวจสอบและปรับ throttling
+            throttle_needed = self.resource_controller_80.check_and_throttle()
+            
+            if throttle_needed:
+                delay = self.resource_controller_80.get_processing_delay()
+                if delay > 0:
+                    self.safe_logger.info(f"⏸️ {stage_name}: Applying {delay:.1f}s delay for 80% resource control")
+                    import time

@@ -318,9 +318,11 @@ class Enhanced80PercentResourceManager:
                 'parallel_envs': min(4, base_config['cpu']['allocated_threads'])
             },
             'data_processing': {
-                'chunk_size': 5000,  # Larger chunks for 80% usage
-                'max_features': 50,   # More features
+                'chunk_size': 0,      # NO CHUNKING - LOAD ALL DATA
+                'max_features': 100,  # Maximum features for full data
                 'use_full_dataset': True,  # Use full dataset
+                'load_all_data': True,     # ENTERPRISE COMPLIANCE
+                'no_row_limits': True,     # NO ROW LIMITS
                 'parallel_processing': True,
                 'n_jobs': base_config['optimization']['recommended_workers']
             },

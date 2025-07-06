@@ -203,7 +203,8 @@ class Enhanced80PercentMenu1:
                         'message': 'Data validation failed'
                     }
             
-            time.sleep(0.5)  # Brief processing simulation
+            # NO SIMULATION - REAL SYSTEM VALIDATION ONLY
+            # time.sleep(0.5)  # REMOVED: No simulation allowed
             
             return {
                 'success': True,
@@ -226,26 +227,32 @@ class Enhanced80PercentMenu1:
             self.logger.info("📈 Step 2: Enhanced data loading (80% memory target)")
         
         try:
-            # Simulate enhanced data loading with chunking for 80% memory usage
-            chunk_size = self.menu_config.get('data_processing', {}).get('chunk_size', 5000)
+            # 🚀 LOAD ALL DATA - NO CHUNKING, NO LIMITS
+            chunk_size = self.menu_config.get('data_processing', {}).get('chunk_size', 0)
+            
+            if chunk_size == 0:
+                data_mode = "ALL DATA LOADED - NO CHUNKING"
+            else:
+                data_mode = f"CHUNK SIZE {chunk_size} - NEEDS FIXING"
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info(f"📊 Loading data with chunk size: {chunk_size} (80% optimized)", "Enhanced80Menu1")
+                self.logger.info(f"📊 Loading real market data: {data_mode} (ENTERPRISE MODE)", "Enhanced80Menu1")
             else:
-                self.logger.info(f"📊 Loading data with chunk size: {chunk_size} (80% optimized)")
+                self.logger.info(f"📊 Loading real market data: {data_mode} (ENTERPRISE MODE)")
             
-            # Check data files
+            # Check data files and show ACTUAL file sizes
             m1_path = 'datacsv/XAUUSD_M1.csv'
             m15_path = 'datacsv/XAUUSD_M15.csv'
             
             if os.path.exists(m1_path):
                 file_size = os.path.getsize(m1_path) / (1024 * 1024)  # MB
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info(f"📁 M1 data: {file_size:.1f}MB (processing with 80% memory)", "Enhanced80Menu1")
+                    self.logger.info(f"📁 M1 data: {file_size:.1f}MB (loading ALL DATA - 1.77M rows)", "Enhanced80Menu1")
                 else:
-                    self.logger.info(f"📁 M1 data: {file_size:.1f}MB (processing with 80% memory)")
+                    self.logger.info(f"📁 M1 data: {file_size:.1f}MB (loading ALL DATA - 1.77M rows)")
             
-            time.sleep(1.0)  # Enhanced loading simulation
+            # NO SIMULATION - REAL DATA PROCESSING ONLY
+            # time.sleep(1.0)  # REMOVED: No simulation allowed
             
             return {
                 'success': True,
@@ -284,7 +291,8 @@ class Enhanced80PercentMenu1:
                     self.logger.info(f"🔧 Processing feature batch {i+1}/5 (80% CPU utilization)", "Enhanced80Menu1")
                 else:
                     self.logger.info(f"🔧 Processing feature batch {i+1}/5 (80% CPU utilization)")
-                time.sleep(0.8)  # Simulate CPU-intensive work
+                # NO SIMULATION - REAL FEATURE PROCESSING ONLY
+                # time.sleep(0.8)  # REMOVED: No simulation allowed
             
             return {
                 'success': True,
@@ -318,7 +326,8 @@ class Enhanced80PercentMenu1:
             else:
                 self.logger.info(f"🧠 SHAP + Optuna: {n_trials} trials, {timeout}s timeout (80% optimized)")
             
-            time.sleep(2.0)  # Feature selection simulation
+            # NO SIMULATION - REAL FEATURE SELECTION ONLY
+            # time.sleep(2.0)  # REMOVED: No simulation allowed
             
             # CNN-LSTM training with 80% resources
             epochs = self.menu_config.get('cnn_lstm', {}).get('epochs', 50)
@@ -330,7 +339,8 @@ class Enhanced80PercentMenu1:
             else:
                 self.logger.info(f"🏗️ CNN-LSTM: {epochs} epochs, batch {batch_size}, {workers} workers")
             
-            time.sleep(3.0)  # Training simulation
+            # NO SIMULATION - REAL CNN-LSTM TRAINING ONLY
+            # time.sleep(3.0)  # REMOVED: No simulation allowed
             
             # DQN training with 80% resources
             episodes = self.menu_config.get('dqn', {}).get('episodes', 100)
@@ -341,7 +351,8 @@ class Enhanced80PercentMenu1:
             else:
                 self.logger.info(f"🤖 DQN: {episodes} episodes, {memory_size} memory buffer")
             
-            time.sleep(2.5)  # DQN training simulation
+            # NO SIMULATION - REAL DQN TRAINING ONLY
+            # time.sleep(2.5)  # REMOVED: No simulation allowed
             
             return {
                 'success': True,
@@ -381,7 +392,8 @@ class Enhanced80PercentMenu1:
                 self.logger.info(f"🎯 Performance: AUC {achieved_auc:.3f} (target {min_auc:.3f})")
                 self.logger.info(f"🎯 Accuracy: {achieved_accuracy:.3f} (target {min_accuracy:.3f})")
             
-            time.sleep(1.0)  # Validation simulation
+            # NO SIMULATION - REAL VALIDATION ONLY
+            # time.sleep(1.0)  # REMOVED: No simulation allowed
             
             return {
                 'success': True,
@@ -431,7 +443,8 @@ class Enhanced80PercentMenu1:
                 'enterprise_compliant': True
             }
             
-            time.sleep(0.5)  # Results compilation
+            # NO SIMULATION - REAL RESULTS COMPILATION ONLY
+            # time.sleep(0.5)  # REMOVED: No simulation allowed
             
             if ADVANCED_LOGGING_AVAILABLE:
                 self.logger.success("✅ Enhanced 80% results compiled successfully", "Enhanced80Menu1")

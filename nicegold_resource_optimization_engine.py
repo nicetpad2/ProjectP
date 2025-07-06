@@ -218,14 +218,15 @@ class ProductionFeatureSelector:
                 return selected_features, enhanced_results
                 
             except Exception as e:
-                # Fallback to efficient method if advanced fails
-                self.logger.warning(f"⚠️ Advanced feature selection failed: {e}")
-                self.logger.info("🔄 Falling back to efficient feature selection")
+                # 🚫 NO FALLBACK - ENTERPRISE COMPLIANCE
+                self.logger.error(f"❌ Advanced feature selection failed: {e}")
+                self.logger.error("� ENTERPRISE MODE: No fallback allowed - fixing error required")
                 
                 if progress_id:
-                    self.progress_manager.update_progress(progress_id, 1, "Fallback Feature Selection")
-                
-                return self._efficient_feature_selection_fallback(X, y, progress_id, start_time)
+                    self.progress_manager.fail_progress(progress_id, str(e))
+                    
+                # THROW EXCEPTION - NO FALLBACK IN PRODUCTION
+                raise RuntimeError(f"Enterprise Feature Selection Failed: {e}. NO FALLBACK ALLOWED.")
             
         except Exception as e:
             if progress_id:

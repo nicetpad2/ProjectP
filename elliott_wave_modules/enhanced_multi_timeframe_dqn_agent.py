@@ -221,6 +221,9 @@ class EnhancedMultiTimeframeDQNAgent:
             'drawdown_penalty': -0.5
         }
         
+        # Initialize PyTorch availability flag FIRST
+        self.pytorch_available = PYTORCH_AVAILABLE
+        
         # Initialize Networks (if PyTorch available)
         if PYTORCH_AVAILABLE:
             self.device = torch.device("cpu")  # Force CPU
@@ -232,10 +235,8 @@ class EnhancedMultiTimeframeDQNAgent:
             # Prioritized Replay Buffer
             self.memory = PrioritizedReplayBuffer(self.memory_size)
             
-            self.pytorch_available = True
             self.logger.info("✅ Enhanced PyTorch DQN networks initialized")
         else:
-            self.pytorch_available = False
             self.logger.warning("⚠️ PyTorch not available - using fallback agent")
             self._init_fallback_agent()
         

@@ -81,11 +81,11 @@ except ImportError:
     print("⚠️ Advanced Elliott Wave Analyzer not available")
 
 try:
-    from elliott_wave_modules.enhanced_dqn_agent import EnhancedDQNAgent
+    from elliott_wave_modules.enhanced_multi_timeframe_dqn_agent import EnhancedMultiTimeframeDQNAgent
     ENHANCED_DQN_AVAILABLE = True
 except ImportError:
     ENHANCED_DQN_AVAILABLE = False
-    print("⚠️ Enhanced DQN Agent not available")
+    print("⚠️ Enhanced Multi-Timeframe DQN Agent not available")
 
 
 class EnhancedMenu1ElliottWave:
@@ -163,8 +163,14 @@ class EnhancedMenu1ElliottWave:
             # 🚀 Advanced Elliott Wave Analyzer
             if ADVANCED_ELLIOTT_WAVE_AVAILABLE:
                 self.beautiful_logger.log_info("Initializing Advanced Elliott Wave Analyzer...")
+                elliott_config = {
+                    'timeframes': self.config.get('elliott_wave', {}).get('timeframes', ['1min', '5min', '15min', '1H']),
+                    'primary_timeframe': '1min',
+                    'wave_detection_sensitivity': 0.02,
+                    'fibonacci_tolerance': 0.05
+                }
                 self.advanced_elliott_analyzer = AdvancedElliottWaveAnalyzer(
-                    timeframes=self.config.get('elliott_wave', {}).get('timeframes', ['1m', '5m', '15m', '1h']),
+                    config=elliott_config,
                     logger=self.safe_logger
                 )
                 self.safe_logger.info("✅ Advanced Elliott Wave Analyzer initialized")
@@ -199,11 +205,14 @@ class EnhancedMenu1ElliottWave:
                     'elliott_wave_integration': True
                 }
                 
-                self.dqn_agent = EnhancedDQNAgent(
-                    config=enhanced_dqn_config,
-                    elliott_wave_analyzer=self.advanced_elliott_analyzer,
-                    logger=self.safe_logger
+                self.dqn_agent = EnhancedMultiTimeframeDQNAgent(
+                    state_size=enhanced_dqn_config.get('state_size', 50),
+                    action_size=enhanced_dqn_config.get('action_size', 3),
+                    learning_rate=enhanced_dqn_config.get('learning_rate', 0.001)
                 )
+                # เชื่อม elliott_wave_analyzer หลังจาก initialization
+                if hasattr(self.dqn_agent, 'elliott_wave_analyzer'):
+                    self.dqn_agent.elliott_wave_analyzer = self.advanced_elliott_analyzer
                 self.safe_logger.info("✅ Enhanced DQN Agent with Elliott Wave integration initialized")
                 
             else:

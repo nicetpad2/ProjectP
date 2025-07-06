@@ -133,48 +133,61 @@ def main():
             print("✅ Elliott Wave Menu 1 (Enterprise): READY")
             menu_available = True
             menu_type = "Elliott Wave Enterprise"
-        except Exception as e2:
-            print(f"⚠️ Original Elliott Wave menu failed: {e2}")
+        except Exception as e1:
+            print(f"⚠️ Real Elliott Wave menu failed: {e1}")
             
-            # Priority 3: Try Enhanced 80% Menu
-        try:
-            with suppress_all_output():
-                from menu_modules.enhanced_80_percent_menu_1 import Enhanced80PercentMenu1
-            
-            menu_1 = Enhanced80PercentMenu1(config, logger, resource_manager)
-            print("✅ Enhanced 80% Menu 1: READY")
-            menu_available = True
-            menu_type = "Enhanced 80% Resource"
-            
-        except Exception as e2:
-            print(f"⚠️ Enhanced 80% menu failed: {e2}")
-            
-            # Priority 4: Try High Memory Menu
+            # Priority 3: Try ENHANCED REAL Menu 1 Elliott Wave (PRODUCTION SYSTEM)
             try:
                 with suppress_all_output():
-                    from menu_modules.high_memory_menu_1 import HighMemoryMenu1
+                    from menu_modules.enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
                 
-                menu_1 = HighMemoryMenu1(config, logger, resource_manager)
-                print("✅ High Memory Menu 1: READY")
+                menu_1 = EnhancedMenu1ElliottWave()
+                print("✅ ENHANCED REAL Menu 1 Elliott Wave: READY (PRODUCTION)")
                 menu_available = True
-                menu_type = "High Memory"
+                menu_type = "Enhanced Real Elliott Wave Production"
                 
-            except Exception as e3:
-                print(f"⚠️ High Memory menu failed: {e3}")
+            except Exception as e2:
+                print(f"⚠️ Enhanced Real Menu 1 failed: {e2}")
                 
-                # Priority 5: Try Optimized Menu (Final fallback)
+                # Priority 4: Enhanced 80% Menu (LAST RESORT - SIMULATION ONLY)
                 try:
                     with suppress_all_output():
-                        from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
+                        from menu_modules.enhanced_80_percent_menu_1 import Enhanced80PercentMenu1
                     
-                    menu_1 = OptimizedMenu1ElliottWave(config, logger, resource_manager)
-                    print("✅ Optimized Menu 1: READY (fallback)")
+                    menu_1 = Enhanced80PercentMenu1(config, logger, resource_manager)
+                    print("⚠️ Enhanced 80% Menu 1: SIMULATION MODE ONLY")
                     menu_available = True
-                    menu_type = "Optimized Fallback"
+                    menu_type = "Enhanced 80% Resource (SIMULATION)"
+                
+                except Exception as e3:
+                    print(f"⚠️ Enhanced 80% menu failed: {e3}")
                     
-                except Exception as e4:
-                    print(f"❌ All menu systems failed: {e4}")
-                    menu_available = False
+                    # Priority 5: Try High Memory Menu
+                    try:
+                        with suppress_all_output():
+                            from menu_modules.high_memory_menu_1 import HighMemoryMenu1
+                        
+                        menu_1 = HighMemoryMenu1(config, logger, resource_manager)
+                        print("✅ High Memory Menu 1: READY")
+                        menu_available = True
+                        menu_type = "High Memory"
+                        
+                    except Exception as e4:
+                        print(f"⚠️ High Memory menu failed: {e4}")
+                        
+                        # Priority 6: Try Optimized Menu (Final fallback)
+                        try:
+                            with suppress_all_output():
+                                from menu_modules.optimized_menu_1_elliott_wave import OptimizedMenu1ElliottWave
+                            
+                            menu_1 = OptimizedMenu1ElliottWave(config, logger, resource_manager)
+                            print("✅ Optimized Menu 1: READY (fallback)")
+                            menu_available = True
+                            menu_type = "Optimized Fallback"
+                            
+                        except Exception as e5:
+                            print(f"❌ All menu systems failed: {e5}")
+                            menu_available = False
     
     # Check if any menu is available
     if not menu_available:
