@@ -323,53 +323,26 @@ class Menu1ElliottWaveFixed:
                 logger=self.safe_logger
             )
             
-            # Feature Selector with enhanced parameters - Try Ultimate Enterprise first
-            self.beautiful_logger.log_info("Initializing Ultimate Enterprise Feature Selector...")
+            # Feature Selector - REAL PROFIT ONLY (NO FALLBACKS)
+            self.beautiful_logger.log_info("Initializing Real Profit Feature Selector...")
             
-            # 🎯 Priority 1: ULTIMATE ENTERPRISE FEATURE SELECTOR (FULL POWER MODE)
-            if ULTIMATE_FEATURE_SELECTOR_AVAILABLE:
-                try:
-                    self.feature_selector = UltimateEnterpriseFeatureSelector(
-                        target_auc=0.80,       # INCREASED TO 80%
-                        max_features=100,     # INCREASED TO 100
-                        max_trials=1000,      # INCREASED TO 1000
-                        timeout_minutes=0,    # NO TIME LIMIT
-                        n_jobs=-1             # ALL CORES
-                    )
-                    self.beautiful_logger.log_info("🎯 ULTIMATE Enterprise Feature Selector initialized (FULL POWER, NO LIMITS)")
-                except Exception as e:
-                    self.beautiful_logger.log_warning(f"⚠️ Ultimate Feature Selector failed: {e}")
-                    
-                    # Fallback to Enterprise Full Data Feature Selector
-                    if ENTERPRISE_FULL_DATA_SELECTOR_AVAILABLE:
-                        self.feature_selector = EnterpriseFullDataFeatureSelector(
-                            target_auc=0.75,      # High target
-                            max_features=50,      # Increased features
-                            n_trials=500,         # More trials
-                            timeout=0             # No timeout
-                        )
-                        self.beautiful_logger.log_info("✅ Enterprise Full Data Selector initialized (FALLBACK)")
-                    else:
-                        # Final fallback chain
-                        self._initialize_fallback_selector()
-            
-            # 🚀 Priority 2: Enterprise Full Data Feature Selector (NO SAMPLING)
-            elif ENTERPRISE_FULL_DATA_SELECTOR_AVAILABLE:
-                try:
-                    self.feature_selector = EnterpriseFullDataFeatureSelector(
-                        target_auc=0.75,       # Increased target
-                        max_features=50,       # More features
-                        n_trials=500,          # More trials
-                        timeout=0              # No timeout
-                    )
-                    self.beautiful_logger.log_info("✅ Enterprise Full Data Selector initialized (FULL DATA, NO SAMPLING)")
-                except Exception as e:
-                    self.beautiful_logger.log_warning(f"⚠️ Enterprise Full Data Selector failed: {e}")
-                    self._initialize_fallback_selector()
-            
-            # Fallback priority: Fixed > Advanced > Standard
-            else:
-                self._initialize_fallback_selector()
+            # 🎯 REAL PROFIT FEATURE SELECTOR - NO ALTERNATIVES
+            try:
+                from real_profit_feature_selector import RealProfitFeatureSelector
+                self.feature_selector = RealProfitFeatureSelector(
+                    target_auc=0.70,       # Enterprise minimum
+                    max_features=30,       # Optimal for profit
+                    max_trials=500,        # Comprehensive optimization
+                    logger=self.safe_logger
+                )
+                self.beautiful_logger.log_info("✅ Real Profit Feature Selector initialized - ENTERPRISE GRADE")
+                self.beautiful_logger.log_info("🚫 NO FALLBACK - NO FAST MODE - NO COMPROMISE")
+                self.beautiful_logger.log_info("💰 OPTIMIZED FOR REAL TRADING PROFITS")
+            except Exception as e:
+                # NO FALLBACKS - FAIL FAST FOR ENTERPRISE COMPLIANCE
+                error_msg = f"🚫 CRITICAL FAILURE: Real Profit Feature Selector failed: {e}"
+                self.beautiful_logger.log_error(error_msg)
+                raise RuntimeError(f"ENTERPRISE COMPLIANCE FAILURE: {error_msg}. NO FALLBACKS ALLOWED IN PRODUCTION.")
             
             # Enterprise ML Protection System
             self.beautiful_logger.log_info("Initializing ML Protection System...")
@@ -543,39 +516,39 @@ class Menu1ElliottWaveFixed:
                 'target_count': len(y) if hasattr(y, '__len__') else 0
             }
             
-            # Step 4: Feature selection with Performance Optimization
-            self._start_stage_resource_monitoring('feature_selection', 'Step 4: Running optimized SHAP + Optuna feature selection')
-            self.safe_logger.info("🧠 Step 4: Running optimized SHAP + Optuna feature selection...")
+            # Step 4: Real Profit Feature Selection (NO FALLBACKS)
+            self._start_stage_resource_monitoring('feature_selection', 'Step 4: Real Profit Feature Selection - Enterprise Grade')
+            self.safe_logger.info("💰 Step 4: Real Profit Feature Selection - NO FALLBACKS...")
             
             try:
-                # Use performance optimization if available
-                if self.performance_integrator:
-                    self.safe_logger.info("⚡ Using optimized feature selection")
-                    selected_features, selection_results = self.performance_integrator.optimized_feature_selection(
-                        X, y, fallback_selector=self.feature_selector
-                    )
-                else:
-                    # Fallback to standard feature selection
-                    selected_features, selection_results = self.feature_selector.select_features(X, y)
+                # ENTERPRISE COMPLIANCE: Only Real Profit Feature Selector
+                selected_features, selection_results = self.feature_selector.select_features(X, y)
+                
+                # Validate results meet enterprise standards
+                if not selected_features or len(selected_features) == 0:
+                    raise ValueError("Feature selection failed - no features selected")
+                
+                auc_achieved = selection_results.get('best_auc', 0.0)
+                if auc_achieved < 0.70:
+                    raise ValueError(f"AUC {auc_achieved:.3f} below enterprise minimum 0.70")
                 
                 self._show_current_resource_usage()
-                selection_metrics = {'selected_features': len(selected_features) if selected_features else 0}
-                if selection_results and 'best_auc' in selection_results:
-                    selection_metrics['auc_achieved'] = selection_results['best_auc']
-                elif selection_results and isinstance(selection_results, dict):
-                    # Handle optimized results structure
-                    validation_results = selection_results.get('validation_results', {})
-                    if 'cv_auc_mean' in validation_results:
-                        selection_metrics['auc_achieved'] = validation_results['cv_auc_mean']
+                selection_metrics = {
+                    'selected_features': len(selected_features),
+                    'auc_achieved': auc_achieved,
+                    'enterprise_compliant': True,
+                    'real_profit_ready': True
+                }
                 
                 self._end_stage_resource_monitoring('feature_selection', selection_metrics)
+                self.safe_logger.info(f"✅ Real Profit Feature Selection SUCCESS: {len(selected_features)} features, AUC {auc_achieved:.3f}")
                 
             except Exception as e:
-                self.safe_logger.error(f"❌ Feature selection failed: {e}")
-                # Use fallback feature selection or exit
-                selected_features = list(X.columns[:min(15, len(X.columns))]) if hasattr(X, 'columns') else None
-                selection_results = {'error': str(e), 'fallback_features': len(selected_features) if selected_features else 0}
-                self._end_stage_resource_monitoring('feature_selection', {'error': True})
+                # NO FALLBACKS - FAIL FAST FOR ENTERPRISE COMPLIANCE
+                error_msg = f"💥 CRITICAL ENTERPRISE FAILURE: Feature selection failed: {e}"
+                self.safe_logger.error(error_msg)
+                self._end_stage_resource_monitoring('feature_selection', {'error': True, 'enterprise_failure': True})
+                raise RuntimeError(f"ENTERPRISE COMPLIANCE FAILURE: {error_msg}. NO FALLBACKS ALLOWED IN PRODUCTION.")
             
             # Step 5: Train CNN-LSTM
             self._start_stage_resource_monitoring('cnn_lstm_training', 'Step 5: Training CNN-LSTM model')
@@ -1251,47 +1224,9 @@ class Menu1ElliottWaveFixed:
                 'note': 'Performance calculation failed'
             }
 
-    def _initialize_fallback_selector(self):
-        """Initialize fallback feature selector with priority order"""
-        
-        # Try Fixed Advanced Feature Selector first
-        if FIXED_FEATURE_SELECTOR_AVAILABLE:
-            try:
-                self.feature_selector = FixedAdvancedFeatureSelector(
-                    target_auc=0.75,        # Increased target
-                    max_features=50,        # More features
-                    max_cpu_percent=95.0,   # Higher CPU utilization
-                    logger=self.safe_logger
-                )
-                self.beautiful_logger.log_info("✅ Fixed Advanced Feature Selector initialized (HIGH PERFORMANCE)")
-                return
-            except Exception as e:
-                self.beautiful_logger.log_warning(f"⚠️ Fixed Feature Selector failed: {e}")
-        
-        # Try Advanced Feature Selector
-        if ADVANCED_FEATURE_SELECTOR_AVAILABLE:
-            try:
-                self.feature_selector = AdvancedEnterpriseFeatureSelector(
-                    target_auc=0.75,        # Increased target
-                    max_features=50,        # More features
-                    n_trials=500,           # More trials
-                    timeout=0,              # No timeout
-                    logger=self.safe_logger
-                )
-                self.beautiful_logger.log_info("✅ Advanced Feature Selector initialized (HIGH PERFORMANCE)")
-                return
-            except Exception as e:
-                self.beautiful_logger.log_warning(f"⚠️ Advanced Feature Selector failed: {e}")
-        
-        # Final fallback to standard selector
-        self.feature_selector = EnterpriseShapOptunaFeatureSelector(
-            target_auc=0.75,            # Still increased target
-            max_features=50,            # More features
-            n_trials=300,               # More trials
-            timeout=0,                  # No timeout
-            logger=self.safe_logger
-        )
-        self.beautiful_logger.log_info("✅ Standard Feature Selector initialized (ENHANCED)")
+    # 🚫 FALLBACK SELECTOR REMOVED - ENTERPRISE COMPLIANCE
+    # NO FALLBACKS ALLOWED IN PRODUCTION SYSTEM
+    # ALL FEATURE SELECTION USES RealProfitFeatureSelector ONLY
 
 # Alias for backward compatibility
 Menu1ElliottWave = Menu1ElliottWaveFixed
