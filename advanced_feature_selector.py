@@ -556,6 +556,9 @@ class UltimateEnterpriseFeatureSelector:
             return list(X.columns), 0.0
 
 
+# COMPATIBILITY ALIAS - เพื่อแก้ปัญหา import error
+AdvancedEnterpriseFeatureSelector = UltimateEnterpriseFeatureSelector
+
 # Factory function for backward compatibility
 def create_ultimate_enterprise_feature_selector(**kwargs):
     """Create Ultimate Enterprise Feature Selector instance"""
@@ -565,7 +568,7 @@ def create_ultimate_enterprise_feature_selector(**kwargs):
 # Main selection function for direct usage
 def ultimate_enterprise_feature_selection(X: pd.DataFrame, y: pd.Series, **kwargs) -> Dict[str, Any]:
     """
-    🎯 ULTIMATE ENTERPRISE FEATURE SELECTION - FULL POWER MODE
+    🎯 ULTIMATE ENTERPRISE FEATURE SELECTTION - FULL POWER MODE
     
     ✅ ALL DATA PROCESSING - NO SAMPLING
     ✅ NO TIME LIMITS - UNLIMITED PROCESSING  
