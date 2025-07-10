@@ -31,6 +31,8 @@ import json
 sys.path.append(str(Path(__file__).parent.parent))
 
 from core.project_paths import get_project_paths
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
 
 class AdvancedMultiTimeframeElliottWaveAnalyzer:
     """ระบบวิเคราะห์ Elliott Wave แบบหลายไทม์เฟรมขั้นสูง"""
@@ -38,7 +40,7 @@ class AdvancedMultiTimeframeElliottWaveAnalyzer:
     def __init__(self):
         """Initialize Advanced Multi-Timeframe Elliott Wave Analyzer"""
         self.paths = get_project_paths()
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_unified_logger()
         
         # Elliott Wave Configuration
         self.timeframes = ['M1', 'M5', 'M15', 'M30', 'H1', 'H4', 'D1']

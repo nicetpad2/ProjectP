@@ -1,77 +1,151 @@
 #!/bin/bash
-# NICEGOLD ENTERPRISE - Universal Auto-Installer (Linux/Mac)
-# Usage: bash install_all.sh
+# 🚀 NICEGOLD ProjectP-1 - Complete Installation Script
+# Enterprise-Grade Installation for Linux/macOS
+# Date: July 9, 2025
 
-set -e
+set -e  # Exit on any error
 
-PROJECT_ROOT="$(dirname "$0")"
-VENV_DIR="$PROJECT_ROOT/.venv"
-REQUIREMENTS_FILE="$PROJECT_ROOT/requirements.txt"
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
 
-# 1. Check Python version
-if ! command -v python3 &> /dev/null; then
-  echo "[ERROR] Python3 is not installed. Please install Python 3.8+ and rerun this script."
-  exit 1
-fi
+# Function to print colored output
+print_header() {
+    echo -e "${PURPLE}${1}${NC}"
+    echo -e "${PURPLE}$(printf '=%.0s' {1..80})${NC}"
+}
 
-PYTHON_VERSION=$(python3 -c 'import sys; print("{}.{}".format(sys.version_info[0], sys.version_info[1]))')
-if [[ "$PYTHON_VERSION" < "3.8" ]]; then
-  echo "[ERROR] Python version 3.8 or higher is required. Found $PYTHON_VERSION."
-  exit 1
-fi
+print_step() {
+    echo -e "\n${BLUE}📋 Step ${1}: ${2}${NC}"
+}
 
-echo "[INFO] Python version: $PYTHON_VERSION"
+print_success() {
+    echo -e "${GREEN}✅ ${1}${NC}"
+}
 
-# 2. Create virtual environment if not exists
-if [ ! -d "$VENV_DIR" ]; then
-  echo "[INFO] Creating virtual environment in $VENV_DIR ..."
-  python3 -m venv "$VENV_DIR"
-else
-  echo "[INFO] Virtual environment already exists."
-fi
+print_warning() {
+    echo -e "${YELLOW}⚠️ ${1}${NC}"
+}
 
-# 3. Activate virtual environment
-source "$VENV_DIR/bin/activate"
-echo "[INFO] Virtual environment activated."
+print_error() {
+    echo -e "${RED}❌ ${1}${NC}"
+}
 
-# 4. Upgrade pip
-pip install --upgrade pip
+# Check if Python is available
+check_python() {
+    if command -v python3 &> /dev/null; then
+        PYTHON_CMD="python3"
+    elif command -v python &> /dev/null; then
+        PYTHON_CMD="python"
+    else
+        print_error "Python is not installed. Please install Python 3.8+ first."
+        exit 1
+    fi
+    
+    # Check Python version
+    PYTHON_VERSION=$($PYTHON_CMD --version 2>&1 | cut -d' ' -f2)
+    print_success "Python version: $PYTHON_VERSION"
+}
 
-# 5. Install requirements
-if [ -f "$REQUIREMENTS_FILE" ]; then
-  echo "[INFO] Installing requirements from $REQUIREMENTS_FILE ..."
-  pip install -r "$REQUIREMENTS_FILE"
-else
-  echo "[WARNING] requirements.txt not found. Skipping."
-fi
+# Check if pip is available
+check_pip() {
+    if ! $PYTHON_CMD -m pip --version &> /dev/null; then
+        print_error "pip is not installed. Installing pip..."
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        $PYTHON_CMD get-pip.py
+        rm get-pip.py
+    fi
+    print_success "pip is available"
+}
 
-# 6. Install core ML/AI packages (if not in requirements.txt)
-PYTHON_PACKAGES=(
-  tensorflow==2.19.0
-  torch==2.7.1
-  stable-baselines3==2.6.0
-  gymnasium==1.1.1
-  scikit-learn==1.7.0
-  numpy==2.1.3
-  pandas==2.3.0
-  opencv-python-headless==4.11.0.0
-  Pillow==11.2.1
-  PyWavelets==1.8.0
-  imbalanced-learn==0.13.0
-  ta==0.11.0
-  PyYAML==6.0.2
-  shap==0.45.0
-  optuna==3.5.0
-  joblib
-)
+# Install system dependencies (if needed)
+install_system_deps() {
+    print_step 1 "Installing system dependencies"
+    
+    # Detect OS
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux
+        if command -v apt-get &> /dev/null; then
+            print_warning "Detected Ubuntu/Debian - Installing system packages..."
+            sudo apt-get update
+            sudo apt-get install -y python3-dev python3-pip build-essential
+        elif command -v yum &> /dev/null; then
+            print_warning "Detected CentOS/RHEL - Installing system packages..."
+            sudo yum install -y python3-devel python3-pip gcc gcc-c++
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        if command -v brew &> /dev/null; then
+            print_warning "Detected macOS - Installing system packages..."
+            brew install python3
+        fi
+    fi
+    
+    print_success "System dependencies installed"
+}
 
-for pkg in "${PYTHON_PACKAGES[@]}"; do
-  pip install "$pkg" || true
-  # Ignore errors if already installed or not available for platform
-  done
+# Main installation function
+main() {
+    print_header "🚀 NICEGOLD ProjectP-1 - Complete Installation"
+    echo "📅 Installation Date: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "🖥️ Operating System: $OSTYPE"
+    echo "📁 Working Directory: $(pwd)"
+    
+    # Check prerequisites
+    check_python
+    check_pip
+    
+    # Install system dependencies
+    install_system_deps
+    
+    # Run Python installation scripts
+    print_step 2 "Running Python dependency installation"
+    
+    # Upgrade pip first
+    print_warning "Upgrading pip to latest version..."
+    $PYTHON_CMD -m pip install --upgrade pip
+    
+    # Install from requirements.txt if exists
+    if [ -f "requirements.txt" ]; then
+        print_warning "Installing from requirements.txt..."
+        $PYTHON_CMD -m pip install -r requirements.txt
+    fi
+    
+    # Run comprehensive installation script
+    if [ -f "install_complete_dependencies.py" ]; then
+        print_warning "Running comprehensive dependency installation..."
+        $PYTHON_CMD install_complete_dependencies.py
+    fi
+    
+    # Run library installation script
+    if [ -f "install_all_libraries.py" ]; then
+        print_warning "Running library installation..."
+        $PYTHON_CMD install_all_libraries.py
+    fi
+    
+    print_step 3 "Installation Verification"
+    
+    # Test basic imports
+    print_warning "Testing critical imports..."
+    $PYTHON_CMD -c "import numpy, pandas, sklearn, tensorflow, torch; print('✅ Core packages imported successfully')" || print_error "Some core packages failed to import"
+    
+    print_step 4 "Installation Complete"
+    print_success "🎉 NICEGOLD ProjectP-1 installation completed!"
+    print_success "🚀 You can now run: python ProjectP.py"
+    print_success "🌊 Select Menu 1 for Elliott Wave Analysis"
+    
+    # Create installation log
+    echo "Installation completed at $(date)" > installation.log
+    echo "Python version: $PYTHON_VERSION" >> installation.log
+    echo "Installation directory: $(pwd)" >> installation.log
+    
+    print_success "📝 Installation log saved to installation.log"
+}
 
-echo "[SUCCESS] All dependencies installed."
-echo "[INFO] To activate the environment:"
-echo "  source $VENV_DIR/bin/activate"
-echo "[INFO] To run the main program:"
-echo "  python ProjectP.py"
+# Run main function
+main "$@"

@@ -1,0 +1,112 @@
+{
+  "start_time": "2025-07-06T21:09:33.553354",
+  "enterprise_features_enabled": true,
+  "performance_metrics": {},
+  "risk_assessments": [
+    {
+      "timestamp": "2025-07-06T21:09:36.274319",
+      "stage": "data_loading",
+      "report": {
+        "overall_score": 1.0,
+        "risks_identified": [],
+        "severity": "LOW",
+        "recommendations": []
+      }
+    }
+  ],
+  "pipeline_results": {
+    "timestamp": "2025-07-06T21:31:06.568469",
+    "session_id": "20250706_210933",
+    "data_summary": {
+      "total_records": 1771969,
+      "features_count": 18,
+      "memory_usage_mb": 295.4275131225586,
+      "time_range": {
+        "start": "0",
+        "end": "1771968"
+      }
+    },
+    "model_performance": {
+      "model_type": "RandomForest",
+      "accuracy": 0.5049677890869483,
+      "auc": 0.5050178956942599,
+      "features_used": 8,
+      "training_samples": 1417529,
+      "test_samples": 354383,
+      "success": true
+    },
+    "risk_assessment": {
+      "timestamp": "2025-07-06T21:31:06.869558",
+      "overall_risk_score": 0.6,
+      "risk_level": "MEDIUM",
+      "data_quality": {
+        "overall_score": 1.0,
+        "risks_identified": [],
+        "severity": "LOW",
+        "recommendations": []
+      },
+      "market_regime": {
+        "current_regime": "High Volatility",
+        "risk_level": "HIGH",
+        "recommendations": [
+          "Reduce position sizes due to high volatility",
+          "Implement tighter stop-losses",
+          "Increase monitoring frequency"
+        ],
+        "volatility_forecast": 0.0004632666905047733
+      },
+      "circuit_breakers": {
+        "breakers_triggered": [],
+        "actions_required": [],
+        "trading_halted": false,
+        "severity": "NONE"
+      },
+      "recommendations": [
+        "Reduce position sizes due to high volatility",
+        "Implement tighter stop-losses",
+        "Increase monitoring frequency"
+      ],
+      "compliance_status": "YELLOW"
+    },
+    "recommendations": [
+      "Monitor key risk metrics",
+      "Implement automated alerts",
+      "Model performance below enterprise threshold (AUC < 0.70) - consider feature engineering"
+    ],
+    "performance_metrics": {
+      "timestamp": "2025-07-06T21:31:07.823944",
+      "function_profiles": {},
+      "system_summary": {
+        "cpu": {
+          "current": 9.3,
+          "average": 12.514999999999997,
+          "max": 28.8
+        },
+        "memory": {
+          "current_percent": 18.5,
+          "average_percent": 18.45333333333333,
+          "max_percent": 18.6
+        }
+      },
+      "recommendations": [],
+      "performance_score": 89.67722222222221
+    },
+    "market_regime": {
+      "distribution": {
+        "Normal Volatility": 885973,
+        "High Volatility": 442988,
+        "Low Volatility": 442988,
+        "Unknown": 20
+      },
+      "current_regime": "High Volatility"
+    }
+  },
+  "end_time": "2025-07-06T21:31:07.928489",
+  "pipeline_state": {
+    "data_loaded": true,
+    "features_engineered": true,
+    "models_trained": true,
+    "analysis_complete": true,
+    "risk_assessed": false
+  }
+}

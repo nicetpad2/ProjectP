@@ -1,0 +1,29 @@
+{
+  "session_id": "20250710_141029",
+  "start_time": "2025-07-10T14:10:29.766780",
+  "pipeline_steps": {
+    "step_1": {
+      "status": "success",
+      "data_rows": 1771969,
+      "data_columns": [
+        "Date",
+        "Timestamp",
+        "open",
+        "high",
+        "low",
+        "close",
+        "tick_volume"
+      ]
+    },
+    "Unknown Step": {
+      "status": "failed",
+      "error": "Failed at Advanced Feature Selection: too many values to unpack (expected 2)"
+    }
+  },
+  "performance_metrics": {},
+  "compliance_status": {},
+  "errors": [
+    "Orchestrator Error: Failed at Advanced Feature Selection: too many values to unpack (expected 2)"
+  ],
+  "warnings": []
+}

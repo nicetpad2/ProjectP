@@ -1,0 +1,29 @@
+{
+  "session_id": "20250710_135241",
+  "start_time": "2025-07-10T13:52:41.284785",
+  "pipeline_steps": {
+    "step_1": {
+      "status": "success",
+      "data_rows": 1771969,
+      "data_columns": [
+        "Date",
+        "Timestamp",
+        "open",
+        "high",
+        "low",
+        "close",
+        "tick_volume"
+      ]
+    },
+    "Unknown Step": {
+      "status": "failed",
+      "error": "name 'time' is not defined"
+    }
+  },
+  "performance_metrics": {},
+  "compliance_status": {},
+  "errors": [
+    "Orchestrator Error: name 'time' is not defined"
+  ],
+  "warnings": []
+}

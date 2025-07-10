@@ -125,6 +125,8 @@ INDIVIDUAL MODULES AVAILABLE:
 EXAMPLE USAGE:
 ```python
 from elliott_wave_modules.ml_protection import (
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
     EnterpriseMLProtectionSystem,
     OverfittingDetector,
     DataLeakageDetector

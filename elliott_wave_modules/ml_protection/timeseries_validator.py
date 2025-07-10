@@ -18,13 +18,7 @@ from typing import Dict, List, Optional, Tuple, Any, Union
 import warnings
 from datetime import datetime, timedelta
 
-# Import advanced logging system
-try:
-    from core.advanced_terminal_logger import get_terminal_logger, LogLevel
-    ADVANCED_LOGGING_AVAILABLE = True
-except ImportError:
-    ADVANCED_LOGGING_AVAILABLE = False
-    import logging
+from core.unified_enterprise_logger import get_unified_logger
 
 
 class TimeSeriesValidator:
@@ -34,10 +28,7 @@ class TimeSeriesValidator:
         self.config = config or {}
         
         # Initialize logging
-        if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger()
-        else:
-            self.logger = logger or logging.getLogger(__name__)
+        self.logger = get_unified_logger("TimeSeriesValidator")
     
     def update_config(self, new_config: Dict):
         """Update validator configuration"""
@@ -108,10 +99,7 @@ class TimeSeriesValidator:
             
         except Exception as e:
             error_msg = f"❌ Time series validation failed: {str(e)}"
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(error_msg, "TimeSeriesValidator")
-            else:
-                self.logger.error(error_msg)
+            self.logger.error(error_msg, component="TimeSeriesValidator")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _validate_temporal_ordering(self, X: pd.DataFrame, datetime_col: str) -> Dict:
@@ -605,10 +593,7 @@ class TimeSeriesValidator:
             return assessment
             
         except Exception as e:
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning(f"⚠️ Integrity assessment computation failed: {str(e)}", "TimeSeriesValidator")
-            else:
-                self.logger.warning(f"⚠️ Integrity assessment computation failed: {str(e)}")
+            self.logger.warning(f"⚠️ Integrity assessment computation failed: {str(e)}", component="TimeSeriesValidator")
             
             return {
                 'score': 0.5,

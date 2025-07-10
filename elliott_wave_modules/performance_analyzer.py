@@ -35,7 +35,7 @@ import logging
 
 # Advanced Logging Integration
 try:
-    from core.advanced_terminal_logger import get_terminal_logger
+    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
     from core.real_time_progress_manager import get_progress_manager
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
@@ -46,19 +46,20 @@ class ElliottWavePerformanceAnalyzer:
     
     def __init__(self, config: Dict = None, logger: logging.Logger = None):
         self.config = config or {}
+        self.component_name = "ElliottWavePerformanceAnalyzer"
         
         # Initialize Advanced Terminal Logger
         if ADVANCED_LOGGING_AVAILABLE:
             try:
-                self.logger = get_terminal_logger()
+                self.logger = get_unified_logger()
                 self.progress_manager = get_progress_manager()
-                self.logger.info("🚀 ElliottWavePerformanceAnalyzer initialized with advanced logging", "Performance_Analyzer")
+                self.logger.info(f"🚀 {self.component_name} initialized with advanced logging")
             except Exception as e:
-                self.logger = logger or logging.getLogger(__name__)
+                self.logger = logger or get_unified_logger()
                 self.progress_manager = None
                 print(f"⚠️ Advanced logging failed, using fallback: {e}")
         else:
-            self.logger = logger or logging.getLogger(__name__)
+            self.logger = logger or get_unified_logger()
             self.progress_manager = None
         
         # Performance thresholds (Enterprise standards)

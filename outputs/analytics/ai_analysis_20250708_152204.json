@@ -1,0 +1,355 @@
+{
+  "timestamp": "2025-07-08T15:22:03.982868",
+  "neural_performance": {
+    "current_performance": {
+      "accuracy": 0.75,
+      "auc_score": 0.72,
+      "precision": 0.73,
+      "recall": 0.71,
+      "f1_score": 0.72,
+      "training_loss": 0.45,
+      "validation_loss": 0.48
+    },
+    "trend_analysis": {
+      "trend": "insufficient_data",
+      "direction": "unknown"
+    },
+    "health_score": 68.19999999999999,
+    "predictions": {
+      "prediction": "insufficient_data"
+    },
+    "recommendations": [
+      "\u2705 Model performance within acceptable range"
+    ]
+  },
+  "pattern_analysis": {
+    "impulse_waves": [],
+    "corrective_waves": [
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.9259951914828,
+        "b_level": 2000.0697891968653,
+        "c_level": 1998.947826570805,
+        "start_idx": 5,
+        "end_idx": 35,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.8808151127973,
+        "b_level": 2000.4118736614353,
+        "c_level": 1998.8008566934654,
+        "start_idx": 6,
+        "end_idx": 36,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.4460357634664,
+        "b_level": 2000.1836299336544,
+        "c_level": 1998.8370462385683,
+        "start_idx": 7,
+        "end_idx": 37,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.2397902030123,
+        "b_level": 2000.0256169395514,
+        "c_level": 1998.9641496923566,
+        "start_idx": 9,
+        "end_idx": 39,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.3260001692447,
+        "b_level": 1999.752350845724,
+        "c_level": 1998.787661293281,
+        "start_idx": 10,
+        "end_idx": 40,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.808185642872,
+        "b_level": 1999.2411538598237,
+        "c_level": 1999.1256770317257,
+        "start_idx": 11,
+        "end_idx": 41,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.5742353026933,
+        "b_level": 1999.4146665803153,
+        "c_level": 1999.3389749538978,
+        "start_idx": 12,
+        "end_idx": 42,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.9563748784633,
+        "b_level": 1999.2546308071956,
+        "c_level": 1999.1088343190459,
+        "start_idx": 14,
+        "end_idx": 44,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.2676416854192,
+        "b_level": 1998.857272738369,
+        "c_level": 1998.7289262104775,
+        "start_idx": 18,
+        "end_idx": 48,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 2000.0256169395514,
+        "b_level": 1998.9641496923566,
+        "c_level": 1998.6649278767786,
+        "start_idx": 19,
+        "end_idx": 49,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.2411538598237,
+        "b_level": 1999.1256770317257,
+        "c_level": 1998.9203959972324,
+        "start_idx": 21,
+        "end_idx": 51,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.4146665803153,
+        "b_level": 1999.3389749538978,
+        "c_level": 1998.6932665392924,
+        "start_idx": 22,
+        "end_idx": 52,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.2546308071956,
+        "b_level": 1999.1088343190459,
+        "c_level": 1998.8162034371344,
+        "start_idx": 24,
+        "end_idx": 54,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.8370462385683,
+        "b_level": 1998.9510064765866,
+        "c_level": 1999.1542474448484,
+        "start_idx": 27,
+        "end_idx": 57,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.787661293281,
+        "b_level": 1998.9452154574508,
+        "c_level": 1999.247554397453,
+        "start_idx": 30,
+        "end_idx": 60,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.9510064765866,
+        "b_level": 1999.1542474448484,
+        "c_level": 1999.409705378373,
+        "start_idx": 37,
+        "end_idx": 67,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.7289262104775,
+        "b_level": 1999.5057871901904,
+        "c_level": 1999.7086946144536,
+        "start_idx": 38,
+        "end_idx": 68,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.6649278767786,
+        "b_level": 1999.155696467587,
+        "c_level": 1999.9125786403624,
+        "start_idx": 39,
+        "end_idx": 69,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.9452154574508,
+        "b_level": 1999.247554397453,
+        "c_level": 1999.6290149866152,
+        "start_idx": 40,
+        "end_idx": 70,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.9203959972324,
+        "b_level": 1999.014431054052,
+        "c_level": 1999.6529484340203,
+        "start_idx": 41,
+        "end_idx": 71,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.6932665392924,
+        "b_level": 1999.1164641266519,
+        "c_level": 1999.3565064109948,
+        "start_idx": 42,
+        "end_idx": 72,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1998.8162034371344,
+        "b_level": 1999.2747454825653,
+        "c_level": 1999.439026402873,
+        "start_idx": 44,
+        "end_idx": 74,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.247554397453,
+        "b_level": 1999.6290149866152,
+        "c_level": 1999.9155479222868,
+        "start_idx": 50,
+        "end_idx": 80,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.014431054052,
+        "b_level": 1999.6529484340203,
+        "c_level": 2000.2079999905181,
+        "start_idx": 51,
+        "end_idx": 81,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.1164641266519,
+        "b_level": 1999.3565064109948,
+        "c_level": 2000.1773370090316,
+        "start_idx": 52,
+        "end_idx": 82,
+        "confidence": 0.7
+      },
+      {
+        "type": "ABC_correction",
+        "a_level": 1999.2747454825653,
+        "b_level": 1999.439026402873,
+        "c_level": 1999.9715011479311,
+        "start_idx": 54,
+        "end_idx": 84,
+        "confidence": 0.7
+      }
+    ],
+    "fibonacci_levels": {
+      "0.0": 2007.067213692376,
+      "23.6": 2003.4771361308367,
+      "38.2": 2001.2561559444607,
+      "50.0": 1999.461117163691,
+      "61.8": 1997.6660783829211,
+      "78.6": 1995.1104299492831,
+      "100.0": 1991.8550206350058
+    },
+    "wave_confluence": {
+      "strong_confluence_levels": [
+        {
+          "level": "0.0",
+          "price": 2007.067213692376,
+          "distance_pct": 0.520446060041298
+        },
+        {
+          "level": "23.6",
+          "price": 2003.4771361308367,
+          "distance_pct": 0.34064331332003406
+        },
+        {
+          "level": "38.2",
+          "price": 2001.2561559444607,
+          "distance_pct": 0.2294094106873913
+        },
+        {
+          "level": "50.0",
+          "price": 1999.461117163691,
+          "distance_pct": 0.13950803732675363
+        },
+        {
+          "level": "61.8",
+          "price": 1997.6660783829211,
+          "distance_pct": 0.04960666396611595
+        },
+        {
+          "level": "78.6",
+          "price": 1995.1104299492831,
+          "distance_pct": 0.07838851166596021
+        },
+        {
+          "level": "100.0",
+          "price": 1991.8550206350058,
+          "distance_pct": 0.24142998538779076
+        }
+      ],
+      "moderate_confluence_levels": [],
+      "confluence_score": 1.0
+    },
+    "pattern_confidence": 0.3395159151656662
+  },
+  "market_sentiment": {
+    "overall_sentiment": "neutral",
+    "trend_strength": 0.1648351648351648,
+    "volatility_regime": "normal_volatility",
+    "market_phase": "trending",
+    "sentiment_score": 0.532967032967033
+  },
+  "ai_insights": {
+    "model_health": {
+      "status": "healthy",
+      "score": 85.0,
+      "issues": []
+    },
+    "trading_opportunities": [
+      {
+        "type": "support_bounce",
+        "confidence": 0.7,
+        "entry_price": 1996.6755942303978,
+        "target": 1902.8625570547983,
+        "stop_loss": 1953.9398119306977
+      },
+      {
+        "type": "resistance_break",
+        "confidence": 0.6,
+        "entry_price": 1996.6755942303978,
+        "target": 2103.1638788500404,
+        "stop_loss": 1942.9228214138468
+      }
+    ],
+    "risk_assessment": {
+      "risk_level": "moderate",
+      "score": 0.5,
+      "volatility_ratio": 0.7775339738674432
+    },
+    "confidence_level": 0.7714285714285716
+  },
+  "recommendations": [
+    "\u2705 Model performance within acceptable range",
+    "\ud83c\udfaf Continue monitoring AI analytics for optimization opportunities"
+  ]
+}

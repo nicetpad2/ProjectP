@@ -1,54 +1,109 @@
-# NICEGOLD Enterprise ProjectP - Requirements
-# 🏢 Enterprise-Grade Dependencies  
+# NICEGOLD ProjectP - Complete Requirements File
+# 🚀 Production-Ready Dependencies for 80% RAM+GPU Resource Utilization
 #
-# This file lists all required and recommended Python packages for full production and advanced features.
-# All dependencies are pinned to tested versions for maximum reliability and reproducibility.
+# This file lists all required Python packages for the NICEGOLD ProjectP enterprise system
+# Compatible with both CPU and GPU environments, tested for production stability
 #
-# ⚠️ CRITICAL COMPATIBILITY NOTES:
-# - NumPy 1.26.4: Required for SHAP compatibility (SHAP not yet compatible with NumPy 2.x)
-# - All versions tested for production stability with CPU-only configuration
-#
-# To install: pip install -r requirements.txt
+# Installation: pip install -r requirements.txt
+# 
+# Last updated: July 7, 2025
 
-# --- CORE DATA SCIENCE (NumPy 1.x for SHAP compatibility) ---
-numpy==1.26.4
-pandas==2.2.3
-scikit-learn==1.5.2
-scipy==1.13.1
-joblib==1.4.2
+# --- CORE DATA SCIENCE & COMPUTATION ---
+numpy>=1.21.0,<2.0.0  # Keep below 2.0 for broader compatibility
+pandas>=2.0.0
+scipy>=1.8.0
+scikit-learn>=1.1.0
+joblib>=1.1.0
+threadpoolctl>=3.0.0
 
 # --- MACHINE LEARNING / DEEP LEARNING ---
-tensorflow==2.17.0
-torch==2.4.1
-stable-baselines3==2.3.0
-gymnasium==0.29.1
+tensorflow>=2.10.0
+torch>=1.12.0
+torchvision>=0.13.0
+torchaudio>=0.12.0
+
+# --- GRADIENT BOOSTING MODELS ---
+xgboost>=1.6.0
+lightgbm>=3.3.0
+catboost>=1.1.0
 
 # --- FEATURE SELECTION & OPTIMIZATION ---
-shap==0.45.0
-optuna==3.5.0
+shap>=0.41.0
+optuna>=3.0.0
+hyperopt>=0.2.7
 
-# --- DATA PROCESSING & CONFIGURATION ---
-PyYAML==6.0.2
-PyWavelets==1.8.0
-imbalanced-learn==0.13.0
-ta==0.11.0
-opencv-python-headless==4.11.0.86
-Pillow==11.2.1
+# --- REINFORCEMENT LEARNING ---
+gym>=0.21.0
+gymnasium>=0.26.0
+stable-baselines3>=1.6.0
+
+# --- FINANCIAL DATA & ANALYSIS ---
+yfinance>=0.1.70
+quantlib>=1.30
+fredapi>=0.5.0
+ta>=0.10.0
+
+# --- TIME SERIES ANALYSIS ---
+statsmodels>=0.13.0
+arch>=5.3.0
+pmdarima>=2.0.0
+
+# --- WEB & DATA COLLECTION ---
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+selenium>=4.5.0
+urllib3>=1.26.0
+
+# --- COMPUTER VISION ---
+opencv-python>=4.6.0
+Pillow>=9.0.0
+imageio>=2.19.0
+
+# --- NATURAL LANGUAGE PROCESSING ---
+nltk>=3.7.0
+textblob>=0.17.0
 
 # --- VISUALIZATION ---
 matplotlib>=3.5.0
 seaborn>=0.11.0
 plotly>=6.2.0
 
-# --- SYSTEM MONITORING ---
-psutil==5.9.8
+# --- SYSTEM MONITORING & PROGRESS ---
+psutil>=5.8.0
+tqdm>=4.60.0
+rich>=12.0.0
+colorama>=0.4.4
+
+# --- UTILITIES ---
+python-dateutil>=2.8.0
+pytz>=2022.1
+six>=1.16.0
+click>=8.0.0
+PyYAML>=6.0.0
+setuptools>=60.0.0
+wheel>=0.37.0
+
+# --- ADDITIONAL SCIENTIFIC COMPUTING ---
+sympy>=1.10.0
+networkx>=2.8.0
+numba>=0.56.0
+
+# --- DATABASE & STORAGE ---
+sqlalchemy>=1.4.0
+h5py>=3.7.0
+
+# --- PARALLEL COMPUTING (Optional) ---
+# dask>=2022.0.0
+# ray>=2.0.0
 
 # --- DEVELOPMENT TOOLS ---
-pytest>=6.0.0
+jupyter>=1.0.0
+pytest>=7.0.0
 black>=22.0.0
 flake8>=4.0.0
 
 # --- NOTES ---
-# - All packages above are required for full production and dashboard features.
-# - Remove any unused or duplicate packages as needed.
-# - For custom/enterprise modules, ensure all dependencies are listed here.
+# - All packages above are required for full NICEGOLD ProjectP functionality
+# - GPU acceleration libraries (cudf, cuml, cupy) can be installed separately if needed
+# - Some packages may have additional system dependencies (e.g., TA-Lib requires C library)
+# - For production deployment, consider pinning to specific versions

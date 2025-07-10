@@ -33,7 +33,7 @@ try:
 except ImportError:
     from enhanced_intelligent_resource_manager import EnhancedIntelligentResourceManager, initialize_enhanced_intelligent_resources
 
-logger = logging.getLogger(__name__)
+logger = get_unified_logger()
 
 class Menu1ResourceIntegrator:
     """
@@ -503,4 +503,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"❌ Test failed: {e}")
         import traceback
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
         traceback.print_exc()

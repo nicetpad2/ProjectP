@@ -15,6 +15,8 @@ def safe_tensorflow():
     """Import TensorFlow safely for CPU-only operation"""
     try:
         import tensorflow as tf
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
         
         # Configure for CPU only
         tf.config.set_visible_devices([], 'GPU')

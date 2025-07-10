@@ -1,2 +1,0 @@
-{"timestamp": "2025-07-06T18:08:50.351141", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Optimized Elliott Wave Pipeline failed", "category": "Error", "process_id": null, "session_id": "20250706_180632"}
-{"timestamp": "2025-07-06T18:08:50.364500", "level": "ERROR", "emoji": "\u274c", "message": "   Error: No target column for model training", "category": "Error", "process_id": null, "session_id": "20250706_180632"}

@@ -1,0 +1,8 @@
+=== NICEGOLD MENU 1 SESSION LOG ===
+Session ID: ad547c65
+Start Time: 2025-07-08T15:02:06.753428
+Session Log: menu1_session_20250708_150206_ad547c65.log
+==================================================
+
+2025-07-08T15:02:06.814159 [ERROR] ❌ Failed to setup directories: 'ProjectPaths' object is not subscriptable
+2025-07-08T15:02:06.896490 [ERROR] ❌ Failed to setup directories: 'ProjectPaths' object is not subscriptable

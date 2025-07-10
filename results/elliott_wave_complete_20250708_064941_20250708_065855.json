@@ -1,0 +1,251 @@
+{
+  "session_id": "20250708_064941",
+  "start_time": "2025-07-08T06:49:41.460360",
+  "pipeline_steps": {
+    "step_1": {
+      "status": "success",
+      "data_rows": 1771969,
+      "data_columns": [
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "timestamp"
+      ],
+      "data_quality_score": 100.0
+    },
+    "step_2": {
+      "status": "success",
+      "elliott_features_created": true,
+      "wave_patterns_detected": true,
+      "features_shape": [
+        1771969,
+        155
+      ]
+    },
+    "step_3": {
+      "status": "success",
+      "total_features": 64,
+      "feature_types": [
+        "technical_indicators",
+        "elliott_wave",
+        "price_action"
+      ]
+    },
+    "step_4": {
+      "status": "success",
+      "X_shape": [
+        1771966,
+        154
+      ],
+      "y_shape": [
+        1771966
+      ],
+      "ready_for_ml": true
+    },
+    "step_5": {
+      "status": "failed",
+      "error": "'elliott_wave'",
+      "enterprise_compliance": false
+    },
+    "step_6": {
+      "status": "failed",
+      "error": "Selected features data not available for CNN-LSTM training. Step 5 must be completed first."
+    },
+    "step_7": {
+      "status": "failed",
+      "error": "'dqn'"
+    },
+    "step_8": {
+      "status": "failed",
+      "error": "Both CNN-LSTM and DQN models must be trained before integration"
+    },
+    "step_9": {
+      "status": "success",
+      "performance_analysis": {
+        "ml_performance": {
+          "cnn_lstm_metrics": {
+            "auc": 0.0,
+            "accuracy": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0
+          },
+          "feature_selection_metrics": {
+            "best_auc": 0.0,
+            "selected_features": 0,
+            "target_achieved": false
+          },
+          "ml_performance_score": 0.0,
+          "auc_target_met": false,
+          "model_quality": "Poor"
+        },
+        "trading_performance": {
+          "trading_metrics": {
+            "total_return_pct": 0.0,
+            "sharpe_ratio": 0.0,
+            "win_rate": 0.5,
+            "max_drawdown": 0.0,
+            "profit_factor": 0.8,
+            "total_trades": 0,
+            "final_balance": 10000.0
+          },
+          "trading_performance_score": 55.0,
+          "sharpe_target_met": false,
+          "drawdown_acceptable": true,
+          "win_rate_acceptable": false
+        },
+        "risk_analysis": {
+          "risk_metrics": {
+            "data_quality_risk": 50.0,
+            "model_risk": 100.0,
+            "overfitting_risk": 0.0,
+            "overall_risk_score": 75.0
+          },
+          "risk_assessment": "High",
+          "risk_factors": [
+            "AUC below target (0.7)",
+            "Limited training data"
+          ]
+        },
+        "overall_performance": {
+          "overall_score": 27.0,
+          "performance_grade": "F",
+          "key_metrics": {
+            "auc": 0.0,
+            "sharpe_ratio": 0.0,
+            "max_drawdown": 0.0,
+            "win_rate": 50.0,
+            "total_return": 0.0
+          },
+          "component_scores": {
+            "ml_score": 0.0,
+            "trading_score": 55.0,
+            "risk_score": 25.0
+          },
+          "enterprise_ready": false,
+          "production_ready": false
+        },
+        "enterprise_grade": {
+          "enterprise_criteria": {
+            "performance_threshold": false,
+            "production_ready": false,
+            "auc_requirement": false,
+            "risk_acceptable": false,
+            "enterprise_grade": false
+          },
+          "enterprise_score": 0.0,
+          "enterprise_ready": false,
+          "certification_level": "Development Grade"
+        },
+        "recommendations": [
+          "Improve feature engineering and model architecture to achieve AUC >= 70%",
+          "Optimize trading strategy to improve risk-adjusted returns",
+          "Refine entry and exit signals to improve win rate",
+          "System requires significant improvements before enterprise deployment"
+        ],
+        "analysis_timestamp": "2025-07-08T06:58:55.086128"
+      },
+      "compliance_results": {
+        "real_data_only": true,
+        "auc_target_met": false,
+        "enterprise_standards": false,
+        "quality_gates_passed": false
+      },
+      "enterprise_validation": true
+    }
+  },
+  "performance_metrics": {
+    "ml_performance": {
+      "cnn_lstm_metrics": {
+        "auc": 0.0,
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      "feature_selection_metrics": {
+        "best_auc": 0.0,
+        "selected_features": 0,
+        "target_achieved": false
+      },
+      "ml_performance_score": 0.0,
+      "auc_target_met": false,
+      "model_quality": "Poor"
+    },
+    "trading_performance": {
+      "trading_metrics": {
+        "total_return_pct": 0.0,
+        "sharpe_ratio": 0.0,
+        "win_rate": 0.5,
+        "max_drawdown": 0.0,
+        "profit_factor": 0.8,
+        "total_trades": 0,
+        "final_balance": 10000.0
+      },
+      "trading_performance_score": 55.0,
+      "sharpe_target_met": false,
+      "drawdown_acceptable": true,
+      "win_rate_acceptable": false
+    },
+    "risk_analysis": {
+      "risk_metrics": {
+        "data_quality_risk": 50.0,
+        "model_risk": 100.0,
+        "overfitting_risk": 0.0,
+        "overall_risk_score": 75.0
+      },
+      "risk_assessment": "High",
+      "risk_factors": [
+        "AUC below target (0.7)",
+        "Limited training data"
+      ]
+    },
+    "overall_performance": {
+      "overall_score": 27.0,
+      "performance_grade": "F",
+      "key_metrics": {
+        "auc": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "win_rate": 50.0,
+        "total_return": 0.0
+      },
+      "component_scores": {
+        "ml_score": 0.0,
+        "trading_score": 55.0,
+        "risk_score": 25.0
+      },
+      "enterprise_ready": false,
+      "production_ready": false
+    },
+    "enterprise_grade": {
+      "enterprise_criteria": {
+        "performance_threshold": false,
+        "production_ready": false,
+        "auc_requirement": false,
+        "risk_acceptable": false,
+        "enterprise_grade": false
+      },
+      "enterprise_score": 0.0,
+      "enterprise_ready": false,
+      "certification_level": "Development Grade"
+    },
+    "recommendations": [
+      "Improve feature engineering and model architecture to achieve AUC >= 70%",
+      "Optimize trading strategy to improve risk-adjusted returns",
+      "Refine entry and exit signals to improve win rate",
+      "System requires significant improvements before enterprise deployment"
+    ],
+    "analysis_timestamp": "2025-07-08T06:58:55.086128"
+  },
+  "compliance_status": {
+    "real_data_only": true,
+    "auc_target_met": false,
+    "enterprise_standards": false,
+    "quality_gates_passed": false
+  },
+  "errors": [],
+  "warnings": []
+}

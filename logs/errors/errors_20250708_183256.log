@@ -1,0 +1,1 @@
+{"timestamp": "2025-07-08T18:35:47.902800", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Failed to create Elliott Wave features: object of type 'NoneType' has no len()", "category": "Error", "process_id": null, "session_id": "20250708_183256"}
