@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-07-10T18:18:53.976938",
+  "system_status": "NEEDS_IMPROVEMENTS",
+  "success_rate": 75.0,
+  "tests_passed": 6,
+  "total_tests": 8,
+  "detailed_results": {
+    "Data Availability": {
+      "status": "COMPLETED",
+      "result": {
+        "datacsv/XAUUSD_M1.csv": {
+          "exists": true,
+          "size_mb": 99.74183559417725
+        },
+        "datacsv/XAUUSD_M15.csv": {
+          "exists": true,
+          "size_mb": 3.476191520690918
+        },
+        "datacsv/xauusd_1m_features_with_elliott_waves.csv": {
+          "exists": true,
+          "size_mb": 1.5445060729980469
+        }
+      }
+    },
+    "Dependencies": {
+      "status": "COMPLETED",
+      "result": {
+        "pandas": true,
+        "numpy": true,
+        "scikit-learn": true,
+        "SHAP": true,
+        "Optuna": true,
+        "joblib": true
+      }
+    },
+    "Core Components": {
+      "status": "ERROR",
+      "error": "unexpected indent (enterprise_model_manager.py, line 309)"
+    },
+    "Elliott Wave Modules": {
+      "status": "ERROR",
+      "error": "unexpected indent (core_protection.py, line 93)"
+    },
+    "Enhanced Menu 1": {
+      "status": "COMPLETED",
+      "result": {
+        "import": false,
+        "init": false
+      }
+    },
+    "Feature Selector": {
+      "status": "COMPLETED",
+      "result": {
+        "import": false,
+        "init": false
+      }
+    },
+    "Data Processor": {
+      "status": "COMPLETED",
+      "result": {
+        "import": false,
+        "init": false,
+        "data_load": false,
+        "rows": 0
+      }
+    },
+    "System Integration": {
+      "status": "COMPLETED",
+      "result": {
+        "entry_point": true,
+        "directories": true
+      }
+    }
+  }
+}

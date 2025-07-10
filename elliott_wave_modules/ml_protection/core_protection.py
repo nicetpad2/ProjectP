@@ -64,7 +64,7 @@ class EnterpriseMLProtectionSystem:
         # Initialize protection modules
         self._initialize_protection_modules()
         
-            self.logger.info("🛡️ Enterprise ML Protection System initialized", component="MLProtection_Core")
+        self.logger.info("🛡️ Enterprise ML Protection System initialized", component="MLProtection_Core")
     
     def _initialize_protection_modules(self):
         """Initialize all protection modules with shared configuration"""
@@ -90,7 +90,7 @@ class EnterpriseMLProtectionSystem:
                 logger=self.logger
             )
             
-                self.logger.info("✅ All protection modules initialized successfully", component="MLProtection_Core")
+            self.logger.info("✅ All protection modules initialized successfully", component="MLProtection_Core")
                 
         except Exception as e:
             error_msg = f"❌ Failed to initialize protection modules: {str(e)}"

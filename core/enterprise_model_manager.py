@@ -173,7 +173,7 @@ class EnterpriseModelManager:
     def __init__(self, config: Dict[str, Any] = None, logger: logging.Logger = None):
         """Initialize Enterprise Model Manager"""
         self.config = config or {}
-            self.logger = logger or get_unified_logger()
+        self.logger = logger or get_unified_logger()
         
         # Get project paths
         self.paths = get_project_paths()
@@ -250,7 +250,7 @@ class EnterpriseModelManager:
             self.db_path = self.metadata_dir / "enterprise_model_registry.db"
             
             with sqlite3.connect(str(self.db_path)) as conn:
-            cursor = conn.cursor()
+                cursor = conn.cursor()
             
                 # Create enterprise model registry table
             cursor.execute('''
