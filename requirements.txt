@@ -9,7 +9,7 @@
 # Last updated: July 7, 2025
 
 # --- CORE DATA SCIENCE & COMPUTATION ---
-numpy>=1.21.0,<2.0.0  # Keep below 2.0 for broader compatibility
+numpy>=1.21.0,<2.0.0
 pandas>=2.0.0
 scipy>=1.8.0
 scikit-learn>=1.1.0

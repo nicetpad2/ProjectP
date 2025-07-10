@@ -45,7 +45,7 @@ import gc
 import psutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from core.unified_enterprise_logger import get_unified_logger, UnifiedEnterpriseLogger, LogLevel, ProcessStatus, ElliottWaveStep
-from core.unified_config_manager import UnifiedConfigManager
+from core.config import get_global_config # Use the correct, unified config factory function
 from core.unified_resource_manager import get_unified_resource_manager
 from core.output_manager import NicegoldOutputManager
 from core.project_paths import get_project_paths
@@ -90,10 +90,13 @@ class EnhancedMenu1ElliottWave:
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """
         Initializes the complete Menu 1 pipeline with all enterprise components.
+        - Receives the global configuration object directly.
+        - Initializes the unified logger.
+        - Sets up paths and resource manager.
         """
-        # Centralized configuration and logging
-        self.config_manager = UnifiedConfigManager(initial_config=config)
-        self.config = self.config_manager.config
+        # The configuration is now passed directly.
+        self.config = config or get_global_config().config
+        # CRITICAL FIX: Directly get the singleton instance of the full logger.
         self.logger: UnifiedEnterpriseLogger = get_unified_logger()
 
         self.session_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}"
@@ -149,7 +152,7 @@ class EnhancedMenu1ElliottWave:
         except (ImportError, TypeError, Exception) as e:
             self.logger.critical(f"Component initialization failed: {e}", error_details=traceback.format_exc())
             return False
-
+    
     def run(self) -> Dict[str, Any]:
         """Main entry point to run the enhanced pipeline."""
         self.logger.info("Starting Enhanced Elliott Wave Pipeline...")
@@ -160,7 +163,7 @@ class EnhancedMenu1ElliottWave:
         except Exception as e:
             self.logger.error(f"Pipeline execution failed: {e}", error_details=traceback.format_exc())
             return {"status": "ERROR", "message": str(e)}
-
+    
     def run_high_memory_pipeline(self) -> Dict[str, Any]:
         """
         Runs the full Elliott Wave analysis pipeline, optimized for high-memory environments.
@@ -191,13 +194,13 @@ class EnhancedMenu1ElliottWave:
                         self.logger.error(f"Step '{description}' failed. Aborting pipeline.")
                         return results
                     progress.advance()
-                except Exception as e:
+            except Exception as e:
                     self.logger.error(f"Critical error during '{description}': {e}", error_details=traceback.format_exc())
                     return {"status": "ERROR", "message": f"Failed at step: {description}"}
 
         self.logger.info("✅ High-Memory Pipeline Completed.")
-        return results
-
+            return results
+            
     def _load_data_high_memory(self, prev_results: Dict, config: Dict) -> Dict:
         """Loads data using the unified data processor."""
         self.logger.info("Loading and validating data...")
@@ -281,7 +284,7 @@ if __name__ == '__main__':
         if 'final_report' in final_results:
             print(f"AUC: {final_results['final_report']['performance']['auc']:.4f}")
         print("="*50)
-
-    except Exception as e:
+            
+        except Exception as e:
         print(f"\n❌ Standalone Test Failed: {e}")
         traceback.print_exc()

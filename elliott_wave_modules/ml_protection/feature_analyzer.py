@@ -89,7 +89,7 @@ class FeatureStabilityAnalyzer:
             
         except Exception as e:
             error_msg = f"❌ Feature stability analysis failed: {str(e)}"
-            self.logger.error(error_msg, component="FeatureAnalyzer")
+                self.logger.error(error_msg, component="FeatureAnalyzer")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _analyze_basic_stability(self, X: pd.DataFrame, y: pd.Series) -> Dict:
@@ -542,7 +542,7 @@ class FeatureStabilityAnalyzer:
             return assessment
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Overall stability computation failed: {str(e)}", component="FeatureAnalyzer")
+                self.logger.warning(f"⚠️ Overall stability computation failed: {str(e)}", component="FeatureAnalyzer")
             
             return {
                 'score': 0.5,

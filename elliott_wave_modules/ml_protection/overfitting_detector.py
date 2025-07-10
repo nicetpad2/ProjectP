@@ -61,7 +61,7 @@ class OverfittingDetector:
         try:
             # Check if sklearn is available for advanced analysis
             if not self.sklearn_available:
-                self.logger.warning("⚠️ sklearn not available, using simplified overfitting detection", component="OverfittingDetector")
+                    self.logger.warning("⚠️ sklearn not available, using simplified overfitting detection", component="OverfittingDetector")
                 return self._detect_overfitting_simplified(X, y)
             
             overfitting_results = {
@@ -111,14 +111,14 @@ class OverfittingDetector:
             return overfitting_results
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Advanced overfitting detection failed: {str(e)}, falling back to simplified method", component="OverfittingDetector")
+                self.logger.warning(f"⚠️ Advanced overfitting detection failed: {str(e)}, falling back to simplified method", component="OverfittingDetector")
             
             # Fallback to simplified method
             try:
                 return self._detect_overfitting_simplified(X, y)
             except Exception as fallback_error:
                 error_msg = f"❌ Both overfitting detection methods failed: {str(fallback_error)}"
-                self.logger.error(error_msg, component="OverfittingDetector")
+                    self.logger.error(error_msg, component="OverfittingDetector")
                 
                 return {
                     'status': 'ERROR', 
@@ -216,7 +216,7 @@ class OverfittingDetector:
             
         except Exception as e:
             error_msg = f"❌ Simplified overfitting detection failed: {str(e)}"
-            self.logger.error(error_msg, component="OverfittingDetector")
+                self.logger.error(error_msg, component="OverfittingDetector")
             
             return {
                 'status': 'ERROR',
@@ -254,7 +254,7 @@ class OverfittingDetector:
             }
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Train-validation analysis failed: {str(e)}", component="OverfittingDetector")
+                self.logger.warning(f"⚠️ Train-validation analysis failed: {str(e)}", component="OverfittingDetector")
             return {'error': str(e)}
     
     def _train_validation_analysis_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict:
@@ -336,7 +336,7 @@ class OverfittingDetector:
                 return {'insufficient_data': True}
                 
         except Exception as e:
-            self.logger.warning(f"⚠️ Learning curve analysis failed: {str(e)}", component="OverfittingDetector")
+                self.logger.warning(f"⚠️ Learning curve analysis failed: {str(e)}", component="OverfittingDetector")
             return {'error': str(e)}
     
     def _analyze_learning_curves_simplified(self, X: pd.DataFrame, y: pd.Series) -> Dict:
@@ -409,7 +409,7 @@ class OverfittingDetector:
             return {'insufficient_data': True}
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Feature importance stability analysis failed: {str(e)}", component="OverfittingDetector")
+                self.logger.warning(f"⚠️ Feature importance stability analysis failed: {str(e)}", component="OverfittingDetector")
             return {'error': str(e)}
     
     def _compute_overfitting_score(self, overfitting_results: Dict) -> float:
@@ -448,5 +448,5 @@ class OverfittingDetector:
                 return 0.0
                 
         except Exception as e:
-            self.logger.warning(f"⚠️ Overfitting score computation failed: {str(e)}", component="OverfittingDetector")
+                self.logger.warning(f"⚠️ Overfitting score computation failed: {str(e)}", component="OverfittingDetector")
             return 0.0

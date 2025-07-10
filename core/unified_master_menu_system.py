@@ -341,51 +341,30 @@ class UnifiedMasterMenuSystem:
         return True
     
     def _handle_system_status(self) -> bool:
-        """Displays the system status and resource monitor."""
-        safe_print("\n--- 📊 System Status ---")
-        if self.resource_manager:
-            safe_print("\n[ Resource Manager ]")
-            if hasattr(self.resource_manager, 'get_current_performance'):
-                perf = self.resource_manager.get_current_performance()
-                safe_print(f"  CPU Usage: {perf.get('cpu_percent', 'N/A'):.1f}%")
-                safe_print(f"  Memory Usage: {perf.get('memory_percent', 'N/A'):.1f}% ({perf.get('memory_gb', 'N/A'):.2f} GB used)")
-            else:
-                safe_print("  Performance monitoring data not available for this manager.")
-            
-            if hasattr(self.resource_manager, 'get_health_status'):
-                health = self.resource_manager.get_health_status()
-                safe_print(f"  Health Status: {health.get('status', 'N/A')}")
-                if health.get('issues'):
-                    for issue in health['issues']:
-                        safe_print(f"    - Issue: {issue}")
-            else:
-                safe_print("  Health status not available for this manager.")
-        else:
-            safe_print("  Resource Manager: Not initialized")
+        """Display system status and resource monitoring dashboard."""
+        if not self.resource_manager:
+            safe_print("❌ Resource Manager is not active.")
+            input("\nPress Enter to continue...")
+            return True
+
+        safe_print("\n" + "═"*25 + " 📊 SYSTEM STATUS & RESOURCE MONITOR " + "═"*25)
         
-        if self.config:
-            safe_print("\n[ Configuration ]")
-            safe_print(f"  Configuration Source: Unified")
-            safe_print(f"  Environment: {self.config.get('system.environment', 'N/A')}")
+        # Safely get performance and health status using hasattr
+        if hasattr(self.resource_manager, 'get_current_performance'):
+            perf = self.resource_manager.get_current_performance()
+            safe_print(f"  🧠 CPU Usage: {perf.get('cpu', 'N/A')}")
+            safe_print(f"  💾 Memory Usage: {perf.get('memory', 'N/A')}")
         else:
-            safe_print("  Configuration: Not loaded")
+            safe_print("  Performance metrics not available for this resource manager.")
 
-        if self.logger:
-            safe_print("\n[ Logger ]")
-            safe_print("  Unified Enterprise Logger: ACTIVE")
+        if hasattr(self.resource_manager, 'get_health_status'):
+            health = self.resource_manager.get_health_status()
+            safe_print(f"  🌡️ System Health: {health.get('status', 'N/A')} - {health.get('message', 'No details')}")
         else:
-            safe_print("  Logger: Not initialized")
-
-        if self.menu_1:
-            safe_print("\n[ Menu System ]")
-            safe_print(f"  Menu 1 Status: READY")
-            safe_print(f"  Menu Type: {self.menu_type}")
-        else:
-            safe_print("  Menu 1 Status: FAILED to initialize")
-
-        safe_print("\n" + "─"*50)
-        safe_print("Press Enter to return to the main menu...")
-        input()
+            safe_print("  Health status not available for this resource manager.")
+            
+        safe_print("═"*80)
+        input("\nPress Enter to continue...")
         return True
     
     def _handle_system_diagnostics(self) -> bool:
@@ -522,82 +501,58 @@ class UnifiedMasterMenuSystem:
         
         return False
     
-    def _handle_restart(self) -> bool:
-        """Handle system restart"""
-        safe_print("\n🔄 RESTARTING UNIFIED MASTER SYSTEM")
-        safe_print("🔧 Re-initializing all components...")
-        
-        # Stop current resources
-        if self.resource_manager:
-            try:
-                if hasattr(self.resource_manager, 'stop_monitoring'):
-                    self.resource_manager.stop_monitoring()
-            except:
-                pass
-        
-        # Reset all components
-        self.resource_manager = None
-        self.logger = None
-        self.menu_1 = None
-        self.menu_available = False
-        self.config = None
-        
-        # Force garbage collection
-        gc.collect()
-        
-        # Generate new session ID
-        self.session_id = datetime.now().strftime('%Y%m%d_%H%M%S')
-        
-        # Re-initialize components
-        if self.initialize_components():
-            safe_print("✅ System restart completed successfully!")
-            safe_print(f"🆔 New session ID: {self.session_id}")
-        else:
-            safe_print("⚠️ System restart completed with warnings")
-        
-        input("\nPress Enter to continue...")
-        return True
-    
-    def start(self):
-        """Start the unified master menu system"""
-        self.logger = get_unified_logger()
-        self.logger.info("Starting NICEGOLD Enterprise System...", component="SysInit")
-        
-        if not self._load_configuration():
-            return
-        
-        safe_print("🚀 Starting Unified Master Menu System...")
-        
-        # Initialize all components
-        if not self.initialize_components():
-            safe_print("⚠️ Some components failed to initialize")
-        
-        safe_print("\n✅ UNIFIED MASTER SYSTEM READY")
-        safe_print("🎛️ Zero duplication, complete integration achieved")
-        
-        # Main menu loop
-        while self.running:
-            try:
-                self.display_unified_menu()
-                choice = self.get_user_choice()
-                
-                if not self.handle_menu_choice(choice):
-                    break
-                    
-                # Pause before next iteration
-                safe_print("\n" + "="*80)
-                
-            except KeyboardInterrupt:
-                safe_print("\n🛑 System interrupted by user")
-                break
-            except Exception as e:
-                safe_print(f"\n❌ System error: {e}")
-                input("Press Enter to continue...")
-        
-        safe_print("\n✅ Unified Master System shutdown complete")
+    def _handle_restart(self) -> Any: # Changed return type to Any
+        """Handles system restart."""
+        self.logger.info("Requesting system restart...")
+        self.running = False
+        # The return value of 'False' from handle_menu_choice would stop the loop,
+        # but we also return a specific value to indicate restart is needed.
+        return 'restart'
 
+    def start(self):
+        """
+        Start the unified master menu system.
+        MODIFIED FOR AUTOMATED EXECUTION: This method now directly runs the
+        Elliott Wave pipeline instead of showing the interactive menu.
+        """
+        self.logger.info("🚀 Starting Unified Master Menu System...")
+        self.logger.info("⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.")
+
+        # Directly execute the main pipeline
+        self._handle_elliott_wave_pipeline()
+
+        self.logger.info("✅ Automated execution complete. System will now exit.")
+        self.running = False # Ensure the program exits after the run
+        
+        # Original interactive loop is commented out for automated run
+        #
+        # while self.running:
+        #     self.display_unified_menu()
+        #     try:
+        #         choice = self.get_user_choice()
+        #         action_result = self.handle_menu_choice(choice)
+
+        #         if action_result == 'restart':
+        #             # Special case for restart
+        #             safe_print("\n🔄 Restarting system...")
+        #             # A wrapper script would be needed to truly restart the process.
+        #             # For now, we exit and the user can re-run.
+        #             break 
+                
+        #         if not action_result:
+        #             # For 'exit' or other loop-breaking conditions
+        #             self.running = False
+
+        #     except KeyboardInterrupt:
+        #         safe_print("\n\n Caught KeyboardInterrupt. Exiting gracefully. \n")
+        #         self.running = False
+        #     except Exception as e:
+        #         self.logger.critical(f"An unexpected error occurred in the main loop: {e}", exc_info=True)
+        #         safe_print(f"❌ An unexpected error occurred: {e}")
+        #         self.running = False
+        
 def main():
-    """Main entry point for the menu system."""
+    """For testing purposes"""
     try:
         # Pass the unified logger from the main system
         system_menu = UnifiedMasterMenuSystem()

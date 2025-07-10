@@ -99,7 +99,7 @@ class TimeSeriesValidator:
             
         except Exception as e:
             error_msg = f"❌ Time series validation failed: {str(e)}"
-            self.logger.error(error_msg, component="TimeSeriesValidator")
+                self.logger.error(error_msg, component="TimeSeriesValidator")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _validate_temporal_ordering(self, X: pd.DataFrame, datetime_col: str) -> Dict:
@@ -593,7 +593,7 @@ class TimeSeriesValidator:
             return assessment
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Integrity assessment computation failed: {str(e)}", component="TimeSeriesValidator")
+                self.logger.warning(f"⚠️ Integrity assessment computation failed: {str(e)}", component="TimeSeriesValidator")
             
             return {
                 'score': 0.5,

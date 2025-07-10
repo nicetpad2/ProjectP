@@ -112,7 +112,7 @@ class NoiseQualityAnalyzer:
             
         except Exception as e:
             error_msg = f"❌ Noise detection failed: {str(e)}"
-            self.logger.error(error_msg, component="NoiseAnalyzer")
+                self.logger.error(error_msg, component="NoiseAnalyzer")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _analyze_missing_values(self, X: pd.DataFrame) -> Dict:
@@ -601,7 +601,7 @@ class NoiseQualityAnalyzer:
             return float(np.mean(noise_components))
             
         except Exception as e:
-            self.logger.warning(f"⚠️ Noise level computation failed: {str(e)}", component="NoiseAnalyzer")
+                self.logger.warning(f"⚠️ Noise level computation failed: {str(e)}", component="NoiseAnalyzer")
             return 0.5  # Default moderate noise level
     
     def _compute_data_quality_score(self, noise_results: Dict) -> float:
@@ -633,7 +633,7 @@ class NoiseQualityAnalyzer:
                 return float(base_quality)
                 
         except Exception as e:
-            self.logger.warning(f"⚠️ Data quality score computation failed: {str(e)}", component="NoiseAnalyzer")
+                self.logger.warning(f"⚠️ Data quality score computation failed: {str(e)}", component="NoiseAnalyzer")
             return 0.5  # Default moderate quality
     
     def _generate_quality_recommendations(self, noise_results: Dict) -> List[str]:

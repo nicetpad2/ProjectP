@@ -71,3 +71,225 @@
 2025-07-11 00:31:14,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
 2025-07-11 00:31:16,228 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: No module named 'core.unified_config_manager'
 2025-07-11 00:31:16,230 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting NICEGOLD Enterprise System...
+2025-07-11 00:46:03,535 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:46:03,541 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 853d7450
+2025-07-11 00:46:03,543 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:46:03,576 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:46:05,774 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:46:05,819 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.4GB available
+2025-07-11 00:46:05,839 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.7GB RAM (80%), 2 cores (17%)
+2025-07-11 00:46:05,845 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:46:05,850 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:46:05,853 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:46:06,724 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:46:06,764 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:46:09,874 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:46:09,877 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:46:16,086 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:46:16,089 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:46:16,093 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:46:16,097 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:46:16,100 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:46:16,103 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:46:16,118 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:46:16,961 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: No module named 'core.unified_config_manager'
+2025-07-11 00:46:16,966 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting NICEGOLD Enterprise System...
+2025-07-11 00:49:35,345 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:49:35,351 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 0fbad6c2
+2025-07-11 00:49:35,353 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:49:35,385 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:49:35,443 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:49:35,484 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.7GB available
+2025-07-11 00:49:35,498 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 11.0GB RAM (80%), 2 cores (17%)
+2025-07-11 00:49:35,502 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:49:35,504 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:49:35,506 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:49:35,538 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:49:35,575 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:49:37,670 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:49:37,672 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:49:42,355 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:49:42,357 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:49:42,359 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:49:42,363 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:49:42,366 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:49:42,368 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:49:42,382 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:49:42,407 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: No module named 'core.unified_config_manager'
+2025-07-11 00:49:42,410 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:49:42,413 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:49:42,416 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:52:26,912 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:52:26,970 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 6e18393a
+2025-07-11 00:52:26,985 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:52:27,130 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:52:27,227 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:52:27,332 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.4GB available
+2025-07-11 00:52:27,357 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.7GB RAM (80%), 2 cores (17%)
+2025-07-11 00:52:27,369 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:52:27,386 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:52:27,392 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:52:27,487 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:52:27,537 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:52:30,137 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:52:30,139 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:52:36,255 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:52:36,259 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:52:36,262 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:52:36,265 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:52:36,268 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:52:36,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:52:36,287 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:52:36,312 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: No module named 'core.unified_config_manager'
+2025-07-11 00:52:36,315 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:52:36,318 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:53:21,000 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:54:18,582 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:54:18,587 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 4ccf417f
+2025-07-11 00:54:18,590 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:54:18,622 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:54:18,641 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:54:18,684 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.5GB available
+2025-07-11 00:54:18,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.8GB RAM (80%), 2 cores (17%)
+2025-07-11 00:54:18,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:54:18,708 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:54:18,710 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:54:18,742 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:54:18,785 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:54:20,889 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:54:20,892 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:54:25,947 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:54:25,962 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:54:25,976 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:54:25,984 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:54:25,993 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:54:26,001 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:54:26,107 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:54:26,308 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: No module named 'core.config_loader'
+2025-07-11 00:54:26,311 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:54:26,316 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:54:35,362 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:54:57,577 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:54:57,582 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: f22eafb3
+2025-07-11 00:54:57,584 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:54:57,620 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:54:57,636 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:54:57,685 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.5GB available
+2025-07-11 00:54:57,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.8GB RAM (80%), 2 cores (17%)
+2025-07-11 00:54:57,704 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:54:57,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:54:57,709 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:54:57,737 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:54:57,777 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:54:59,981 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:54:59,984 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:55:05,061 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:55:05,065 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:55:05,068 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:55:05,071 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:55:05,073 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:55:05,076 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:55:05,096 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:55:06,784 - NICEGOLD_PROJECT - CRITICAL - NICEGOLD_PROJECT: Failed to import EnhancedMenu1ElliottWave: cannot import name 'get_enterprise_model_manager' from 'core.enterprise_model_manager' (G:\My Drive\ProjectP-1\core\enterprise_model_manager.py)
+2025-07-11 00:55:06,788 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:55:06,791 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:55:13,123 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:57:50,064 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:57:50,070 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 034fc461
+2025-07-11 00:57:50,073 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:57:50,108 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:57:50,125 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:57:50,173 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.7GB available
+2025-07-11 00:57:50,191 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.9GB RAM (80%), 2 cores (17%)
+2025-07-11 00:57:50,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:57:50,197 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:57:50,200 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:57:50,232 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:57:50,283 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:57:52,541 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:57:52,545 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:57:57,620 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:57:57,623 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:57:57,626 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:57:57,628 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:57:57,631 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:57:57,633 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:57:57,651 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:58:03,758 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_005803)
+2025-07-11 00:58:03,855 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 00:58:03,858 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 00:58:03,876 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_005803
+2025-07-11 00:58:03,879 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 00:58:03,882 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 Elliott Wave (Unified): READY
+2025-07-11 00:58:03,885 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:58:03,888 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:58:03,892 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Elliott Wave Pipeline...
+2025-07-11 00:58:03,894 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Launching High-Memory Optimized Pipeline
+2025-07-11 00:58:03,917 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Pipeline execution failed: 'CompatibilityLogger' object has no attribute 'progress_bar'
+2025-07-11 00:58:07,794 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:58:30,695 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:58:30,700 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 8fbe9b9b
+2025-07-11 00:58:30,702 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:58:30,738 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:58:30,755 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:58:30,802 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.7GB available
+2025-07-11 00:58:30,818 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 11.0GB RAM (80%), 2 cores (17%)
+2025-07-11 00:58:30,821 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:58:30,823 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:58:30,826 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:58:30,859 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:58:30,904 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:58:33,238 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:58:33,241 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:58:38,644 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:58:38,646 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:58:38,648 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:58:38,651 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:58:38,654 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:58:38,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:58:38,674 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:58:39,257 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_005839)
+2025-07-11 00:58:39,352 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 00:58:39,355 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 00:58:39,372 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_005839
+2025-07-11 00:58:39,375 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 00:58:39,377 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 Elliott Wave (Unified): READY
+2025-07-11 00:58:39,380 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:58:39,383 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:58:39,387 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Elliott Wave Pipeline...
+2025-07-11 00:58:39,390 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Launching High-Memory Optimized Pipeline
+2025-07-11 00:58:39,400 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Pipeline execution failed: 'CompatibilityLogger' object has no attribute 'progress_bar'
+2025-07-11 00:58:42,984 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.
+2025-07-11 00:59:05,840 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 00:59:05,880 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: a3b5dffb
+2025-07-11 00:59:05,884 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 00:59:05,970 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 00:59:05,992 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 00:59:06,048 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 13.6GB available
+2025-07-11 00:59:06,070 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 10.9GB RAM (80%), 2 cores (17%)
+2025-07-11 00:59:06,075 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 00:59:06,078 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 00:59:06,082 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 00:59:06,130 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 00:59:06,193 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 00:59:08,692 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 00:59:08,695 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 00:59:14,612 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 00:59:14,616 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 00:59:14,618 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 00:59:14,621 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 00:59:14,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 00:59:14,627 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 00:59:14,646 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 00:59:15,309 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_005915)
+2025-07-11 00:59:15,399 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 00:59:15,402 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 00:59:15,419 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_005915
+2025-07-11 00:59:15,422 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 00:59:15,426 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 Elliott Wave (Unified): READY
+2025-07-11 00:59:15,429 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-11 00:59:15,431 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.
+2025-07-11 00:59:15,435 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Elliott Wave Pipeline...
+2025-07-11 00:59:15,441 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Launching High-Memory Optimized Pipeline
+2025-07-11 00:59:15,451 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Pipeline execution failed: 'CompatibilityLogger' object has no attribute 'progress_bar'
+2025-07-11 00:59:40,761 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Automated execution complete. System will now exit.

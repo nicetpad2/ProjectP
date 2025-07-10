@@ -22,13 +22,13 @@ def setup_environment():
         sys.path.insert(0, str(project_root))
 
     # Force CPU-only operation for stability
-    os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
     
     # Suppress TensorFlow and other warnings for a cleaner enterprise output
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-    os.environ['PYTHONWARNINGS'] = 'ignore'
-    os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-    warnings.filterwarnings('ignore')
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['PYTHONWARNINGS'] = 'ignore'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+warnings.filterwarnings('ignore')
 
 def main():
     """
@@ -47,9 +47,9 @@ def main():
         else:
             print("\n❌ CRITICAL: Failed to initialize core components. System cannot start.")
             sys.exit(1)
-            
+        
         return True
-    
+        
     except ImportError as e:
         print(f"\n❌ CRITICAL IMPORT ERROR: {e}")
         print("Please ensure all dependencies are installed correctly using 'pip install -r requirements.txt'")
