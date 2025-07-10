@@ -23,16 +23,12 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 # Suppress CUDA warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
-
-# Standard library imports
-import time
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning)
 
 
 import numpy as np
 import pandas as pd
-import time
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import logging
@@ -46,406 +42,818 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # 🚀 Import Advanced Logging System
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
     from core.real_time_progress_manager import get_progress_manager, ProgressType
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
     ADVANCED_LOGGING_AVAILABLE = False
     print("⚠️ Advanced logging not available, using standard logging")
-
-# Import Pipeline Data Container and Enterprise Base
-from core.pipeline_data_container import PipelineDataContainer, create_pipeline_container, safe_extract_data
-from core.enterprise_component_base import EnterpriseComponentBase
-
 import json
 
-class ElliottWavePipelineOrchestrator(EnterpriseComponentBase):
+class ElliottWavePipelineOrchestrator:
     """ตัวควบคุม Pipeline Elliott Wave ระดับ Enterprise"""
     
-    def __init__(self, data_processor=None, cnn_lstm_engine=None, dqn_agent=None, feature_selector=None, 
-                 performance_analyzer=None, logger=None, beautiful_logger=None, output_manager=None,
-                 ml_protection=None, resource_manager=None, config=None):
-        
-        # Initialize enterprise component base
-        super().__init__("ElliottWavePipelineOrchestrator", config)
-        
-        # Component assignments - can be None for testing
+    def __init__(self, data_processor=None, cnn_lstm_engine=None, dqn_agent=None, feature_selector=None, ml_protection=None, config: Dict = None, logger: logging.Logger = None):
+        # Make all components optional for testing purposes
         self.data_processor = data_processor
         self.cnn_lstm_engine = cnn_lstm_engine
         self.dqn_agent = dqn_agent
         self.feature_selector = feature_selector
-        self.performance_analyzer = performance_analyzer
-        self.logger = logger
-        self.beautiful_logger = beautiful_logger
-        self.output_manager = output_manager
-        self.ml_protection = ml_protection
-        self.resource_manager = resource_manager
+        self.ml_protection = ml_protection  # Enterprise ML Protection System
+        self.config = config or {}
+        
+        # 🚀 Initialize Advanced Logging
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+            self.logger.info("🚀 Pipeline Orchestrator initialized with Advanced Logging", 
+                           "Pipeline_Orchestrator")
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         # Pipeline state
+        self.pipeline_state = {
+            'stage': 'initialized',
+            'progress': 0,
+            'start_time': None,
+            'end_time': None,
+            'errors': [],
+            'warnings': []
+        }
+        
+        # Results storage
         self.pipeline_results = {}
-        self.pipeline_container = None  # Will hold PipelineDataContainer
-        
-        self.log_success("Pipeline orchestrator initialized successfully")
-
-    def run_full_pipeline(self, initial_data: pd.DataFrame) -> Dict[str, Any]:
-        """
-        Executes the entire pipeline using a single, pre-loaded data source.
-        Uses PipelineDataContainer for standardized data flow.
-        """
-        if initial_data is None or initial_data.empty:
-            self.log_error("Orchestrator received no initial data. Aborting pipeline.")
-            self.beautiful_logger.fail_step(1, "Pipeline Start", "No data provided to orchestrator.", "❌")
-            return {"status": "failed", "error": "No initial data"}
-
-        # Create pipeline data container
-        self.pipeline_container = create_pipeline_container(
-            data=initial_data,
-            pipeline_id=f"elliott_wave_{self.session_id}",
-            session_id=self.session_id
-        )
-        
-        self.log_success(f"Pipeline starting with {len(initial_data)} data rows")
-
-        # Define pipeline stages with standardized data flow
-        stages = [
-            (2, "Data Preprocessing & Feature Engineering", self._stage_2_preprocess_and_feature_engineer),
-            (3, "Advanced Feature Selection", self._stage_3_feature_selection),
-            (4, "CNN-LSTM Model Training", self._stage_4_cnn_lstm_training),
-            (5, "DQN Agent Training", self._stage_5_dqn_training),
-            (6, "Performance Analysis", self._stage_6_performance_analysis),
-            (7, "Generate Final Report", self._stage_7_generate_report)
-        ]
-
+    
+    def execute_full_pipeline(self) -> Dict[str, Any]:
+        """ดำเนินการ Pipeline แบบครบวงจร"""
         try:
-            for step, name, func in stages:
-                self.beautiful_logger.start_step(step, name, f"Executing step: {name}")
+            # Validate required components
+            if not self._validate_components():
+                raise ValueError("Missing required components for pipeline execution")
+            
+            # 🚀 Advanced Logging Integration
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info("🚀 Starting Elliott Wave Full Pipeline Execution...", 
+                                "Pipeline_Orchestrator")
                 
-                # Execute stage with timing
-                start_time = time.time()
-                result = func() 
-                execution_time = time.time() - start_time
-                
-                if not result.get("success", False):
-                    error_msg = result.get('error', 'Unknown error')
-                    self.log_error(f"Pipeline failed at step '{name}': {error_msg}")
-                    self.beautiful_logger.fail_step(step, name, f"Failed: {error_msg}", "❌")
+                # Start progress tracking
+                if self.progress_manager:
+                    self.progress_manager.start_process(
+                        process_id="full_pipeline",
+                        name="Elliott Wave Full Pipeline",
+                        process_type=ProgressType.PIPELINE,
+                        total_steps=12  # Updated for all stages
+                    )
+            else:
+                self.logger.info("🚀 Starting Elliott Wave Full Pipeline Execution...")
+            
+            self.pipeline_state['start_time'] = datetime.now()
+            
+            # Pipeline Stages with Enterprise Protection
+            stages = [
+                ('data_loading', self._stage_1_data_loading),
+                ('data_preprocessing', self._stage_2_data_preprocessing),
+                ('enterprise_protection_analysis', self._stage_2b_enterprise_protection_analysis),  # New protection stage
+                ('feature_engineering', self._stage_3_feature_engineering),
+                ('feature_selection', self._stage_4_feature_selection),
+                ('pre_training_validation', self._stage_4b_pre_training_validation),  # New validation stage
+                ('cnn_lstm_training', self._stage_5_cnn_lstm_training),
+                ('dqn_training', self._stage_6_dqn_training),
+                ('post_training_protection', self._stage_6b_post_training_protection),  # New protection stage
+                ('system_integration', self._stage_7_system_integration),
+                ('quality_validation', self._stage_8_quality_validation),
+                ('final_protection_report', self._stage_8b_final_protection_report),  # New final report
+                ('results_compilation', self._stage_9_results_compilation)
+            ]
+            
+            # Execute stages
+            for i, (stage_name, stage_function) in enumerate(stages):
+                try:
+                    # 🚀 Advanced Logging for each stage
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.info(f"📊 Stage {i+1}/{len(stages)}: {stage_name.replace('_', ' ').title()}", 
+                                       "Pipeline_Orchestrator")
+                        
+                        # Update progress
+                        if self.progress_manager:
+                            self.progress_manager.update_progress(
+                                process_id="full_pipeline",
+                                current_step=i+1,
+                                status_message=f"Processing {stage_name.replace('_', ' ').title()}"
+                            )
+                    else:
+                        self.logger.info(f"📊 Stage {i+1}/{len(stages)}: {stage_name.replace('_', ' ').title()}")
                     
-                    # Add error to pipeline container
-                    self.pipeline_container.add_error(error_msg, name)
+                    self.pipeline_state['stage'] = stage_name
+                    self.pipeline_state['progress'] = int((i / len(stages)) * 100)
                     
-                    # Log traceback if available
-                    if 'traceback' in result:
-                        self.logger.debug(result['traceback'])
-                    return {"status": "failed", "error": f"Failed at {name}: {error_msg}"}
+                    stage_result = stage_function()
+                    self.pipeline_results[stage_name] = stage_result
+                    
+                    # Check if stage failed
+                    if not stage_result.get('success', False):
+                        raise Exception(f"Stage {stage_name} failed: {stage_result.get('error', 'Unknown error')}")
+                    
+                    # 🚀 Advanced Success Logging
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.success(f"✅ Stage {i+1}/{len(stages)} completed successfully", 
+                                          "Pipeline_Orchestrator")
+                    else:
+                        self.logger.info(f"✅ Stage {i+1}/{len(stages)} completed successfully")
+                    
+                except Exception as e:
+                    # 🚀 Advanced Error Logging
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.error(f"❌ Stage {stage_name} failed: {str(e)}", 
+                                        "Pipeline_Orchestrator", 
+                                        data={'error_type': type(e).__name__, 'context': f"Stage {stage_name}"}, 
+                                        exception=e)
+                    else:
+                        self.logger.error(f"❌ Stage {stage_name} failed: {str(e)}")
+                    
+                    self.pipeline_state['errors'].append(f"{stage_name}: {str(e)}")
+                    
+                    # Try to continue with next stage if possible
+                    if self._is_critical_stage(stage_name):
+                        raise
+                    else:
+                        self.pipeline_state['warnings'].append(f"Non-critical stage {stage_name} failed, continuing...")
+                        continue
+            
+            # Pipeline completion
+            self.pipeline_state['end_time'] = datetime.now()
+            self.pipeline_state['progress'] = 100
+            self.pipeline_state['stage'] = 'completed'
+            
+            # 🚀 Advanced Logging for completion
+            if ADVANCED_LOGGING_AVAILABLE:
+                if self.progress_manager:
+                    self.progress_manager.complete_process(
+                        process_id="full_pipeline",
+                        success=True
+                    )
                 
-                # Add successful step to pipeline container
-                self.pipeline_container.add_step_result(
-                    step_name=name,
-                    result_data=self.pipeline_container.data,  # Current data state
-                    step_metadata=result.get('metadata', {}),
-                    execution_time=execution_time,
-                    step_status='success'
+                self.logger.success("✅ Elliott Wave Full Pipeline Execution Completed Successfully!", 
+                                   "Pipeline_Orchestrator")
+            else:
+                self.logger.info("✅ Elliott Wave Full Pipeline Execution Completed Successfully!")
+            
+            # Compile final results
+            final_results = self._compile_final_results()
+            
+            return final_results
+            
+        except Exception as e:
+            # 🚀 Advanced Error Logging for pipeline failure
+            if ADVANCED_LOGGING_AVAILABLE:
+                if self.progress_manager:
+                    self.progress_manager.complete_process(
+                        process_id="full_pipeline",
+                        success=False
+                    )
+                
+                self.logger.error(f"💥 Pipeline execution failed: {str(e)}", 
+                                 "Pipeline_Orchestrator",
+                                 data={'error_type': type(e).__name__, 'context': "Pipeline execution failed"}, 
+                                 exception=e)
+            else:
+                self.logger.error(f"💥 Pipeline execution failed: {str(e)}")
+                self.logger.debug(traceback.format_exc())
+            
+            # Return error results
+            return {
+                'success': False,
+                'error': str(e),
+                'pipeline_state': self.pipeline_state,
+                'partial_results': self.pipeline_results
+            }
+    
+    def _stage_1_data_loading(self) -> Dict[str, Any]:
+        """Stage 1: โหลดและตรวจสอบข้อมูล"""
+        try:
+            self.logger.info("📂 Loading real market data...")
+            
+            # Load data
+            data = self.data_processor.load_real_data()
+            
+            if data is None or len(data) == 0:
+                raise ValueError("No data loaded or data is empty")
+            
+            # Validate data quality
+            data_quality = self.data_processor.get_data_quality_report(data)
+            
+            # Enterprise compliance check
+            if data_quality.get('has_fallback', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Fallback data detected!")
+            
+            if data_quality.get('has_test_data', False):
+                raise ValueError("❌ ENTERPRISE VIOLATION: Test data detected!")
+            
+            if data_quality.get('real_data_percentage', 0) < 100:
+                raise ValueError("❌ ENTERPRISE VIOLATION: Not 100% real data!")
+            
+            self.logger.info(f"✅ Data loaded: {len(data)} rows, {len(data.columns)} columns")
+            
+            return {
+                'success': True,
+                'data': data,
+                'data_quality': data_quality,
+                'rows': len(data),
+                'columns': len(data.columns)
+            }
+            
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
+    
+    def _stage_2_data_preprocessing(self) -> Dict[str, Any]:
+        """Stage 2: ประมวลผลและทำความสะอาดข้อมูล - Enhanced with Noise Filtering"""
+        try:
+            self.logger.info("🧹 Preprocessing and cleaning data with enterprise-grade filtering...")
+            
+            # Get data from previous stage
+            data = self.pipeline_results.get('data_loading', {}).get('data')
+            if data is None:
+                raise ValueError("No data available from previous stage")
+            
+            # Step 1: Elliott Wave pattern detection
+            data_processed = self.data_processor.detect_elliott_wave_patterns(data)
+            
+            # Step 2: Apply enterprise noise filtering
+            self.logger.info("🔧 Applying enterprise noise filtering...")
+            data_processed = self.data_processor.apply_enterprise_noise_filtering(data_processed)
+            
+            # Step 3: Optimize features for enterprise standards
+            self.logger.info("🎯 Optimizing features for enterprise standards...")
+            data_processed = self.data_processor.optimize_features_for_enterprise(data_processed)
+            
+            # Step 4: Validate data quality after processing
+            quality_metrics = self.data_processor._analyze_data_quality(data_processed)
+            
+            # Enterprise quality gate
+            if quality_metrics['quality_score'] < 80:
+                self.logger.warning(f"⚠️ Data quality after processing: {quality_metrics['quality_score']:.1f}% (below 80% threshold)")
+                # Apply additional enhancement if needed
+                data_processed = self.data_processor._enhance_data_quality(data_processed)
+                quality_metrics = self.data_processor._analyze_data_quality(data_processed)
+            
+            self.logger.info(f"✅ Data preprocessing completed with quality score: {quality_metrics['quality_score']:.1f}%")
+            
+            return {
+                'success': True,
+                'data_processed': data_processed,
+                'elliott_wave_patterns_detected': True,
+                'quality_metrics': quality_metrics,
+                'enterprise_filtering_applied': True,
+                'processing_steps': [
+                    'Elliott Wave Pattern Detection',
+                    'Enterprise Noise Filtering',
+                    'Feature Optimization',
+                    'Quality Enhancement',
+                    'Price Swing Analysis',
+                    'Fibonacci Retracement Calculation',
+                    'Wave Relationship Analysis'
+                ]
+            }
+            
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
+    
+    # ==================== ENTERPRISE PROTECTION STAGES ====================
+    
+    def _stage_2b_enterprise_protection_analysis(self) -> Dict[str, Any]:
+        """Stage 2b: Enterprise ML Protection Analysis"""
+        try:
+            self.logger.info("🛡️ Starting Enterprise ML Protection Analysis...")
+            
+            if not self.ml_protection:
+                self.logger.warning("⚠️ ML Protection System not available, skipping...")
+                return {
+                    'success': True,
+                    'stage': 'enterprise_protection_analysis',
+                    'status': 'skipped',
+                    'message': 'ML Protection System not initialized'
+                }
+            
+            # Get preprocessed data from previous stage
+            data_results = self.pipeline_results.get('data_preprocessing', {})
+            features_df = data_results.get('processed_data')
+            
+            if features_df is None or features_df.empty:
+                return {
+                    'success': False,
+                    'stage': 'enterprise_protection_analysis',
+                    'error': 'No processed data available for protection analysis'
+                }
+            
+            # Prepare target variable (simple binary classification for analysis)
+            # This is just for protection analysis, actual targets will be prepared later
+            if 'close' in features_df.columns:
+                # Create a simple price direction target for analysis
+                features_df = features_df.copy()
+                features_df['future_close'] = features_df['close'].shift(-1)
+                features_df['temp_target'] = (features_df['future_close'] > features_df['close']).astype(int)
+                features_df = features_df.dropna()
+                
+                if len(features_df) < 100:
+                    return {
+                        'success': False,
+                        'stage': 'enterprise_protection_analysis',
+                        'error': 'Insufficient data for protection analysis'
+                    }
+                
+                # Separate features and target for analysis
+                analysis_features = features_df.select_dtypes(include=['number']).drop(columns=['future_close', 'temp_target'], errors='ignore')
+                analysis_target = features_df['temp_target']
+                
+                # Run comprehensive protection analysis
+                self.logger.info("🔍 Running comprehensive protection analysis...")
+                protection_results = self.ml_protection.comprehensive_protection_analysis(
+                    X=analysis_features,
+                    y=analysis_target,
+                    model=None,  # Will use default RandomForest
+                    datetime_col='date' if 'date' in features_df.columns else None
                 )
                 
-                self.pipeline_results[name] = result
-                self.beautiful_logger.complete_step(step, name, result.get('message', 'Completed successfully.'), "✅")
-
-            self.log_success("Pipeline completed all stages successfully")
-            return {
-                "status": "success", 
-                "results": self.pipeline_results,
-                "container_summary": self.pipeline_container.to_dict()
-            }
-
-        except Exception as e:
-            self.log_error(f"Critical unhandled error occurred in the orchestrator", e)
-            self.beautiful_logger.fail_step(99, "Critical Failure", f"Unhandled exception: {e}", "🔥")
-            self.pipeline_container.add_error(str(e), "pipeline_orchestrator", e)
-            return {"status": "failed", "error": str(e)}
-
-    def _stage_2_preprocess_and_feature_engineer(self) -> Dict[str, Any]:
-        """
-        Processes data for Elliott Wave and adds technical indicators.
-        Uses standardized data flow with PipelineDataContainer.
-        """
-        try:
-            self.log_success("Starting Stage 2: Data Preprocessing & Feature Engineering")
-            
-            # Extract data from pipeline container
-            current_data = safe_extract_data(self.pipeline_container)
-            
-            if current_data is None or current_data.empty:
-                return {"success": False, "error": "No data available for preprocessing"}
-            
-            # Process data with the updated method signature
-            processed_data = self.data_processor.process_data_for_elliott_wave(current_data)
-            
-            if processed_data is None or processed_data.empty:
-                return {"success": False, "error": "Data processing returned no data."}
-
-            # Update pipeline container with processed data
-            self.pipeline_container.data = processed_data
-            
-            message = f"Preprocessing complete. Data shape: {processed_data.shape}"
-            self.log_success(message)
-            
-            return {
-                "success": True, 
-                "message": message, 
-                "data_shape": processed_data.shape,
-                "metadata": {
-                    "processing_method": "elliott_wave_preprocessing",
-                    "input_rows": len(current_data),
-                    "output_rows": len(processed_data)
+                # Check if analysis passed enterprise standards
+                overall_assessment = protection_results.get('overall_assessment', {})
+                enterprise_ready = overall_assessment.get('enterprise_ready', False)
+                protection_status = overall_assessment.get('protection_status', 'UNKNOWN')
+                risk_level = overall_assessment.get('risk_level', 'HIGH')
+                
+                # Log critical alerts
+                alerts = protection_results.get('alerts', [])
+                for alert in alerts:
+                    self.logger.warning(alert)
+                
+                # Store results for later stages
+                self.pipeline_results['initial_protection_analysis'] = protection_results
+                
+                return {
+                    'success': True,
+                    'stage': 'enterprise_protection_analysis',
+                    'protection_results': protection_results,
+                    'enterprise_ready': enterprise_ready,
+                    'protection_status': protection_status,
+                    'risk_level': risk_level,
+                    'alerts_count': len(alerts),
+                    'recommendations_count': len(protection_results.get('recommendations', [])),
+                    'message': f"Protection analysis completed - Status: {protection_status}, Risk: {risk_level}"
                 }
-            }
-
+            
+            else:
+                return {
+                    'success': False,
+                    'stage': 'enterprise_protection_analysis',
+                    'error': 'Required price data not found for protection analysis'
+                }
+            
         except Exception as e:
-            self.log_error(f"Stage 2 preprocessing failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-    def _stage_3_feature_selection(self) -> Dict[str, Any]:
-        """
-        Selects the best features for the models using standardized data flow.
-        """
+            error_msg = f"Enterprise protection analysis failed: {str(e)}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'stage': 'enterprise_protection_analysis',
+                'error': error_msg,
+                'traceback': traceback.format_exc()
+            }
+    
+    def _stage_4b_pre_training_validation(self) -> Dict[str, Any]:
+        """Stage 4b: Pre-Training Protection Validation"""
         try:
-            self.log_success("Starting Stage 3: Advanced Feature Selection")
+            self.logger.info("✅ Pre-Training Protection Validation...")
             
-            # Extract data from pipeline container
-            current_data = safe_extract_data(self.pipeline_container)
+            if not self.ml_protection:
+                return {
+                    'success': True,
+                    'stage': 'pre_training_validation',
+                    'status': 'skipped',
+                    'message': 'ML Protection System not available'
+                }
             
-            if current_data is None or current_data.empty:
-                return {"success": False, "error": "No data available for feature selection"}
+            # Get feature selection results
+            feature_results = self.pipeline_results.get('feature_selection', {})
+            selected_features = feature_results.get('selected_features', [])
+            training_data = feature_results.get('prepared_data')
             
-            # Create target variable for feature selection
-            data_with_target = current_data.copy()
-            data_with_target['target'] = (data_with_target['close'].shift(-1) > data_with_target['close']).astype(int)
-            data_with_target.dropna(inplace=True)
-
-            X = data_with_target.drop('target', axis=1)
-            y = data_with_target['target']
-
-            # Perform feature selection
-            selected_features, prepared_data = self.feature_selector.select_features(X, y)
-
-            if not selected_features or (hasattr(selected_features, '__len__') and len(selected_features) == 0):
-                return {"success": False, "error": "Feature selection returned no features."}
-
-            # Update pipeline container with selected features data
-            self.pipeline_container.data = prepared_data
-
-            message = f"Selected {len(selected_features)} features from {len(X.columns)} original features"
-            self.log_success(message)
+            if training_data is None or len(selected_features) == 0:
+                return {
+                    'success': False,
+                    'stage': 'pre_training_validation',
+                    'error': 'No selected features or training data available'
+                }
+            
+            # Validate selected features for protection issues
+            self.logger.info("🔍 Validating selected features for protection issues...")
+            
+            # Check initial protection results for feature-specific issues
+            initial_protection = self.pipeline_results.get('initial_protection_analysis', {})
+            if initial_protection:
+                leakage_data = initial_protection.get('data_leakage', {})
+                suspicious_features = leakage_data.get('suspicious_features', [])
+                future_features = leakage_data.get('future_features', [])
+                
+                # Check if any selected features are suspicious
+                suspicious_selected = [f for f in selected_features if f in suspicious_features or f in future_features]
+                
+                if suspicious_selected:
+                    self.logger.warning(f"⚠️ Suspicious features detected in selection: {suspicious_selected}")
+                    self.pipeline_state['warnings'].append(f"Selected features contain potentially leaky features: {suspicious_selected}")
+                
+                # Feature quality assessment
+                noise_data = initial_protection.get('noise_analysis', {})
+                irrelevant_features = noise_data.get('feature_relevance', {}).get('irrelevant_features', [])
+                irrelevant_selected = [f for f in selected_features if f in irrelevant_features]
+                
+                if irrelevant_selected:
+                    self.logger.warning(f"⚠️ Irrelevant features detected in selection: {irrelevant_selected}")
+                
+                validation_results = {
+                    'suspicious_features_count': len(suspicious_selected),
+                    'irrelevant_features_count': len(irrelevant_selected),
+                    'clean_features_count': len(selected_features) - len(suspicious_selected) - len(irrelevant_selected),
+                    'feature_quality_score': (len(selected_features) - len(suspicious_selected) - len(irrelevant_selected)) / max(len(selected_features), 1),
+                    'pre_training_approval': len(suspicious_selected) == 0,  # No suspicious features allowed
+                    'warnings': []
+                }
+                
+                if suspicious_selected:
+                    validation_results['warnings'].append(f"Suspicious features detected: {suspicious_selected}")
+                if irrelevant_selected:
+                    validation_results['warnings'].append(f"Irrelevant features detected: {irrelevant_selected}")
+                
+                return {
+                    'success': True,
+                    'stage': 'pre_training_validation',
+                    'validation_results': validation_results,
+                    'approved_for_training': validation_results['pre_training_approval'],
+                    'message': f"Pre-training validation completed - Quality Score: {validation_results['feature_quality_score']:.3f}"
+                }
+            
+            # If no initial protection results, do basic validation
+            return {
+                'success': True,
+                'stage': 'pre_training_validation',
+                'status': 'basic_validation',
+                'approved_for_training': True,
+                'message': 'Basic pre-training validation completed'
+            }
+            
+        except Exception as e:
+            error_msg = f"Pre-training validation failed: {str(e)}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'stage': 'pre_training_validation',
+                'error': error_msg,
+                'traceback': traceback.format_exc()
+            }
+    
+    def _stage_6b_post_training_protection(self) -> Dict[str, Any]:
+        """Stage 6b: Post-Training Protection Analysis"""
+        try:
+            self.logger.info("🛡️ Post-Training Protection Analysis...")
+            
+            if not self.ml_protection:
+                return {
+                    'success': True,
+                    'stage': 'post_training_protection',
+                    'status': 'skipped',
+                    'message': 'ML Protection System not available'
+                }
+            
+            # Get training results
+            cnn_lstm_results = self.pipeline_results.get('cnn_lstm_training', {})
+            dqn_results = self.pipeline_results.get('dqn_training', {})
+            
+            # Analyze training performance for overfitting
+            post_training_analysis = {
+                'overfitting_analysis': {},
+                'model_performance': {},
+                'training_stability': {},
+                'enterprise_compliance': {}
+            }
+            
+            # CNN-LSTM Analysis
+            if cnn_lstm_results.get('success'):
+                cnn_performance = cnn_lstm_results.get('performance_metrics', {})
+                train_auc = cnn_performance.get('auc_score', 0)
+                
+                # Simple overfitting check (real implementation would be more sophisticated)
+                if 'validation_auc' in cnn_performance:
+                    val_auc = cnn_performance['validation_auc']
+                    auc_gap = train_auc - val_auc
+                    
+                    post_training_analysis['overfitting_analysis']['cnn_lstm'] = {
+                        'train_auc': train_auc,
+                        'validation_auc': val_auc,
+                        'performance_gap': auc_gap,
+                        'overfitting_detected': auc_gap > 0.15,
+                        'severity': 'HIGH' if auc_gap > 0.2 else 'MEDIUM' if auc_gap > 0.1 else 'LOW'
+                    }
+                
+                post_training_analysis['model_performance']['cnn_lstm'] = {
+                    'auc_score': train_auc,
+                    'enterprise_ready': train_auc >= 0.70,
+                    'performance_grade': 'A' if train_auc >= 0.80 else 'B' if train_auc >= 0.70 else 'C' if train_auc >= 0.60 else 'F'
+                }
+            
+            # DQN Analysis
+            if dqn_results.get('success'):
+                dqn_performance = dqn_results.get('performance_metrics', {})
+                total_reward = dqn_performance.get('total_reward', 0)
+                
+                post_training_analysis['model_performance']['dqn'] = {
+                    'total_reward': total_reward,
+                    'enterprise_ready': total_reward > 0,  # Simple check
+                    'performance_grade': 'A' if total_reward > 1000 else 'B' if total_reward > 500 else 'C' if total_reward > 0 else 'F'
+                }
+            
+            # Overall enterprise compliance
+            cnn_ready = post_training_analysis['model_performance'].get('cnn_lstm', {}).get('enterprise_ready', False)
+            dqn_ready = post_training_analysis['model_performance'].get('dqn', {}).get('enterprise_ready', False)
+            no_overfitting = not any(
+                analysis.get('overfitting_detected', False) 
+                for analysis in post_training_analysis['overfitting_analysis'].values()
+            )
+            
+            post_training_analysis['enterprise_compliance'] = {
+                'cnn_lstm_ready': cnn_ready,
+                'dqn_ready': dqn_ready,
+                'no_overfitting': no_overfitting,
+                'overall_ready': cnn_ready and dqn_ready and no_overfitting,
+                'compliance_score': sum([cnn_ready, dqn_ready, no_overfitting]) / 3.0
+            }
             
             return {
-                "success": True, 
-                "message": message, 
-                "selected_features": selected_features,
-                "metadata": {
-                    "original_features": len(X.columns),
-                    "selected_features": len(selected_features),
-                    "feature_names": selected_features
-                }
+                'success': True,
+                'stage': 'post_training_protection',
+                'analysis_results': post_training_analysis,
+                'enterprise_ready': post_training_analysis['enterprise_compliance']['overall_ready'],
+                'compliance_score': post_training_analysis['enterprise_compliance']['compliance_score'],
+                'message': f"Post-training analysis completed - Compliance: {post_training_analysis['enterprise_compliance']['compliance_score']:.3f}"
             }
-
+            
         except Exception as e:
-            self.log_error(f"Stage 3 feature selection failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-    def _stage_4_cnn_lstm_training(self) -> Dict[str, Any]:
-        """
-        Trains the CNN-LSTM model using standardized data flow.
-        """
+            error_msg = f"Post-training protection analysis failed: {str(e)}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'stage': 'post_training_protection',
+                'error': error_msg,
+                'traceback': traceback.format_exc()
+            }
+    
+    def _stage_8b_final_protection_report(self) -> Dict[str, Any]:
+        """Stage 8b: Generate Final Protection Report"""
         try:
-            self.log_success("Starting Stage 4: CNN-LSTM Model Training")
+            self.logger.info("📋 Generating Final Enterprise Protection Report...")
             
-            # Extract data from pipeline container
-            current_data = safe_extract_data(self.pipeline_container)
+            if not self.ml_protection:
+                return {
+                    'success': True,
+                    'stage': 'final_protection_report',
+                    'status': 'skipped',
+                    'message': 'ML Protection System not available'
+                }
             
-            # Handle both DataFrame and numpy array inputs
-            if current_data is None:
-                return {"success": False, "error": "No data available for CNN-LSTM training"}
+            # Compile all protection results
+            initial_protection = self.pipeline_results.get('initial_protection_analysis', {})
+            pre_training_validation = self.pipeline_results.get('pre_training_validation', {})
+            post_training_protection = self.pipeline_results.get('post_training_protection', {})
             
-            # Check if data is empty (works for both DataFrame and numpy array)
-            if hasattr(current_data, 'empty'):
-                if current_data.empty:
-                    return {"success": False, "error": "No data available for CNN-LSTM training"}
-            elif hasattr(current_data, 'shape'):
-                if current_data.shape[0] == 0:
-                    return {"success": False, "error": "No data available for CNN-LSTM training"}
-            elif len(current_data) == 0:
-                return {"success": False, "error": "No data available for CNN-LSTM training"}
+            # Generate comprehensive report
+            report_timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            report_filename = f"elliott_wave_protection_report_{report_timestamp}.txt"
+            report_path = os.path.join(self.config.get('output_path', './results'), report_filename)
             
-            # Prepare training data
-            X = current_data.drop('target', axis=1)
-            y = current_data['target']
-
-            # Train CNN-LSTM model
-            model, history = self.cnn_lstm_engine.train_model(X, y)
+            # Generate report content
+            if hasattr(self.ml_protection, 'generate_protection_report'):
+                report_content = self.ml_protection.generate_protection_report(report_path)
+            else:
+                report_content = self._generate_simple_protection_report(
+                    initial_protection, pre_training_validation, post_training_protection
+                )
+                
+                # Save simple report
+                os.makedirs(os.path.dirname(report_path), exist_ok=True)
+                with open(report_path, 'w', encoding='utf-8') as f:
+                    f.write(report_content)
             
-            if model is None:
-                return {"success": False, "error": "CNN-LSTM model training failed."}
-
-            # Save the model
-            model_path = self.output_manager.save_model(model, 'cnn_lstm_elliott_wave')
+            # Final enterprise readiness assessment
+            final_assessment = self._compute_final_enterprise_readiness(
+                initial_protection, pre_training_validation, post_training_protection
+            )
             
-            message = f"CNN-LSTM model trained successfully. Model saved to {model_path}"
-            self.log_success(message)
+            self.logger.info(f"📄 Final protection report generated: {report_path}")
             
             return {
-                "success": True, 
-                "message": message, 
-                "model_path": str(model_path),
-                "metadata": {
-                    "training_samples": len(X),
-                    "features": len(X.columns),
-                    "model_type": "CNN-LSTM"
-                }
+                'success': True,
+                'stage': 'final_protection_report',
+                'report_path': report_path,
+                'report_content_preview': report_content[:500] + "..." if len(report_content) > 500 else report_content,
+                'final_assessment': final_assessment,
+                'enterprise_ready': final_assessment.get('enterprise_ready', False),
+                'message': f"Final protection report generated - Enterprise Ready: {final_assessment.get('enterprise_ready', False)}"
             }
-
+            
         except Exception as e:
-            self.log_error(f"Stage 4 CNN-LSTM training failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-    def _stage_5_dqn_training(self) -> Dict[str, Any]:
-        """
-        Trains the DQN agent using standardized data flow.
-        """
+            error_msg = f"Final protection report generation failed: {str(e)}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'stage': 'final_protection_report',
+                'error': error_msg,
+                'traceback': traceback.format_exc()
+            }
+    
+    def _generate_simple_protection_report(self, initial_protection: Dict, pre_training: Dict, post_training: Dict) -> str:
+        """Generate a simple protection report if advanced system not available"""
+        lines = []
+        lines.append("🛡️ ELLIOTT WAVE ENTERPRISE PROTECTION REPORT")
+        lines.append("=" * 50)
+        lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append("")
+        
+        # Initial Protection Summary
+        if initial_protection:
+            overall = initial_protection.get('overall_assessment', {})
+            lines.append("📊 INITIAL PROTECTION ANALYSIS")
+            lines.append(f"Status: {overall.get('protection_status', 'UNKNOWN')}")
+            lines.append(f"Risk Level: {overall.get('risk_level', 'UNKNOWN')}")
+            lines.append(f"Enterprise Ready: {overall.get('enterprise_ready', False)}")
+            lines.append("")
+        
+        # Pre-Training Validation
+        if pre_training:
+            validation = pre_training.get('validation_results', {})
+            lines.append("✅ PRE-TRAINING VALIDATION")
+            lines.append(f"Approved for Training: {pre_training.get('approved_for_training', False)}")
+            lines.append(f"Feature Quality Score: {validation.get('feature_quality_score', 0):.3f}")
+            lines.append("")
+        
+        # Post-Training Analysis
+        if post_training:
+            compliance = post_training.get('analysis_results', {}).get('enterprise_compliance', {})
+            lines.append("🏆 POST-TRAINING ANALYSIS")
+            lines.append(f"Overall Ready: {compliance.get('overall_ready', False)}")
+            lines.append(f"Compliance Score: {compliance.get('compliance_score', 0):.3f}")
+            lines.append("")
+        
+        lines.append("=" * 50)
+        lines.append("Report End")
+        
+        return "\n".join(lines)
+    
+    def _compute_final_enterprise_readiness(self, initial_protection: Dict, pre_training: Dict, post_training: Dict) -> Dict:
+        """Compute final enterprise readiness assessment"""
         try:
-            self.log_success("Starting Stage 5: DQN Agent Training")
+            readiness_factors = []
             
-            # Extract data from pipeline container
-            current_data = safe_extract_data(self.pipeline_container)
+            # Initial protection readiness
+            if initial_protection:
+                initial_ready = initial_protection.get('overall_assessment', {}).get('enterprise_ready', False)
+                readiness_factors.append(('initial_protection', initial_ready, 0.3))
             
-            if current_data is None or current_data.empty:
-                return {"success": False, "error": "No data available for DQN training"}
+            # Pre-training validation readiness
+            if pre_training:
+                pre_ready = pre_training.get('approved_for_training', False)
+                readiness_factors.append(('pre_training', pre_ready, 0.2))
             
-            # Prepare training data for DQN
-            X = current_data.drop('target', axis=1)
-            y = current_data['target']
-
-            # Train DQN agent
-            training_history = self.dqn_agent.train_agent(X, y)
+            # Post-training readiness
+            if post_training:
+                post_ready = post_training.get('enterprise_ready', False)
+                readiness_factors.append(('post_training', post_ready, 0.5))
             
-            if training_history is None:
-                return {"success": False, "error": "DQN agent training failed."}
-
-            # Save the trained agent
-            agent_path = self.output_manager.save_model(self.dqn_agent, 'dqn_elliott_wave_agent')
-            
-            message = f"DQN agent trained successfully. Agent saved to {agent_path}"
-            self.log_success(message)
+            # Calculate weighted score
+            total_weight = sum(weight for _, _, weight in readiness_factors)
+            if total_weight > 0:
+                weighted_score = sum(ready * weight for _, ready, weight in readiness_factors) / total_weight
+                overall_ready = weighted_score >= 0.8  # 80% threshold
+            else:
+                weighted_score = 0.0
+                overall_ready = False
             
             return {
-                "success": True, 
-                "message": message, 
-                "agent_path": str(agent_path),
-                "metadata": {
-                    "training_samples": len(X),
-                    "features": len(X.columns),
-                    "model_type": "DQN",
-                    "final_reward": training_history.get('final_reward', 0)
-                }
+                'enterprise_ready': overall_ready,
+                'readiness_score': weighted_score,
+                'readiness_factors': {name: ready for name, ready, _ in readiness_factors},
+                'assessment': 'ENTERPRISE_READY' if overall_ready else 'NEEDS_IMPROVEMENT',
+                'recommendation': 'System approved for production use' if overall_ready else 'System requires improvements before production use'
             }
-
+            
         except Exception as e:
-            self.log_error(f"Stage 5 DQN training failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-    def _stage_6_performance_analysis(self) -> Dict[str, Any]:
-        """
-        Analyzes the performance of the trained models using standardized data flow.
-        """
-        try:
-            self.log_success("Starting Stage 6: Performance Analysis")
-            
-            # Compile all pipeline results for analysis
-            analysis_results = self.performance_analyzer.analyze_performance(self.pipeline_results)
-            
-            if not analysis_results:
-                return {"success": False, "error": "Performance analysis failed."}
-
-            message = f"Performance analysis completed successfully"
-            self.log_success(message)
-            
             return {
-                "success": True,
-                "message": message,
-                "analysis_results": analysis_results,
-                "metadata": {
-                    "analysis_type": "comprehensive_performance",
-                    "stages_analyzed": len(self.pipeline_results)
-                }
+                'enterprise_ready': False,
+                'readiness_score': 0.0,
+                'error': str(e),
+                'assessment': 'ERROR',
+                'recommendation': 'Unable to assess enterprise readiness due to error'
             }
-
-        except Exception as e:
-            self.log_error(f"Stage 6 performance analysis failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-    def _stage_7_generate_report(self) -> Dict[str, Any]:
-        """
-        Generates the final summary report of the entire pipeline run using standardized data flow.
-        """
+    
+    def get_pipeline_status(self) -> Dict[str, Any]:
+        """ส่งสถานะ Pipeline ปัจจุบัน"""
+        return {
+            'current_stage': self.pipeline_state.get('stage', 'not_started'),
+            'progress_percentage': self.pipeline_state.get('progress', 0),
+            'start_time': self.pipeline_state.get('start_time'),
+            'errors': self.pipeline_state.get('errors', []),
+            'warnings': self.pipeline_state.get('warnings', []),
+            'stages_completed': len([r for r in self.pipeline_results.values() if r.get('success', False)])
+        }
+    
+    def save_pipeline_results(self, filepath: str):
+        """บันทึกผลลัพธ์ Pipeline"""
         try:
-            self.log_success("Starting Stage 7: Generate Final Report")
+            import json
             
-            # Compile comprehensive pipeline report
-            pipeline_report = {
-                "session_info": {
-                    "session_id": self.session_id,
-                    "pipeline_id": self.pipeline_container.metadata.get("pipeline_id"),
-                    "execution_timestamp": datetime.now().isoformat()
+            # Prepare data for JSON serialization
+            results_data = {
+                'pipeline_state': self.pipeline_state,
+                'pipeline_results': self.pipeline_results,
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            # Convert datetime objects to strings
+            def convert_datetime(obj):
+                if isinstance(obj, datetime):
+                    return obj.isoformat()
+                elif isinstance(obj, dict):
+                    return {k: convert_datetime(v) for k, v in obj.items()}
+                elif isinstance(obj, list):
+                    return [convert_datetime(item) for item in obj]
+                else:
+                    return obj
+            
+            results_data = convert_datetime(results_data)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(results_data, f, indent=2, ensure_ascii=False, default=str)
+            
+            self.logger.info(f"💾 Pipeline results saved to: {filepath}")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to save pipeline results: {str(e)}")
+    
+    def run_integrated_pipeline(self, data: pd.DataFrame, selected_features: List[str], 
+                               cnn_lstm_results: Dict, dqn_results: Dict) -> Dict[str, Any]:
+        """รัน Integrated Pipeline เพื่อรวมผลลัพธ์จากทุก components"""
+        try:
+            self.logger.info("🔗 Starting Integrated Pipeline...")
+            
+            integration_results = {
+                'timestamp': datetime.now().isoformat(),
+                'status': 'success',
+                'components': {
+                    'data_processed': True,
+                    'features_selected': len(selected_features),
+                    'selected_features': selected_features,
+                    'cnn_lstm_trained': bool(cnn_lstm_results.get('model')),
+                    'dqn_trained': bool(dqn_results.get('agent')),
                 },
-                "pipeline_results": self.pipeline_results,
-                "container_summary": self.pipeline_container.to_dict(),
-                "performance_summary": self.pipeline_container.get_performance_summary(),
-                "status_summary": self.pipeline_container.get_status_summary(),
-                "data_flow_summary": self.pipeline_container.get_data_summary()
+                'performance': {
+                    'cnn_lstm_auc': cnn_lstm_results.get('auc_score', 0.0),
+                    'dqn_total_reward': dqn_results.get('total_reward', 0.0),
+                    'data_quality_score': len(data) / max(len(data), 1000) * 100  # Simple quality metric
+                },
+                'models_saved': {
+                    'cnn_lstm_path': cnn_lstm_results.get('model_path', ''),
+                    'dqn_agent_path': dqn_results.get('agent_path', '')
+                },
+                'integration_status': 'completed'
             }
             
-            # Save comprehensive report
-            report_path = self.output_manager.save_report(pipeline_report, 'elliott_wave_pipeline_report')
-
-            message = f"Pipeline report generated successfully. Report saved to {report_path}"
-            self.log_success(message)
+            self.logger.info("✅ Integrated Pipeline completed successfully")
+            return integration_results
             
+        except Exception as e:
+            self.logger.error(f"❌ Integrated Pipeline failed: {e}")
             return {
-                "success": True,
-                "message": message,
-                "report_path": str(report_path),
-                "report_summary": pipeline_report,
-                "metadata": {
-                    "report_type": "comprehensive_pipeline_report",
-                    "total_stages": len(self.pipeline_results),
-                    "execution_time": self.pipeline_container.get_performance_summary().get("total_execution_time", 0)
-                }
+                'status': 'failed',
+                'error': str(e),
+                'timestamp': datetime.now().isoformat()
             }
-
-        except Exception as e:
-            self.log_error(f"Stage 7 report generation failed", e)
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-            self.logger.info("Starting Stage 7: Generating Final Report...")
-            
-            final_report = {
-                "run_timestamp": datetime.now().isoformat(),
-                "pipeline_summary": {
-                    "total_stages_completed": len(self.pipeline_results),
-                    "initial_data_shape": self.pipeline_results.get("Data Preprocessing & Feature Engineering", {}).get("data_shape"),
-                    "selected_features_count": len(self.pipeline_results.get("Advanced Feature Selection", {}).get("selected_features", [])),
-                },
-                "model_paths": {
-                    "cnn_lstm": self.pipeline_results.get("CNN-LSTM Model Training", {}).get("model_path"),
-                    "dqn_agent": self.pipeline_results.get("DQN Agent Training", {}).get("agent_path"),
-                },
-                "performance": self.pipeline_results.get("Performance Analysis", {}).get("report", {}),
-                "full_results": self.pipeline_results
-            }
-
-            report_path = self.output_manager.save_report(final_report, "NICEGOLD_PROJECTP_MENU1_FINAL_REPORT")
-            
-            message = f"Final pipeline report generated and saved to {report_path}."
-            self.logger.info(message)
-            return {"success": True, "message": message, "report_path": str(report_path)}
-
-        except Exception as e:
-            return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
+    
+    def _validate_components(self) -> bool:
+        """Validate that all required components are available"""
+        required_components = {
+            'data_processor': self.data_processor,
+            'cnn_lstm_engine': self.cnn_lstm_engine,
+            'dqn_agent': self.dqn_agent,
+            'feature_selector': self.feature_selector
+        }
+        
+        missing_components = []
+        for name, component in required_components.items():
+            if component is None:
+                missing_components.append(name)
+        
+        if missing_components:
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Missing required components: {', '.join(missing_components)}", 
+                                "Pipeline_Orchestrator")
+            else:
+                self.logger.error(f"Missing required components: {', '.join(missing_components)}")
+            return False
+        
+        return True

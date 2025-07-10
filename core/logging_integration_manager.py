@@ -26,7 +26,7 @@ import traceback
 
 # Import advanced logging components
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import (
         get_terminal_logger, init_terminal_logger, 
         LogLevel, ProcessStatus, AdvancedTerminalLogger
     )
@@ -85,8 +85,8 @@ class LoggingIntegrationManager:
                     auto_cleanup=True
                 )
                 
-                self.logger.success("🚀 Advanced logging system initialized", component="Integration_Manager")
-                self.logger.system(f"Project root: {self.project_root}", component="Integration_Manager")
+                self.logger.success("🚀 Advanced logging system initialized", "Integration_Manager")
+                self.logger.system(f"Project root: {self.project_root}", "Integration_Manager")
                 
             else:
                 # Fallback to basic logging
@@ -94,12 +94,12 @@ class LoggingIntegrationManager:
                     level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
                 )
-                self.logger = get_unified_logger()
+                self.logger = logging.getLogger("NICEGOLD_INTEGRATION")
                 self.logger.info("📝 Basic logging system initialized (fallback)")
                 
         except Exception as e:
             print(f"❌ Failed to initialize logging system: {e}")
-            self.logger = get_unified_logger()
+            self.logger = logging.getLogger("NICEGOLD_INTEGRATION")
     
     def _start_health_monitoring(self):
         """📈 Start system health monitoring"""
@@ -108,7 +108,7 @@ class LoggingIntegrationManager:
             health_thread = threading.Thread(target=self._health_monitoring_loop, daemon=True)
             health_thread.start()
             
-            self.logger.system("📈 System health monitoring started", component="Health_Monitor")
+            self.logger.system("📈 System health monitoring started", "Health_Monitor")
     
     def _health_monitoring_loop(self):
         """🔄 Health monitoring loop"""
@@ -161,14 +161,14 @@ class LoggingIntegrationManager:
             # Check if already integrated
             if module_path in self.integrated_modules and not force_integration:
                 if LOGGING_SYSTEM_AVAILABLE:
-                    self.logger.warning(f"Module already integrated: {module_path}", component="Module_Integration")
+                    self.logger.warning(f"Module already integrated: {module_path}", "Module_Integration")
                 return True
             
             # Import the module
             module_file = self.project_root / module_path
             if not module_file.exists():
                 if LOGGING_SYSTEM_AVAILABLE:
-                    self.logger.error(f"Module not found: {module_path}", component="Module_Integration")
+                    self.logger.error(f"Module not found: {module_path}", "Module_Integration")
                 return False
             
             # Add project root to Python path if needed
@@ -192,7 +192,8 @@ class LoggingIntegrationManager:
                 self.system_health['integration_count'] += 1
                 
                 if LOGGING_SYSTEM_AVAILABLE:
-                    self.logger.success(f"Successfully integrated with module: {module_path}", component="Module_Integration")
+                    self.logger.success(f"Successfully integrated with module: {module_path}", 
+                                      "Module_Integration")
                 else:
                     print(f"✅ Successfully integrated with module: {module_path}")
                 
@@ -229,17 +230,13 @@ class LoggingIntegrationManager:
                 
                 def create_module_logger(category_prefix):
                     def log_info(msg, **kwargs):
-                        kwargs['component'] = f"{category_prefix}_Info"
-                        self.logger.info(msg, **kwargs)
+                        self.logger.info(msg, f"{category_prefix}_Info", **kwargs)
                     def log_error(msg, **kwargs):
-                        kwargs['component'] = f"{category_prefix}_Error"
-                        self.logger.error(msg, **kwargs)
+                        self.logger.error(msg, f"{category_prefix}_Error", **kwargs)
                     def log_warning(msg, **kwargs):
-                        kwargs['component'] = f"{category_prefix}_Warning"
-                        self.logger.warning(msg, **kwargs)
+                        self.logger.warning(msg, f"{category_prefix}_Warning", **kwargs)
                     def log_success(msg, **kwargs):
-                        kwargs['component'] = f"{category_prefix}_Success"
-                        self.logger.success(msg, **kwargs)
+                        self.logger.success(msg, f"{category_prefix}_Success", **kwargs)
                     def log_debug(msg, **kwargs):
                         self.logger.debug(msg, f"{category_prefix}_Debug", **kwargs)
                     
@@ -264,7 +261,8 @@ class LoggingIntegrationManager:
                             setattr(module, 'old_logger', attr)
                             setattr(module, 'logger', self.logger)
                 
-                self.logger.system(f"Logger injected into module: {module_path}", component="Logger_Injection")
+                self.logger.system(f"Logger injected into module: {module_path}", 
+                                 "Logger_Injection")
             
         except Exception as e:
             if LOGGING_SYSTEM_AVAILABLE:
@@ -315,7 +313,8 @@ class LoggingIntegrationManager:
                                                 f"Starting integration with {len(core_modules)} modules")
         
         if LOGGING_SYSTEM_AVAILABLE:
-            self.logger.info(f"🔗 Starting core module integration with {len(core_modules)} modules", component="Core_Integration")
+            self.logger.info(f"🔗 Starting core module integration with {len(core_modules)} modules", 
+                           "Core_Integration")
         
         for i, module_path in enumerate(core_modules):
             try:
@@ -380,10 +379,10 @@ class LoggingIntegrationManager:
             # Show integration status
             status = self.get_integration_status()
             
-            self.logger.system("🔗 Integration Dashboard", component="Dashboard")
-            self.logger.info(f"📊 Total Integrated Modules: {status['total_integrated']}", component="Dashboard")
-            self.logger.info(f"📈 Success Rate: {status['integration_success_rate']:.1%}", component="Dashboard")
-            self.logger.info(f"🏥 System Health: {len(status['integrated_modules'])} active modules", component="Dashboard")
+            self.logger.system("🔗 Integration Dashboard", "Dashboard")
+            self.logger.info(f"📊 Total Integrated Modules: {status['total_integrated']}", "Dashboard")
+            self.logger.info(f"📈 Success Rate: {status['integration_success_rate']:.1%}", "Dashboard")
+            self.logger.info(f"🏥 System Health: {len(status['integrated_modules'])} active modules", "Dashboard")
             
             if self.progress_manager:
                 progress_stats = self.progress_manager.get_statistics()
@@ -411,17 +410,17 @@ class LoggingIntegrationManager:
                 )
             
             if LOGGING_SYSTEM_AVAILABLE:
-                self.logger.info("🧪 Starting integration test", component="Integration_Test")
+                self.logger.info("🧪 Starting integration test", "Integration_Test")
             
             # Test 1: Logger functionality
             if test_progress:
                 self.progress_manager.update_progress(test_progress, 1, "Testing logger functionality")
             
             if LOGGING_SYSTEM_AVAILABLE:
-                self.logger.debug("Debug test message", component="Test")
-                self.logger.info("Info test message", component="Test")
-                self.logger.warning("Warning test message", component="Test")
-                self.logger.success("Success test message", component="Test")
+                self.logger.debug("Debug test message", "Test")
+                self.logger.info("Info test message", "Test")
+                self.logger.warning("Warning test message", "Test")
+                self.logger.success("Success test message", "Test")
             
             # Test 2: Progress manager
             if test_progress:
@@ -452,7 +451,7 @@ class LoggingIntegrationManager:
                 self.progress_manager.complete_progress(test_progress, "✅ All tests passed")
             
             if LOGGING_SYSTEM_AVAILABLE:
-                self.logger.success("🎉 Integration test completed successfully", component="Integration_Test")
+                self.logger.success("🎉 Integration test completed successfully", "Integration_Test")
             else:
                 print("🎉 Integration test completed successfully")
             
@@ -498,7 +497,7 @@ class LoggingIntegrationManager:
                 json.dump(report_data, f, indent=2, ensure_ascii=False, default=str)
             
             if LOGGING_SYSTEM_AVAILABLE:
-                self.logger.success(f"Integration report exported: {filepath}", component="Report_Export")
+                self.logger.success(f"Integration report exported: {filepath}", "Report_Export")
             else:
                 print(f"✅ Integration report exported: {filepath}")
             

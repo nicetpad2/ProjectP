@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-08T07:05:00.469963", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f NVIDIA GPU detection failed: 'str' object has no attribute 'decode'", "category": "Warning", "process_id": null, "session_id": "20250708_070452"}

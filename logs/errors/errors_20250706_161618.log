@@ -1,0 +1,1 @@
+{"timestamp": "2025-07-06T16:16:28.090867", "level": "ERROR", "emoji": "\u274c", "message": "Component initialization failed: RealProfitFeatureSelector.__init__() got an unexpected keyword argument 'data'", "category": "Error", "process_id": null, "session_id": "20250706_161618"}

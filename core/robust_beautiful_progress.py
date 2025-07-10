@@ -6,8 +6,6 @@ Completely avoids standard logging to prevent closed file stream errors
 
 import time
 from typing import Optional
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
 
 class RobustBeautifulLogger:
     """

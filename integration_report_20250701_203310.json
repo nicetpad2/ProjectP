@@ -1,0 +1,52 @@
+{
+  "integration_status": {
+    "total_integrated": 4,
+    "integration_success_rate": 1.0,
+    "system_health": {
+      "start_time": 1751401988.9629984,
+      "integration_count": 4,
+      "error_count": 0,
+      "warning_count": 11,
+      "last_health_check": "2025-07-01 20:33:08.963250"
+    },
+    "integrated_modules": [
+      "core/menu_system.py",
+      "core/config.py",
+      "core/compliance.py",
+      "core/project_paths.py"
+    ],
+    "logging_system_available": false,
+    "last_health_check": "2025-07-01 20:33:08.963250",
+    "timestamp": "2025-07-01T20:33:10.563940"
+  },
+  "system_health": {
+    "start_time": 1751401988.9629984,
+    "integration_count": 4,
+    "error_count": 0,
+    "warning_count": 11,
+    "last_health_check": "2025-07-01 20:33:08.963250"
+  },
+  "integrated_modules": {
+    "core/menu_system.py": {
+      "integration_time": "2025-07-01T20:33:08.964499",
+      "status": "integrated"
+    },
+    "core/config.py": {
+      "integration_time": "2025-07-01T20:33:09.064834",
+      "status": "integrated"
+    },
+    "core/compliance.py": {
+      "integration_time": "2025-07-01T20:33:09.266278",
+      "status": "integrated"
+    },
+    "core/project_paths.py": {
+      "integration_time": "2025-07-01T20:33:09.467734",
+      "status": "integrated"
+    }
+  },
+  "logging_system_info": {
+    "advanced_logging_available": false,
+    "logger_type": "Logger",
+    "progress_manager_available": false
+  }
+}

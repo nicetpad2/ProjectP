@@ -9,10 +9,10 @@ import os
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 import logging
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
 
 # Import advanced logging system
 try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel
     from core.real_time_progress_manager import get_progress_manager, ProgressType
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
@@ -28,11 +28,11 @@ class MenuSystem:
         
         # Initialize logging system
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_unified_logger()
+            self.logger = get_terminal_logger()
             self.progress_manager = get_progress_manager()
-            self.logger.system("🎛️ Menu System initialized with advanced logging", component="Menu_System")
+            self.logger.system("🎛️ Menu System initialized with advanced logging", "Menu_System")
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
             self.progress_manager = None
         
         # Import Menu Modules
@@ -60,7 +60,7 @@ class MenuSystem:
             self.menu_1 = menu_1_elliott_wave
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.success("✅ Menu 1 Elliott Wave Module Loaded (Fast)", component="Menu_Import")
+                self.logger.success("✅ Menu 1 Elliott Wave Module Loaded (Fast)", "Menu_Import")
             else:
                 self.logger.info("✅ Menu 1 Elliott Wave Module Loaded (Fast)")
             
@@ -104,7 +104,7 @@ class MenuSystem:
 📋 MAIN MENU:"""
         
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger.system(menu_display.strip(), component="Menu_Display")
+            self.logger.system(menu_display.strip(), "Menu_Display")
         else:
             print(menu_display)
         
@@ -133,7 +133,7 @@ class MenuSystem:
         # Display menu options
         for option in menu_options:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info(option.strip(), component="Menu_Display")
+                self.logger.info(option.strip(), "Menu_Display")
             else:
                 print(option)
         
@@ -155,7 +155,7 @@ class MenuSystem:
             if ADVANCED_LOGGING_AVAILABLE:
                 for line in warning_text:
                     if line.strip():
-                        self.logger.warning(line.strip(), component="Menu_Display")
+                        self.logger.warning(line.strip(), "Menu_Display")
             else:
                 for line in warning_text:
                     print(line)
@@ -163,7 +163,7 @@ class MenuSystem:
         # Add separator
         separator = "=" * 80
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger.system(separator, component="Menu_Display")
+            self.logger.system(separator, "Menu_Display")
         else:
             print(separator)
     
@@ -173,12 +173,12 @@ class MenuSystem:
             choice = input("🎯 Select option (1-5, D, E, R): ").strip().upper()
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info(f"User selected option: {choice}", component="User_Input")
+                self.logger.info(f"User selected option: {choice}", "User_Input")
             
             return choice
         except (EOFError, KeyboardInterrupt):
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning("User cancelled input", component="User_Input")
+                self.logger.warning("User cancelled input", "User_Input")
             return 'E'
 
     def handle_menu_choice(self, choice: str):
@@ -197,7 +197,7 @@ class MenuSystem:
             
             if choice == '1':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("🧠 Starting Lightweight High Memory Full Pipeline (80% RAM)", component="Menu_Selection")
+                    self.logger.info("🧠 Starting Lightweight High Memory Full Pipeline (80% RAM)", "Menu_Selection")
                 
                 if choice_progress:
                     self.progress_manager.update_progress(choice_progress, 1, "Preparing Lightweight High Memory pipeline")
@@ -206,42 +206,42 @@ class MenuSystem:
                 
             elif choice == '2':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("📊 High Memory Data Analysis & Preprocessing selected", component="Menu_Selection")
+                    self.logger.info("📊 High Memory Data Analysis & Preprocessing selected", "Menu_Selection")
                 self._handle_high_memory_data_analysis()
                 
             elif choice == '3':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("🤖 High Memory Model Training & Optimization selected", component="Menu_Selection")
+                    self.logger.info("🤖 High Memory Model Training & Optimization selected", "Menu_Selection")
                 self._handle_high_memory_model_training()
                 
             elif choice == '4':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("🎯 High Memory Strategy Backtesting selected", component="Menu_Selection")
+                    self.logger.info("🎯 High Memory Strategy Backtesting selected", "Menu_Selection")
                 self._handle_high_memory_backtesting()
                 
             elif choice == '5':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("📈 High Memory Performance Analytics selected", component="Menu_Selection")
+                    self.logger.info("📈 High Memory Performance Analytics selected", "Menu_Selection")
                 self._handle_high_memory_analytics()
                 
             elif choice == 'D':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.system("🔧 Dependency Check & Fix selected", component="Menu_Selection")
+                    self.logger.system("🔧 Dependency Check & Fix selected", "Menu_Selection")
                 self._handle_dependency_check()
                 
             elif choice == 'E':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.system("🚪 Exit System selected", component="Menu_Selection")
+                    self.logger.system("🚪 Exit System selected", "Menu_Selection")
                 self._handle_exit()
                 
             elif choice == 'R':
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.system("🔄 Reset & Restart selected", component="Menu_Selection")
+                    self.logger.system("🔄 Reset & Restart selected", "Menu_Selection")
                 self._handle_reset()
                 
             else:
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.warning(f"Invalid option selected: {choice}", component="Menu_Selection")
+                    self.logger.warning(f"Invalid option selected: {choice}", "Menu_Selection")
                 else:
                     print(f"❌ Invalid option: {choice}")
                     print("Please select a valid option (1-5, D, E, R)")
@@ -255,7 +255,7 @@ class MenuSystem:
                 self.progress_manager.fail_progress(choice_progress, f"Choice processing failed: {str(e)}")
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"Error handling menu choice {choice}", component="Menu_Selection", exception=e)
+                self.logger.error(f"Error handling menu choice {choice}", "Menu_Selection", exception=e)
             else:
                 print(f"❌ Error handling choice {choice}: {str(e)}")
 
@@ -289,8 +289,8 @@ class MenuSystem:
                     self.resource_manager.start_monitoring(interval=1.0)
                     print("📈 Real-time resource monitoring started")
             
-            # Import Menu1Logger for enterprise-grade logging  
-            from core.enterprise_menu1_terminal_logger import (
+            # Import Menu1Logger for enterprise-grade logging
+            from core.menu1_logger import (
                 start_menu1_session, 
                 complete_menu1_session,
                 get_menu1_logger
@@ -470,7 +470,7 @@ class MenuSystem:
         """Handle High Memory Data Analysis & Preprocessing (Menu 2)"""
         try:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info("📊 Starting High Memory Data Analysis", component="Menu_2")
+                self.logger.info("📊 Starting High Memory Data Analysis", "Menu_2")
             else:
                 print("📊 Starting High Memory Data Analysis & Preprocessing...")
             
@@ -494,7 +494,7 @@ class MenuSystem:
             
         except Exception as e:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"High Memory Data Analysis failed", component="Menu_2", exception=e)
+                self.logger.error(f"High Memory Data Analysis failed", "Menu_2", exception=e)
             else:
                 print(f"❌ High Memory Data Analysis failed: {e}")
             input("Press Enter to continue...")
@@ -504,7 +504,7 @@ class MenuSystem:
         """Handle High Memory Model Training & Optimization (Menu 3)"""
         try:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info("🤖 Starting High Memory Model Training", component="Menu_3")
+                self.logger.info("🤖 Starting High Memory Model Training", "Menu_3")
             else:
                 print("🤖 Starting High Memory Model Training & Optimization...")
             
@@ -530,7 +530,7 @@ class MenuSystem:
             
         except Exception as e:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"High Memory Model Training failed", component="Menu_3", exception=e)
+                self.logger.error(f"High Memory Model Training failed", "Menu_3", exception=e)
             else:
                 print(f"❌ High Memory Model Training failed: {e}")
             input("Press Enter to continue...")
@@ -540,7 +540,7 @@ class MenuSystem:
         """Handle High Memory Strategy Backtesting (Menu 4)"""
         try:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info("🎯 Starting High Memory Strategy Backtesting", component="Menu_4")
+                self.logger.info("🎯 Starting High Memory Strategy Backtesting", "Menu_4")
             else:
                 print("🎯 Starting High Memory Strategy Backtesting...")
             
@@ -570,7 +570,7 @@ class MenuSystem:
             
         except Exception as e:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"High Memory Strategy Backtesting failed", component="Menu_4", exception=e)
+                self.logger.error(f"High Memory Strategy Backtesting failed", "Menu_4", exception=e)
             else:
                 print(f"❌ High Memory Strategy Backtesting failed: {e}")
             input("Press Enter to continue...")
@@ -580,7 +580,7 @@ class MenuSystem:
         """Handle High Memory Performance Analytics (Menu 5)"""
         try:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info("📈 Starting High Memory Performance Analytics", component="Menu_5")
+                self.logger.info("📈 Starting High Memory Performance Analytics", "Menu_5")
             else:
                 print("📈 Starting High Memory Performance Analytics...")
             
@@ -610,7 +610,7 @@ class MenuSystem:
             
         except Exception as e:
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(f"High Memory Performance Analytics failed", component="Menu_5", exception=e)
+                self.logger.error(f"High Memory Performance Analytics failed", "Menu_5", exception=e)
             else:
                 print(f"❌ High Memory Performance Analytics failed: {e}")
             input("Press Enter to continue...")

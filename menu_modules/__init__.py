@@ -9,12 +9,10 @@ __author__ = "NICEGOLD Enterprise"
 
 # Import with error handling
 try:
-    from .menu_1_elliott_wave import run_menu_1_elliott_wave
-    # from .enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
+    from .menu_1_elliott_wave import Menu1ElliottWave
     
     __all__ = [
-        'run_menu_1_elliott_wave',
-        # 'EnhancedMenu1ElliottWave'
+        'Menu1ElliottWave'
     ]
     
 except ImportError as e:

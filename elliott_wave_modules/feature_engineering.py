@@ -27,8 +27,6 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Import after path setup
 from core.project_paths import get_project_paths
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore')
@@ -39,7 +37,7 @@ class ElliottWaveFeatureEngineer:
     
     def __init__(self, config: Dict = None, logger: logging.Logger = None):
         self.config = config or {}
-        self.logger = logger or get_unified_logger()
+        self.logger = logger or logging.getLogger(__name__)
         self.scalers = {}
         
         # Feature engineering parameters

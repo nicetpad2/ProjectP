@@ -13,7 +13,7 @@ import gc
 
 # Import optimized components
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel
     from core.real_time_progress_manager import get_progress_manager, ProgressType
     from core.cuda_elimination import suppress_all_cuda_output
     ADVANCED_LOGGING_AVAILABLE = True
@@ -31,12 +31,12 @@ class OptimizedMenuSystem:
         
         # Initialize optimized logging
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_unified_logger()
+            self.logger = get_terminal_logger()
             if not self.progress_manager:
                 self.progress_manager = get_progress_manager()
-            self.logger.system("🎛️ Optimized Menu System initialized", component="Optimized_Menu")
+            self.logger.system("🎛️ Optimized Menu System initialized", "Optimized_Menu")
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
         
         # Import optimized menu modules
         self._import_optimized_menu_modules()
@@ -64,7 +64,7 @@ class OptimizedMenuSystem:
             )
             
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.success("✅ Optimized Menu 1 Elliott Wave Loaded", component="Menu_Import")
+                self.logger.success("✅ Optimized Menu 1 Elliott Wave Loaded", "Menu_Import")
                 self.progress_manager.update_progress(import_progress, 1, "Optimized Menu 1 loaded")
                 self.progress_manager.complete_progress(import_progress, "✅ Optimized menus loaded")
             else:
@@ -77,7 +77,7 @@ class OptimizedMenuSystem:
             # Fallback to standard menu with optimization
             try:
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.warning("Optimized Menu 1 unavailable, loading standard with optimization", component="Menu_Import")
+                    self.logger.warning("Optimized Menu 1 unavailable, loading standard with optimization", "Menu_Import")
                 
                 with suppress_all_cuda_output():
                     from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
@@ -85,7 +85,7 @@ class OptimizedMenuSystem:
                 self.menu_1 = Menu1ElliottWave(self.config, self.logger, self.resource_manager)
                 
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("✅ Standard Menu 1 loaded with optimization", component="Menu_Import")
+                    self.logger.info("✅ Standard Menu 1 loaded with optimization", "Menu_Import")
                 
             except Exception as fallback_e:
                 error_msg = f"Menu 1 loading failed: {str(fallback_e)}"
@@ -104,7 +104,7 @@ class OptimizedMenuSystem:
     def start(self):
         """Start optimized menu system"""
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger.system("🎛️ Starting Optimized Menu System", component="Menu_Start")
+            self.logger.system("🎛️ Starting Optimized Menu System", "Menu_Start")
         
         while self.running:
             try:
@@ -117,7 +117,7 @@ class OptimizedMenuSystem:
                 
             except KeyboardInterrupt:
                 if ADVANCED_LOGGING_AVAILABLE:
-                    self.logger.info("🛑 Menu interrupted by user", component="Menu_System")
+                    self.logger.info("🛑 Menu interrupted by user", "Menu_System")
                 self.running = False
             except Exception as e:
                 if ADVANCED_LOGGING_AVAILABLE:
@@ -170,7 +170,7 @@ class OptimizedMenuSystem:
             if self.menu_1:
                 try:
                     if ADVANCED_LOGGING_AVAILABLE:
-                        self.logger.system("🌊 Starting Optimized Elliott Wave Pipeline", component="Menu_Choice")
+                        self.logger.system("🌊 Starting Optimized Elliott Wave Pipeline", "Menu_Choice")
                     
                     self.menu_1.run()
                     
@@ -196,7 +196,7 @@ class OptimizedMenuSystem:
         
         elif choice == "0":
             if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.info("👋 User selected exit", component="Menu_Choice")
+                self.logger.info("👋 User selected exit", "Menu_Choice")
             print("👋 Goodbye!")
             self.running = False
         

@@ -1,0 +1,1 @@
+{"timestamp": "2025-07-05T08:19:35.819619", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Feature selection failed: name 'start_time' is not defined", "category": "Error", "process_id": null, "session_id": "20250705_081932"}

@@ -35,8 +35,6 @@ def safe_sklearn_import():
     """Import scikit-learn safely"""
     try:
         import sklearn
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
         return sklearn
     except Exception as e:
         print(f"Scikit-learn import error: {e}")

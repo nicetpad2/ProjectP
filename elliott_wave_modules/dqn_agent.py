@@ -40,7 +40,7 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 
 # Advanced Logging Integration
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger
     from core.real_time_progress_manager import get_progress_manager
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
@@ -158,20 +158,19 @@ class DQNReinforcementAgent:
     
     def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
         self.config = config or {}
-        self.component_name = "DQNReinforcementAgent"
         
         # Initialize Advanced Terminal Logger
         if ADVANCED_LOGGING_AVAILABLE:
             try:
-                self.logger = get_unified_logger()
+                self.logger = get_terminal_logger()
                 self.progress_manager = get_progress_manager()
-                self.logger.info(f"🚀 {self.component_name} initialized with advanced logging")
+                self.logger.info("🚀 DQNReinforcementAgent initialized with advanced logging", "DQN_Agent")
             except Exception as e:
-                self.logger = logger or get_unified_logger()
+                self.logger = logger or logging.getLogger(__name__)
                 self.progress_manager = None
                 print(f"⚠️ Advanced logging failed, using fallback: {e}")
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
             self.progress_manager = None
         
         # DQN Parameters

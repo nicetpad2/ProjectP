@@ -35,7 +35,7 @@ warnings.filterwarnings('ignore')
 
 # Advanced Logging Integration
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
     ADVANCED_LOGGING_AVAILABLE = False
@@ -369,10 +369,10 @@ class EnhancedDQNAgent:
         
         # Initialize Advanced Logging
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_unified_logger()
-            self.logger.info("🚀 Enhanced DQN Agent initialized", component="Enhanced_DQN")
+            self.logger = get_terminal_logger()
+            self.logger.info("🚀 Enhanced DQN Agent initialized", "Enhanced_DQN")
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
         
         # Enhanced DQN Parameters
         self.state_size = self.config.get('state_size', 50)  # Larger state for Elliott Wave features

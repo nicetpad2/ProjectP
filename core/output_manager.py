@@ -10,7 +10,6 @@ from typing import Dict, Any, Optional
 import pandas as pd
 import logging
 from .project_paths import get_project_paths
-from .unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
 
 # Advanced Logging Integration
 try:
@@ -28,15 +27,15 @@ class NicegoldOutputManager:
         # Initialize Advanced Terminal Logger
         if ADVANCED_LOGGING_AVAILABLE:
             try:
-                self.logger = get_unified_logger()
+                self.logger = get_terminal_logger()
                 self.progress_manager = get_progress_manager()
-                self.logger.info("🚀 NicegoldOutputManager initialized with advanced logging", component="Output_Manager")
+                self.logger.info("🚀 NicegoldOutputManager initialized with advanced logging", "Output_Manager")
             except Exception as e:
-                self.logger = get_unified_logger()
+                self.logger = logging.getLogger(__name__)
                 self.progress_manager = None
                 print(f"⚠️ Advanced logging failed, using fallback: {e}")
         else:
-            self.logger = get_unified_logger()
+            self.logger = logging.getLogger(__name__)
             self.progress_manager = None
             
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -77,7 +76,6 @@ class NicegoldOutputManager:
             
             # Import joblib for saving
             import joblib
-            
             joblib.dump(model, model_file)
             
             # Save metadata

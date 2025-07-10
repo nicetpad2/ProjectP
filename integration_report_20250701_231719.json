@@ -1,0 +1,115 @@
+{
+  "integration_status": {
+    "total_integrated": 15,
+    "integration_success_rate": 1.0,
+    "system_health": {
+      "start_time": 1751411827.590197,
+      "integration_count": 15,
+      "error_count": 1,
+      "warning_count": 0,
+      "last_health_check": "2025-07-01 23:17:07.606343",
+      "memory_mb": 22.4765625,
+      "cpu_percent": 0.0,
+      "total_logs": 9,
+      "uptime": 0.01611781120300293
+    },
+    "integrated_modules": [
+      "core/menu_system.py",
+      "core/config.py",
+      "core/logger.py",
+      "core/compliance.py",
+      "core/output_manager.py",
+      "core/project_paths.py",
+      "elliott_wave_modules/data_processor.py",
+      "elliott_wave_modules/cnn_lstm_engine.py",
+      "elliott_wave_modules/dqn_agent.py",
+      "elliott_wave_modules/feature_selector.py",
+      "elliott_wave_modules/pipeline_orchestrator.py",
+      "elliott_wave_modules/performance_analyzer.py",
+      "elliott_wave_modules/feature_engineering.py",
+      "elliott_wave_modules/enterprise_ml_protection.py",
+      "menu_modules/menu_1_elliott_wave.py"
+    ],
+    "logging_system_available": true,
+    "last_health_check": "2025-07-01 23:17:07.606343",
+    "timestamp": "2025-07-01T23:17:19.729777"
+  },
+  "system_health": {
+    "start_time": 1751411827.590197,
+    "integration_count": 15,
+    "error_count": 1,
+    "warning_count": 0,
+    "last_health_check": "2025-07-01 23:17:07.606343",
+    "memory_mb": 22.4765625,
+    "cpu_percent": 0.0,
+    "total_logs": 9,
+    "uptime": 0.01611781120300293
+  },
+  "integrated_modules": {
+    "core/menu_system.py": {
+      "integration_time": "2025-07-01T23:17:07.616282",
+      "status": "integrated"
+    },
+    "core/config.py": {
+      "integration_time": "2025-07-01T23:17:07.719181",
+      "status": "integrated"
+    },
+    "core/logger.py": {
+      "integration_time": "2025-07-01T23:17:07.822274",
+      "status": "integrated"
+    },
+    "core/compliance.py": {
+      "integration_time": "2025-07-01T23:17:07.924917",
+      "status": "integrated"
+    },
+    "core/output_manager.py": {
+      "integration_time": "2025-07-01T23:17:08.526874",
+      "status": "integrated"
+    },
+    "core/project_paths.py": {
+      "integration_time": "2025-07-01T23:17:08.630339",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/data_processor.py": {
+      "integration_time": "2025-07-01T23:17:18.783506",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/cnn_lstm_engine.py": {
+      "integration_time": "2025-07-01T23:17:18.888981",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/dqn_agent.py": {
+      "integration_time": "2025-07-01T23:17:18.992163",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/feature_selector.py": {
+      "integration_time": "2025-07-01T23:17:19.095084",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/pipeline_orchestrator.py": {
+      "integration_time": "2025-07-01T23:17:19.198718",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/performance_analyzer.py": {
+      "integration_time": "2025-07-01T23:17:19.302181",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/feature_engineering.py": {
+      "integration_time": "2025-07-01T23:17:19.406877",
+      "status": "integrated"
+    },
+    "elliott_wave_modules/enterprise_ml_protection.py": {
+      "integration_time": "2025-07-01T23:17:19.510055",
+      "status": "integrated"
+    },
+    "menu_modules/menu_1_elliott_wave.py": {
+      "integration_time": "2025-07-01T23:17:19.616631",
+      "status": "integrated"
+    }
+  },
+  "logging_system_info": {
+    "advanced_logging_available": true,
+    "logger_type": "AdvancedTerminalLogger",
+    "progress_manager_available": true
+  }
+}

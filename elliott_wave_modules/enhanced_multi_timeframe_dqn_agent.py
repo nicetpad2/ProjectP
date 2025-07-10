@@ -44,9 +44,6 @@ try:
 except ImportError:
     pass
 
-# Import unified logger
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
 class EnhancedDQNNetwork(nn.Module):
     """Enhanced Deep Q-Network with Multi-Timeframe and Elliott Wave Integration"""
     
@@ -193,7 +190,7 @@ class EnhancedMultiTimeframeDQNAgent:
         self.state_size = state_size
         self.action_size = action_size
         self.learning_rate = learning_rate
-        self.logger = get_unified_logger()
+        self.logger = logging.getLogger(__name__)
         
         # Enhanced Hyperparameters
         self.gamma = 0.99  # Increased discount factor

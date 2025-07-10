@@ -41,7 +41,7 @@ warnings.filterwarnings('ignore', category=UserWarning)
 
 # Advanced Logging Integration
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger
     from core.real_time_progress_manager import get_progress_manager
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
@@ -109,20 +109,19 @@ class CNNLSTMElliottWave:
     
     def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
         self.config = config or {}
-        self.component_name = "CNNLSTMElliottWave"
         
         # Initialize Advanced Terminal Logger
         if ADVANCED_LOGGING_AVAILABLE:
             try:
-                self.logger = get_unified_logger()
+                self.logger = get_terminal_logger()
                 self.progress_manager = get_progress_manager()
-                self.logger.info(f"🚀 {self.component_name} initialized with advanced logging")
+                self.logger.info("🚀 CNNLSTMElliottWave initialized with advanced logging", "CNN_LSTM_Engine")
             except Exception as e:
-                self.logger = logger or get_unified_logger()
+                self.logger = logger or logging.getLogger(__name__)
                 self.progress_manager = None
                 print(f"⚠️ Advanced logging failed, using fallback: {e}")
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
             self.progress_manager = None
         
         # Model parameters
@@ -288,47 +287,23 @@ class CNNLSTMElliottWave:
         self.logger.info("✅ Simple fallback model built successfully")
         return model
     
-    def prepare_sequences(self, X, y: Optional = None) -> Tuple[np.ndarray, Optional[np.ndarray]]:
-        """เตรียมข้อมูลเป็น sequences with ultra-aggressive memory management and flexible input handling"""
+    def prepare_sequences(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> Tuple[np.ndarray, Optional[np.ndarray]]:
+        """เตรียมข้อมูลเป็น sequences with ultra-aggressive memory management"""
         try:
             if not TENSORFLOW_AVAILABLE:
                 # For non-LSTM models, return small sample
                 sample_size = min(5000, len(X))
-                if isinstance(X, pd.DataFrame):
-                    X_sample = X.iloc[:sample_size].values
-                    y_sample = y.iloc[:sample_size].values if y is not None else None
-                else:
-                    X_sample = X[:sample_size]
-                    y_sample = y[:sample_size] if y is not None else None
-                return X_sample, y_sample
+                return X.iloc[:sample_size].values, y.iloc[:sample_size].values if y is not None else None
             
             self.logger.info("📊 Preparing sequences for CNN-LSTM with strict memory limits...")
             
-            # 🚀 ENTERPRISE DATA PROCESSING - Handle both DataFrame and numpy array
+            # 🚀 ENTERPRISE DATA PROCESSING - USE ALL REAL DATA
             original_size = len(X)
             
             # Enterprise compliance: NO SAMPLING - Use all real data
             self.logger.info(f"📊 Processing full dataset: {original_size:,} rows (Enterprise compliance)")
-            
-            # CRITICAL FIX: Handle both DataFrame and numpy array inputs
-            if isinstance(X, pd.DataFrame):
-                X_sample = X.reset_index(drop=True)
-                y_sample = y.reset_index(drop=True) if y is not None and hasattr(y, 'reset_index') else y
-            elif isinstance(X, np.ndarray):
-                # Convert numpy array to DataFrame for consistent processing
-                column_names = [f'feature_{i}' for i in range(X.shape[1])] if len(X.shape) > 1 else ['feature_0']
-                X_sample = pd.DataFrame(X, columns=column_names)
-                if y is not None:
-                    if isinstance(y, np.ndarray):
-                        y_sample = pd.Series(y)
-                    else:
-                        y_sample = y
-                else:
-                    y_sample = None
-            else:
-                # Convert any other type to DataFrame
-                X_sample = pd.DataFrame(X)
-                y_sample = pd.Series(y) if y is not None else None
+            X_sample = X.reset_index(drop=True)
+            y_sample = y.reset_index(drop=True) if y is not None else None
             
             # Memory optimization through batch processing instead of sampling
             max_sample = original_size  # Use all data
@@ -393,8 +368,8 @@ class CNNLSTMElliottWave:
             self.logger.warning(f"🆘 Emergency fallback: using only {emergency_size} samples")
             return X.iloc[:emergency_size].values, y.iloc[:emergency_size].values if y is not None else None
     
-    def train_model(self, X, y) -> Dict[str, Any]:
-        """ฝึกโมเดล - supports both DataFrame and numpy array inputs"""
+    def train_model(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
+        """ฝึกโมเดล"""
         try:
             self.logger.info("🚀 Training Elliott Wave model...")
             
@@ -422,28 +397,16 @@ class CNNLSTMElliottWave:
             total_memory_gb = X_sequences.nbytes / (1024**3)
             self.logger.info(f"📊 Training data memory usage: {total_memory_gb:.2f} GB")
             
-            # 🚀 AGGRESSIVE 80% RESOURCE USAGE - Enhanced for 53GB System
-            # Use aggressive processing parameters for maximum utilization
-            system_memory = 53.0  # Approximate system memory
-            target_memory_usage = system_memory * 0.80  # 42.4GB target
-            
-            if total_memory_gb > 1.0:  # More aggressive threshold for 80% usage
-                self.logger.info("🚀 Large dataset detected - using AGGRESSIVE 80% resource processing")
-                # Maximize batch processing for 80% memory utilization
+            # 🚀 ENTERPRISE FULL DATA PROCESSING - 80% Resource Management
+            # Use intelligent batch processing instead of reducing data
+            if total_memory_gb > 2.0:  # Smart threshold for 80% resource usage
+                self.logger.info("🧠 Large dataset detected - using intelligent batch processing")
+                # Use batch processing strategy instead of reducing data
                 self.batch_training = True
-                # Much larger batch sizes for 53GB system
-                if system_memory >= 50:
-                    self.training_batch_size = max(256, min(1024, len(X_sequences) // 50))  # Aggressive batch size
-                    self.processing_chunks = min(10000, len(X_sequences) // 20)  # Large chunks
-                else:
-                    self.training_batch_size = max(128, min(512, len(X_sequences) // 100))
-                    self.processing_chunks = min(5000, len(X_sequences) // 40)
-                
-                self.logger.info(f"⚡ AGGRESSIVE batch training: batch_size={self.training_batch_size}, chunks={self.processing_chunks}")
-                self.logger.info(f"🎯 Target memory usage: {target_memory_usage:.1f}GB of {system_memory}GB ({(target_memory_usage/system_memory)*100:.1f}%)")
+                self.training_batch_size = max(32, min(128, len(X_sequences) // 100))  # Adaptive batch size
+                self.logger.info(f"⚡ Batch training enabled: batch_size={self.training_batch_size} (80% resource mode)")
             else:
                 self.batch_training = False
-                self.training_batch_size = 128  # Default larger batch size
                 self.logger.info("✅ Standard training mode - full data processing")
             
             # Split data efficiently - USE ALL DATA
@@ -456,32 +419,31 @@ class CNNLSTMElliottWave:
             # Clear original sequences to free memory
             del X_sequences, y_sequences
             
-            # Build model with aggressive 80% resource optimization
+            # Build model with 80% resource optimization
             if TENSORFLOW_AVAILABLE and len(X_train.shape) == 3:
                 input_shape = (X_train.shape[1], X_train.shape[2])
                 self.model = self.build_model(input_shape)
                 
-                # 🚀 AGGRESSIVE 80% RESOURCE MANAGEMENT
+                # 🚀 ENTERPRISE 80% RESOURCE MANAGEMENT
                 if hasattr(self, 'batch_training') and self.batch_training:
-                    # Aggressive batch processing for maximum resource utilization
+                    # Intelligent batch processing for large datasets
                     batch_size = self.training_batch_size
-                    # More epochs with large batch sizes for better convergence
-                    epochs = min(100, max(30, 200000 // len(X_train)))  # Aggressive epochs
+                    epochs = min(50, max(20, 100000 // len(X_train)))  # Adaptive epochs
                     
-                    self.logger.info(f"🚀 AGGRESSIVE 80% training: batch_size={batch_size}, epochs={epochs}")
-                    self.logger.info(f"📊 Processing {len(X_train):,} samples with MAXIMUM resource optimization")
+                    self.logger.info(f"🧠 Intelligent batch training: batch_size={batch_size}, epochs={epochs}")
+                    self.logger.info(f"📊 Processing {len(X_train):,} samples with 80% resource optimization")
                 else:
-                    # Enhanced standard training for aggressive resource usage
-                    batch_size = max(64, min(256, len(X_train) // 10))  # Larger batch sizes
-                    epochs = min(50, 80)  # More epochs
+                    # Standard training for smaller datasets
+                    batch_size = max(16, min(64, len(X_train) // 20))
+                    epochs = min(30, 50)
                     
-                    self.logger.info(f"✅ Enhanced training: batch_size={batch_size}, epochs={epochs}")
+                    self.logger.info(f"✅ Standard training: batch_size={batch_size}, epochs={epochs}")
                 
-                # Enhanced callbacks for aggressive training
+                # Enhanced callbacks for better training
                 callbacks = []
                 try:
                     callbacks = [
-                        EarlyStopping(patience=15, restore_best_weights=True, verbose=0),  # More patience
+                        EarlyStopping(patience=10, restore_best_weights=True, verbose=0),
                         ReduceLROnPlateau(patience=5, factor=0.5, verbose=0, min_lr=1e-6)
                     ]
                 except:

@@ -1,6 +1,0 @@
-2025-07-07 08:11:52 | INFO     | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Info message test
-2025-07-07 08:11:52 | WARNING  | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Warning message test
-2025-07-07 08:11:52 | ERROR    | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Error message test
-2025-07-07 08:11:52 | CRITICAL | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Critical message test
-2025-07-07 08:11:52 | INFO     | menu1_status_check | __init__:80 | 🏢 Enterprise Production Logger 'menu1_status_check' initialized successfully
-2025-07-07 08:11:52 | INFO     | menu1_status_check | info:345 | Testing logging system

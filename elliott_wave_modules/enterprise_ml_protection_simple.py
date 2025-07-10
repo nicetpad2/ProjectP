@@ -7,15 +7,13 @@
 import logging
 from typing import Dict, List, Optional, Tuple, Any, Union
 from datetime import datetime
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
 
 
 class EnterpriseMLProtectionSystem:
     """ระบบป้องกัน ML ระดับ Enterprise สำหรับ NICEGOLD Trading System"""
     
     def __init__(self, config: Dict = None, logger: logging.Logger = None):
-        self.logger = logger or get_unified_logger()
+        self.logger = logger or logging.getLogger(__name__)
         self.config = config or {}
         
         # Default protection configuration

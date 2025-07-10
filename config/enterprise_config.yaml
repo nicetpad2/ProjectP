@@ -7,18 +7,12 @@ system:
   environment: "production"
   debug: false
 
-# Master System Settings
-master_system:
-  beautiful_progress: true
-  safe_mode: true
-  zero_errors_mode: true
-
 # Elliott Wave Configuration
 elliott_wave:
   enabled: true
   cnn_lstm_enabled: true
   dqn_enabled: true
-  target_auc: 0.75
+  target_auc: 0.70
   max_features: 25
   sequence_length: 50
   enterprise_grade: true
@@ -44,13 +38,6 @@ performance:
   min_sharpe_ratio: 1.5
   max_drawdown: 0.15
   min_win_rate: 0.60
-  enhanced_performance: true
-
-# Resource Manager Configuration
-resource_manager:
-  target_memory_usage: 0.8
-  target_cpu_usage: 0.35
-  utilization_strategy: '80_percent'
 
 # DQN Configuration
 dqn:

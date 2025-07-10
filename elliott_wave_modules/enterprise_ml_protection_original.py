@@ -30,7 +30,7 @@ from datetime import datetime, timedelta
 
 # Import new advanced logging system
 try:
-    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
     from core.real_time_progress_manager import get_progress_manager, ProgressType, ProgressContext
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
@@ -64,10 +64,10 @@ class EnterpriseMLProtectionSystem:
     def __init__(self, config: Dict = None, logger=None):
         # Initialize advanced logging system
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_unified_logger()
+            self.logger = get_terminal_logger()
             self.progress_manager = get_progress_manager()
         else:
-            self.logger = logger or get_unified_logger()
+            self.logger = logger or logging.getLogger(__name__)
             self.progress_manager = None
         
         self.config = config or {}
@@ -102,9 +102,9 @@ class EnterpriseMLProtectionSystem:
         # Log initialization with new system
         if ADVANCED_LOGGING_AVAILABLE:
             self.logger.security("🛡️ Enterprise ML Protection System initialized", "ML_Protection_Init")
-            self.logger.system(f"sklearn available: {self.sklearn_available}", component="ML_Protection_Init")
-            self.logger.system(f"scipy available: {self.scipy_available}", component="ML_Protection_Init")
-            self.logger.system(f"config loaded: {len(self.protection_config)} settings", component="ML_Protection_Init")
+            self.logger.system(f"sklearn available: {self.sklearn_available}", "ML_Protection_Init")
+            self.logger.system(f"scipy available: {self.scipy_available}", "ML_Protection_Init")
+            self.logger.system(f"config loaded: {len(self.protection_config)} settings", "ML_Protection_Init")
         else:
             self.logger.info(f"🛡️ Enterprise ML Protection System initialized")
             self.logger.info(f"   - sklearn available: {self.sklearn_available}")

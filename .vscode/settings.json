@@ -1,4 +1,3 @@
 {
-    "python.analysis.autoImportCompletions": true,
-    "cursorpyright.analysis.autoImportCompletions": true
+    "python.analysis.autoImportCompletions": true
 }

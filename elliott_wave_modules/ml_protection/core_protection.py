@@ -19,7 +19,14 @@ import sys
 from pathlib import Path
 from datetime import datetime, timedelta
 
-from core.unified_enterprise_logger import get_unified_logger
+# Import new advanced logging system
+try:
+    from core.advanced_terminal_logger import get_terminal_logger, LogLevel, ProcessStatus
+    from core.real_time_progress_manager import get_progress_manager, ProgressType
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
+    import logging
 
 # Import Protection Modules
 from .overfitting_detector import OverfittingDetector
@@ -34,7 +41,12 @@ class EnterpriseMLProtectionSystem:
     
     def __init__(self, config: Dict = None, logger=None):
         # Initialize advanced logging system
-        self.logger = get_unified_logger("MLProtection_Core")
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.progress_manager = get_progress_manager()
+        else:
+            self.logger = logger or logging.getLogger(__name__)
+            self.progress_manager = None
         
         self.config = config or {}
         
@@ -64,7 +76,10 @@ class EnterpriseMLProtectionSystem:
         # Initialize protection modules
         self._initialize_protection_modules()
         
-        self.logger.info("🛡️ Enterprise ML Protection System initialized", component="MLProtection_Core")
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger.info("🛡️ Enterprise ML Protection System initialized", "MLProtection_Core")
+        else:
+            self.logger.info("🛡️ Enterprise ML Protection System initialized")
     
     def _initialize_protection_modules(self):
         """Initialize all protection modules with shared configuration"""
@@ -90,11 +105,17 @@ class EnterpriseMLProtectionSystem:
                 logger=self.logger
             )
             
-            self.logger.info("✅ All protection modules initialized successfully", component="MLProtection_Core")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info("✅ All protection modules initialized successfully", "MLProtection_Core")
+            else:
+                self.logger.info("✅ All protection modules initialized successfully")
                 
         except Exception as e:
             error_msg = f"❌ Failed to initialize protection modules: {str(e)}"
-            self.logger.error(error_msg, component="MLProtection_Core")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(error_msg, "MLProtection_Core")
+            else:
+                self.logger.error(error_msg)
             raise
     
     def update_protection_config(self, new_config: Dict) -> bool:
@@ -108,12 +129,18 @@ class EnterpriseMLProtectionSystem:
                 if hasattr(module, 'update_config'):
                     module.update_config(new_config)
             
-            self.logger.info("🔧 Protection configuration updated", component="MLProtection_Core")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info("🔧 Protection configuration updated", "MLProtection_Core")
+            else:
+                self.logger.info("🔧 Protection configuration updated")
             return True
             
         except Exception as e:
             error_msg = f"❌ Failed to update protection configuration: {str(e)}"
-            self.logger.error(error_msg, component="MLProtection_Core")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(error_msg, "MLProtection_Core")
+            else:
+                self.logger.error(error_msg)
             return False
     
     def get_protection_config(self) -> Dict:
@@ -138,13 +165,25 @@ class EnterpriseMLProtectionSystem:
             Comprehensive protection analysis results
         """
         try:
-            self.logger.info("🛡️ Starting comprehensive ML protection analysis", component="MLProtection_Analysis")
-            with self.logger.progress_bar("Enterprise ML Protection Analysis", total=6) as progress:
-                return self._run_comprehensive_analysis(X, y, datetime_col, model, process_id, progress)
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info("🛡️ Starting comprehensive ML protection analysis", "MLProtection_Analysis")
+                # Create progress tracking
+                task_id = self.progress_manager.create_progress(
+                    "Enterprise ML Protection Analysis", 
+                    6,  # total steps
+                    ProgressType.ANALYSIS
+                )
+                return self._run_comprehensive_analysis(X, y, datetime_col, model, process_id, task_id)
+            else:
+                self.logger.info("🛡️ Starting comprehensive ML protection analysis")
+                return self._run_comprehensive_analysis(X, y, datetime_col, model, process_id, None)
                 
         except Exception as e:
             error_msg = f"❌ Comprehensive protection analysis failed: {str(e)}"
-            self.logger.error(error_msg, component="MLProtection_Analysis")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(error_msg, "MLProtection_Analysis")
+            else:
+                self.logger.error(error_msg)
             
             return {
                 'error': str(e),
@@ -153,7 +192,7 @@ class EnterpriseMLProtectionSystem:
                 'critical_issues': [f"Analysis failed: {str(e)}"]
             }
     
-    def _run_comprehensive_analysis(self, X, y, datetime_col, model, process_id, progress):
+    def _run_comprehensive_analysis(self, X, y, datetime_col, model, process_id, task_id):
         """Execute comprehensive analysis with progress tracking"""
         # Convert to DataFrame if needed
         if isinstance(X, np.ndarray):
@@ -175,67 +214,66 @@ class EnterpriseMLProtectionSystem:
         
         try:
             # Step 1: Data Leakage Detection
-            if progress:
-                progress.update(description="Analyzing data leakage risks...", advance=1)
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Analyzing data leakage risks...")
             
             leakage_results = self.leakage_detector.detect_data_leakage(X, y, datetime_col)
             analysis_results['modules_results']['leakage_detection'] = leakage_results
             
             # Step 2: Overfitting Detection
-            if progress:
-                progress.update(description="Detecting overfitting patterns...", advance=1)
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Detecting overfitting patterns...")
                 
             overfitting_results = self.overfitting_detector.detect_overfitting(X, y, model, process_id)
             analysis_results['modules_results']['overfitting_detection'] = overfitting_results
             
             # Step 3: Noise and Quality Analysis
-            if progress:
-                progress.update(description="Analyzing noise and data quality...", advance=1)
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Analyzing noise and data quality...")
                 
             noise_results = self.noise_analyzer.analyze_noise_and_quality(X, y)
             analysis_results['modules_results']['noise_analysis'] = noise_results
             
             # Step 4: Feature Stability Analysis
-            if progress:
-                progress.update(description="Analyzing feature stability...", advance=1)
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Analyzing feature stability...")
                 
             stability_results = self.feature_analyzer.analyze_feature_stability(X, y, datetime_col)
             analysis_results['modules_results']['feature_stability'] = stability_results
             
             # Step 5: Time Series Validation (if applicable)
-            if progress:
-                progress.update(description="Validating time series integrity...", advance=1)
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Validating time series integrity...")
                 
             if datetime_col:
                 timeseries_results = self.timeseries_validator.validate_timeseries_integrity(X, y, datetime_col)
                 analysis_results['modules_results']['timeseries_validation'] = timeseries_results
-            else:
-                analysis_results['modules_results']['timeseries_validation'] = {'status': 'skipped', 'message': 'No datetime column provided'}
-
-            # Final step: Compute overall assessment
-            if progress:
-                progress.update(description="Computing overall assessment...", advance=1)
-
-            analysis_results['overall_assessment'] = self._compute_overall_assessment(analysis_results['modules_results'])
             
-            # Determine enterprise readiness
-            analysis_results['enterprise_ready'] = analysis_results['overall_assessment']['enterprise_ready']
-            analysis_results['critical_issues'] = analysis_results['overall_assessment'].get('critical_issues', [])
-            analysis_results['warnings'] = analysis_results['overall_assessment'].get('warnings', [])
-            analysis_results['recommendations'] = analysis_results['overall_assessment'].get('recommendations', [])
+            # Step 6: Overall Assessment
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.update_progress(task_id, 1, "Computing overall assessment...")
+                
+            overall_assessment = self._compute_overall_assessment(analysis_results['modules_results'])
+            analysis_results['overall_assessment'] = overall_assessment
+            analysis_results['enterprise_ready'] = overall_assessment['enterprise_ready']
+            analysis_results['critical_issues'] = overall_assessment['critical_issues']
+            analysis_results['warnings'] = overall_assessment['warnings']
+            analysis_results['recommendations'] = overall_assessment['recommendations']
             
+            # Complete progress
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.complete_progress(task_id, "✅ Analysis completed successfully")
+            
+            # Store results
             self.protection_results = analysis_results
             
-            self.logger.info("✅ Comprehensive ML protection analysis completed", component="MLProtection_Analysis")
-            return analysis_results
-
-        except Exception as e:
-            error_msg = f"❌ Analysis execution failed during run: {str(e)}"
-            self.logger.error(error_msg, component="MLProtection_Analysis")
-            analysis_results['critical_issues'].append(error_msg)
-            analysis_results['enterprise_ready'] = False
             return analysis_results
             
+        except Exception as e:
+            if task_id and ADVANCED_LOGGING_AVAILABLE:
+                self.progress_manager.fail_progress(task_id, f"Analysis failed: {str(e)}")
+            raise
+    
     def _compute_overall_assessment(self, modules_results: Dict) -> Dict:
         """Compute overall enterprise readiness assessment"""
         try:
@@ -325,7 +363,10 @@ class EnterpriseMLProtectionSystem:
             return assessment
             
         except Exception as e:
-            self.logger.error(f"❌ Overall assessment computation failed: {str(e)}", component="MLProtection_Assessment")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"❌ Overall assessment computation failed: {str(e)}", "MLProtection_Assessment")
+            else:
+                self.logger.error(f"❌ Overall assessment computation failed: {str(e)}")
             
             return {
                 'enterprise_ready': False,

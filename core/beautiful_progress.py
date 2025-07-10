@@ -24,23 +24,13 @@ import queue
 from datetime import datetime
 import traceback
 
-# Import unified logger
-try:
-    from .unified_enterprise_logger import get_unified_logger
-except ImportError:
-    try:
-        from core.unified_enterprise_logger import get_unified_logger
-    except ImportError:
-        def get_unified_logger():
-            return logging.getLogger(__name__)
-
 # Enhanced Rich import with better error handling
 try:
     from rich.console import Console
     from rich.progress import (
         Progress, SpinnerColumn, BarColumn, TextColumn, 
         TimeElapsedColumn, TimeRemainingColumn, MofNCompleteColumn,
-        TaskProgressColumn
+        TaskProgressColumn, SpeedColumn
     )
     from rich.panel import Panel
     from rich.table import Table
@@ -51,20 +41,13 @@ try:
     from rich.status import Status
     from rich.tree import Tree
     from rich.columns import Columns
-    
-    # Test Rich console creation
-    test_console = Console()
     RICH_AVAILABLE = True
-    print("✅ Rich library loaded successfully")
-    
-except ImportError as e:
+except ImportError:
     RICH_AVAILABLE = False
-    print(f"⚠️ Rich import failed: {e}")
-    print("ℹ️ Using fallback progress display")
-except Exception as e:
-    RICH_AVAILABLE = False
-    print(f"⚠️ Rich initialization failed: {e}")
-    print("ℹ️ Using fallback progress display")
+    # Skip automatic installation to prevent hanging
+    print("ℹ️ Rich not available, using fallback progress display")
+    # Skip automatic installation to prevent hanging
+    print("ℹ️ Rich not available, using fallback progress display")
 
 
 class StepStatus(Enum):
@@ -395,7 +378,7 @@ class BeautifulProgress:
     """ระบบติดตาม Progress แบบสวยงาม"""
     
     def __init__(self, logger: Optional[logging.Logger] = None):
-        self.logger = logger or get_unified_logger()
+        self.logger = logger or logging.getLogger(__name__)
         self.console = Console()
         self.steps: Dict[int, PipelineStep] = {}
         self.current_step_id: Optional[int] = None
@@ -754,7 +737,6 @@ def start_step(step_id: int, custom_message: str = None):
 
 # Demo function
 if __name__ == "__main__":
-    import time
     import random
     
     # Demo the progress tracker

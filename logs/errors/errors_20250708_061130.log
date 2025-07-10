@@ -1,4 +1,0 @@
-{"timestamp": "2025-07-08T06:21:23.696226", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Step 5 failed: 'elliott_wave'", "category": "Error", "process_id": null, "session_id": "20250708_061130"}
-{"timestamp": "2025-07-08T06:21:24.714995", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Step 6 failed: Selected features data not available for CNN-LSTM training. Step 5 must be completed first.", "category": "Error", "process_id": null, "session_id": "20250708_061130"}
-{"timestamp": "2025-07-08T06:21:25.734066", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Step 7 failed: 'dqn'", "category": "Error", "process_id": null, "session_id": "20250708_061130"}
-{"timestamp": "2025-07-08T06:21:26.755992", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Step 8 failed: Both CNN-LSTM and DQN models must be trained before integration", "category": "Error", "process_id": null, "session_id": "20250708_061130"}

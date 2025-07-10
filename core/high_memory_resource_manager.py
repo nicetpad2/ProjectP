@@ -21,10 +21,18 @@ import gc
 from datetime import datetime
 from typing import Dict, Any, Optional, Tuple
 
-from core.unified_enterprise_logger import get_unified_logger
-
 # Suppress warnings to reduce noise
 warnings.filterwarnings('ignore')
+
+# Setup logging
+logger = logging.getLogger(__name__)
+
+# Try to import advanced logging
+try:
+    from core.advanced_terminal_logger import get_terminal_logger
+    ADVANCED_LOGGING_AVAILABLE = True
+except ImportError:
+    ADVANCED_LOGGING_AVAILABLE = False
 
 class HighMemoryResourceManager:
     """
@@ -48,8 +56,12 @@ class HighMemoryResourceManager:
         self.performance_data = []
         
         # Initialize logging
-        self.logger = get_unified_logger("HighMemoryResourceManager")
-        self.logger.info("🧠 High Memory Resource Manager initializing...")
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger = get_terminal_logger()
+            self.logger.system("🧠 High Memory Resource Manager initializing...", "HighMemoryRM")
+        else:
+            self.logger = logger
+            self.logger.info("🧠 High Memory Resource Manager initializing...")
         
         # High memory, low CPU thresholds
         self.memory_warning = 0.85   # Warning at 85% (high)
@@ -67,8 +79,11 @@ class HighMemoryResourceManager:
         # Start CPU-efficient monitoring
         self._start_cpu_efficient_monitoring()
         
-        self.logger.info("✅ High Memory Resource Manager ready")
-
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger.success("✅ High Memory Resource Manager ready", "HighMemoryRM")
+        else:
+            self.logger.info("✅ High Memory Resource Manager ready")
+    
     def _detect_system_resources(self) -> Dict[str, Any]:
         """Detect system resources with focus on memory"""
         try:
@@ -89,14 +104,20 @@ class HighMemoryResourceManager:
                 'optimization_mode': 'high_memory_low_cpu'
             }
             
-            self.logger.info(f"🧠 High-RAM system detected: {total_memory_gb:.1f}GB total, {available_memory_gb:.1f}GB available", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.info(f"🧠 High-RAM system detected: {total_memory_gb:.1f}GB total, {available_memory_gb:.1f}GB available", "HighMemoryRM")
+            else:
+                self.logger.info(f"🧠 High-RAM system detected: {total_memory_gb:.1f}GB total, {available_memory_gb:.1f}GB available")
                 
             return info
             
         except Exception as e:
-            self.logger.warning(f"Resource detection error: {e}", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.warning(f"Resource detection error: {e}", "HighMemoryRM")
+            else:
+                self.logger.warning(f"Resource detection error: {e}")
             return {'cpu_cores': 4, 'memory_total_gb': 32.0, 'system': 'Unknown'}
-
+    
     def _calculate_high_memory_allocation(self) -> Dict[str, Any]:
         """Calculate resource allocation optimized for high memory usage"""
         try:
@@ -136,12 +157,18 @@ class HighMemoryResourceManager:
                 }
             }
             
-            self.logger.info(f"📊 High-memory allocation: {allocated_memory_gb:.1f}GB RAM ({self.memory_percentage*100:.0f}%), {allocated_cores} cores ({(allocated_cores/cpu_count)*100:.0f}%)", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.system(f"📊 High-memory allocation: {allocated_memory_gb:.1f}GB RAM ({self.memory_percentage*100:.0f}%), {allocated_cores} cores ({(allocated_cores/cpu_count)*100:.0f}%)", "HighMemoryRM")
+            else:
+                self.logger.info(f"📊 High-memory allocation: {allocated_memory_gb:.1f}GB RAM ({self.memory_percentage*100:.0f}%), {allocated_cores} cores ({(allocated_cores/cpu_count)*100:.0f}%)")
                 
             return config
             
         except Exception as e:
-            self.logger.error(f"Allocation calculation error: {e}", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Allocation calculation error: {e}", "HighMemoryRM")
+            else:
+                self.logger.error(f"Allocation calculation error: {e}")
             
             # Fallback high-memory allocation
             return {
@@ -149,27 +176,28 @@ class HighMemoryResourceManager:
                 'memory': {'allocated_gb': 16.0, 'allocation_percentage': 80, 'strategy': 'high_memory_usage'},
                 'optimization': {'batch_size': 512, 'cache_size_mb': 8192, 'recommended_workers': 1}
             }
-
+    
     def get_current_performance(self) -> Dict[str, Any]:
         """Get current system performance with focus on memory metrics"""
         try:
-            current_time = datetime.now()
-            uptime_seconds = (current_time - self.start_time).total_seconds()
-            
-            # Get system metrics
-            cpu_percent = psutil.cpu_percent(interval=0.1)
             memory = psutil.virtual_memory()
+            cpu_percent = psutil.cpu_percent(interval=0.05)  # Faster CPU check to reduce load
+            
+            current_time = datetime.now()
+            uptime = (current_time - self.start_time).total_seconds()
+            
+            # Calculate memory metrics
+            memory_used_gb = memory.used / (1024**3)
+            memory_available_gb = memory.available / (1024**3)
+            memory_cached_gb = getattr(memory, 'cached', 0) / (1024**3)
             
             performance = {
-                'uptime': uptime_seconds,
+                'uptime': uptime,
                 'uptime_str': str(current_time - self.start_time).split('.')[0],
                 'cpu_percent': round(cpu_percent, 1),
-                'memory_used_gb': round(memory.used / (1024**3), 2),
-                'memory_available_gb': round(memory.available / (1024**3), 2),
-                'memory_current_mb': round(memory.used / (1024**2), 1),
-                'memory_available_mb': round(memory.available / (1024**2), 1),
-                'memory_target': f"{self.memory_percentage*100:.0f}%",
-                'cpu_target': f"{self.cpu_percentage*100:.0f}%",
+                'memory_used_gb': round(memory_used_gb, 2),
+                'memory_available_gb': round(memory_available_gb, 2),
+                'memory_cached_gb': round(memory_cached_gb, 2),
                 'memory_percent': round(memory.percent, 1),
                 'timestamp': current_time.isoformat(),
                 'status': self._get_memory_optimized_status(cpu_percent, memory.percent),
@@ -188,7 +216,10 @@ class HighMemoryResourceManager:
             return performance
             
         except Exception as e:
-            self.logger.error(f"Performance monitoring error: {e}", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Performance monitoring error: {e}", "HighMemoryRM")
+            else:
+                self.logger.error(f"Performance monitoring error: {e}")
             
             return {
                 'uptime': 0,
@@ -201,24 +232,7 @@ class HighMemoryResourceManager:
                 'warning_count': 0,
                 'total_logs': 0
             }
-
-    def get_current_allocation(self) -> Dict[str, Any]:
-        """Get current resource allocation status"""
-        return {
-            'memory': {
-                'allocated_gb': self.resource_config['memory']['allocated_gb'],
-                'percentage': self.resource_config['memory']['allocation_percentage'],
-                'strategy': 'high_memory_usage'
-            },
-            'cpu': {
-                'allocated_cores': self.resource_config['cpu']['allocated_cores'],
-                'percentage': self.resource_config['cpu']['allocation_percentage'],
-                'strategy': 'cpu_conservative'
-            },
-            'status': 'active' if self.monitoring_active else 'inactive',
-            'uptime_seconds': (datetime.now() - self.start_time).total_seconds()
-        }
-
+    
     def _get_memory_optimized_status(self, cpu_percent: float, memory_percent: float) -> str:
         """Determine system status with high memory tolerance"""
         # High memory usage is normal and expected
@@ -232,7 +246,7 @@ class HighMemoryResourceManager:
             return 'normal'  # This is expected for our strategy
         else:
             return 'optimal'
-
+    
     def _start_cpu_efficient_monitoring(self):
         """Start CPU-efficient background monitoring"""
         def monitor():
@@ -250,67 +264,56 @@ class HighMemoryResourceManager:
                     
                     # Alert only on critical CPU usage (our main concern)
                     if perf_data['cpu_percent'] > self.cpu_critical * 100:
-                        self.logger.warning(f"🚨 Critical CPU usage - Performance bottleneck", component="HighMemoryRM", 
+                        if ADVANCED_LOGGING_AVAILABLE:
+                            self.logger.warning(f"🚨 Critical CPU usage - Performance bottleneck", "HighMemoryRM", 
                                               data={'cpu': perf_data['cpu_percent'], 'memory': perf_data['memory_percent']})
+                        else:
+                            self.logger.warning(f"🚨 Critical CPU usage: {perf_data['cpu_percent']}%")
                     elif perf_data['cpu_percent'] > self.cpu_warning * 100:
-                        self.logger.info(f"⚠️ High CPU usage detected", component="HighMemoryRM",
+                        if ADVANCED_LOGGING_AVAILABLE:
+                            self.logger.info(f"⚠️ High CPU usage detected", "HighMemoryRM",
                                            data={'cpu': perf_data['cpu_percent']})
                     
                     # Memory usage info (high usage is expected and good)
                     if perf_data['memory_percent'] > 85:
-                        self.logger.info(f"🧠 High memory utilization: {perf_data['memory_percent']:.1f}% (Expected)", component="HighMemoryRM")
+                        if ADVANCED_LOGGING_AVAILABLE:
+                            self.logger.info(f"🧠 High memory utilization: {perf_data['memory_percent']:.1f}% (Expected)", "HighMemoryRM")
                     
                     consecutive_errors = 0  # Reset error counter on success
                     time.sleep(60)  # Check every 60 seconds (less frequent to save CPU)
                     
                 except Exception as e:
                     consecutive_errors += 1
-                    self.logger.error(f"Monitoring error #{consecutive_errors}: {e}", component="HighMemoryRM")
+                    if ADVANCED_LOGGING_AVAILABLE:
+                        self.logger.error(f"Monitoring error #{consecutive_errors}: {e}", "HighMemoryRM")
+                    else:
+                        self.logger.error(f"Monitoring error #{consecutive_errors}: {e}")
                     
                     time.sleep(120)  # Wait longer on error
             
             if consecutive_errors >= max_errors:
-                self.logger.error("🛑 CPU-efficient monitoring stopped due to repeated errors", component="HighMemoryRM")
+                if ADVANCED_LOGGING_AVAILABLE:
+                    self.logger.error("🛑 CPU-efficient monitoring stopped due to repeated errors", "HighMemoryRM")
+                else:
+                    self.logger.error("🛑 CPU-efficient monitoring stopped due to repeated errors")
                 self.monitoring_active = False
-                
+        
         try:
             self.monitor_thread = threading.Thread(target=monitor, daemon=True)
             self.monitor_thread.start()
             
-            self.logger.info("📊 CPU-efficient monitoring started", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.system("📊 CPU-efficient monitoring started", "HighMemoryRM")
+            else:
+                self.logger.info("📊 CPU-efficient monitoring started")
                 
         except Exception as e:
-            self.logger.error(f"Failed to start monitoring: {e}", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.error(f"Failed to start monitoring: {e}", "HighMemoryRM")
+            else:
+                self.logger.error(f"Failed to start monitoring: {e}")
             self.monitoring_active = False
-
-    def start_monitoring(self):
-        """Start monitoring system (alias for _start_cpu_efficient_monitoring)"""
-        if not self.monitoring_active:
-            self.monitoring_active = True
-            self._start_cpu_efficient_monitoring()
-            self.logger.info("🚀 High Memory Resource Manager monitoring started", component="HighMemoryRM")
-        else:
-            self.logger.info("ℹ️ Monitoring already active", component="HighMemoryRM")
-
-    def stop_monitoring(self):
-        """Stop monitoring system"""
-        self.monitoring_active = False
-        if self.monitor_thread and self.monitor_thread.is_alive():
-            self.monitor_thread.join(timeout=5)
-        self.logger.info("🛑 High Memory Resource Manager monitoring stopped", component="HighMemoryRM")
-
-    def restart_monitoring(self):
-        """Restart monitoring system"""
-        self.logger.info("🔄 Restarting High Memory Resource Manager monitoring", component="HighMemoryRM")
-        
-        self.stop_monitoring()
-        time.sleep(1)  # Brief pause
-        self.start_monitoring()
-
-    def is_monitoring_active(self) -> bool:
-        """Check if monitoring is active"""
-        return self.monitoring_active and (self.monitor_thread is not None and self.monitor_thread.is_alive())
-
+    
     def get_high_memory_config(self, task_type: str = 'general') -> Dict[str, Any]:
         """Get configuration optimized for high memory usage"""
         base_config = self.resource_config['optimization'].copy()
@@ -345,7 +348,7 @@ class HighMemoryResourceManager:
             })
         
         return base_config
-
+    
     def optimize_for_menu1(self) -> Dict[str, Any]:
         """Get optimized configuration specifically for Menu 1 with high memory"""
         base_config = self.get_high_memory_config('ml_training')
@@ -386,7 +389,7 @@ class HighMemoryResourceManager:
         })
         
         return menu1_config
-
+    
     def get_system_resource_summary(self) -> str:
         """Get system resource summary optimized for high memory display"""
         try:
@@ -415,7 +418,7 @@ class HighMemoryResourceManager:
    Cache Size: {config['optimization']['cache_size_mb']} MB
    Memory Mapping: ✅ Enabled
    CPU Conservation: ✅ Active
-
+   
 🎯 PERFORMANCE TARGETS:
    Memory: Use up to 85% (Current: {perf['memory_percent']:.1f}%)
    CPU: Keep under 70% (Current: {perf['cpu_percent']:.1f}%)
@@ -425,7 +428,7 @@ class HighMemoryResourceManager:
             
         except Exception as e:
             return f"📊 High Memory Resource Manager Active (Error in summary: {e})"
-
+    
     def get_health_status(self) -> Dict[str, Any]:
         """Get health status optimized for high memory environment"""
         performance = self.get_current_performance()
@@ -455,7 +458,7 @@ class HighMemoryResourceManager:
             'uptime': performance['uptime_str'],
             'optimization_mode': 'high_memory_low_cpu'
         }
-
+    
     def check_resource_availability(self) -> Tuple[bool, str]:
         """Check if system has enough resources with high memory focus"""
         try:
@@ -479,25 +482,32 @@ class HighMemoryResourceManager:
             
         except Exception as e:
             return False, f"Resource check error: {e}"
-
+    
     def stop_monitoring(self):
         """Stop resource monitoring with proper cleanup"""
         self.monitoring_active = False
         if self.monitor_thread and self.monitor_thread.is_alive():
             self.monitor_thread.join(timeout=2.0)
         
-        self.logger.info("🛑 High memory monitoring stopped", component="HighMemoryRM")
-
+        if ADVANCED_LOGGING_AVAILABLE:
+            self.logger.system("🛑 High memory monitoring stopped", "HighMemoryRM")
+        else:
+            self.logger.info("🛑 High memory monitoring stopped")
+    
     def force_garbage_collection(self):
         """Force garbage collection to free up memory if needed"""
         try:
             collected = gc.collect()
-            self.logger.info(f"🗑️ Garbage collection: freed {collected} objects", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.system(f"🗑️ Garbage collection: freed {collected} objects", "HighMemoryRM")
+            else:
+                self.logger.info(f"🗑️ Garbage collection: freed {collected} objects")
             return collected
         except Exception as e:
-            self.logger.warning(f"Garbage collection error: {e}", component="HighMemoryRM")
+            if ADVANCED_LOGGING_AVAILABLE:
+                self.logger.warning(f"Garbage collection error: {e}", "HighMemoryRM")
             return 0
-
+    
     def __del__(self):
         """Cleanup on destruction"""
         try:
@@ -505,55 +515,28 @@ class HighMemoryResourceManager:
         except:
             pass
 
+
 # Global instance for easy access
 _high_memory_resource_manager = None
 
 def initialize_high_memory_intelligent_resources(memory_percentage: float = 0.8, cpu_percentage: float = 0.3, **kwargs) -> HighMemoryResourceManager:
     """Initialize high memory intelligent resource manager"""
     global _high_memory_resource_manager
-    
-    try:
-        _high_memory_resource_manager = HighMemoryResourceManager(
-            memory_percentage=memory_percentage,
-            cpu_percentage=cpu_percentage
-        )
-        return _high_memory_resource_manager
-    except Exception as e:
-        logger.error(f"Failed to initialize high memory resource manager: {e}")
-        # Return a minimal fallback
-        return HighMemoryResourceManager(memory_percentage=0.6, cpu_percentage=0.4)
+    if _high_memory_resource_manager is None:
+        _high_memory_resource_manager = HighMemoryResourceManager(memory_percentage, cpu_percentage)
+    return _high_memory_resource_manager
 
 def get_high_memory_resource_manager() -> HighMemoryResourceManager:
     """Get global high memory resource manager instance"""
     global _high_memory_resource_manager
     if _high_memory_resource_manager is None:
-        _high_memory_resource_manager = initialize_high_memory_intelligent_resources()
+        _high_memory_resource_manager = HighMemoryResourceManager()
     return _high_memory_resource_manager
 
 def get_high_memory_config(task_type: str = 'general') -> Dict[str, Any]:
     """Get high memory optimized configuration for a task"""
-    manager = get_high_memory_resource_manager()
-    return manager.get_high_memory_config(task_type)
+    return get_high_memory_resource_manager().get_high_memory_config(task_type)
 
 def check_high_memory_system_health() -> Dict[str, Any]:
     """Check current system health with high memory focus"""
-    manager = get_high_memory_resource_manager()
-    return manager.get_health_status()
-
-if __name__ == "__main__":
-    # Test the high memory resource manager
-    print("🧠 Testing High Memory Resource Manager...")
-    
-    manager = initialize_high_memory_intelligent_resources()
-    print(manager.get_system_resource_summary())
-    
-    # Test configurations
-    ml_config = manager.get_high_memory_config('ml_training')
-    menu1_config = manager.optimize_for_menu1()
-    
-    print(f"\n📊 ML Training Config: {ml_config}")
-    print(f"\n🎯 Menu 1 Config: {menu1_config}")
-    
-    # Health check
-    health = manager.get_health_status()
-    print(f"\n🏥 Health Status: {health}")
+    return get_high_memory_resource_manager().get_health_status()

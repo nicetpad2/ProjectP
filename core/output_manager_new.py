@@ -16,7 +16,7 @@ class NicegoldOutputManager:
     """ตัวจัดการ Output ให้เป็นระเบียบ - ใช้ ProjectPaths"""
     
     def __init__(self, use_project_paths: bool = True):
-        self.logger = get_unified_logger()
+        self.logger = logging.getLogger(__name__)
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         if use_project_paths:
@@ -55,8 +55,6 @@ class NicegoldOutputManager:
             
             # Import joblib for saving
             import joblib
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
             joblib.dump(model, model_file)
             
             # Save metadata
