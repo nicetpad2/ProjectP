@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 import platform
 import logging
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
 
 
 class ProjectPaths:
@@ -22,7 +23,7 @@ class ProjectPaths:
         Args:
             base_path: Base project directory (auto-detect if None)
         """
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_unified_logger()
         
         # Auto-detect project root
         if base_path is None:
@@ -150,6 +151,22 @@ class ProjectPaths:
             return getattr(self, path_key)
         else:
             raise ValueError(f"Unknown path key: {path_key}")
+    
+    def get(self, path_key: str, default=None):
+        """
+        ดึง path ตามชื่อ key (compatible with dict interface)
+        
+        Args:
+            path_key: ชื่อ path (เช่น 'models', 'results', 'datacsv')
+            default: ค่า default ถ้าไม่เจอ
+            
+        Returns:
+            Path object หรือ default value
+        """
+        try:
+            return self.get_path(path_key)
+        except ValueError:
+            return default
     
     def get_data_file_path(self, filename: str) -> Path:
         """ดึง path ของไฟล์ data"""

@@ -19,6 +19,8 @@ from typing import Dict, List, Optional, Tuple, Any, Union
 import warnings
 from datetime import datetime
 
+from core.unified_enterprise_logger import get_unified_logger
+
 # Import ML libraries with error handling
 try:
     from sklearn.feature_selection import mutual_info_classif
@@ -35,14 +37,6 @@ except ImportError:
     SCIPY_AVAILABLE = False
     warnings.warn("SciPy not available, using simplified statistical analysis")
 
-# Import advanced logging system
-try:
-    from core.advanced_terminal_logger import get_terminal_logger, LogLevel
-    ADVANCED_LOGGING_AVAILABLE = True
-except ImportError:
-    ADVANCED_LOGGING_AVAILABLE = False
-    import logging
-
 
 class NoiseQualityAnalyzer:
     """📊 Enterprise Noise Detection and Data Quality Analysis System"""
@@ -53,10 +47,7 @@ class NoiseQualityAnalyzer:
         self.scipy_available = SCIPY_AVAILABLE
         
         # Initialize logging
-        if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger()
-        else:
-            self.logger = logger or logging.getLogger(__name__)
+        self.logger = get_unified_logger("NoiseQualityAnalyzer")
     
     def update_config(self, new_config: Dict):
         """Update analyzer configuration"""
@@ -121,10 +112,7 @@ class NoiseQualityAnalyzer:
             
         except Exception as e:
             error_msg = f"❌ Noise detection failed: {str(e)}"
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(error_msg, "NoiseAnalyzer")
-            else:
-                self.logger.error(error_msg)
+            self.logger.error(error_msg, component="NoiseAnalyzer")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _analyze_missing_values(self, X: pd.DataFrame) -> Dict:
@@ -613,10 +601,7 @@ class NoiseQualityAnalyzer:
             return float(np.mean(noise_components))
             
         except Exception as e:
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning(f"⚠️ Noise level computation failed: {str(e)}", "NoiseAnalyzer")
-            else:
-                self.logger.warning(f"⚠️ Noise level computation failed: {str(e)}")
+            self.logger.warning(f"⚠️ Noise level computation failed: {str(e)}", component="NoiseAnalyzer")
             return 0.5  # Default moderate noise level
     
     def _compute_data_quality_score(self, noise_results: Dict) -> float:
@@ -648,10 +633,7 @@ class NoiseQualityAnalyzer:
                 return float(base_quality)
                 
         except Exception as e:
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning(f"⚠️ Data quality score computation failed: {str(e)}", "NoiseAnalyzer")
-            else:
-                self.logger.warning(f"⚠️ Data quality score computation failed: {str(e)}")
+            self.logger.warning(f"⚠️ Data quality score computation failed: {str(e)}", component="NoiseAnalyzer")
             return 0.5  # Default moderate quality
     
     def _generate_quality_recommendations(self, noise_results: Dict) -> List[str]:

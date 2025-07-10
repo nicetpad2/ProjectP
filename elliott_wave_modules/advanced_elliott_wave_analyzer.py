@@ -27,7 +27,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Advanced Logging Integration
 try:
-    from core.advanced_terminal_logger import get_terminal_logger
+    from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
     ADVANCED_LOGGING_AVAILABLE = True
 except ImportError:
     ADVANCED_LOGGING_AVAILABLE = False
@@ -104,10 +104,10 @@ class AdvancedElliottWaveAnalyzer:
         
         # Initialize Advanced Logging
         if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger()
-            self.logger.info("🚀 AdvancedElliottWaveAnalyzer initialized", "Elliott_Wave_Analyzer")
+            self.logger = get_unified_logger()
+            self.logger.info("🚀 AdvancedElliottWaveAnalyzer initialized")
         else:
-            self.logger = logger or logging.getLogger(__name__)
+            self.logger = logger or get_unified_logger()
         
         # Configuration
         self.timeframes = self.config.get('timeframes', ['1min', '5min', '15min', '1H', '4H', '1D'])

@@ -18,6 +18,8 @@ from typing import Dict, List, Optional, Tuple, Any, Union
 import warnings
 from datetime import datetime
 
+from core.unified_enterprise_logger import get_unified_logger
+
 # Import ML libraries with error handling
 try:
     from sklearn.feature_selection import mutual_info_classif
@@ -25,14 +27,6 @@ try:
 except ImportError:
     SKLEARN_AVAILABLE = False
     warnings.warn("Scikit-learn not available, using simplified leakage detection")
-
-# Import advanced logging system
-try:
-    from core.advanced_terminal_logger import get_terminal_logger, LogLevel
-    ADVANCED_LOGGING_AVAILABLE = True
-except ImportError:
-    ADVANCED_LOGGING_AVAILABLE = False
-    import logging
 
 
 class DataLeakageDetector:
@@ -43,10 +37,7 @@ class DataLeakageDetector:
         self.sklearn_available = SKLEARN_AVAILABLE
         
         # Initialize logging
-        if ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger()
-        else:
-            self.logger = logger or logging.getLogger(__name__)
+        self.logger = get_unified_logger("DataLeakageDetector")
     
     def update_config(self, new_config: Dict):
         """Update detector configuration"""
@@ -132,10 +123,7 @@ class DataLeakageDetector:
             
         except Exception as e:
             error_msg = f"❌ Data leakage detection failed: {str(e)}"
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.error(error_msg, "LeakageDetector")
-            else:
-                self.logger.error(error_msg)
+            self.logger.error(error_msg, component="LeakageDetector")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _check_temporal_leakage(self, X: pd.DataFrame, y: pd.Series, datetime_col: str) -> Dict:
@@ -250,10 +238,7 @@ class DataLeakageDetector:
             
         except Exception as e:
             error_msg = f"Statistical leakage test failed: {str(e)}"
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning(f"⚠️ {error_msg}", "LeakageDetector")
-            else:
-                self.logger.warning(f"⚠️ {error_msg}")
+            self.logger.warning(f"⚠️ {error_msg}", component="LeakageDetector")
             
             # Fallback to simplified method
             return self._statistical_leakage_test_simplified(X, y)
@@ -399,8 +384,5 @@ class DataLeakageDetector:
             return min(score, 1.0)
             
         except Exception as e:
-            if ADVANCED_LOGGING_AVAILABLE:
-                self.logger.warning(f"⚠️ Leakage score computation failed: {str(e)}", "LeakageDetector")
-            else:
-                self.logger.warning(f"⚠️ Leakage score computation failed: {str(e)}")
+            self.logger.warning(f"⚠️ Leakage score computation failed: {str(e)}", component="LeakageDetector")
             return 0.0

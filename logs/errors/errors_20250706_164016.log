@@ -1,1 +1,0 @@
-{"timestamp": "2025-07-06T16:41:39.047969", "level": "ERROR", "emoji": "\u274c", "message": "Enhanced Elliott Wave Pipeline failed: 'RobustBeautifulLogger' object has no attribute 'step_start'", "category": "Error", "process_id": null, "session_id": "20250706_164016"}

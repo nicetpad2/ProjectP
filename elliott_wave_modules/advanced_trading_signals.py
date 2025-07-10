@@ -21,6 +21,8 @@ from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass
 from enum import Enum
 import warnings
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
 warnings.filterwarnings('ignore')
 
 class SignalType(Enum):
@@ -109,7 +111,7 @@ class AdvancedTradingSignalGenerator:
     
     def _setup_logger(self) -> logging.Logger:
         """Setup logging for signal generator"""
-        logger = logging.getLogger("AdvancedTradingSignals")
+        logger = get_unified_logger()
         if not logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter(

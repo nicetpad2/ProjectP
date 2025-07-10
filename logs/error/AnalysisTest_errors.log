@@ -1,0 +1,4 @@
+2025-07-07 07:56:56 | CRITICAL | AnalysisTest | _test_logging_system:234 | 🧪 LOGGING TEST: Error message test
+None
+2025-07-07 07:56:56 | CRITICAL | AnalysisTest | _test_logging_system:234 | 🧪 LOGGING TEST: Critical message test
+None

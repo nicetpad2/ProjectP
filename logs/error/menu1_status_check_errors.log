@@ -1,0 +1,4 @@
+2025-07-07 08:11:52 | CRITICAL | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Error message test
+None
+2025-07-07 08:11:52 | CRITICAL | menu1_status_check | _test_logging_system:234 | 🧪 LOGGING TEST: Critical message test
+None

@@ -1,0 +1,74 @@
+2025-07-08 23:02:33,809 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:02:33,826 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: ece76ecd
+2025-07-08 23:02:33,828 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:02:33,830 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🧪 Testing Unified Enterprise Logger
+2025-07-08 23:02:33,832 - unified_enterprise - INFO - NICEGOLD_PROJECT: ✅ Basic logging test passed
+2025-07-08 23:02:33,834 - unified_enterprise - WARNING - NICEGOLD_PROJECT: ⚠️ Warning test
+2025-07-08 23:02:33,835 - unified_enterprise - ERROR - NICEGOLD_PROJECT: ❌ Error test
+2025-07-08 23:02:33,837 - unified_enterprise - INFO - ELLIOTT_WAVE: Starting Elliott Wave analysis
+2025-07-08 23:02:33,839 - unified_enterprise - INFO - ELLIOTT_WAVE: Elliott Wave data loaded: 1,000 rows from /path/to/data.csv
+2025-07-08 23:02:33,841 - unified_enterprise - INFO - ELLIOTT_WAVE: Elliott Wave features created: 50 features for 1,000 rows
+2025-07-08 23:02:33,843 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION started: Setting up Menu 1
+2025-07-08 23:02:33,844 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION completed: Menu 1 setup complete
+2025-07-08 23:02:33,846 - unified_enterprise - INFO - PROGRESS: 📊 Progress task created: Test Progress (5 steps)
+2025-07-08 23:02:33,848 - unified_enterprise - INFO - PROGRESS: Processing step 1 (1/5)
+2025-07-08 23:02:34,350 - unified_enterprise - INFO - PROGRESS: Processing step 2 (2/5)
+2025-07-08 23:02:34,854 - unified_enterprise - INFO - PROGRESS: Processing step 3 (3/5)
+2025-07-08 23:02:35,356 - unified_enterprise - INFO - PROGRESS: Processing step 4 (4/5)
+2025-07-08 23:02:35,858 - unified_enterprise - INFO - PROGRESS: Processing step 5 (5/5)
+2025-07-08 23:02:36,361 - unified_enterprise - INFO - PROGRESS: Task completed: Test Progress
+2025-07-08 23:02:36,363 - unified_enterprise - INFO - DEPLOYMENT: Enterprise system initialized
+2025-07-08 23:02:36,364 - unified_enterprise - INFO - DEPLOYMENT: Production deployment successful
+2025-07-08 23:02:36,366 - unified_enterprise - INFO - NICEGOLD_PROJECT: Performance summary: {'cpu_usage': 0.0, 'memory_usage_mb': 26.375, 'uptime_seconds': 2.5647804737091064, 'total_log_entries': 21, 'active_progress_tasks': 1}
+2025-07-08 23:02:36,369 - unified_enterprise - INFO - NICEGOLD_PROJECT: Log summary: {'total_entries': 22, 'time_range_hours': 1, 'level_counts': {'INFO': 11, 'SUCCESS': 2, 'WARNING': 1, 'ERROR': 1, 'ELLIOTT_WAVE': 3, 'MENU1_STEP': 2, 'ENTERPRISE': 1, 'PRODUCTION': 1}, 'component_counts': {'NICEGOLD_PROJECT': 8, 'ELLIOTT_WAVE': 3, 'MENU1': 2, 'PROGRESS': 7, 'DEPLOYMENT': 2}, 'session_id': 'ece76ecd'}
+2025-07-08 23:02:36,372 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🎉 All tests completed successfully!
+2025-07-08 23:03:04,797 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:03:04,801 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: b8416af7
+2025-07-08 23:03:04,803 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:03:04,805 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🧪 Testing Unified Enterprise Logger
+2025-07-08 23:03:04,807 - unified_enterprise - INFO - NICEGOLD_PROJECT: ✅ Basic logging test passed
+2025-07-08 23:03:04,809 - unified_enterprise - WARNING - NICEGOLD_PROJECT: ⚠️ Warning test
+2025-07-08 23:03:04,842 - unified_enterprise - ERROR - NICEGOLD_PROJECT: ❌ Error test
+2025-07-08 23:03:04,844 - unified_enterprise - INFO - ELLIOTT_WAVE: Starting Elliott Wave analysis
+2025-07-08 23:03:04,846 - unified_enterprise - INFO - ELLIOTT_WAVE: Elliott Wave data loaded: 1,000 rows from /path/to/data.csv
+2025-07-08 23:03:04,847 - unified_enterprise - INFO - ELLIOTT_WAVE: Elliott Wave features created: 50 features for 1,000 rows
+2025-07-08 23:03:04,849 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION started: Setting up Menu 1
+2025-07-08 23:03:04,851 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION completed: Menu 1 setup complete
+2025-07-08 23:03:04,853 - unified_enterprise - INFO - DEPLOYMENT: Enterprise system initialized
+2025-07-08 23:03:04,855 - unified_enterprise - INFO - DEPLOYMENT: Production deployment successful
+2025-07-08 23:03:04,857 - unified_enterprise - INFO - NICEGOLD_PROJECT: Performance summary: {'cpu_usage': 0.0, 'memory_usage_mb': 27.68359375, 'uptime_seconds': 0.06394577026367188, 'total_log_entries': 14, 'active_progress_tasks': 0}
+2025-07-08 23:03:04,859 - unified_enterprise - INFO - NICEGOLD_PROJECT: Log summary: {'total_entries': 15, 'time_range_hours': 1, 'level_counts': {'INFO': 5, 'SUCCESS': 1, 'WARNING': 1, 'ERROR': 1, 'ELLIOTT_WAVE': 3, 'MENU1_STEP': 2, 'ENTERPRISE': 1, 'PRODUCTION': 1}, 'component_counts': {'NICEGOLD_PROJECT': 8, 'ELLIOTT_WAVE': 3, 'MENU1': 2, 'DEPLOYMENT': 2}, 'session_id': 'b8416af7'}
+2025-07-08 23:03:04,862 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🎉 All tests completed successfully!
+2025-07-08 23:37:48,384 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:37:48,387 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: 928952c7
+2025-07-08 23:37:48,389 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:37:48,391 - unified_enterprise - INFO - NICEGOLD_PROJECT: Logger initialized successfully!
+2025-07-08 23:38:20,419 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:38:20,422 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: d84e1da9
+2025-07-08 23:38:20,424 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:38:20,426 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🧪 Testing Unified Enterprise Logger
+2025-07-08 23:38:20,428 - unified_enterprise - INFO - NICEGOLD_PROJECT: ✅ Basic logging test passed
+2025-07-08 23:38:20,430 - unified_enterprise - WARNING - NICEGOLD_PROJECT: ⚠️ Warning test
+2025-07-08 23:38:20,432 - unified_enterprise - INFO - ELLIOTT_WAVE: Starting Elliott Wave analysis
+2025-07-08 23:38:20,434 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION started: Setting up Menu 1
+2025-07-08 23:38:20,436 - unified_enterprise - INFO - DEPLOYMENT: Enterprise system initialized
+2025-07-08 23:39:05,373 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:39:05,376 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: 549b3555
+2025-07-08 23:39:05,378 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:39:05,380 - unified_enterprise - INFO - NICEGOLD_PROJECT: Test message
+2025-07-08 23:39:18,828 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:39:18,832 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: 5506d4a8
+2025-07-08 23:39:18,835 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:40:55,465 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:40:55,469 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: 9f9f1514
+2025-07-08 23:40:55,471 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:40:55,473 - unified_enterprise - INFO - NICEGOLD_PROJECT: Test info message
+2025-07-08 23:40:55,475 - unified_enterprise - INFO - NICEGOLD_PROJECT: Test success message
+2025-07-08 23:40:55,477 - unified_enterprise - WARNING - NICEGOLD_PROJECT: Test warning message
+2025-07-08 23:40:55,479 - unified_enterprise - INFO - ELLIOTT_WAVE: Elliott Wave test
+2025-07-08 23:40:55,481 - unified_enterprise - INFO - MENU1: Menu 1 Step INITIALIZATION started: Test initialization
+2025-07-08 23:40:55,482 - unified_enterprise - INFO - TEST: Enterprise test
+2025-07-08 23:41:08,739 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-08 23:41:08,743 - unified_enterprise - INFO - NICEGOLD_PROJECT: 📊 Session ID: 25700032
+2025-07-08 23:41:08,746 - unified_enterprise - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-08 23:41:08,748 - unified_enterprise - INFO - NICEGOLD_PROJECT: Test successful

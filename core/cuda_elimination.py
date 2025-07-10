@@ -50,8 +50,8 @@ warnings.filterwarnings('ignore', message='.*GPU.*')
 warnings.filterwarnings('ignore', message='.*tensorflow.*')
 
 # PHASE 3: Logging suppression
-logging.getLogger('tensorflow').setLevel(logging.ERROR)
-logging.getLogger('tensorboard').setLevel(logging.ERROR)
+get_unified_logger().setLevel(logging.ERROR)
+get_unified_logger().setLevel(logging.ERROR)
 
 # PHASE 4: Context manager for complete stderr suppression
 @contextlib.contextmanager
@@ -80,6 +80,8 @@ def apply_cuda_suppression():
     
     try:
         import torch
+from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+
         if hasattr(torch, 'cuda'):
             torch.cuda.is_available = lambda: False
     except:

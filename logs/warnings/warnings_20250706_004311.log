@@ -1,2 +1,0 @@
-{"timestamp": "2025-07-06T00:43:33.999152", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\u26a0\ufe0f Low resource utilization - scaling up for 80% target", "category": "Enhanced80Menu1", "process_id": null, "session_id": "20250706_004311"}
-{"timestamp": "2025-07-06T00:50:33.832536", "level": "WARNING", "emoji": "\u26a0\ufe0f", "message": "\ud83d\udea8 Critical resource usage", "category": "Enhanced80RM", "process_id": null, "session_id": "20250706_004311", "data": {"cpu": 100.0, "memory": 22.8}}

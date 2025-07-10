@@ -1,0 +1,10 @@
+2025-07-07 07:44:50 | CRITICAL | TestLogger | _test_logging_system:234 | 🧪 LOGGING TEST: Error message test
+None
+2025-07-07 07:44:50 | CRITICAL | TestLogger | _test_logging_system:234 | 🧪 LOGGING TEST: Critical message test
+None
+2025-07-07 07:44:50 | CRITICAL | TestLogger | error:355 | 🧪 Test error message
+False
+2025-07-07 07:47:01 | CRITICAL | TestLogger | _test_logging_system:234 | 🧪 LOGGING TEST: Error message test
+None
+2025-07-07 07:47:01 | CRITICAL | TestLogger | _test_logging_system:234 | 🧪 LOGGING TEST: Critical message test
+None
