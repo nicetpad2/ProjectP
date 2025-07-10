@@ -290,33 +290,31 @@ class ProductionFeatureSelector:
             raise RuntimeError(f"All feature selection methods failed: {e}")
     
     def _efficient_shap_analysis(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, float]:
-        """Ultra-efficient SHAP analysis with minimal resource usage"""
+        """ENTERPRISE SHAP analysis with FULL DATASET - NO SAMPLING"""
         from sklearn.ensemble import RandomForestClassifier
         import shap
         
-        # Minimal sampling for maximum efficiency
-        sample_size = min(self.limits['shap_sample_limit'], len(X) // 5)
-        sample_idx = np.random.choice(len(X), sample_size, replace=False)
-        X_sample = X.iloc[sample_idx]
-        y_sample = y.iloc[sample_idx]
+        # 🏢 ENTERPRISE REQUIREMENT: Use ALL DATA - ZERO SAMPLING
+        X_sample = X.copy()
+        y_sample = y.copy()
+        self.logger.info(f"🎯 ENTERPRISE SHAP: Processing ALL {len(X):,} rows (100% FULL DATASET)")
         
-        # Lightweight RandomForest
+        # PRODUCTION RandomForest with enhanced parameters
         model = RandomForestClassifier(
-            n_estimators=self.limits['rf_trees'],
-            max_depth=self.limits['rf_depth'],
+            n_estimators=500,  # Increased for enterprise stability  
+            max_depth=15,      # Increased for real-world complexity
             random_state=42,
             n_jobs=self.limits['max_cpu_cores'],
-            min_samples_split=25,
-            min_samples_leaf=12,
-            max_features='sqrt'
+            min_samples_split=5,   # Better granularity
+            min_samples_leaf=2,    # More detailed analysis
+            max_features='sqrt',
+            class_weight='balanced'  # Handle imbalanced data
         )
         model.fit(X_sample, y_sample)
         
-        # Minimal SHAP computation
+        # FULL DATASET SHAP computation - TRUE ENTERPRISE
         explainer = shap.TreeExplainer(model)
-        shap_sample_size = min(200, len(X_sample) // 3)  # Very small for speed
-        shap_idx = np.random.choice(len(X_sample), shap_sample_size, replace=False)
-        shap_values = explainer.shap_values(X_sample.iloc[shap_idx])
+        shap_values = explainer.shap_values(X_sample)  # ALL DATA
         
         # Handle binary classification
         if isinstance(shap_values, list):

@@ -1,0 +1,1 @@
+{"timestamp": "2025-07-06T16:32:17.865074", "level": "ERROR", "emoji": "\u274c", "message": "Component initialization failed: get_terminal_logger() takes 0 positional arguments but 1 was given", "category": "Error", "process_id": null, "session_id": "20250706_163210"}

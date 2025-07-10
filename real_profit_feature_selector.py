@@ -94,7 +94,11 @@ class RealProfitFeatureSelector:
         if logger:
             self.logger = logger
         elif ADVANCED_LOGGING_AVAILABLE:
-            self.logger = get_terminal_logger("RealProfitSelector")
+            try:
+                self.logger = get_terminal_logger()
+            except Exception as e:
+                logging.basicConfig(level=logging.INFO)
+                self.logger = logging.getLogger(__name__)
         else:
             logging.basicConfig(level=logging.INFO)
             self.logger = logging.getLogger(__name__)

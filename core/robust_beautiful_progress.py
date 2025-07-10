@@ -90,6 +90,60 @@ class RobustBeautifulLogger:
     def log_status(self, status: str, message: str):
         """Log status with custom prefix"""
         print(f"{status} {message}")
+    
+    def step_start(self, step_num: int, step_name: str, description: str = ""):
+        """Alias for start_step to match expected interface"""
+        self.start_step(step_num, step_name, description)
+    
+    def step_complete(self, step_num: int, step_name: str, duration: float, details: dict = None):
+        """Complete step with detailed information"""
+        content = f"✅ {step_name.upper()} COMPLETED"
+        if details:
+            for key, value in details.items():
+                content += f"\n📊 {key}: {value}"
+        content += f"\n⏱️ Duration: {duration:.2f}s"
+        
+        box = self._create_box("🎉 Step Completed", content)
+        print(box)
+    
+    def step_error(self, step_num: int, step_name: str, error_msg: str):
+        """Log step error"""
+        content = f"❌ {step_name.upper()} FAILED"
+        content += f"\n💥 Error: {error_msg}"
+        
+        box = self._create_box("⚠️ Step Failed", content, "❌")
+        print(box)
+    
+    def info(self, message: str, details: dict = None):
+        """Enhanced info logging with optional details"""
+        print(f"ℹ️ {message}")
+        if details:
+            for key, value in details.items():
+                print(f"   📊 {key}: {value}")
+    
+    def success(self, message: str, details: dict = None):
+        """Enhanced success logging with optional details"""
+        print(f"✅ {message}")
+        if details:
+            for key, value in details.items():
+                print(f"   🎯 {key}: {value}")
+    
+    def error(self, message: str, details: dict = None):
+        """Enhanced error logging with optional details"""
+        print(f"❌ {message}")
+        if details:
+            for key, value in details.items():
+                print(f"   ⚠️ {key}: {value}")
+    
+    def critical(self, message: str, details: dict = None):
+        """Enhanced critical logging with optional details"""
+        content = f"🚨 CRITICAL ERROR: {message}"
+        if details:
+            for key, value in details.items():
+                content += f"\n💥 {key}: {value}"
+        
+        box = self._create_box("🚨 CRITICAL ERROR", content, "🚨")
+        print(box)
 
 def setup_robust_beautiful_logging(name: str = "RobustLogger") -> RobustBeautifulLogger:
     """

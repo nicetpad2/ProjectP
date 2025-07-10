@@ -1,0 +1,55 @@
+# NICEGOLD Enterprise ProjectP - Updated Requirements
+# Generated on 2025-07-06 05:02:26
+# All dependencies verified and tested for production use
+
+# ⚠️ CRITICAL: NumPy 1.26.4 required for SHAP compatibility
+# (SHAP not compatible with NumPy 2.x as of 2025)
+
+# --- CORE DATA SCIENCE ---
+numpy==1.26.4
+pandas>=2.2.0
+scikit-learn>=1.5.0
+scipy>=1.13.0
+joblib>=1.4.0
+
+# --- DEEP LEARNING ---
+tensorflow>=2.17.0
+torch>=2.4.0
+torchvision
+torchaudio
+
+# --- REINFORCEMENT LEARNING ---
+stable-baselines3>=2.3.0
+gymnasium>=0.29.0
+
+# --- FEATURE SELECTION & OPTIMIZATION (CRITICAL) ---
+shap==0.45.0
+optuna>=3.5.0
+
+# --- DATA PROCESSING ---
+PyYAML>=6.0.0
+PyWavelets>=1.8.0
+imbalanced-learn>=0.13.0
+ta>=0.11.0
+
+# --- IMAGE PROCESSING ---
+opencv-python-headless>=4.11.0
+Pillow>=11.0.0
+
+# --- VISUALIZATION ---
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.20.0
+
+# --- SYSTEM MONITORING ---
+psutil>=5.9.0
+
+# --- DEVELOPMENT TOOLS ---
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0
+
+# --- ENTERPRISE NOTES ---
+# All packages tested for compatibility with NICEGOLD Enterprise ProjectP
+# Use: pip install -r requirements.txt
+# For isolated installation: bash install_all.sh

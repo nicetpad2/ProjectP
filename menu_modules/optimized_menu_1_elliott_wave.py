@@ -45,9 +45,9 @@ class OptimizedMenu1ElliottWave:
         self.logger = logger or logging.getLogger("OptimizedMenu1")
         self.resource_manager = resource_manager
         
-        # Conservative settings
-        self.max_data_rows = 10000  # Limit data size
-        self.max_features = 15      # Limit feature count
+        # Enterprise settings - NO LIMITS for production
+        self.max_data_rows = None  # NO LIMIT - use ALL data
+        self.max_features = 30      # Reasonable feature count
         self.max_iterations = 50    # Limit ML iterations
         
         # Status tracking
@@ -177,7 +177,7 @@ class OptimizedMenu1ElliottWave:
                     'data': None
                 }
             
-            # Load data with row limit
+            # Load data with NO row limit for production
             data = self.data_processor.load_real_data()
             if data is None or len(data) == 0:
                 return {
@@ -186,16 +186,14 @@ class OptimizedMenu1ElliottWave:
                     'data': None
                 }
             
-            # Limit data size for memory efficiency
-            if len(data) > self.max_data_rows:
-                data = data.tail(self.max_data_rows)
-                self.logger.info(f"📊 Limited data to {self.max_data_rows} rows for efficiency")
+            # NO DATA LIMITS - use ALL data for production
+            self.logger.info(f"📊 Loaded ALL data: {len(data):,} rows for enterprise production")
             
             self.status['data_loaded'] = True
             return {
                 'success': True,
                 'data': data,
-                'message': f'Loaded {len(data)} rows'
+                'message': f'Loaded ALL {len(data):,} rows (NO LIMITS)'
             }
             
         except Exception as e:

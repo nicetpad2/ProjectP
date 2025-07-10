@@ -115,15 +115,13 @@ class EnhancedMenu1ElliottWaveAdvanced:
             self.logger = get_terminal_logger()
             self.progress_manager = get_progress_manager()
             self.beautiful_logger = setup_robust_beautiful_logging(
-                "EnhancedElliottWave_Menu1", 
-                f"logs/enhanced_elliott_wave_menu1_{self.session_id}.log"
+                "EnhancedElliottWave_Menu1"
             )
         else:
             self.logger = logging.getLogger("EnhancedElliottWave_Menu1")
             self.progress_manager = None
             self.beautiful_logger = setup_robust_beautiful_logging(
-                "EnhancedElliottWave_Menu1_Simple", 
-                f"logs/enhanced_elliott_wave_menu1_simple_{self.session_id}.log"
+                "EnhancedElliottWave_Menu1_Simple"
             )
     
     def _initialize_components(self):
@@ -154,6 +152,13 @@ class EnhancedMenu1ElliottWaveAdvanced:
         except Exception as e:
             self.logger.error(f"Component initialization failed: {str(e)}")
             raise
+    
+    def run(self) -> Dict[str, Any]:
+        """
+        Main entry point for the enhanced Elliott Wave pipeline
+        This method provides compatibility with ProjectP.py
+        """
+        return self.run_enhanced_elliott_wave_pipeline()
     
     def run_enhanced_elliott_wave_pipeline(self) -> Dict[str, Any]:
         """Run the enhanced Elliott Wave pipeline with multi-timeframe analysis"""
@@ -573,7 +578,7 @@ class EnhancedMenu1ElliottWaveAdvanced:
     def _create_elliott_pattern_features(self, elliott_results: Dict[str, Any]) -> pd.DataFrame:
         """Create Elliott Wave pattern-specific features"""
         try:
-            # Create dummy data size - will be aligned with main data later
+            # Initialize pattern features dataframe - will be aligned with main data later
             pattern_features = pd.DataFrame()
             
             elliott_analysis = elliott_results.get('elliott_analysis', {})

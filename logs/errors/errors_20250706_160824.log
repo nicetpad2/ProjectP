@@ -1,0 +1,3 @@
+{"timestamp": "2025-07-06T16:10:55.370315", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Failed to create Elliott Wave features: Length of values (20000) does not match length of index (10000)", "category": "Error", "process_id": null, "session_id": "20250706_160824"}
+{"timestamp": "2025-07-06T16:10:55.395025", "level": "ERROR", "emoji": "\u274c", "message": "\u274c Optimized Elliott Wave Pipeline failed", "category": "Error", "process_id": null, "session_id": "20250706_160824"}
+{"timestamp": "2025-07-06T16:10:55.400740", "level": "ERROR", "emoji": "\u274c", "message": "   Error: Feature creation error: Length of values (20000) does not match length of index (10000)", "category": "Error", "process_id": null, "session_id": "20250706_160824"}

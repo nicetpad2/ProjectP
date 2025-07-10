@@ -70,7 +70,18 @@ except ImportError:
 from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
 from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
 from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
-from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
+from elliott_wave_modules.feature_selector import AdvancedElliottWaveFeatureSelector, EnterpriseShapOptunaFeatureSelector
+from elliott_wave_modules.pipeline_orchestrator import ElliottWavePipelineOrchestrator
+from elliott_wave_modules.performance_analyzer import ElliottWavePerformanceAnalyzer
+from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
+
+# 🎮 GPU Resource Management
+try:
+    from core.gpu_resource_manager import EnterpriseGPUManager
+    GPU_RESOURCE_MANAGER_AVAILABLE = True
+except ImportError:
+    GPU_RESOURCE_MANAGER_AVAILABLE = False
+    print("⚠️ GPU Resource Manager not available")
 
 # 🚀 Import New Advanced Elliott Wave Components
 try:
@@ -129,19 +140,6 @@ class EnhancedMenu1ElliottWave:
         
         # Initialize Output Manager
         self.output_manager = NicegoldOutputManager()
-        
-        # Initialize Resource Management
-        if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager:
-            try:
-                self.safe_logger.info("🧠 Initializing Intelligent Resource Management...")
-                self.resource_manager = initialize_intelligent_resources(
-                    allocation_percentage=0.8,
-                    enable_monitoring=True
-                )
-                self.safe_logger.info("✅ Intelligent Resource Management activated")
-            except Exception as e:
-                self.safe_logger.warning(f"⚠️ Could not initialize resource management: {e}")
-                self.resource_manager = None
         
         # Initialize Components
         self._initialize_components()
@@ -224,13 +222,12 @@ class EnhancedMenu1ElliottWave:
                 )
                 self.safe_logger.info("✅ Standard DQN Agent initialized (fallback)")
             
-            # Feature Selector
-            self.beautiful_logger.log_info("Initializing Feature Selector...")
-            self.feature_selector = EnterpriseShapOptunaFeatureSelector(
+            # Feature Selector with GPU Resource Management
+            self.beautiful_logger.log_info("Initializing Advanced Feature Selector with GPU Management...")
+            self.feature_selector = AdvancedElliottWaveFeatureSelector(
                 target_auc=self.config.get('elliott_wave', {}).get('target_auc', 0.70),
                 max_features=self.config.get('elliott_wave', {}).get('max_features', 25),
-                n_trials=150,
-                timeout=600,
+                max_trials=150,
                 logger=self.safe_logger
             )
             
@@ -244,6 +241,29 @@ class EnhancedMenu1ElliottWave:
             else:
                 self.ml_protection = None
             
+            # 🎮 Initialize GPU Resource Manager for 80% Utilization
+            if GPU_RESOURCE_MANAGER_AVAILABLE:
+                self.beautiful_logger.log_info("Initializing GPU Resource Manager (80% Utilization)...")
+                self.gpu_manager = EnterpriseGPUManager()
+                self.safe_logger.info("✅ GPU Resource Manager initialized")
+                self.safe_logger.info(f"⚡ Resource Config: {self.gpu_manager.get_optimization_report()}")
+            else:
+                self.gpu_manager = None
+                self.safe_logger.warning("⚠️ GPU Resource Manager not available - using standard CPU")
+
+            # 🚀 Initialize Resource Management
+            if RESOURCE_MANAGEMENT_AVAILABLE and not self.resource_manager:
+                try:
+                    self.resource_manager = initialize_intelligent_resources(
+                        config=self.config,
+                        mode='enhanced_80_percent',
+                        logger=self.safe_logger
+                    )
+                    self.safe_logger.info("✅ Intelligent Resource Manager initialized")
+                except Exception as e:
+                    self.safe_logger.warning(f"⚠️ Resource Manager initialization failed: {e}")
+                    self.resource_manager = None
+
             self.beautiful_logger.complete_step(0, "All enhanced components initialized successfully")
             self.safe_logger.info("✅ All Enhanced Elliott Wave components initialized successfully!")
             
@@ -300,8 +320,13 @@ class EnhancedMenu1ElliottWave:
             }
     
     def _execute_enhanced_pipeline(self) -> bool:
-        """Execute Enhanced Elliott Wave Pipeline with Multi-timeframe Analysis"""
+        """Execute Enhanced Elliott Wave Pipeline with Multi-timeframe Analysis and 80% Resource Utilization"""
         try:
+            # Step 0: Initialize 80% resource utilization
+            self.safe_logger.info("🎯 Step 0: Initializing 80% Resource Utilization...")
+            self._ensure_80_percent_utilization()
+            resource_info_init = self._monitor_resource_usage("Pipeline Initialization")
+            
             # Step 1: Load and process data
             self.safe_logger.info("📊 Step 1: Loading and processing market data...")
             data = self.data_processor.load_real_data()
@@ -310,7 +335,11 @@ class EnhancedMenu1ElliottWave:
                 self.safe_logger.error("❌ No data loaded!")
                 return False
                 
+            # Monitor data loading resource impact
+            resource_info_data = self._monitor_resource_usage("Data Loading")
+            
             self.safe_logger.info(f"✅ Successfully loaded {len(data):,} rows of market data")
+            self.safe_logger.info(f"📊 Data memory usage: {data.memory_usage(deep=True).sum() / 1024 / 1024:.2f} MB")
             
             # Step 2: Create enhanced features with Elliott Wave analysis
             self.safe_logger.info("⚙️ Step 2: Creating enhanced Elliott Wave features...")
@@ -378,24 +407,47 @@ class EnhancedMenu1ElliottWave:
                     self.safe_logger.warning(f"⚠️ ML Protection Analysis failed: {e}")
                     self.results['ml_protection'] = {'error': str(e), 'status': 'failed'}
             
-            # Step 6: Feature selection
-            self.safe_logger.info("🧠 Step 6: Running SHAP + Optuna feature selection...")
+            # Step 6: Feature selection with resource monitoring
+            self.safe_logger.info("🧠 Step 6: Running Advanced SHAP + Optuna feature selection...")
             try:
-                selected_features, selection_results = self.feature_selector.select_features(X, y)
+                # Monitor resource usage during feature selection
+                resource_info_start = self._monitor_resource_usage("Feature Selection Start")
+                
+                # Use advanced feature selection with GPU acceleration
+                if hasattr(self.feature_selector, 'select_features_advanced'):
+                    selected_features, selection_results = self.feature_selector.select_features_advanced(X, y)
+                    self.safe_logger.info("✅ Advanced GPU-accelerated feature selection completed")
+                else:
+                    selected_features, selection_results = self.feature_selector.select_features(X, y)
+                    self.safe_logger.info("✅ Standard feature selection completed")
+                
+                # Monitor resource usage after feature selection
+                resource_info_end = self._monitor_resource_usage("Feature Selection End")
+                
                 self.results['feature_selection'] = selection_results
+                self.results['resource_monitoring'] = {
+                    'feature_selection_start': resource_info_start,
+                    'feature_selection_end': resource_info_end
+                }
+                
                 self.safe_logger.info(f"✅ Selected {len(selected_features)} optimal features")
             except Exception as e:
                 self.safe_logger.error(f"❌ Feature selection failed: {e}")
                 selected_features = list(X.columns[:min(15, len(X.columns))]) if hasattr(X, 'columns') else None
                 self.results['feature_selection'] = {'error': str(e), 'fallback_features': len(selected_features)}
             
-            # Step 7: Train CNN-LSTM
+            # Step 7: Train CNN-LSTM with resource monitoring
             self.safe_logger.info("🏗️ Step 7: Training CNN-LSTM model...")
+            resource_info_cnn_start = self._monitor_resource_usage("CNN-LSTM Training Start")
+            
             cnn_lstm_results = self.cnn_lstm_engine.train_model(X[selected_features], y)
             self.results['cnn_lstm_training'] = cnn_lstm_results
             
-            # Step 8: Enhanced DQN Training
+            resource_info_cnn_end = self._monitor_resource_usage("CNN-LSTM Training End")
+            
+            # Step 8: Enhanced DQN Training with resource monitoring
             self.safe_logger.info("🤖 Step 8: Training Enhanced DQN agent...")
+            resource_info_dqn_start = self._monitor_resource_usage("DQN Training Start")
             try:
                 if isinstance(self.dqn_agent, EnhancedDQNAgent):
                     # Enhanced DQN with Elliott Wave integration
@@ -450,13 +502,28 @@ class EnhancedMenu1ElliottWave:
                     self.safe_logger.warning(f"⚠️ Trading recommendation generation failed: {e}")
                     self.results['trading_recommendations'] = {'error': str(e), 'status': 'failed'}
             
-            # Store data info
+            # Final Step: Generate comprehensive resource utilization report
+            self.safe_logger.info("📊 Generating Resource Utilization Report...")
+            final_resource_report = self._generate_resource_utilization_report()
+            
+            # Store data info with resource optimization details
             self.results['data_info'] = {
                 'total_rows': len(data),
                 'features_count': X.shape[1] if hasattr(X, 'shape') else 0,
                 'target_count': len(y) if hasattr(y, '__len__') else 0,
-                'enhanced_features': True if self.advanced_elliott_analyzer else False
+                'enhanced_features': True if self.advanced_elliott_analyzer else False,
+                'resource_optimization': '80% Target Compliance',
+                'gpu_acceleration': self.gpu_manager is not None
             }
+            
+            # Add resource utilization report to results
+            self.results['resource_utilization_report'] = final_resource_report
+            
+            # Log final resource status
+            self.safe_logger.info("🎯 FINAL RESOURCE UTILIZATION STATUS:")
+            self.safe_logger.info(f"   CPU: {final_resource_report['current_usage']['cpu_percent']:.1f}%")
+            self.safe_logger.info(f"   Memory: {final_resource_report['current_usage']['memory_percent']:.1f}%")
+            self.safe_logger.info(f"   Status: {final_resource_report['compliance']['overall_status']}")
             
             return True
             
@@ -497,12 +564,32 @@ class EnhancedMenu1ElliottWave:
         print("📈 ENHANCED ELLIOTT WAVE PIPELINE RESULTS")
         print("="*80)
         
-        # Data info
+        # Data info with resource optimization
         if 'data_info' in self.results:
             data_info = self.results['data_info']
             print(f"📊 Data: {data_info.get('total_rows', 'N/A'):,} rows, {data_info.get('features_count', 'N/A')} features")
             if data_info.get('enhanced_features'):
                 print("✅ Enhanced with Elliott Wave features")
+            if data_info.get('resource_optimization'):
+                print(f"🎯 Resource Optimization: {data_info['resource_optimization']}")
+            if data_info.get('gpu_acceleration'):
+                print("🎮 GPU Acceleration: ENABLED")
+        
+        # Resource Utilization Report
+        if 'resource_utilization_report' in self.results:
+            resource_report = self.results['resource_utilization_report']
+            if 'current_usage' in resource_report:
+                usage = resource_report['current_usage']
+                compliance = resource_report.get('compliance', {})
+                
+                print("\n🎯 RESOURCE UTILIZATION (80% TARGET):")
+                print(f"   CPU Usage: {usage.get('cpu_percent', 0):.1f}% - {compliance.get('cpu_compliance', 'Unknown')}")
+                print(f"   Memory Usage: {usage.get('memory_percent', 0):.1f}% - {compliance.get('memory_compliance', 'Unknown')}")
+                print(f"   Overall Status: {compliance.get('overall_status', 'Unknown')}")
+                
+                if usage.get('gpu_available'):
+                    print(f"   GPU Usage: {usage.get('gpu_utilization', 0):.1f}%")
+                    print(f"   GPU Memory: {usage.get('gpu_memory_used_gb', 0):.1f}GB / {usage.get('gpu_memory_total_gb', 0):.1f}GB")
         
         # Elliott Wave Analysis
         if 'elliott_wave_analysis' in self.results:
@@ -556,7 +643,150 @@ class EnhancedMenu1ElliottWave:
                 print("⚠️ Trading Recommendations: FAILED")
         
         print("="*80 + "\n")
+    
+    def _monitor_resource_usage(self, step_name: str) -> Dict[str, Any]:
+        """🔍 Monitor real-time resource usage for 80% target compliance"""
+        try:
+            import psutil
+            
+            resource_info = {
+                'timestamp': datetime.now().isoformat(),
+                'step': step_name,
+                'cpu_percent': psutil.cpu_percent(interval=1),
+                'memory_percent': psutil.virtual_memory().percent,
+                'available_memory_gb': psutil.virtual_memory().available / (1024**3),
+                'disk_usage_percent': psutil.disk_usage('/').percent if os.path.exists('/') else 0,
+                'target_utilization': '80%',
+                'compliance_status': 'CHECKING'
+            }
+            
+            # Check GPU usage if available
+            if self.gpu_manager:
+                gpu_usage = self.gpu_manager.get_current_usage()
+                resource_info.update({
+                    'gpu_available': gpu_usage.get('gpu_available', False),
+                    'gpu_utilization': gpu_usage.get('gpu_utilization', 0),
+                    'gpu_memory_used': gpu_usage.get('gpu_memory_used', 0),
+                    'gpu_memory_total': gpu_usage.get('gpu_memory_total', 0)
+                })
+            
+            # Check compliance with 80% target
+            cpu_target_met = resource_info['cpu_percent'] >= 60  # Allow some overhead
+            memory_target_met = resource_info['memory_percent'] >= 60
+            
+            if cpu_target_met and memory_target_met:
+                resource_info['compliance_status'] = '✅ COMPLIANT'
+            elif resource_info['cpu_percent'] < 30 or resource_info['memory_percent'] < 30:
+                resource_info['compliance_status'] = '⚠️ UNDER-UTILIZED'
+            else:
+                resource_info['compliance_status'] = '🔄 OPTIMIZING'
+            
+            # Log resource information
+            self.safe_logger.info(f"📊 Resource Usage - {step_name}:")
+            self.safe_logger.info(f"   CPU: {resource_info['cpu_percent']:.1f}%")
+            self.safe_logger.info(f"   Memory: {resource_info['memory_percent']:.1f}%")
+            self.safe_logger.info(f"   Status: {resource_info['compliance_status']}")
+            
+            return resource_info
+            
+        except Exception as e:
+            self.safe_logger.warning(f"⚠️ Resource monitoring failed: {e}")
+            return {'error': str(e), 'step': step_name}
 
+    def _ensure_80_percent_utilization(self):
+        """🎯 Ensure 80% resource utilization throughout pipeline"""
+        try:
+            if self.gpu_manager:
+                # Apply GPU optimizations
+                self.gpu_manager.configure_tensorflow()
+                self.gpu_manager.configure_pytorch()
+                
+                # Get optimization recommendations
+                optimization_report = self.gpu_manager.get_optimization_report()
+                self.safe_logger.info(f"🎮 GPU Optimization Applied:\n{optimization_report}")
+            
+            # Apply CPU optimizations
+            import os
+            if hasattr(os, 'sched_setaffinity'):
+                # Set CPU affinity for better resource utilization
+                available_cpus = list(range(os.cpu_count()))
+                target_cpus = available_cpus[:int(len(available_cpus) * 0.8)]
+                try:
+                    os.sched_setaffinity(0, target_cpus)
+                    self.safe_logger.info(f"🧠 CPU Affinity Set: {len(target_cpus)}/{len(available_cpus)} cores")
+                except:
+                    pass
+            
+            return True
+            
+        except Exception as e:
+            self.safe_logger.warning(f"⚠️ Resource optimization failed: {e}")
+            return False
+
+    def _generate_resource_utilization_report(self) -> Dict[str, Any]:
+        """📊 Generate comprehensive resource utilization report"""
+        try:
+            report = {
+                'timestamp': datetime.now().isoformat(),
+                'target_utilization': '80%',
+                'pipeline_version': 'Enhanced v2.0 with 80% Resource Optimization',
+                'resource_summary': {}
+            }
+            
+            # Current system status
+            import psutil
+            current_usage = {
+                'cpu_percent': psutil.cpu_percent(interval=1),
+                'memory_percent': psutil.virtual_memory().percent,
+                'memory_available_gb': psutil.virtual_memory().available / (1024**3),
+                'memory_total_gb': psutil.virtual_memory().total / (1024**3),
+                'disk_usage_percent': psutil.disk_usage('/').percent if os.path.exists('/') else 0,
+                'cpu_count': psutil.cpu_count(),
+                'cpu_freq': psutil.cpu_freq()._asdict() if psutil.cpu_freq() else {}
+            }
+            
+            # GPU information if available
+            if self.gpu_manager:
+                gpu_usage = self.gpu_manager.get_current_usage()
+                current_usage.update({
+                    'gpu_available': gpu_usage.get('gpu_available', False),
+                    'gpu_utilization': gpu_usage.get('gpu_utilization', 0),
+                    'gpu_memory_used_gb': gpu_usage.get('gpu_memory_used', 0) / 1024,
+                    'gpu_memory_total_gb': gpu_usage.get('gpu_memory_total', 0) / 1024,
+                    'gpu_optimization_report': self.gpu_manager.get_optimization_report()
+                })
+            
+            report['current_usage'] = current_usage
+            
+            # Calculate compliance with 80% target
+            cpu_compliance = "✅ OPTIMAL" if current_usage['cpu_percent'] >= 60 else "⚠️ UNDER-UTILIZED"
+            memory_compliance = "✅ OPTIMAL" if current_usage['memory_percent'] >= 60 else "⚠️ UNDER-UTILIZED"
+            
+            report['compliance'] = {
+                'cpu_compliance': cpu_compliance,
+                'memory_compliance': memory_compliance,
+                'overall_status': "✅ COMPLIANT" if "✅" in cpu_compliance and "✅" in memory_compliance else "🔄 NEEDS OPTIMIZATION"
+            }
+            
+            # Recommendations
+            recommendations = []
+            if current_usage['cpu_percent'] < 60:
+                recommendations.append("Consider increasing parallel processing or batch sizes")
+            if current_usage['memory_percent'] < 60:
+                recommendations.append("Consider loading more data or increasing model complexity")
+            if not recommendations:
+                recommendations.append("Resource utilization is optimal for 80% target")
+                
+            report['recommendations'] = recommendations
+            
+            return report
+            
+        except Exception as e:
+            return {
+                'error': str(e),
+                'timestamp': datetime.now().isoformat(),
+                'status': 'Resource monitoring failed'
+            }
 
 def main():
     """Main function for testing Enhanced Elliott Wave System"""

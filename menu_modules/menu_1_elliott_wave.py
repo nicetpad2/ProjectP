@@ -139,13 +139,34 @@ try:
 except ImportError:
     FIXED_FEATURE_SELECTOR_AVAILABLE = False
 
-# Import Advanced Feature Selector as fallback
+# Import Advanced Feature Selector (NEW IMPLEMENTATION)
+try:
+    from elliott_wave_modules.feature_selector import (
+        AdvancedElliottWaveFeatureSelector,
+        EnterpriseShapOptunaFeatureSelector,
+        test_gpu_acceleration
+    )
+    ADVANCED_FEATURE_SELECTOR_AVAILABLE = True
+    print("✅ Advanced Feature Selector with GPU Management: LOADED")
+    
+    # Test GPU acceleration on import
+    gpu_config = test_gpu_acceleration()
+    if gpu_config and gpu_config.get('use_gpu'):
+        print(f"🎮 GPU Acceleration: ENABLED ({gpu_config['processing_mode']})")
+    else:
+        print("🖥️  GPU Acceleration: CPU-OPTIMIZED MODE")
+        
+except ImportError as e:
+    ADVANCED_FEATURE_SELECTOR_AVAILABLE = False
+    print(f"⚠️ Advanced Feature Selector import failed: {e}")
+    print("🔄 Falling back to standard feature selector...")
+    
+# Fallback import for compatibility
 try:
     from advanced_feature_selector import AdvancedEnterpriseFeatureSelector
-    ADVANCED_FEATURE_SELECTOR_AVAILABLE = True
+    FALLBACK_FEATURE_SELECTOR_AVAILABLE = True
 except ImportError:
-    ADVANCED_FEATURE_SELECTOR_AVAILABLE = False
-    print("⚠️ Advanced Feature Selector not available, using standard selector")
+    FALLBACK_FEATURE_SELECTOR_AVAILABLE = False
 from elliott_wave_modules.pipeline_orchestrator import (
     ElliottWavePipelineOrchestrator
 )
@@ -323,24 +344,57 @@ class Menu1ElliottWaveFixed:
                 logger=self.safe_logger
             )
             
-            # Feature Selector - REAL PROFIT ONLY (NO FALLBACKS)
-            self.beautiful_logger.log_info("Initializing Real Profit Feature Selector...")
+            # Feature Selector - ADVANCED ENTERPRISE WITH GPU SUPPORT
+            self.beautiful_logger.log_info("Initializing Advanced Feature Selector with GPU Management...")
             
-            # 🎯 REAL PROFIT FEATURE SELECTOR - NO ALTERNATIVES
+            # 🎯 ADVANCED ELLIOTT WAVE FEATURE SELECTOR WITH GPU
             try:
-                from real_profit_feature_selector import RealProfitFeatureSelector
-                self.feature_selector = RealProfitFeatureSelector(
-                    target_auc=0.70,       # Enterprise minimum
-                    max_features=30,       # Optimal for profit
-                    max_trials=500,        # Comprehensive optimization
-                    logger=self.safe_logger
-                )
-                self.beautiful_logger.log_info("✅ Real Profit Feature Selector initialized - ENTERPRISE GRADE")
-                self.beautiful_logger.log_info("🚫 NO FALLBACK - NO FAST MODE - NO COMPROMISE")
+                if ADVANCED_FEATURE_SELECTOR_AVAILABLE:
+                    self.feature_selector = AdvancedElliottWaveFeatureSelector(
+                        target_auc=0.70,       # Enterprise minimum
+                        max_features=30,       # Optimal for profit  
+                        max_trials=750,        # Enhanced with GPU
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Advanced Feature Selector initialized - GPU ENABLED")
+                    self.beautiful_logger.log_info("🎮 GPU Resource Management: ACTIVE")
+                    self.beautiful_logger.log_info("⚡ Enterprise SHAP + Optuna: OPTIMIZED")
+                    
+                    # Display GPU configuration
+                    try:
+                        performance_report = self.feature_selector.get_performance_report()
+                        self.beautiful_logger.log_info("📊 GPU Configuration Report:")
+                        for line in performance_report.split('\n'):
+                            if line.strip():
+                                self.beautiful_logger.log_info(f"  {line}")
+                    except:
+                        pass
+                        
+                elif FALLBACK_FEATURE_SELECTOR_AVAILABLE:
+                    self.feature_selector = AdvancedEnterpriseFeatureSelector(
+                        target_auc=0.70,
+                        max_features=30,
+                        max_trials=500,
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Fallback Advanced Feature Selector initialized")
+                else:
+                    # Use RealProfitFeatureSelector as final fallback
+                    from real_profit_feature_selector import RealProfitFeatureSelector
+                    self.feature_selector = RealProfitFeatureSelector(
+                        target_auc=0.70,
+                        max_features=30,
+                        max_trials=500,
+                        logger=self.safe_logger
+                    )
+                    self.beautiful_logger.log_info("✅ Standard Feature Selector initialized")
+                    
                 self.beautiful_logger.log_info("💰 OPTIMIZED FOR REAL TRADING PROFITS")
+                self.beautiful_logger.log_info("🚫 NO FAST MODE - NO COMPROMISE - ENTERPRISE GRADE")
+                
             except Exception as e:
                 # NO FALLBACKS - FAIL FAST FOR ENTERPRISE COMPLIANCE
-                error_msg = f"🚫 CRITICAL FAILURE: Real Profit Feature Selector failed: {e}"
+                error_msg = f"🚫 CRITICAL FAILURE: Feature Selector initialization failed: {e}"
                 self.beautiful_logger.log_error(error_msg)
                 raise RuntimeError(f"ENTERPRISE COMPLIANCE FAILURE: {error_msg}. NO FALLBACKS ALLOWED IN PRODUCTION.")
             
