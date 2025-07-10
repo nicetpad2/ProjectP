@@ -22,6 +22,9 @@ import time
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Optional, Any, Tuple
+import logging # Import logging for correct type hinting
+import traceback
+from core.unified_enterprise_logger import get_unified_logger, UnifiedEnterpriseLogger
 
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -52,7 +55,7 @@ class UnifiedMasterMenuSystem:
         """Initialize unified master menu system"""
         self.session_id = datetime.now().strftime('%Y%m%d_%H%M%S')
         self.config = None
-        self.logger = None
+        self.logger: Any = None
         self.resource_manager = None
         self.menu_1 = None
         self.menu_available = False
@@ -171,74 +174,45 @@ class UnifiedMasterMenuSystem:
             return False
         try:
             from core.enterprise_gpu_manager import get_enterprise_gpu_manager
+            # Pass the actual logger object
             gpu_manager = get_enterprise_gpu_manager(logger=self.logger)
             system_info = gpu_manager.get_enterprise_configuration()
             self.config.set('system_info', system_info)
             self.logger.info(f"System Info Initialized. Processing mode: {system_info.get('processing_mode', 'N/A')}")
             return True
         except ImportError:
-            self.logger.error("Could not import EnterpriseGPUManager. System info will be incomplete.")
-            return False
+            self.logger.error("Could not import EnterpriseGPUManager. System info will be incomplete.", component="SysInit")
         except Exception as e:
-            self.logger.error(f"Failed to initialize system info: {e}")
-            return False
+            self.logger.error(f"Failed to initialize system info: {str(e)}", component="SysInit", error_details=traceback.format_exc())
+            safe_print(f"⚠️ System info initialization failed")
+
+        return False
 
     def _initialize_menu_1(self) -> bool:
-        """Initialize Menu 1 Elliott Wave system"""
+        """Initialize the single, unified Menu 1 Elliott Wave system."""
         if not self.config:
             safe_print("❌ Cannot initialize Menu 1: Configuration is not loaded.")
             return False
-            
-        try:
-            # Priority 1: Enhanced Menu 1 Elliott Wave (Most Modern & Integrated)
-            try:
-                from menu_modules.enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
-                self.menu_1 = EnhancedMenu1ElliottWave(self.config.config)
-                safe_print("✅ Enhanced Menu 1 Elliott Wave: READY")
-                self.menu_available = True
-                self.menu_type = "Enhanced Elliott Wave with Enterprise Features"
-                return True
-            except Exception as e1:
-                safe_print(f"⚠️ Enhanced Menu 1 failed: {e1}")
-
-            # Priority 2: Standard Menu 1 Elliott Wave (Legacy Fallback)
-            try:
-                from menu_modules.menu_1_elliott_wave import Menu1ElliottWave
-                self.menu_1 = Menu1ElliottWave(self.config.config, self.logger, self.resource_manager)
-                safe_print("✅ Standard Menu 1 Elliott Wave (Legacy Fallback): READY")
-                self.menu_available = True
-                self.menu_type = "Standard Elliott Wave (Full Pipeline)"
-                return True
-            except Exception as e2:
-                safe_print(f"⚠️ Standard Menu 1 (Legacy) failed: {e2}")
-                
-            # Priority 3: Complete Menu 1 (Legacy Fallback)
-            try:
-                from menu_modules.menu_1_elliott_wave_complete import CompleteMenu1ElliottWave
-                self.menu_1 = CompleteMenu1ElliottWave(self.config.config, self.logger, self.resource_manager)
-                safe_print("✅ Complete Menu 1 Elliott Wave (Legacy Fallback): READY")
-                self.menu_available = True
-                self.menu_type = "Complete Elliott Wave Implementation"
-                return True
-            except Exception as e3:
-                safe_print(f"⚠️ Complete Menu 1 (Legacy) failed: {e3}")
-                
-            # Priority 4: Completely Fixed Production Menu (Legacy Fallback)
-            try:
-                from menu_modules.completely_fixed_production_menu_1 import CompletelyFixedProductionMenu1
-                self.menu_1 = CompletelyFixedProductionMenu1(self.config.config, self.logger, self.resource_manager)
-                safe_print("✅ Completely Fixed Production Menu 1 (Legacy Fallback): READY")
-                self.menu_available = True
-                self.menu_type = "Completely Fixed Production Menu"
-                return True
-            except Exception as e4:
-                safe_print(f"⚠️ Fixed Production Menu (Legacy) failed: {e4}")
-                
-            safe_print("❌ No Menu 1 implementation available")
+        if not self.logger:
+            safe_print("❌ Cannot initialize Menu 1: Logger is not loaded.")
             return False
             
+        try:
+            from menu_modules.enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
+            self.menu_1 = EnhancedMenu1ElliottWave(self.config.config)
+            self.logger.info("✅ Enhanced Menu 1 Elliott Wave (Unified): READY")
+            self.menu_available = True
+            self.menu_type = "Enhanced Elliott Wave with Enterprise Features"
+            return True
+        except ImportError as e_imp:
+            safe_print(f"❌ CRITICAL: Failed to import EnhancedMenu1ElliottWave: {e_imp}")
+            self.logger.critical(f"Failed to import EnhancedMenu1ElliottWave: {e_imp}", exc_info=True)
+            return False
         except Exception as e:
-            safe_print(f"❌ Menu 1 initialization error: {e}")
+            safe_print(f"❌ CRITICAL: Enhanced Menu 1 failed to initialize: {e}")
+            self.logger.critical(f"Enhanced Menu 1 failed to initialize: {e}", exc_info=True)
+            self.menu_1 = None
+            self.menu_available = False
             return False
     
     def display_unified_menu(self):
@@ -367,67 +341,51 @@ class UnifiedMasterMenuSystem:
         return True
     
     def _handle_system_status(self) -> bool:
-        """Handle system status and resource monitoring"""
-        safe_print("\n📊 UNIFIED SYSTEM STATUS & RESOURCE MONITOR")
-        safe_print("="*80)
-        
-        # System Component Status
-        safe_print("🔧 SYSTEM COMPONENTS:")
-        safe_print(f"   🧠 Resource Manager: {'✅ Active' if self.resource_manager else '❌ Unavailable'}")
-        safe_print(f"   📝 Logger: {'✅ Active' if self.logger else '❌ Unavailable'}")
-        safe_print(f"   🎛️ Menu 1: {'✅ Available' if self.menu_available else '❌ Unavailable'}")
-        safe_print(f"   ⚙️ Configuration: {'✅ Loaded' if self.config else '❌ Missing'}")
-        
-        # Resource Status
+        """Displays the system status and resource monitor."""
+        safe_print("\n--- 📊 System Status ---")
         if self.resource_manager:
-            try:
-                safe_print("\n🧠 RESOURCE UTILIZATION:")
-                
-                # Get current performance data
-                if hasattr(self.resource_manager, 'get_current_performance'):
-                    perf = self.resource_manager.get_current_performance()
-                    cpu_usage = perf.get('cpu_percent', 0)
-                    memory_info = perf.get('memory', {})
-                    memory_usage = memory_info.get('percent', 0)
-                    memory_available = memory_info.get('available', 0) / (1024**3)
-                    
-                    safe_print(f"   🖥️ CPU Usage: {cpu_usage:.1f}%")
-                    safe_print(f"   💾 Memory Usage: {memory_usage:.1f}%")
-                    safe_print(f"   💿 Available Memory: {memory_available:.1f} GB")
-                    
-                # Get health status if available
-                if hasattr(self.resource_manager, 'get_health_status'):
-                    health = self.resource_manager.get_health_status()
-                    safe_print(f"   🏥 System Health: {health.get('health_score', 'N/A')}")
-                    
-            except Exception as e:
-                safe_print(f"   ⚠️ Resource monitoring error: {e}")
+            safe_print("\n[ Resource Manager ]")
+            if hasattr(self.resource_manager, 'get_current_performance'):
+                perf = self.resource_manager.get_current_performance()
+                safe_print(f"  CPU Usage: {perf.get('cpu_percent', 'N/A'):.1f}%")
+                safe_print(f"  Memory Usage: {perf.get('memory_percent', 'N/A'):.1f}% ({perf.get('memory_gb', 'N/A'):.2f} GB used)")
+            else:
+                safe_print("  Performance monitoring data not available for this manager.")
+            
+            if hasattr(self.resource_manager, 'get_health_status'):
+                health = self.resource_manager.get_health_status()
+                safe_print(f"  Health Status: {health.get('status', 'N/A')}")
+                if health.get('issues'):
+                    for issue in health['issues']:
+                        safe_print(f"    - Issue: {issue}")
+            else:
+                safe_print("  Health status not available for this manager.")
         else:
-            # Fallback to psutil
-            try:
-                import psutil
-                safe_print("\n🧠 BASIC RESOURCE STATUS:")
-                memory = psutil.virtual_memory()
-                cpu = psutil.cpu_percent(interval=1)
-                safe_print(f"   🖥️ CPU Usage: {cpu:.1f}%")
-                safe_print(f"   💾 Memory Usage: {memory.percent:.1f}%")
-                safe_print(f"   💿 Available Memory: {memory.available/(1024**3):.1f} GB")
-            except Exception as e:
-                safe_print(f"   ⚠️ Unable to get resource status: {e}")
+            safe_print("  Resource Manager: Not initialized")
         
-        # Menu Status
-        safe_print(f"\n🎛️ MENU SYSTEM STATUS:")
-        safe_print(f"   📋 Menu Type: {self.menu_type}")
-        safe_print(f"   🌊 Elliott Wave: {'✅ Ready' if self.menu_available else '❌ Not Available'}")
-        
-        # Session Info
-        safe_print(f"\n📊 SESSION INFORMATION:")
-        safe_print(f"   🆔 Session ID: {self.session_id}")
-        safe_print(f"   🕐 Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        safe_print(f"   🔒 Safe Mode: ✅ Active")
-        safe_print(f"   🎨 Progress Bars: ✅ Enabled")
-        
-        input("\nPress Enter to continue...")
+        if self.config:
+            safe_print("\n[ Configuration ]")
+            safe_print(f"  Configuration Source: Unified")
+            safe_print(f"  Environment: {self.config.get('system.environment', 'N/A')}")
+        else:
+            safe_print("  Configuration: Not loaded")
+
+        if self.logger:
+            safe_print("\n[ Logger ]")
+            safe_print("  Unified Enterprise Logger: ACTIVE")
+        else:
+            safe_print("  Logger: Not initialized")
+
+        if self.menu_1:
+            safe_print("\n[ Menu System ]")
+            safe_print(f"  Menu 1 Status: READY")
+            safe_print(f"  Menu Type: {self.menu_type}")
+        else:
+            safe_print("  Menu 1 Status: FAILED to initialize")
+
+        safe_print("\n" + "─"*50)
+        safe_print("Press Enter to return to the main menu...")
+        input()
         return True
     
     def _handle_system_diagnostics(self) -> bool:
@@ -602,6 +560,12 @@ class UnifiedMasterMenuSystem:
     
     def start(self):
         """Start the unified master menu system"""
+        self.logger = get_unified_logger()
+        self.logger.info("Starting NICEGOLD Enterprise System...", component="SysInit")
+        
+        if not self._load_configuration():
+            return
+        
         safe_print("🚀 Starting Unified Master Menu System...")
         
         # Initialize all components
@@ -633,16 +597,16 @@ class UnifiedMasterMenuSystem:
         safe_print("\n✅ Unified Master System shutdown complete")
 
 def main():
-    """Main entry point for unified master menu system"""
+    """Main entry point for the menu system."""
     try:
-        # Create and start unified system
-        unified_system = UnifiedMasterMenuSystem()
-        unified_system.start()
-        
+        # Pass the unified logger from the main system
+        system_menu = UnifiedMasterMenuSystem()
+        system_menu.start()
     except Exception as e:
-        safe_print(f"❌ System startup error: {e}")
+        # Fallback basic print in case logger fails
+        print(f"💥 A critical error occurred in the master menu system: {e}")
         import traceback
         traceback.print_exc()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

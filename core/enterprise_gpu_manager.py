@@ -26,10 +26,26 @@ from datetime import datetime
 import json
 from pathlib import Path
 
+# Try to import enterprise logger and psutil, handle gracefully
+try:
+    from core.unified_enterprise_logger import get_unified_logger
+except ImportError:
+    # Fallback for logger if unified logger is not available
+    logging.basicConfig(level=logging.INFO)
+    get_unified_logger = lambda: logging.getLogger(__name__)
+
+try:
+    import psutil
+except ImportError:
+    psutil = None
+
+
 # Suppress all warnings first
 warnings.filterwarnings('ignore')
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # Enable GPU 0
+
+# We will set CUDA_VISIBLE_DEVICES dynamically later
+# os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # Enable GPU 0
 
 class EnterpriseGPUManager:
     """
@@ -37,9 +53,12 @@ class EnterpriseGPUManager:
     Production-Grade GPU Configuration and Management
     """
     
-    def __init__(self, logger: logging.Logger = None):
+    def __init__(self, logger: Optional[logging.Logger] = None):
         """Initialize Enterprise GPU Manager"""
-        self.logger = logger or get_unified_logger()
+        if logger:
+            self.logger = logger
+        else:
+            self.logger = get_unified_logger()
         
         # Enterprise settings
         self.enterprise_config = {
@@ -102,15 +121,17 @@ class EnterpriseGPUManager:
                 
                 for i in range(device_count):
                     handle = pynvml.nvmlDeviceGetHandleByIndex(i)
-                    name = pynvml.nvmlDeviceGetName(handle).decode('utf-8')
+                    name = pynvml.nvmlDeviceGetName(handle)
+                    if isinstance(name, bytes):
+                        name = name.decode('utf-8')
                     memory_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
                     
                     gpu_data = {
                         'index': i,
                         'name': name,
-                        'total_memory_mb': memory_info.total // 1024 // 1024,
-                        'free_memory_mb': memory_info.free // 1024 // 1024,
-                        'used_memory_mb': memory_info.used // 1024 // 1024
+                        'total_memory_mb': int(memory_info.total) // 1024 // 1024,
+                        'free_memory_mb': int(memory_info.free) // 1024 // 1024,
+                        'used_memory_mb': int(memory_info.used) // 1024 // 1024
                     }
                     self.gpu_info['gpus'].append(gpu_data)
                 
@@ -261,8 +282,9 @@ class EnterpriseGPUManager:
             os.environ['TF_GPU_MEMORY_ALLOW_GROWTH'] = 'true'
             
             # Performance optimization
-            os.environ['OMP_NUM_THREADS'] = str(min(8, os.cpu_count()))
-            os.environ['MKL_NUM_THREADS'] = str(min(8, os.cpu_count()))
+            cpu_count = os.cpu_count() or 1 # Fallback to 1 if None
+            os.environ['OMP_NUM_THREADS'] = str(min(8, cpu_count))
+            os.environ['MKL_NUM_THREADS'] = str(min(8, cpu_count))
             
             self.logger.info("✅ Production optimizations applied")
             
@@ -283,19 +305,18 @@ class EnterpriseGPUManager:
     
     def get_enterprise_configuration(self) -> Dict[str, Any]:
         """Get enterprise GPU configuration"""
-        try:
-            import psutil
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
+        cpu_count = os.cpu_count()
+        memory_gb = 0
+        if psutil:
+            try:
+                cpu_count = psutil.cpu_count()
+                memory_gb = psutil.virtual_memory().total / (1024**3)
+            except Exception as e:
+                self.logger.warning(f"Could not get system info from psutil: {e}")
 
-            cpu_count = psutil.cpu_count()
-            memory_gb = psutil.virtual_memory().total / (1024**3)
-        except ImportError:
-            cpu_count = os.cpu_count()
-            memory_gb = 0
-        
         config = {
             'processing_mode': self.processing_mode,
-            'gpu_available': self.gpu_info['gpu_count'] > 0,
+            'gpu_available': self.gpu_info.get('gpu_count', 0) > 0,
             'cuda_available': self.cuda_available,
             'tensorflow_gpu_available': self.tensorflow_gpu_available,
             'gpu_info': self.gpu_info,
@@ -338,7 +359,7 @@ from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, 
         
         return report
 
-def get_enterprise_gpu_manager(logger: logging.Logger = None) -> EnterpriseGPUManager:
+def get_enterprise_gpu_manager(logger: Optional[logging.Logger] = None) -> "EnterpriseGPUManager":
     """Get Enterprise GPU Manager instance"""
     return EnterpriseGPUManager(logger=logger)
 

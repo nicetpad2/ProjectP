@@ -18,7 +18,15 @@ try:
 except ImportError:
     ADVANCED_LOGGING_AVAILABLE = False
 
-class MenuSystem:
+from core.resource_manager import get_resource_manager
+from core.output_manager import NicegoldOutputManager
+
+def safe_print(message):
+    """Prints a message safely, ensuring it's not printed multiple times."""
+    if message:
+        print(message)
+
+class UnifiedMasterMenuSystem:
     """ระบบเมนูหลักของ NICEGOLD Enterprise"""
     
     def __init__(self, config: Dict = None, logger=None, resource_manager=None):
@@ -302,9 +310,9 @@ class MenuSystem:
             
             try:
                 # Execute Menu 1 with enhanced logging
-                results = self.menu_1.run_full_pipeline()
+                results = self.menu_1.run()
                 
-                if results and not results.get('error', False):
+                if results and results.get("status") == "SUCCESS":
                     # Successful completion
                     final_results = {
                         "execution_status": "success",
@@ -616,8 +624,6 @@ class MenuSystem:
             input("Press Enter to continue...")
             return False
 
-    # ...existing code...
-    
     def start(self):
         """เริ่มต้นระบบเมนู"""
         self.logger.info("🎛️ Menu System Started")
@@ -640,3 +646,17 @@ class MenuSystem:
                 break
         
         self.logger.info("✅ Menu System Shutdown Complete")
+
+def main():
+    """Main entry point for the menu system."""
+    try:
+        system_menu = UnifiedMasterMenuSystem()
+        system_menu.start()
+    except Exception as e:
+        # Fallback basic print in case logger fails
+        print(f"💥 A critical error occurred in the master menu system: {e}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == '__main__':
+    main()

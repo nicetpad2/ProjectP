@@ -44,25 +44,12 @@ import warnings
 import gc
 import psutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-
-# Essential data processing imports
-import pandas as pd
-import numpy as np
-
-# Suppress warnings for clean output
-warnings.filterwarnings('ignore')
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-# Add project root to path for imports
-sys.path.append(str(Path(__file__).parent.parent))
-
-# Import Core Components
-from core.project_paths import get_project_paths
-from core.output_manager import NicegoldOutputManager
+from core.unified_enterprise_logger import get_unified_logger, UnifiedEnterpriseLogger, LogLevel, ProcessStatus, ElliottWaveStep
+from core.unified_config_manager import UnifiedConfigManager
 from core.unified_resource_manager import get_unified_resource_manager
-from core.enterprise_model_manager_v2 import EnterpriseModelManager, ModelStatus, ModelType
+from core.output_manager import NicegoldOutputManager
+from core.project_paths import get_project_paths
+from core.enterprise_model_manager import get_enterprise_model_manager
 
 # ML Protection
 try:
@@ -97,91 +84,71 @@ except ImportError:
 
 class EnhancedMenu1ElliottWave:
     """
-    Enhanced Elliott Wave System with a Unified, Clean Architecture.
-    - Single Logger: unified_enterprise_logger
-    - Single Resource Manager: unified_resource_manager
-    - Single Model Manager: enterprise_model_manager_v2
+    Enhanced Menu 1: The primary, complete, and unified Elliott Wave AI pipeline.
+    This module integrates all enterprise components into a single, robust workflow.
     """
-    
-    def __init__(self, config: Optional[Dict] = None,
-                 logger: Optional[Any] = None,  # Kept for compatibility but ignored
-                 resource_manager = None, # Kept for compatibility but ignored
-                 production_mode: bool = False):
-        
-        # Initialize the single source of truth for logging
-        self.logger = get_unified_logger("EnhancedMenu1ElliottWave")
-        
-        self.config = config or self._get_default_config()
-        self.production_mode = production_mode
-        self.session_id = self.config.get('session_id', datetime.now().strftime('%Y%m%d_%H%M%S'))
-        
-        self.logger.info(f"Enhanced Menu 1 Initializing (Session: {self.session_id})")
-        
-        # Unify resource management
-        self.resource_manager = get_unified_resource_manager()
-        self.config['resource_manager'] = self.resource_manager
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
+        """
+        Initializes the complete Menu 1 pipeline with all enterprise components.
+        """
+        # Centralized configuration and logging
+        self.config_manager = UnifiedConfigManager(initial_config=config)
+        self.config = self.config_manager.config
+        self.logger: UnifiedEnterpriseLogger = get_unified_logger()
 
-        # Unify project paths
+        self.session_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        self.logger.info(f"Enhanced Menu 1 Initializing (Session: {self.session_id})")
+
+        # Prepare unified components, but do not initialize heavy objects yet
+        self.resource_manager = get_unified_resource_manager()
         self.paths = get_project_paths()
-        
-        # Unify output management
-        self.output_manager = NicegoldOutputManager(self.session_id, self.paths, self.logger)
-        
-        # Initialize other components
+        self.output_manager = NicegoldOutputManager()
+
+        # Placeholders for lazily-initialized components
         self.data_processor = None
+        self.model_manager = None
         self.feature_selector = None
         self.cnn_lstm_engine = None
         self.dqn_agent = None
-        self.pipeline_orchestrator = None
         self.performance_analyzer = None
-        self.model_manager = None
         self.ml_protection = None
-        self.advanced_analyzer = None
         
-        # Start unified resource monitoring
-        self.resource_manager.start_monitoring()
-        
-        self.logger.info("Initializing components...")
-        self._initialize_components()
+        self.logger.info("✅ Enhanced Menu 1 base framework initialized.")
 
-    def _get_default_config(self) -> Dict:
-        """Provides a default configuration."""
-        return {
-            'session_id': datetime.now().strftime('%Y%m%d_%H%M%S'),
-            'data_file': 'xauusd_1m_features_with_elliott_waves.csv',
-            'train_size': 0.8,
-            'n_splits': 5,
-            'shap_n_features': 20,
-            'optuna_n_trials': 50,
-        }
+    def _initialize_components(self) -> bool:
+        """
+        Lazy initialization of all necessary AI/ML components.
+        This is called just before the pipeline runs.
+        """
+        if self.model_manager:  # Check if already initialized
+            return True
 
-    def _initialize_components(self):
-        """Initialize all necessary components using the unified logger and config."""
+        self.logger.info("Initializing AI/ML components...")
         try:
-            # Model Manager
-            self.model_manager = EnterpriseModelManager(logger=self.logger, paths=self.paths)
-            
-            # ML Protection
-            if ML_PROTECTION_AVAILABLE:
-                self.ml_protection = EnterpriseMLProtectionSystem(config=self.config, logger=self.logger)
-            
-            # Core Elliott Wave components
-            self.data_processor = ElliottWaveDataProcessor(logger=self.logger, paths=self.paths, config=self.config)
+            # Correctly initialize the model manager using its factory
+            self.model_manager = get_enterprise_model_manager(logger=self.logger)
+
+            # Import components here to avoid circular dependencies and ensure env is ready
+            from elliott_wave_modules.data_processor import ElliottWaveDataProcessor
+            from elliott_wave_modules.feature_selector import EnterpriseShapOptunaFeatureSelector
+            from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtectionSystem
+            from elliott_wave_modules.cnn_lstm_engine import CNNLSTMElliottWave
+            from elliott_wave_modules.dqn_agent import DQNReinforcementAgent
+            from elliott_wave_modules.performance_analyzer import ElliottWavePerformanceAnalyzer
+
+            # Initialize all components with the correct dependencies
+            self.data_processor = ElliottWaveDataProcessor(logger=self.logger, config=self.config)
             self.feature_selector = EnterpriseShapOptunaFeatureSelector(logger=self.logger, config=self.config)
-            self.cnn_lstm_engine = CNNLSTMElliottWave(logger=self.logger, model_manager=self.model_manager)
+            self.ml_protection = EnterpriseMLProtectionSystem(logger=self.logger, config=self.config)
+            self.cnn_lstm_engine = CNNLSTMElliottWave(logger=self.logger, config=self.config, model_manager=self.model_manager)
             self.dqn_agent = DQNReinforcementAgent(logger=self.logger, model_manager=self.model_manager)
             self.performance_analyzer = ElliottWavePerformanceAnalyzer(logger=self.logger)
             
-            # Advanced components
-            if ADVANCED_ELLIOTT_WAVE_AVAILABLE:
-                self.advanced_analyzer = AdvancedElliottWaveAnalyzer(logger=self.logger)
-            if ENHANCED_DQN_AVAILABLE:
-                self.dqn_agent = EnhancedMultiTimeframeDQNAgent(logger=self.logger, model_manager=self.model_manager)
-
-            self.logger.info("✅ All components initialized successfully.")
-        except Exception as e:
-            self.logger.error(f"Component initialization failed: {e}", error_details=traceback.format_exc())
-            raise
+            self.logger.info("✅ All AI/ML components initialized successfully.")
+            return True
+        except (ImportError, TypeError, Exception) as e:
+            self.logger.critical(f"Component initialization failed: {e}", error_details=traceback.format_exc())
+            return False
 
     def run(self) -> Dict[str, Any]:
         """Main entry point to run the enhanced pipeline."""

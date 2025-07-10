@@ -270,7 +270,7 @@ class UnifiedEnterpriseLogger:
                 level=logging.INFO,
                 format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                 handlers=[
-                    logging.FileHandler(log_file),
+                    logging.FileHandler(log_file, mode='a', encoding='utf-8'), # Force UTF-8 for file logs
                     RichHandler(console=self.console) if self.use_rich else logging.StreamHandler()
                 ]
             )

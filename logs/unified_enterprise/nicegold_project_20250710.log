@@ -7183,3 +7183,18 @@ TypeError: object.__init__() takes exactly one argument (the instance to initial
 2025-07-10 16:24:01,296 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: cdf05f13
 2025-07-10 16:24:01,298 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
 2025-07-10 16:24:01,315 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-10 16:39:22,097 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-10 16:39:22,102 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: f3c152a1
+2025-07-10 16:39:22,105 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-10 16:39:22,118 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-10 16:39:22,165 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-10 16:39:22,184 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 51.0GB total, 44.6GB available
+2025-07-10 16:39:22,188 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 35.7GB RAM (80%), 2 cores (25%)
+2025-07-10 16:39:22,192 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-10 16:39:22,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-10 16:39:22,196 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-10 16:39:22,217 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Failed to initialize system info: expected 'except' or 'finally' block (enterprise_gpu_manager.py, line 288)
+2025-07-10 16:39:22,471 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-07-10 16:39:28,391 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250710_163928)
+2025-07-10 16:39:28,397 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-10 16:41:52,064 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛑 High memory monitoring stopped
