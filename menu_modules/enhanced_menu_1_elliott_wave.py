@@ -265,22 +265,19 @@ class EnhancedMenu1ElliottWave:
         self.dqn_agent = None
         self.performance_analyzer = None
         self.ml_protection = None
-        self.advanced_analyzer = None  # 🔧 FIX: Add missing advanced_analyzer
         
         self.logger.info("✅ Enhanced Menu 1 base framework initialized.")
         
-        # 🏢 ENTERPRISE PRODUCTION FEATURES - USE UNIFIED RESOURCE MANAGER
-        self.logger.info("🏢 Activating Enterprise Production Features...")
+        # 🏢 ENTERPRISE PRODUCTION FEATURES
+        self.enterprise_resource_manager = EnterpriseResourceManager(target_percentage=80.0)
+        self.logger.info("🏢 Enterprise Production Features initialized")
         
-        # Track allocated memory arrays for efficient RAM usage
-        self.allocated_memory_arrays = []
-        self.memory_allocation_active = False
-        
-        # 🚀 AUTO-INITIALIZE COMPONENTS AND ACTIVATE 80% RAM USAGE
-        self.logger.info("🚀 Auto-initializing AI/ML components with 80% RAM allocation...")
+        # 🚀 AUTO-INITIALIZE COMPONENTS on startup to avoid runtime issues
+        self.logger.info("🚀 Auto-initializing AI/ML components...")
         try:
-            # Activate 80% RAM allocation using Unified Resource Manager
-            self._activate_80_percent_ram_usage()
+            # Activate Enterprise Resource Manager for 80% RAM usage
+            self.logger.info("🧠 Activating Enterprise Resource Manager...")
+            self.enterprise_resource_manager.activate_80_percent_ram()
             
             if self._initialize_components():
                 self.logger.info("✅ All components auto-initialized successfully")
@@ -371,17 +368,6 @@ class EnhancedMenu1ElliottWave:
             except Exception as e:
                 self.logger.error(f"❌ Performance Analyzer initialization failed: {e}")
                 raise
-
-            # Initialize advanced analyzer (use performance analyzer as advanced analyzer)
-            self.logger.info("🔬 Initializing Advanced Analyzer...")
-            try:
-                # Use the performance analyzer as the advanced analyzer for comprehensive analysis
-                self.advanced_analyzer = self.performance_analyzer
-                self.logger.info("✅ Advanced Analyzer initialized successfully")
-            except Exception as e:
-                self.logger.error(f"❌ Advanced Analyzer initialization failed: {e}")
-                # Set to None if failed, method will handle gracefully
-                self.advanced_analyzer = None
             
             self.logger.info("🎉 All AI/ML components initialized successfully!")
             return True
@@ -389,129 +375,6 @@ class EnhancedMenu1ElliottWave:
         except (ImportError, TypeError, Exception) as e:
             self.logger.critical(f"❌ Component initialization failed: {e}", error_details=traceback.format_exc())
             return False
-    
-    def _activate_80_percent_ram_usage(self) -> bool:
-        """Activate 80% RAM usage using Unified Resource Manager and memory allocation"""
-        try:
-            import psutil
-            import numpy as np
-            
-            # Get current memory status
-            memory = psutil.virtual_memory()
-            total_gb = memory.total / 1024**3
-            current_used_gb = memory.used / 1024**3
-            target_gb = total_gb * 0.80  # 80% target
-            gap_gb = target_gb - current_used_gb
-            
-            self.logger.info(f"🧠 Activating 80% RAM Usage Strategy")
-            self.logger.info(f"   💾 Total RAM: {total_gb:.1f} GB")
-            self.logger.info(f"   📊 Current Usage: {current_used_gb:.1f} GB ({memory.percent:.1f}%)")
-            self.logger.info(f"   🎯 Target 80%: {target_gb:.1f} GB")
-            self.logger.info(f"   📈 Gap to fill: {gap_gb:.1f} GB")
-            
-            if gap_gb <= 0.5:  # Already close to 80%
-                self.logger.info("✅ Already at or near 80% RAM usage")
-                self.memory_allocation_active = True
-                return True
-            
-            # Allocate memory in strategic chunks
-            self.logger.info(f"🚀 Allocating {gap_gb:.1f} GB to reach 80% usage...")
-            
-            # Configure ML frameworks for high memory usage first
-            self._configure_ml_frameworks_for_memory()
-            
-            # Allocate memory arrays for processing
-            chunk_size_gb = min(1.5, gap_gb / 3)  # Allocate in 1.5GB chunks
-            allocated_gb = 0
-            
-            while allocated_gb < gap_gb - 0.5 and len(self.allocated_memory_arrays) < 20:  # Limit arrays
-                try:
-                    chunk_size_bytes = int(chunk_size_gb * 1024**3 / 8)  # float64 = 8 bytes
-                    chunk = np.ones(chunk_size_bytes, dtype=np.float64)
-                    self.allocated_memory_arrays.append(chunk)
-                    allocated_gb += chunk_size_gb
-                    
-                    # Check current usage
-                    current_mem = psutil.virtual_memory()
-                    current_usage = current_mem.percent
-                    
-                    self.logger.info(f"   📊 Allocated {allocated_gb:.1f} GB, RAM: {current_usage:.1f}%")
-                    
-                    if current_usage >= 78:  # Close enough to 80%
-                        break
-                        
-                except MemoryError:
-                    self.logger.warning("   ⚠️ Memory allocation limit reached")
-                    break
-            
-            # Final status check
-            final_mem = psutil.virtual_memory()
-            final_usage = final_mem.percent
-            
-            self.logger.info(f"✅ RAM Allocation Complete: {final_usage:.1f}%")
-            self.logger.info(f"🎯 Target achieved: {'✅ Yes' if final_usage >= 75 else '⚠️ Partial'}")
-            self.logger.info(f"📈 Arrays allocated: {len(self.allocated_memory_arrays)}")
-            
-            self.memory_allocation_active = True
-            return final_usage >= 75
-            
-        except ImportError:
-            self.logger.warning("⚠️ psutil not available, using standard allocation")
-            return False
-        except Exception as e:
-            self.logger.error(f"❌ RAM allocation failed: {e}")
-            return False
-    
-    def _configure_ml_frameworks_for_memory(self):
-        """Configure ML frameworks for high memory usage"""
-        try:
-            # Configure TensorFlow
-            try:
-                import tensorflow as tf
-                tf.config.threading.set_inter_op_parallelism_threads(12)
-                tf.config.threading.set_intra_op_parallelism_threads(12)
-                self.logger.info("   ⚙️ TensorFlow configured for high memory usage")
-            except ImportError:
-                pass
-            except Exception as e:
-                self.logger.debug(f"TensorFlow config error: {e}")
-            
-            # Configure PyTorch
-            try:
-                import torch
-                torch.set_num_threads(12)
-                if torch.cuda.is_available():
-                    torch.cuda.empty_cache()
-                    # Set high memory fraction for GPU
-                    for i in range(torch.cuda.device_count()):
-                        torch.cuda.set_per_process_memory_fraction(0.85, i)
-                self.logger.info("   ⚙️ PyTorch configured for high memory usage")
-            except ImportError:
-                pass
-            except Exception as e:
-                self.logger.debug(f"PyTorch config error: {e}")
-                
-        except Exception as e:
-            self.logger.warning(f"⚠️ ML framework configuration failed: {e}")
-    
-    def get_memory_status(self) -> Dict[str, Any]:
-        """Get current memory allocation status"""
-        try:
-            import psutil
-            memory = psutil.virtual_memory()
-            return {
-                "allocation_active": self.memory_allocation_active,
-                "current_usage_percent": memory.percent,
-                "current_usage_gb": memory.used / 1024**3,
-                "total_gb": memory.total / 1024**3,
-                "target_80_percent_gb": memory.total / 1024**3 * 0.8,
-                "allocated_arrays": len(self.allocated_memory_arrays),
-                "gap_to_target": (memory.total / 1024**3 * 0.8) - (memory.used / 1024**3)
-            }
-        except ImportError:
-            return {"allocation_active": self.memory_allocation_active, "error": "psutil not available"}
-        except Exception as e:
-            return {"allocation_active": self.memory_allocation_active, "error": str(e)}
     
     def run(self) -> Dict[str, Any]:
         """Main entry point to run the enhanced pipeline."""
@@ -562,11 +425,11 @@ class EnhancedMenu1ElliottWave:
                         self.logger.error(f"Step '{description}' failed. Aborting pipeline.")
                         return results
                     
-                    # Show Resource Manager Status periodically  
-                    if hasattr(self, 'memory_allocation_active') and i % 3 == 0:
-                        status = self.get_memory_status()
-                        if 'current_usage_percent' in status:
-                            print(f"    💾 RAM Usage: {status['current_usage_percent']:.1f}%")
+                    # Show Resource Manager Status periodically
+                    if hasattr(self, 'enterprise_resource_manager') and i % 3 == 0:
+                        status = self.enterprise_resource_manager.get_status()
+                        if 'current_usage' in status:
+                            print(f"    💾 RAM Usage: {status['current_usage']:.1f}%")
                     
                 except Exception as e:
                     self.logger.error(
@@ -735,49 +598,10 @@ class EnhancedMenu1ElliottWave:
     def _analyze_results_high_memory(self, eval_results: Dict, config: Dict) -> Dict:
         """Analyzes results using the advanced analyzer if available."""
         self.logger.info("Analyzing final results...")
-        
-        try:
-            # Use advanced analyzer if available and has analyze method
-            if hasattr(self, 'advanced_analyzer') and self.advanced_analyzer and hasattr(self.advanced_analyzer, 'analyze'):
-                self.logger.info("🔬 Using advanced analyzer for comprehensive analysis...")
-                analysis_results = self.advanced_analyzer.analyze(eval_results)
-                self.logger.info("✅ Advanced analysis completed successfully")
-                return {**eval_results, **analysis_results}
-            
-            # Fallback: Use performance analyzer if available
-            elif hasattr(self, 'performance_analyzer') and self.performance_analyzer and hasattr(self.performance_analyzer, 'analyze_performance'):
-                self.logger.info("📊 Using performance analyzer for result analysis...")
-                analysis_results = self.performance_analyzer.analyze_performance(eval_results)
-                self.logger.info("✅ Performance analysis completed successfully")
-                return {**eval_results, **analysis_results}
-            
-            # Final fallback: Create basic analysis summary
-            else:
-                self.logger.info("📋 Creating basic analysis summary...")
-                basic_analysis = {
-                    'analysis_summary': {
-                        'analysis_method': 'basic_summary',
-                        'total_keys': len(eval_results),
-                        'has_performance_data': 'auc' in eval_results or 'accuracy' in eval_results,
-                        'analysis_timestamp': datetime.now().isoformat(),
-                        'status': 'basic_analysis_completed'
-                    }
-                }
-                self.logger.info("✅ Basic analysis summary completed")
-                return {**eval_results, **basic_analysis}
-                
-        except Exception as e:
-            self.logger.error(f"❌ Analysis failed: {e}")
-            # Return original results with error info
-            error_analysis = {
-                'analysis_error': {
-                    'error_message': str(e),
-                    'analysis_method': 'error_fallback',
-                    'analysis_timestamp': datetime.now().isoformat(),
-                    'status': 'analysis_failed_gracefully'
-                }
-            }
-            return {**eval_results, **error_analysis}
+        if self.advanced_analyzer:
+            analysis_results = self.advanced_analyzer.analyze(eval_results)
+            return {**eval_results, **analysis_results}
+        return eval_results
 
     def _generate_high_memory_report(self, analysis_results: Dict, config: Dict) -> Dict:
         """Generates the final report using the unified output manager."""
