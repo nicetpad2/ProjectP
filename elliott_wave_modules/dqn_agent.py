@@ -156,9 +156,10 @@ class ReplayBuffer:
 class DQNReinforcementAgent:
     """DQN Reinforcement Learning Agent สำหรับ Elliott Wave Trading"""
     
-    def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None):
+    def __init__(self, config: Optional[Dict] = None, logger: Optional[logging.Logger] = None, model_manager: Optional[Any] = None):
         self.config = config or {}
         self.component_name = "DQNReinforcementAgent"
+        self.model_manager = model_manager  # Enterprise Model Manager integration
         
         # Initialize Advanced Terminal Logger
         if ADVANCED_LOGGING_AVAILABLE:

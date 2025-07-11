@@ -21,14 +21,55 @@ def setup_environment():
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
 
-    # Force CPU-only operation for stability
-os.environ['CUDA_VISIBLE_DEVICES'] = ''
-    
-    # Suppress TensorFlow and other warnings for a cleaner enterprise output
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ['PYTHONWARNINGS'] = 'ignore'
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-warnings.filterwarnings('ignore')
+    # 🚀 ENTERPRISE TENSORFLOW CONFIGURATION
+    try:
+        # Apply comprehensive TensorFlow optimizations
+        from core.tensorflow_config import configure_enterprise_tensorflow
+        config_result = configure_enterprise_tensorflow()
+        if config_result.get('enterprise_ready'):
+            print("🎉 Enterprise TensorFlow Configuration Applied Successfully!")
+        else:
+            print("⚠️ Partial TensorFlow configuration applied")
+    except ImportError:
+        # Fallback to basic configuration if tensorflow_config is not available
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+        os.environ['PYTHONWARNINGS'] = 'ignore'
+        os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+        warnings.filterwarnings('ignore')
+        print("ℹ️ Basic TensorFlow configuration applied")
+
+    # Switch Windows terminal to UTF-8 code page to avoid UnicodeEncodeError
+    if os.name == 'nt':
+        try:
+            os.system('chcp 65001 > NUL')
+            # Force the Windows console to use UTF-8 through WinAPI in case `chcp` is ineffective
+            try:
+                import ctypes
+                kernel32 = ctypes.windll.kernel32
+                kernel32.SetConsoleOutputCP(65001)
+                kernel32.SetConsoleCP(65001)
+            except Exception:
+                # Silently ignore if WinAPI is unavailable (e.g. Wine, restricted env)
+                pass
+
+            # Explicitly reconfigure Python stdout/stderr to UTF-8 to prevent Rich/Colorama
+            # from raising UnicodeEncodeError when printing emojis or non-ASCII symbols.
+            import io
+            if hasattr(sys.stdout, "reconfigure"):
+                try:
+                    sys.stdout.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[attr-defined]
+                    sys.stderr.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[attr-defined]
+                except Exception:
+                    pass
+            else:
+                try:
+                    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+                    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
 def main():
     """

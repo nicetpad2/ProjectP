@@ -1,0 +1,73 @@
+[
+  {
+    "session_id": "4f183eb29986",
+    "user": "ACER",
+    "hostname": "NICETPAD2",
+    "start_time": "2025-07-11T12:04:32.424158",
+    "end_time": null,
+    "unlock_attempts": 0,
+    "system_info": {
+      "hostname": "NICETPAD2",
+      "platform": "Windows-10-10.0.26100-SP0",
+      "python_version": "3.11.0",
+      "cpu_count": 12,
+      "cpu_percent": 56.0,
+      "memory_total": 33618173952,
+      "memory_available": 17910280192,
+      "memory_percent": 46.7,
+      "disk_total": 510481395712,
+      "disk_used": 241682579456,
+      "disk_free": 268798816256,
+      "disk_percent": 47.34405239566279,
+      "uptime": 12410.0,
+      "timestamp": "2025-07-11T12:04:29.380022"
+    },
+    "security_events": []
+  },
+  {
+    "session_id": "4f183eb29986",
+    "user": "ACER",
+    "hostname": "NICETPAD2",
+    "start_time": "2025-07-11T12:04:32.424158",
+    "end_time": "2025-07-11T12:04:34.983086",
+    "unlock_attempts": 1,
+    "system_info": {
+      "hostname": "NICETPAD2",
+      "platform": "Windows-10-10.0.26100-SP0",
+      "python_version": "3.11.0",
+      "cpu_count": 12,
+      "cpu_percent": 56.0,
+      "memory_total": 33618173952,
+      "memory_available": 17910280192,
+      "memory_percent": 46.7,
+      "disk_total": 510481395712,
+      "disk_used": 241682579456,
+      "disk_free": 268798816256,
+      "disk_percent": 47.34405239566279,
+      "uptime": 12410.0,
+      "timestamp": "2025-07-11T12:04:29.380022"
+    },
+    "security_events": [
+      {
+        "timestamp": "2025-07-11T12:04:35.953073",
+        "system_info": {
+          "hostname": "NICETPAD2",
+          "platform": "Windows-10-10.0.26100-SP0",
+          "python_version": "3.11.0",
+          "cpu_count": 12,
+          "cpu_percent": 45.0,
+          "memory_total": 33618173952,
+          "memory_available": 17915961344,
+          "memory_percent": 46.7,
+          "disk_total": 510481395712,
+          "disk_used": 241666883584,
+          "disk_free": 268814512128,
+          "disk_percent": 47.34097767597039,
+          "uptime": 12416.573051214218,
+          "timestamp": "2025-07-11T12:04:35.953073"
+        },
+        "session_id": "4f183eb29986"
+      }
+    ]
+  }
+]

@@ -313,7 +313,7 @@ class EnterpriseGPUManager:
                 memory_gb = psutil.virtual_memory().total / (1024**3)
             except Exception as e:
                 self.logger.warning(f"Could not get system info from psutil: {e}")
-
+        
         config = {
             'processing_mode': self.processing_mode,
             'gpu_available': self.gpu_info.get('gpu_count', 0) > 0,

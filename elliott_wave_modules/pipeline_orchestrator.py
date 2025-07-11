@@ -47,11 +47,12 @@ sys.path.append(str(Path(__file__).parent.parent))
 # 🚀 Import Advanced Logging System
 try:
     from core.unified_enterprise_logger import get_unified_logger, ElliottWaveStep, Menu1Step, LogLevel, ProcessStatus
-    from core.real_time_progress_manager import get_progress_manager, ProgressType
+    from core.beautiful_progress import BeautifulProgress
     ADVANCED_LOGGING_AVAILABLE = True
-except ImportError:
+    print("✅ Advanced logging system loaded successfully")
+except ImportError as e:
     ADVANCED_LOGGING_AVAILABLE = False
-    print("⚠️ Advanced logging not available, using standard logging")
+    print(f"ℹ️ Using standard logging (Advanced components: {e})")
 
 # Import Pipeline Data Container and Enterprise Base
 from core.pipeline_data_container import PipelineDataContainer, create_pipeline_container, safe_extract_data

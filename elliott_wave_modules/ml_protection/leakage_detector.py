@@ -123,7 +123,7 @@ class DataLeakageDetector:
             
         except Exception as e:
             error_msg = f"❌ Data leakage detection failed: {str(e)}"
-                self.logger.error(error_msg, component="LeakageDetector")
+            self.logger.error(error_msg, component="LeakageDetector")
             return {'status': 'ERROR', 'error': str(e)}
     
     def _check_temporal_leakage(self, X: pd.DataFrame, y: pd.Series, datetime_col: str) -> Dict:
@@ -238,7 +238,7 @@ class DataLeakageDetector:
             
         except Exception as e:
             error_msg = f"Statistical leakage test failed: {str(e)}"
-                self.logger.warning(f"⚠️ {error_msg}", component="LeakageDetector")
+            self.logger.warning(f"⚠️ {error_msg}", component="LeakageDetector")
             
             # Fallback to simplified method
             return self._statistical_leakage_test_simplified(X, y)
@@ -384,5 +384,5 @@ class DataLeakageDetector:
             return min(score, 1.0)
             
         except Exception as e:
-                self.logger.warning(f"⚠️ Leakage score computation failed: {str(e)}", component="LeakageDetector")
+            self.logger.warning(f"⚠️ Leakage score computation failed: {str(e)}", component="LeakageDetector")
             return 0.0

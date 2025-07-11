@@ -64,7 +64,7 @@ class EnterpriseMLProtectionSystem:
         # Initialize protection modules
         self._initialize_protection_modules()
         
-            self.logger.info("🛡️ Enterprise ML Protection System initialized", component="MLProtection_Core")
+        self.logger.info("🛡️ Enterprise ML Protection System initialized", component="MLProtection_Core")
     
     def _initialize_protection_modules(self):
         """Initialize all protection modules with shared configuration"""
@@ -90,11 +90,11 @@ class EnterpriseMLProtectionSystem:
                 logger=self.logger
             )
             
-                self.logger.info("✅ All protection modules initialized successfully", component="MLProtection_Core")
+            self.logger.info("✅ All protection modules initialized successfully", component="MLProtection_Core")
                 
         except Exception as e:
             error_msg = f"❌ Failed to initialize protection modules: {str(e)}"
-                self.logger.error(error_msg, component="MLProtection_Core")
+            self.logger.error(error_msg, component="MLProtection_Core")
             raise
     
     def update_protection_config(self, new_config: Dict) -> bool:
@@ -108,12 +108,12 @@ class EnterpriseMLProtectionSystem:
                 if hasattr(module, 'update_config'):
                     module.update_config(new_config)
             
-                self.logger.info("🔧 Protection configuration updated", component="MLProtection_Core")
+            self.logger.info("🔧 Protection configuration updated", component="MLProtection_Core")
             return True
             
         except Exception as e:
             error_msg = f"❌ Failed to update protection configuration: {str(e)}"
-                self.logger.error(error_msg, component="MLProtection_Core")
+            self.logger.error(error_msg, component="MLProtection_Core")
             return False
     
     def get_protection_config(self) -> Dict:
@@ -138,13 +138,13 @@ class EnterpriseMLProtectionSystem:
             Comprehensive protection analysis results
         """
         try:
-                self.logger.info("🛡️ Starting comprehensive ML protection analysis", component="MLProtection_Analysis")
+            self.logger.info("🛡️ Starting comprehensive ML protection analysis", component="MLProtection_Analysis")
             with self.logger.progress_bar("Enterprise ML Protection Analysis", total=6) as progress:
                 return self._run_comprehensive_analysis(X, y, datetime_col, model, process_id, progress)
                 
         except Exception as e:
             error_msg = f"❌ Comprehensive protection analysis failed: {str(e)}"
-                self.logger.error(error_msg, component="MLProtection_Analysis")
+            self.logger.error(error_msg, component="MLProtection_Analysis")
             
             return {
                 'error': str(e),
@@ -325,7 +325,7 @@ class EnterpriseMLProtectionSystem:
             return assessment
             
         except Exception as e:
-                self.logger.error(f"❌ Overall assessment computation failed: {str(e)}", component="MLProtection_Assessment")
+            self.logger.error(f"❌ Overall assessment computation failed: {str(e)}", component="MLProtection_Assessment")
             
             return {
                 'enterprise_ready': False,

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+1#!/usr/bin/env python3
 """
 🏢 NICEGOLD Enterprise ProjectP - Enterprise Installation Manager
 Advanced installation system with enterprise features and full dependency management

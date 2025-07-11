@@ -48,11 +48,14 @@ from elliott_wave_modules.enterprise_ml_protection import EnterpriseMLProtection
 # 🚀 Advanced Logging Integration
 try:
     from core.unified_enterprise_logger import get_unified_logger
-    from core.real_time_progress_manager import get_progress_manager
     ADVANCED_LOGGING_AVAILABLE = True
-except ImportError:
+    print("✅ Advanced logging system loaded successfully")
+except ImportError as e:
     ADVANCED_LOGGING_AVAILABLE = False
-    print("⚠️ Advanced logging not available, using standard logging")
+    print(f"ℹ️ Using standard logging (Advanced components: {e})")
+
+# Progress Manager is optional - no import needed
+PROGRESS_MANAGER_AVAILABLE = False  # Disabled for now
 
 
 class DataProcessor:
@@ -73,7 +76,7 @@ class ElliottWaveDataProcessor:
         # 🚀 Initialize Advanced Logging
         if ADVANCED_LOGGING_AVAILABLE:
             self.logger = get_unified_logger()
-            self.progress_manager = get_progress_manager()
+            self.progress_manager = None  # Progress manager disabled for now
             self.logger.info(f"🚀 {self.component_name} initialized with Advanced Logging", 
                             component=self.component_name)
         else:
@@ -529,14 +532,16 @@ class ElliottWaveDataProcessor:
             return None # Error logged in validator
 
         initial_size = len(df)
-        self.progress_manager.update_progress('data_processing', 10, "Data Loaded and Validated")
+        if self.progress_manager:
+            self.progress_manager.update_progress('data_processing', 10, "Data Loaded and Validated")
 
         # Step 3: Noise Filtering (Example: using a simple moving average)
         try:
             # Ensure data is numeric before this step
             df['close_filtered'] = df['close'].rolling(window=3).mean()
             df.dropna(inplace=True) # Remove rows with NaN from rolling mean
-            self.progress_manager.update_progress('data_processing', 30, "Noise Filtering Complete")
+            if self.progress_manager:
+                self.progress_manager.update_progress('data_processing', 30, "Noise Filtering Complete")
             self._log_data_size_change("DataFrame", "Noise Filtering", initial_size, len(df))
         except Exception as e:
             self.logger.error(f"Error during noise filtering: {e}", self.component_name)
@@ -546,7 +551,8 @@ class ElliottWaveDataProcessor:
         # Step 4: Feature Engineering (add more indicators as needed)
         self.logger.info("Starting feature engineering...", self.component_name)
         df = self.add_technical_indicators(df)
-        self.progress_manager.update_progress('data_processing', 60, "Feature Engineering Complete")
+        if self.progress_manager:
+            self.progress_manager.update_progress('data_processing', 60, "Feature Engineering Complete")
         
         # Step 5: Final Data Preparation
         self.logger.info("Finalizing data preparation...", self.component_name)
@@ -578,7 +584,8 @@ class ElliottWaveDataProcessor:
             self.logger.warning(f"⚠️ Removing remaining string columns: {string_columns}", self.component_name)
             df = df.drop(columns=string_columns)
         
-        self.progress_manager.update_progress('data_processing', 100, "Data Processing Complete")
+        if self.progress_manager:
+            self.progress_manager.update_progress('data_processing', 100, "Data Processing Complete")
         self.logger.info("Elliott Wave data processing pipeline finished successfully.", self.component_name)
         
         return df
@@ -674,6 +681,56 @@ class ElliottWaveDataProcessor:
         
         # Return data as a list of dictionaries
         return wave_data_df[['type', 'close']].reset_index().to_dict('records')
+
+    def load_and_prepare_data(self, data_file: str = None) -> Dict[str, Any]:
+        """
+        Enterprise method to load and prepare data for the Elliott Wave pipeline.
+        Returns a dictionary with data, X, y, and metadata for compatibility with enhanced menu.
+        """
+        try:
+            self.logger.info(f"🔄 Loading and preparing data from: {data_file or 'auto-detected source'}")
+            
+            # Load real market data
+            raw_data = self.load_real_data()
+            if raw_data is None:
+                return {"status": "ERROR", "message": "Failed to load real market data"}
+            
+            # Process the data for Elliott Wave analysis
+            processed_data = self.process_data_for_elliott_wave(raw_data)
+            if processed_data is None:
+                return {"status": "ERROR", "message": "Failed to process data for Elliott Wave analysis"}
+            
+            # Create target variable (simple price direction prediction)
+            processed_data['target'] = (processed_data['close'].shift(-1) > processed_data['close']).astype(int)
+            processed_data = processed_data.dropna()  # Remove last row with NaN target
+            
+            # Prepare X and y for ML
+            feature_columns = [col for col in processed_data.columns if col != 'target']
+            X = processed_data[feature_columns]
+            y = processed_data['target']
+            
+            self.logger.info(f"✅ Data prepared successfully: {len(X)} samples, {len(feature_columns)} features")
+            
+            return {
+                "status": "SUCCESS",
+                "data": processed_data,
+                "X": X,
+                "y": y,
+                "feature_columns": feature_columns,
+                "data_shape": X.shape,
+                "target_distribution": y.value_counts().to_dict(),
+                "metadata": {
+                    "original_rows": len(raw_data),
+                    "processed_rows": len(processed_data),
+                    "features_count": len(feature_columns),
+                    "data_source": data_file or "auto-detected"
+                }
+            }
+            
+        except Exception as e:
+            error_msg = f"Failed to load and prepare data: {str(e)}"
+            self.logger.error(error_msg, component=self.component_name)
+            return {"status": "ERROR", "message": error_msg}
 
     def run_full_pipeline(self) -> Optional[pd.DataFrame]:
         """

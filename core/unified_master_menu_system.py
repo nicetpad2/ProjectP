@@ -145,7 +145,7 @@ class UnifiedMasterMenuSystem:
             import traceback
             traceback.print_exc()
             return False
-    
+
     def _initialize_config(self) -> bool:
         """Initialize enterprise configuration from unified source."""
         try:
@@ -182,12 +182,12 @@ class UnifiedMasterMenuSystem:
             return True
         except ImportError:
             self.logger.error("Could not import EnterpriseGPUManager. System info will be incomplete.", component="SysInit")
+            return False
         except Exception as e:
             self.logger.error(f"Failed to initialize system info: {str(e)}", component="SysInit", error_details=traceback.format_exc())
             safe_print(f"⚠️ System info initialization failed")
-
-        return False
-
+            return False
+    
     def _initialize_menu_1(self) -> bool:
         """Initialize the single, unified Menu 1 Elliott Wave system."""
         if not self.config:
@@ -239,6 +239,9 @@ class UnifiedMasterMenuSystem:
             "║ D. 🎨 Beautiful Progress Bars Demo                                                               ║",
             "║    ✨ Demonstration of visual progress tracking system                                           ║",
             "║                                                                                                   ║",
+            "║ T. 🔐 Terminal Lock System                                                ⭐ NEW!              ║",
+            "║    🎯 Beautiful & Modern Terminal Security Lock with Enterprise Features                        ║",
+            "║                                                                                                   ║",
             "║ E. 🚪 Exit System                                                                                ║",
             "║ R. 🔄 Reset & Restart Complete System                                                           ║",
             "║                                                                                                   ║",
@@ -272,13 +275,15 @@ class UnifiedMasterMenuSystem:
                 return self._handle_system_diagnostics()
             elif choice == "D":
                 return self._handle_progress_demo()
+            elif choice == "T":
+                return self._handle_terminal_lock()
             elif choice == "E":
                 return self._handle_exit()
             elif choice == "R":
                 return self._handle_restart()
             else:
                 safe_print(f"❌ Invalid choice: {choice}")
-                safe_print("💡 Please select 1, 2, 3, D, E, or R")
+                safe_print("💡 Please select 1, 2, 3, D, T, E, or R")
                 return True
                 
         except Exception as e:
@@ -348,22 +353,23 @@ class UnifiedMasterMenuSystem:
             return True
 
         safe_print("\n" + "═"*25 + " 📊 SYSTEM STATUS & RESOURCE MONITOR " + "═"*25)
+                
+        # Basic system status
+        safe_print(f"\n🏢 Enterprise System Status:")
+        safe_print(f"  📊 Session ID: {self.session_id}")
+        safe_print(f"  🧠 Resource Manager: {'✅ Active' if self.resource_manager else '❌ Inactive'}")
+        safe_print(f"  📝 Logger: {'✅ Active' if self.logger else '❌ Inactive'}")
+        safe_print(f"  ⚙️ Configuration: {'✅ Active' if self.config else '❌ Inactive'}")
+        safe_print(f"  🎛️ Menu 1: {'✅ Ready' if self.menu_available else '❌ Not Ready'}")
         
-        # Safely get performance and health status using hasattr
-        if hasattr(self.resource_manager, 'get_current_performance'):
-            perf = self.resource_manager.get_current_performance()
-            safe_print(f"  🧠 CPU Usage: {perf.get('cpu', 'N/A')}")
-            safe_print(f"  💾 Memory Usage: {perf.get('memory', 'N/A')}")
-        else:
-            safe_print("  Performance metrics not available for this resource manager.")
+        # Resource information if available
+        try:
+            safe_print(f"\n💾 Resource Information:")
+            safe_print(f"  Resource Manager Type: {type(self.resource_manager).__name__}")
+            safe_print(f"  System Mode: Production")
+        except Exception as e:
+            safe_print(f"  ⚠️ Could not retrieve detailed resource information: {e}")
 
-        if hasattr(self.resource_manager, 'get_health_status'):
-            health = self.resource_manager.get_health_status()
-            safe_print(f"  🌡️ System Health: {health.get('status', 'N/A')} - {health.get('message', 'No details')}")
-        else:
-            safe_print("  Health status not available for this resource manager.")
-            
-        safe_print("═"*80)
         input("\nPress Enter to continue...")
         return True
     
@@ -480,6 +486,104 @@ class UnifiedMasterMenuSystem:
         input("\nPress Enter to continue...")
         return True
     
+    def _handle_terminal_lock(self) -> bool:
+        """Handle Terminal Lock System"""
+        safe_print("\n🔐 NICEGOLD ENTERPRISE TERMINAL LOCK SYSTEM")
+        safe_print("="*80)
+        safe_print("🎯 Beautiful & Modern Terminal Security Lock with Enterprise Features")
+        safe_print("")
+        
+        try:
+            # Try to import and run the Terminal Lock Interface
+            try:
+                from terminal_lock_interface import SimpleTerminalLock
+                safe_print("✅ Simple Terminal Lock System loaded successfully")
+                
+                # Create and run Terminal Lock
+                lock = SimpleTerminalLock()
+                
+                # Show quick demo or interactive menu
+                safe_print("\n🎮 TERMINAL LOCK OPTIONS:")
+                safe_print("1. 🎪 Interactive Menu (Full Features)")
+                safe_print("2. 🔐 Quick Lock Demo")
+                safe_print("3. 📊 System Status")
+                safe_print("4. 🚪 Return to Main Menu")
+                
+                try:
+                    choice = input("\n🎯 Select option (1-4): ").strip()
+                    
+                    if choice == "1":
+                        safe_print("\n🎪 Starting Interactive Terminal Lock Menu...")
+                        lock.interactive_menu()
+                    elif choice == "2":
+                        safe_print("\n🔐 Running Quick Lock Demo...")
+                        safe_print("Setting demo password: 'demo123'")
+                        lock.set_password("demo123")
+                        
+                        safe_print("\n🔐 Locking terminal...")
+                        lock.lock()
+                        
+                        safe_print("\n⏳ Waiting 3 seconds...")
+                        time.sleep(3)
+                        
+                        safe_print("\n🔓 Unlocking with demo password...")
+                        unlock_result = lock.unlock("demo123")
+                        
+                        if unlock_result:
+                            safe_print("✅ Demo completed successfully!")
+                        else:
+                            safe_print("❌ Demo unlock failed")
+                    elif choice == "3":
+                        safe_print("\n📊 Terminal Lock System Status:")
+                        lock.show_status()
+                    elif choice == "4":
+                        safe_print("🚪 Returning to main menu...")
+                    else:
+                        safe_print("❌ Invalid choice")
+                        
+                except (EOFError, KeyboardInterrupt):
+                    safe_print("\n🛑 Terminal Lock interrupted by user")
+                    
+            except ImportError as e:
+                safe_print("❌ Terminal Lock Interface not available")
+                safe_print(f"   Error: {e}")
+                safe_print("💡 Make sure terminal_lock_interface.py is in the project root")
+                
+                # Try Enterprise Terminal Lock as fallback
+                try:
+                    from core.enterprise_terminal_lock import EnterpriseTerminalLock
+                    safe_print("✅ Enterprise Terminal Lock System loaded as fallback")
+                    
+                    lock = EnterpriseTerminalLock()
+                    safe_print("\n🏢 Running Enterprise Terminal Lock...")
+                    safe_print("🎯 Enterprise Terminal Lock is available but demo requires manual configuration")
+                    safe_print("💡 Use Simple Terminal Lock Interface for quick demo")
+                    
+                except ImportError:
+                    safe_print("❌ Enterprise Terminal Lock also not available")
+                    safe_print("💡 Please check the terminal lock system installation")
+            
+            # Show Terminal Lock Features
+            safe_print("\n🌟 TERMINAL LOCK FEATURES:")
+            safe_print("  🎨 Beautiful ASCII Art Displays")
+            safe_print("  🔐 Password Protection with SHA-256 Hashing")
+            safe_print("  🛡️ Enterprise Security Features")
+            safe_print("  🌈 Cross-platform Color Support")
+            safe_print("  📊 Real-time System Information")
+            safe_print("  ⚡ Lightning-fast Lock/Unlock Operations")
+            safe_print("  🔄 Session Management & File-based Locking")
+            safe_print("  📝 Comprehensive Logging & Monitoring")
+            safe_print("  🧪 100% Tested Quality")
+            safe_print("  🏢 Enterprise-grade Compliance")
+            
+        except Exception as e:
+            safe_print(f"❌ Terminal Lock system error: {e}")
+            import traceback
+            traceback.print_exc()
+        
+        input("\nPress Enter to continue...")
+        return True
+    
     def _handle_exit(self) -> bool:
         """Handle system exit"""
         safe_print("\n🚪 EXITING NICEGOLD ENTERPRISE PROJECTP")
@@ -508,49 +612,40 @@ class UnifiedMasterMenuSystem:
         # The return value of 'False' from handle_menu_choice would stop the loop,
         # but we also return a specific value to indicate restart is needed.
         return 'restart'
-
+    
     def start(self):
         """
-        Start the unified master menu system.
-        MODIFIED FOR AUTOMATED EXECUTION: This method now directly runs the
-        Elliott Wave pipeline instead of showing the interactive menu.
+        Start the unified master menu system with interactive menu including Terminal Lock.
         """
         self.logger.info("🚀 Starting Unified Master Menu System...")
-        self.logger.info("⚙️ AUTOMATED MODE: Directly executing Elliott Wave Full Pipeline.")
+        self.logger.info("🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.")
 
-        # Directly execute the main pipeline
-        self._handle_elliott_wave_pipeline()
+        # Show interactive menu with Terminal Lock option
+        while self.running:
+            self.display_unified_menu()
+            try:
+                choice = self.get_user_choice()
+                action_result = self.handle_menu_choice(choice)
 
-        self.logger.info("✅ Automated execution complete. System will now exit.")
-        self.running = False # Ensure the program exits after the run
-        
-        # Original interactive loop is commented out for automated run
-        #
-        # while self.running:
-        #     self.display_unified_menu()
-        #     try:
-        #         choice = self.get_user_choice()
-        #         action_result = self.handle_menu_choice(choice)
-
-        #         if action_result == 'restart':
-        #             # Special case for restart
-        #             safe_print("\n🔄 Restarting system...")
-        #             # A wrapper script would be needed to truly restart the process.
-        #             # For now, we exit and the user can re-run.
-        #             break 
+                if action_result == 'restart':
+                    # Special case for restart
+                    safe_print("\n🔄 Restarting system...")
+                    # A wrapper script would be needed to truly restart the process.
+                    # For now, we exit and the user can re-run.
+                    break 
                 
-        #         if not action_result:
-        #             # For 'exit' or other loop-breaking conditions
-        #             self.running = False
+                if not action_result:
+                    # For 'exit' or other loop-breaking conditions
+                    self.running = False
 
-        #     except KeyboardInterrupt:
-        #         safe_print("\n\n Caught KeyboardInterrupt. Exiting gracefully. \n")
-        #         self.running = False
-        #     except Exception as e:
-        #         self.logger.critical(f"An unexpected error occurred in the main loop: {e}", exc_info=True)
-        #         safe_print(f"❌ An unexpected error occurred: {e}")
-        #         self.running = False
-        
+            except KeyboardInterrupt:
+                safe_print("\n\n🛑 Caught KeyboardInterrupt. Exiting gracefully.\n")
+                self.running = False
+            except Exception as e:
+                self.logger.critical(f"An unexpected error occurred in the main loop: {e}", exc_info=True)
+                safe_print(f"❌ An unexpected error occurred: {e}")
+                self.running = False
+
 def main():
     """For testing purposes"""
     try:

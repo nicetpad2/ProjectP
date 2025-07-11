@@ -173,7 +173,7 @@ class EnterpriseModelManager:
     def __init__(self, config: Dict[str, Any] = None, logger: logging.Logger = None):
         """Initialize Enterprise Model Manager"""
         self.config = config or {}
-            self.logger = logger or get_unified_logger()
+        self.logger = logger or get_unified_logger()
         
         # Get project paths
         self.paths = get_project_paths()
@@ -250,18 +250,18 @@ class EnterpriseModelManager:
             self.db_path = self.metadata_dir / "enterprise_model_registry.db"
             
             with sqlite3.connect(str(self.db_path)) as conn:
-            cursor = conn.cursor()
-            
+                cursor = conn.cursor()
+                
                 # Create enterprise model registry table
-            cursor.execute('''
+                cursor.execute('''
                     CREATE TABLE IF NOT EXISTS enterprise_models (
-                    model_id TEXT PRIMARY KEY,
-                    model_name TEXT NOT NULL,
-                    model_type TEXT NOT NULL,
-                    version TEXT NOT NULL,
-                    status TEXT NOT NULL,
+                        model_id TEXT PRIMARY KEY,
+                        model_name TEXT NOT NULL,
+                        model_type TEXT NOT NULL,
+                        version TEXT NOT NULL,
+                        status TEXT NOT NULL,
                         deployment_stage TEXT NOT NULL,
-                    created_at TEXT NOT NULL,
+                        created_at TEXT NOT NULL,
                         trained_at TEXT,
                         validated_at TEXT,
                         deployed_at TEXT,
@@ -276,18 +276,18 @@ class EnterpriseModelManager:
                         production_metrics TEXT,
                         target_performance REAL NOT NULL,
                         actual_performance REAL NOT NULL,
-                    training_config TEXT,
+                        training_config TEXT,
                         training_duration_seconds REAL,
                         training_data_samples INTEGER,
                         validation_data_samples INTEGER,
-                    feature_count INTEGER,
-                    business_purpose TEXT,
+                        feature_count INTEGER,
+                        business_purpose TEXT,
                         use_case_description TEXT,
                         expected_usage_pattern TEXT,
                         risk_assessment TEXT,
                         compliance_level TEXT,
                         framework_name TEXT,
-                    framework_version TEXT,
+                        framework_version TEXT,
                         python_version TEXT,
                         dependencies TEXT,
                         hardware_requirements TEXT,
@@ -303,9 +303,9 @@ class EnterpriseModelManager:
                         compliance_checklist TEXT,
                         audit_trail TEXT,
                         access_permissions TEXT
-                )
-            ''')
-            
+                    )
+                ''')
+                
                 self.logger.info("✅ Enterprise model database initialized")
         except Exception as e:
             self.logger.error(f"❌ Failed to initialize enterprise database: {e}")
@@ -853,8 +853,8 @@ class EnterpriseModelManager:
         """Add new model metadata to SQLite database"""
         try:
             with sqlite3.connect(str(self.db_path)) as conn:
-            cursor = conn.cursor()
-            
+                cursor = conn.cursor()
+                
                 # Prepare data for insertion
                 data_dict = metadata.to_dict()
                 
@@ -883,8 +883,8 @@ class EnterpriseModelManager:
         """Update existing model metadata in SQLite database"""
         try:
             with sqlite3.connect(str(self.db_path)) as conn:
-            cursor = conn.cursor()
-            
+                cursor = conn.cursor()
+                
                 # Prepare data for update
                 data_dict = metadata.to_dict()
                 

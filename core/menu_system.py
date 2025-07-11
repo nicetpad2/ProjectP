@@ -623,7 +623,7 @@ class UnifiedMasterMenuSystem:
                 print(f"❌ High Memory Performance Analytics failed: {e}")
             input("Press Enter to continue...")
             return False
-
+    
     def start(self):
         """เริ่มต้นระบบเมนู"""
         self.logger.info("🎛️ Menu System Started")
@@ -646,6 +646,9 @@ class UnifiedMasterMenuSystem:
                 break
         
         self.logger.info("✅ Menu System Shutdown Complete")
+
+# Create alias for backward compatibility
+MenuSystem = UnifiedMasterMenuSystem
 
 def main():
     """Main entry point for the menu system."""

@@ -49,7 +49,7 @@ class HighMemoryResourceManager:
         
         # Initialize logging
         self.logger = get_unified_logger("HighMemoryResourceManager")
-            self.logger.info("🧠 High Memory Resource Manager initializing...")
+        self.logger.info("🧠 High Memory Resource Manager initializing...")
         
         # High memory, low CPU thresholds
         self.memory_warning = 0.85   # Warning at 85% (high)
@@ -67,7 +67,7 @@ class HighMemoryResourceManager:
         # Start CPU-efficient monitoring
         self._start_cpu_efficient_monitoring()
         
-            self.logger.info("✅ High Memory Resource Manager ready")
+        self.logger.info("✅ High Memory Resource Manager ready")
 
     def _detect_system_resources(self) -> Dict[str, Any]:
         """Detect system resources with focus on memory"""

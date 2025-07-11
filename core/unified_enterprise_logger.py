@@ -929,6 +929,53 @@ class CompatibilityLogger:
         if message:
             self.success(f"{status} Step {step_num} ({step_name}): {message}")
 
+    # === NEWLY ADDED LEGACY PROGRESS BAR SUPPORT ===
+    def progress_bar(self, name: str, total: int = 100):
+        """Return a legacy-compatible progress bar context manager.
+
+        This helper allows older pipeline code that expects a `progress_bar` with
+        `update()` and `advance()` methods to work seamlessly with the new
+        unified logger implementation.
+        """
+        from contextlib import contextmanager  # Local import to avoid circular issues
+
+        logger = self.unified_logger  # type: UnifiedEnterpriseLogger
+        total_steps = total if total and total > 0 else 1
+
+        class _LegacyProgressBar:
+            """Simple wrapper providing `update` and `advance` methods."""
+            def __init__(self, logger_ref, task_id: str, total_steps: int):
+                self._logger_ref = logger_ref
+                self._task_id = task_id
+                self._total_steps = total_steps
+                self._current_step = 0
+
+            def update(self, description: str = None, **kwargs):
+                """Optionally log a textual update/description."""
+                if description:
+                    # Route through unified logger for proper formatting
+                    self._logger_ref.info(description, component="PROGRESS")
+
+            def advance(self, steps: int = 1):
+                """Advance the progress by the given number of steps."""
+                self._current_step += steps
+                # Ensure we don't exceed total steps
+                if self._current_step > self._total_steps:
+                    self._current_step = self._total_steps
+                self._logger_ref.update_progress(self._task_id, current_step=self._current_step)
+
+        @contextmanager
+        def _progress_cm():
+            # Create a task in the unified progress system
+            task_id = logger.create_progress_task(name, total_steps)
+            progress_obj = _LegacyProgressBar(logger, task_id, total_steps)
+            try:
+                yield progress_obj
+            finally:
+                logger.complete_progress_task(task_id)
+
+        # Return an *instance* of the context manager (so caller can directly use `with`)
+        return _progress_cm()
 
 # ===== GLOBAL LOGGER ACCESS =====
 
