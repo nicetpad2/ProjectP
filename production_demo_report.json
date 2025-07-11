@@ -1,0 +1,125 @@
+{
+  "demo_summary": {
+    "total_data_points": 10,
+    "duration_seconds": 30,
+    "average_resource_usage": {
+      "cpu": 37.8,
+      "memory": 12.5,
+      "gpu": 0.0
+    },
+    "total_optimizations": 0,
+    "final_status": "monitoring"
+  },
+  "detailed_data": [
+    {
+      "timestamp": "2025-07-11T06:44:14.541014",
+      "resources": {
+        "cpu": 32.9,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:17.747136",
+      "resources": {
+        "cpu": 32.9,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:20.952827",
+      "resources": {
+        "cpu": 47.4,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:24.158955",
+      "resources": {
+        "cpu": 30.9,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:27.364220",
+      "resources": {
+        "cpu": 30.8,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:30.575916",
+      "resources": {
+        "cpu": 32.5,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "active",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:33.781286",
+      "resources": {
+        "cpu": 59.5,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "learning",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:36.988703",
+      "resources": {
+        "cpu": 32.5,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "adapting",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:40.194002",
+      "resources": {
+        "cpu": 46.1,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "adapting",
+      "optimizations_applied": 0
+    },
+    {
+      "timestamp": "2025-07-11T06:44:43.400458",
+      "resources": {
+        "cpu": 32.5,
+        "memory": 12.5,
+        "disk": 20.0
+      },
+      "orchestration_status": "monitoring",
+      "orchestration_mode": "adapting",
+      "optimizations_applied": 0
+    }
+  ]
+}

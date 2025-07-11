@@ -1,0 +1,53 @@
+{
+  "test_suite": "Intelligent Resource Management Test",
+  "start_time": "2025-07-11T06:41:15.305146",
+  "end_time": "2025-07-11T06:41:27.241480",
+  "total_tests": 7,
+  "passed": 7,
+  "failed": 0,
+  "errors": 0,
+  "results": [
+    {
+      "test": "Environment Detector Test",
+      "status": "PASSED",
+      "duration": 0.6772637367248535,
+      "timestamp": "2025-07-11T06:41:15.982756"
+    },
+    {
+      "test": "Resource Manager Test",
+      "status": "PASSED",
+      "duration": 0.6127445697784424,
+      "timestamp": "2025-07-11T06:41:16.595555"
+    },
+    {
+      "test": "Smart Orchestrator Test",
+      "status": "PASSED",
+      "duration": 5.0233118534088135,
+      "timestamp": "2025-07-11T06:41:21.618935"
+    },
+    {
+      "test": "80% Resource Allocation Test",
+      "status": "PASSED",
+      "duration": 0.00014090538024902344,
+      "timestamp": "2025-07-11T06:41:21.619127"
+    },
+    {
+      "test": "Environment Adaptation Test",
+      "status": "PASSED",
+      "duration": 0.00014019012451171875,
+      "timestamp": "2025-07-11T06:41:21.619309"
+    },
+    {
+      "test": "Performance Optimization Test",
+      "status": "PASSED",
+      "duration": 0.6050817966461182,
+      "timestamp": "2025-07-11T06:41:22.224442"
+    },
+    {
+      "test": "Monitoring and Alerting Test",
+      "status": "PASSED",
+      "duration": 5.016819000244141,
+      "timestamp": "2025-07-11T06:41:27.241315"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "integration_summary": {
+    "status": "SUCCESS",
+    "integration_active": false,
+    "total_duration": 0,
+    "overall_efficiency": 0,
+    "stages_completed": 1,
+    "alerts_generated": 0,
+    "target_allocation": 0.8
+  },
+  "pipeline_summary": {},
+  "performance_analysis": {
+    "stage_performance": {
+      "demo_stage": {
+        "start_time": 1752217237.950182,
+        "start_resources": {
+          "cpu_percent": 100.0,
+          "memory": {
+            "total": 54752948224,
+            "available": 49386721280,
+            "percent": 9.8,
+            "used": 4698873856,
+            "free": 38759002112,
+            "active": 3198590976,
+            "inactive": 11775901696,
+            "buffers": 398118912,
+            "cached": 10896953344,
+            "shared": 23711744,
+            "slab": 802144256
+          },
+          "disk": {
+            "total": 242486079488,
+            "used": 48533237760,
+            "free": 193936064512,
+            "percent": 20.0
+          }
+        },
+        "status": "completed",
+        "end_time": 1752217240.9547782,
+        "duration": 3.00459623336792,
+        "end_resources": {
+          "cpu_percent": 99.7,
+          "memory": {
+            "total": 54752948224,
+            "available": 49380499456,
+            "percent": 9.8,
+            "used": 4705099776,
+            "free": 38753112064,
+            "active": 3198562304,
+            "inactive": 11777957888,
+            "buffers": 398127104,
+            "cached": 10896609280,
+            "shared": 23707648,
+            "slab": 802209792
+          },
+          "disk": {
+            "total": 242486079488,
+            "used": 48533237760,
+            "free": 193936064512,
+            "percent": 20.0
+          }
+        },
+        "metrics": {
+          "auc": 0.75,
+          "accuracy": 0.82
+        },
+        "efficiency": 0.3401
+      }
+    },
+    "resource_utilization_history": 0,
+    "efficiency_by_stage": {
+      "demo_stage": 0.3401
+    }
+  },
+  "resource_management": {
+    "unified_system_enabled": true,
+    "environment_detection_enabled": true,
+    "monitoring_enabled": false,
+    "alerts_and_warnings": []
+  },
+  "recommendations": [
+    "Consider reducing workload or increasing resources"
+  ],
+  "generated_at": "2025-07-11T07:00:41.960047"
+}
