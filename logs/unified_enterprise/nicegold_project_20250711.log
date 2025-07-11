@@ -4056,3 +4056,402 @@
 2025-07-11 13:09:14,695 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
 2025-07-11 13:09:20,942 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
 2025-07-11 13:09:20,944 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 14:11:56,968 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 14:11:56,973 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 2d249db7
+2025-07-11 14:11:56,976 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 14:11:57,018 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 14:12:01,151 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High Memory Resource Manager initializing...
+2025-07-11 14:12:01,190 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 High-RAM system detected: 31.3GB total, 15.9GB available
+2025-07-11 14:12:01,203 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 High-memory allocation: 12.7GB RAM (80%), 2 cores (17%)
+2025-07-11 14:12:01,207 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 CPU-efficient monitoring started
+2025-07-11 14:12:01,209 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ High Memory Resource Manager ready
+2025-07-11 14:12:01,214 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ Monitoring already active
+2025-07-11 14:12:02,129 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-11 14:12:02,175 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-11 14:12:04,500 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-11 14:12:04,503 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-11 14:12:10,005 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-11 14:12:10,007 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-11 14:12:10,010 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-11 14:12:10,013 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-11 14:12:10,017 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-11 14:12:10,020 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-11 14:12:10,031 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-11 14:12:23,434 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_141223)
+2025-07-11 14:12:23,518 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 14:12:23,522 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 14:12:23,535 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_141223
+2025-07-11 14:12:23,540 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 14:12:23,543 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Production Features initialized
+2025-07-11 14:12:23,547 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Auto-initializing AI/ML components...
+2025-07-11 14:12:23,550 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating Enterprise Resource Manager...
+2025-07-11 14:12:23,571 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Initializing AI/ML components...
+2025-07-11 14:12:23,577 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Enterprise Model Manager...
+2025-07-11 14:12:23,603 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model directories structure created
+2025-07-11 14:12:23,614 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model database initialized
+2025-07-11 14:12:23,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Loaded 3 models from registry
+2025-07-11 14:12:23,627 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Model Manager initialized successfully
+2025-07-11 14:12:23,630 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise Model Manager initialized successfully
+2025-07-11 14:12:23,634 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Initializing Data Processor...
+2025-07-11 14:12:23,637 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-11 14:12:23,639 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:12:23,642 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:12:23,644 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data Processor initialized successfully
+2025-07-11 14:12:23,649 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Initializing Feature Selector...
+2025-07-11 14:12:23,717 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-11 14:12:23,722 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-11 14:12:23,727 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-11 14:12:23,730 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-11 14:12:23,734 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-11 14:12:23,737 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Feature Selector initialized successfully
+2025-07-11 14:12:23,739 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Initializing ML Protection System...
+2025-07-11 14:12:23,743 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:12:23,748 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:12:23,752 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ ML Protection System initialized successfully
+2025-07-11 14:12:23,754 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Initializing CNN-LSTM Engine...
+2025-07-11 14:12:23,758 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-11 14:12:23,761 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-11 14:12:23,764 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ CNN-LSTM Engine initialized successfully
+2025-07-11 14:12:23,767 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🤖 Initializing DQN Agent...
+2025-07-11 14:12:26,609 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-11 14:12:26,615 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized successfully
+2025-07-11 14:12:26,619 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Performance Analyzer...
+2025-07-11 14:12:26,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance Analyzer initialized successfully
+2025-07-11 14:12:26,627 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎉 All AI/ML components initialized successfully!
+2025-07-11 14:12:26,631 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All components auto-initialized successfully
+2025-07-11 14:12:26,634 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 Elliott Wave (Unified): READY
+2025-07-11 14:12:26,638 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_141226)
+2025-07-11 14:12:26,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_141226
+2025-07-11 14:12:26,661 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 14:12:26,664 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Production Features initialized
+2025-07-11 14:12:26,669 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Auto-initializing AI/ML components...
+2025-07-11 14:12:26,673 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating Enterprise Resource Manager...
+2025-07-11 14:12:26,697 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Initializing AI/ML components...
+2025-07-11 14:12:26,699 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Enterprise Model Manager...
+2025-07-11 14:12:26,735 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model directories structure created
+2025-07-11 14:12:26,744 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model database initialized
+2025-07-11 14:12:26,754 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Loaded 3 models from registry
+2025-07-11 14:12:26,759 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Model Manager initialized successfully
+2025-07-11 14:12:26,763 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise Model Manager initialized successfully
+2025-07-11 14:12:26,767 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Initializing Data Processor...
+2025-07-11 14:12:26,771 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-11 14:12:26,774 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:12:26,778 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:12:26,784 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data Processor initialized successfully
+2025-07-11 14:12:26,789 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Initializing Feature Selector...
+2025-07-11 14:12:26,793 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-11 14:12:26,799 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-11 14:12:26,807 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-11 14:12:26,811 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-11 14:12:26,814 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-11 14:12:26,818 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Feature Selector initialized successfully
+2025-07-11 14:12:26,820 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Initializing ML Protection System...
+2025-07-11 14:12:26,825 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:12:26,829 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:12:26,831 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ ML Protection System initialized successfully
+2025-07-11 14:12:26,834 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Initializing CNN-LSTM Engine...
+2025-07-11 14:12:26,837 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-11 14:12:26,840 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-11 14:12:26,843 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ CNN-LSTM Engine initialized successfully
+2025-07-11 14:12:26,847 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🤖 Initializing DQN Agent...
+2025-07-11 14:12:26,855 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-11 14:12:26,859 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized successfully
+2025-07-11 14:12:26,862 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Performance Analyzer...
+2025-07-11 14:12:26,866 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance Analyzer initialized successfully
+2025-07-11 14:12:26,869 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎉 All AI/ML components initialized successfully!
+2025-07-11 14:12:26,874 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All components auto-initialized successfully
+2025-07-11 14:18:12,608 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 14:18:12,614 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 168319fe
+2025-07-11 14:18:12,618 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 14:18:12,652 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 14:18:20,268 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_141820)
+2025-07-11 14:18:20,354 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 14:18:20,358 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 14:18:20,371 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_141820
+2025-07-11 14:18:20,375 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 14:18:20,378 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Production Features initialized
+2025-07-11 14:18:20,383 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Auto-initializing AI/ML components...
+2025-07-11 14:18:20,387 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating Enterprise Resource Manager...
+2025-07-11 14:18:20,406 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Initializing AI/ML components...
+2025-07-11 14:18:20,407 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Enterprise Model Manager...
+2025-07-11 14:18:20,433 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model directories structure created
+2025-07-11 14:18:20,447 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model database initialized
+2025-07-11 14:18:20,455 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Loaded 3 models from registry
+2025-07-11 14:18:20,458 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Model Manager initialized successfully
+2025-07-11 14:18:20,461 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise Model Manager initialized successfully
+2025-07-11 14:18:20,463 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Initializing Data Processor...
+2025-07-11 14:18:20,466 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-11 14:18:20,471 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:18:20,475 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:18:20,477 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data Processor initialized successfully
+2025-07-11 14:18:20,481 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Initializing Feature Selector...
+2025-07-11 14:18:20,537 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-11 14:18:20,540 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-11 14:18:20,546 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-11 14:18:20,550 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-11 14:18:20,561 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-11 14:18:20,565 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Feature Selector initialized successfully
+2025-07-11 14:18:20,567 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Initializing ML Protection System...
+2025-07-11 14:18:20,570 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:18:20,573 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:18:20,576 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ ML Protection System initialized successfully
+2025-07-11 14:18:20,581 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Initializing CNN-LSTM Engine...
+2025-07-11 14:18:20,584 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-11 14:18:20,587 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-11 14:18:20,590 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ CNN-LSTM Engine initialized successfully
+2025-07-11 14:18:20,594 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🤖 Initializing DQN Agent...
+2025-07-11 14:18:23,188 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-11 14:18:23,191 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized successfully
+2025-07-11 14:18:23,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Performance Analyzer...
+2025-07-11 14:18:23,197 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance Analyzer initialized successfully
+2025-07-11 14:18:23,200 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔬 Initializing Advanced Analyzer...
+2025-07-11 14:18:23,204 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Analyzer initialized successfully
+2025-07-11 14:18:23,207 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎉 All AI/ML components initialized successfully!
+2025-07-11 14:18:23,211 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All components auto-initialized successfully
+2025-07-11 14:18:23,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Analyzing final results...
+2025-07-11 14:18:23,222 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Using performance analyzer for result analysis...
+2025-07-11 14:18:23,228 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Analyzing Elliott Wave system performance...
+2025-07-11 14:18:23,231 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance analysis completed
+2025-07-11 14:18:23,235 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance analysis completed successfully
+2025-07-11 14:18:23,238 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_141823)
+2025-07-11 14:18:23,255 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_141823
+2025-07-11 14:18:23,258 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 14:18:23,262 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Production Features initialized
+2025-07-11 14:18:23,265 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Auto-initializing AI/ML components...
+2025-07-11 14:18:23,267 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating Enterprise Resource Manager...
+2025-07-11 14:18:23,291 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Initializing AI/ML components...
+2025-07-11 14:18:23,294 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Enterprise Model Manager...
+2025-07-11 14:18:23,320 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model directories structure created
+2025-07-11 14:18:23,327 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model database initialized
+2025-07-11 14:18:23,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Loaded 3 models from registry
+2025-07-11 14:18:23,343 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Model Manager initialized successfully
+2025-07-11 14:18:23,346 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise Model Manager initialized successfully
+2025-07-11 14:18:23,350 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Initializing Data Processor...
+2025-07-11 14:18:23,353 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-11 14:18:23,358 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:18:23,361 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:18:23,364 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data Processor initialized successfully
+2025-07-11 14:18:23,368 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Initializing Feature Selector...
+2025-07-11 14:18:23,372 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-11 14:18:23,381 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-11 14:18:23,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-11 14:18:23,389 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-11 14:18:23,393 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-11 14:18:23,395 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Feature Selector initialized successfully
+2025-07-11 14:18:23,398 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Initializing ML Protection System...
+2025-07-11 14:18:23,400 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:18:23,404 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:18:23,406 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ ML Protection System initialized successfully
+2025-07-11 14:18:23,408 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Initializing CNN-LSTM Engine...
+2025-07-11 14:18:23,412 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-11 14:18:23,416 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-11 14:18:23,420 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ CNN-LSTM Engine initialized successfully
+2025-07-11 14:18:23,424 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🤖 Initializing DQN Agent...
+2025-07-11 14:18:23,432 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-11 14:18:23,436 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized successfully
+2025-07-11 14:18:23,439 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Performance Analyzer...
+2025-07-11 14:18:23,448 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance Analyzer initialized successfully
+2025-07-11 14:18:23,453 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔬 Initializing Advanced Analyzer...
+2025-07-11 14:18:23,460 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Analyzer initialized successfully
+2025-07-11 14:18:23,468 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎉 All AI/ML components initialized successfully!
+2025-07-11 14:18:23,472 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All components auto-initialized successfully
+2025-07-11 14:18:23,480 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Analyzing final results...
+2025-07-11 14:18:23,485 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Using performance analyzer for result analysis...
+2025-07-11 14:18:23,489 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Analyzing Elliott Wave system performance...
+2025-07-11 14:18:23,497 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance analysis completed
+2025-07-11 14:18:23,500 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance analysis completed successfully
+2025-07-11 14:18:23,504 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Generating final report...
+2025-07-11 14:18:23,518 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Results saved: high_memory_pipeline_20250711_141823.json
+2025-07-11 14:28:29,934 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 14:28:29,937 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 792bd3ab
+2025-07-11 14:28:29,941 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 14:28:29,970 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 14:28:51,038 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 14:28:51,041 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 14:31:03,675 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-11 14:31:03,680 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: d7701c5a
+2025-07-11 14:31:03,684 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-11 14:31:03,723 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-11 14:31:11,124 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Menu 1 Initializing (Session: 20250711_143111)
+2025-07-11 14:31:11,211 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-11 14:31:11,214 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-11 14:31:11,226 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Output directories ready for session: 20250711_143111
+2025-07-11 14:31:11,229 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enhanced Menu 1 base framework initialized.
+2025-07-11 14:31:11,232 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Activating Enterprise Production Features...
+2025-07-11 14:31:11,236 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Auto-initializing AI/ML components with 80% RAM allocation...
+2025-07-11 14:31:11,245 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating 80% RAM Usage Strategy
+2025-07-11 14:31:11,247 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    💾 Total RAM: 31.3 GB
+2025-07-11 14:31:11,250 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Current Usage: 15.7 GB (50.0%)
+2025-07-11 14:31:11,252 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    🎯 Target 80%: 25.0 GB
+2025-07-11 14:31:11,255 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📈 Gap to fill: 9.4 GB
+2025-07-11 14:31:11,258 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Allocating 9.4 GB to reach 80% usage...
+2025-07-11 14:31:11,260 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    ⚙️ TensorFlow configured for high memory usage
+2025-07-11 14:31:11,283 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    ⚙️ PyTorch configured for high memory usage
+2025-07-11 14:31:11,760 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 1.5 GB, RAM: 54.7%
+2025-07-11 14:31:12,503 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 3.0 GB, RAM: 59.5%
+2025-07-11 14:31:13,023 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 4.5 GB, RAM: 64.3%
+2025-07-11 14:31:13,572 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 6.0 GB, RAM: 69.2%
+2025-07-11 14:31:14,248 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 7.5 GB, RAM: 73.8%
+2025-07-11 14:31:14,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 9.0 GB, RAM: 78.6%
+2025-07-11 14:31:14,714 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ RAM Allocation Complete: 78.6%
+2025-07-11 14:31:14,726 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Target achieved: ✅ Yes
+2025-07-11 14:31:14,729 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Arrays allocated: 6
+2025-07-11 14:31:14,731 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Initializing AI/ML components...
+2025-07-11 14:31:14,734 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Enterprise Model Manager...
+2025-07-11 14:31:14,760 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model directories structure created
+2025-07-11 14:31:14,773 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise model database initialized
+2025-07-11 14:31:14,782 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Loaded 3 models from registry
+2025-07-11 14:31:14,786 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise Model Manager initialized successfully
+2025-07-11 14:31:14,788 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise Model Manager initialized successfully
+2025-07-11 14:31:14,791 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Initializing Data Processor...
+2025-07-11 14:31:14,793 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-11 14:31:14,796 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:31:14,799 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:31:14,803 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data Processor initialized successfully
+2025-07-11 14:31:14,810 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Initializing Feature Selector...
+2025-07-11 14:31:14,886 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-11 14:31:14,891 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-11 14:31:14,897 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-11 14:31:14,900 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-11 14:31:14,904 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-11 14:31:14,907 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Feature Selector initialized successfully
+2025-07-11 14:31:14,910 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Initializing ML Protection System...
+2025-07-11 14:31:14,913 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-11 14:31:14,915 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-11 14:31:14,918 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ ML Protection System initialized successfully
+2025-07-11 14:31:14,920 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Initializing CNN-LSTM Engine...
+2025-07-11 14:31:14,925 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-11 14:31:14,928 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-11 14:31:14,931 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ CNN-LSTM Engine initialized successfully
+2025-07-11 14:31:14,933 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🤖 Initializing DQN Agent...
+2025-07-11 14:31:17,134 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-11 14:31:17,138 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized successfully
+2025-07-11 14:31:17,140 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Initializing Performance Analyzer...
+2025-07-11 14:31:17,144 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Performance Analyzer initialized successfully
+2025-07-11 14:31:17,147 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔬 Initializing Advanced Analyzer...
+2025-07-11 14:31:17,149 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Analyzer initialized successfully
+2025-07-11 14:31:17,151 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎉 All AI/ML components initialized successfully!
+2025-07-11 14:31:17,155 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All components auto-initialized successfully
+2025-07-11 14:31:17,174 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🧠 Activating 80% RAM Usage Strategy
+2025-07-11 14:31:17,177 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    💾 Total RAM: 31.3 GB
+2025-07-11 14:31:17,182 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Current Usage: 24.0 GB (76.6%)
+2025-07-11 14:31:17,185 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    🎯 Target 80%: 25.0 GB
+2025-07-11 14:31:17,188 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📈 Gap to fill: 1.1 GB
+2025-07-11 14:31:17,190 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Allocating 1.1 GB to reach 80% usage...
+2025-07-11 14:31:17,193 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    ⚙️ TensorFlow configured for high memory usage
+2025-07-11 14:31:17,196 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    ⚙️ PyTorch configured for high memory usage
+2025-07-11 14:31:17,355 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 0.4 GB, RAM: 77.7%
+2025-07-11 14:31:17,469 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📊 Allocated 0.7 GB, RAM: 78.9%
+2025-07-11 14:31:17,478 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ RAM Allocation Complete: 78.9%
+2025-07-11 14:31:17,480 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Target achieved: ✅ Yes
+2025-07-11 14:31:17,483 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Arrays allocated: 8
