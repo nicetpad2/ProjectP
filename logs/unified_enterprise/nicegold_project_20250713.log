@@ -1,0 +1,1599 @@
+2025-07-13 01:44:29,977 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 01:44:29,982 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: df8989a2
+2025-07-13 01:44:29,984 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 01:44:29,996 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:44:35,837 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:44:35,860 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:44:35,873 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:46:53,976 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 01:46:53,980 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 3eafbeb0
+2025-07-13 01:46:53,983 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 01:46:53,995 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:46:59,837 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:47:02,004 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-13 01:47:02,024 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-13 01:47:02,027 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ NVIDIA GPU detection failed: NVML Shared Library Not Found
+2025-07-13 01:47:02,031 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-13 01:47:02,034 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-13 01:47:02,039 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-13 01:47:02,043 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Processing Mode: CPU_OPTIMIZED
+2025-07-13 01:47:02,047 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise CPU optimization applied
+2025-07-13 01:47:02,052 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-13 01:47:02,056 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-13 01:47:02,061 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED
+2025-07-13 01:47:02,189 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-13 01:47:02,192 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-13 01:47:02,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-13 01:47:02,203 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: GPU detection error: [Errno 2] No such file or directory: 'nvidia-smi'
+2025-07-13 01:47:02,206 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-13 01:47:02,211 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🖥️  CPU-Only Mode (No GPU Detected)
+🧠 CPU Threads: 6
+📦 Batch Size: 1024
+🎯 Optuna Trials: 100
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-13 01:47:02,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-13 01:47:02,220 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-13 01:47:02,223 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED
+2025-07-13 01:47:02,227 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-13 01:47:02,229 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-13 01:47:03,702 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-13 01:47:03,712 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real Enterprise Elliott Wave (ACTUAL AI): READY
+2025-07-13 01:47:03,714 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-13 01:47:03,717 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.
+2025-07-13 01:47:08,447 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:47:08,460 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 01:47:08,492 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Detected Menu 1 session: 20250710_141138
+2025-07-13 01:47:08,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Menu 1 models found: 0
+2025-07-13 01:47:08,659 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Menu 1 data files: 4
+2025-07-13 01:47:08,720 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized: Session 62569e05-49a1-40a4-85b3-6a91d86b0dcf linked to Menu1 20250710_141138
+2025-07-13 01:47:08,723 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized for session: 20250713_014708
+2025-07-13 01:47:08,726 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Linked to Menu 1 session: 20250710_141138
+2025-07-13 01:47:08,729 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Menu 5 Enterprise Backtest Strategy
+2025-07-13 01:47:08,731 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 20250713_014708
+2025-07-13 01:47:08,733 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Menu 1 Link: 20250710_141138
+2025-07-13 01:47:10,961 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: � Quality Over Quantity Strategy: 10 high-probability trades, 1000 data points
+2025-07-13 01:47:10,964 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Signal Requirements: 85.0% confidence, 300+ point targets
+2025-07-13 01:47:10,995 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Simulation completed: 0 trades executed
+2025-07-13 01:47:10,998 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Simulation results: {'trades_executed': 0, 'simulation_parameters': {'spread_points': 100, 'commission_per_lot': 0.07, 'initial_balance': 100.0, 'target_win_rate': 0.8}, 'performance': {'error': 'No trades executed'}, 'market_data_points': 1000}
+2025-07-13 01:47:11,016 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Backtest results saved: /content/drive/MyDrive/ProjectP-1/outputs/backtest_results/backtest_20250713_014708.json
+2025-07-13 01:47:11,020 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💾 Enterprise results saved for session: 20250713_014708
+2025-07-13 01:47:11,025 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Backtest completed in 2.56s
+2025-07-13 01:47:11,028 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💾 Enterprise logs saved for session: 20250713_014708
+2025-07-13 01:47:11,031 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise logging finalized for session: 20250713_014708
+2025-07-13 02:55:47,723 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 02:55:48,525 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 2c468389
+2025-07-13 02:55:48,527 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 02:55:48,537 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 02:55:59,889 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 02:56:00,645 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 02:56:00,662 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:00:04,253 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:00:04,259 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 9c6d1805
+2025-07-13 03:00:04,261 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:00:04,276 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:00:08,642 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:00:08,662 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:00:08,684 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:00:08,687 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading COMPLETE real market data from /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 03:00:08,691 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Using ALL 1.77M+ rows for maximum realism and reliability
+2025-07-13 03:00:09,950 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Successfully loaded 1,771,969 rows of real XAUUSD data
+2025-07-13 03:00:09,953 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Data range: 25630501 to 25680430
+2025-07-13 03:18:13,814 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:18:13,818 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: f2926b4c
+2025-07-13 03:18:13,820 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:18:13,829 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:18:17,990 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:18:18,054 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:18:18,065 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:18:18,072 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 03:18:31,990 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:18:31,994 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: a002f319
+2025-07-13 03:18:31,997 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:18:32,017 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:18:36,280 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:19:01,585 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:19:01,590 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 0553cace
+2025-07-13 03:19:01,592 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:19:01,602 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:19:05,886 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:31:52,188 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:31:52,195 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: b98574fa
+2025-07-13 03:31:52,197 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:31:52,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:31:59,288 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:32:04,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-13 03:32:04,826 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-13 03:32:04,830 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ NVIDIA GPU detection failed: NVML Shared Library Not Found
+2025-07-13 03:32:04,832 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-13 03:32:04,835 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-13 03:32:04,837 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-13 03:32:04,839 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Processing Mode: CPU_OPTIMIZED
+2025-07-13 03:32:04,841 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise CPU optimization applied
+2025-07-13 03:32:04,843 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-13 03:32:04,845 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-13 03:32:04,847 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED
+2025-07-13 03:32:14,907 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-13 03:32:14,910 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-13 03:32:14,912 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-13 03:32:14,918 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: GPU detection error: [Errno 2] No such file or directory: 'nvidia-smi'
+2025-07-13 03:32:14,920 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-13 03:32:14,923 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🖥️  CPU-Only Mode (No GPU Detected)
+🧠 CPU Threads: 6
+📦 Batch Size: 1024
+🎯 Optuna Trials: 100
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-13 03:32:14,927 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-13 03:32:14,928 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-13 03:32:14,930 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED
+2025-07-13 03:32:14,932 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-13 03:32:14,934 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-13 03:32:20,989 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-13 03:32:20,996 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real Enterprise Elliott Wave (ACTUAL AI): READY
+2025-07-13 03:32:21,004 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-13 03:32:21,006 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.
+2025-07-13 03:33:09,274 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:33:09,291 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:33:09,330 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 03:33:09,365 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Detected Menu 1 session: 20250710_141138
+2025-07-13 03:33:09,571 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Menu 1 models found: 0
+2025-07-13 03:33:09,575 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Menu 1 data files: 4
+2025-07-13 03:33:09,671 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized: Session ff7ebd0d-d8f4-4498-a487-8ea41a826c1f linked to Menu1 20250710_141138
+2025-07-13 03:33:09,674 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized for session: 20250713_033309
+2025-07-13 03:33:09,676 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Linked to Menu 1 session: 20250710_141138
+2025-07-13 03:33:09,678 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Menu 5 Enterprise Backtest Strategy
+2025-07-13 03:33:09,680 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 20250713_033309
+2025-07-13 03:33:09,682 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Menu 1 Link: 20250710_141138
+2025-07-13 03:33:30,468 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Starting MT5-Style BackTest System
+2025-07-13 03:33:30,473 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Error in MT5-Style BackTest: 'AdvancedMT5StyleBacktest' object has no attribute 'run'
+2025-07-13 03:33:30,488 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: 🔍 Traceback: Traceback (most recent call last):
+  File "/content/drive/MyDrive/ProjectP-1/menu_modules/menu_5_backtest_strategy.py", line 2391, in _run_mt5_style_backtest
+    results = self.mt5_backtest.run()
+              ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'AdvancedMT5StyleBacktest' object has no attribute 'run'
+
+2025-07-13 03:33:30,502 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Enterprise logging finalized for session: 20250713_033309
+2025-07-13 03:48:31,158 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:48:31,163 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 28dde90d
+2025-07-13 03:48:31,166 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:48:31,185 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:48:37,997 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:48:38,036 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading complete market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 03:48:40,152 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Failed to load market data: ufunc 'add' did not contain a loop with signature matching types (dtype('int64'), dtype('<U1')) -> None
+2025-07-13 03:50:43,846 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:50:43,851 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: db3b2099
+2025-07-13 03:50:43,854 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:50:43,865 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:50:48,652 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:50:48,682 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading complete market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 03:50:53,887 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Market data loaded: 0 rows
+2025-07-13 03:50:53,889 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📅 Date range: NaT to NaT
+2025-07-13 03:52:26,653 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 03:52:26,676 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: a216e869
+2025-07-13 03:52:26,679 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 03:52:26,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:52:31,613 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 03:52:31,640 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading complete market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 03:59:33,273 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: Using sequential timestamps as fallback
+2025-07-13 03:59:33,440 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Market data loaded: 1,771,969 rows
+2025-07-13 03:59:33,448 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📅 Date range: 2024-01-01 00:00:00 to 2027-05-15 12:48:00
+2025-07-13 04:02:42,904 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:02:42,909 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 5ccb47e1
+2025-07-13 04:02:42,912 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:02:42,931 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:02:47,738 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:02:47,814 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:02:47,829 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:02:47,859 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 04:18:56,834 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:18:56,838 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 3ff1d630
+2025-07-13 04:18:56,839 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:18:56,852 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:19:01,719 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:19:01,739 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:19:01,752 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:19:01,760 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 04:21:55,401 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:21:55,405 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 16b46dc3
+2025-07-13 04:21:55,408 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:21:55,421 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:22:00,189 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:22:00,214 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:25:42,013 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:25:42,017 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: de197fb6
+2025-07-13 04:25:42,019 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:25:42,031 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:25:46,716 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:25:48,122 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:25:48,139 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:25:48,148 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 04:26:23,108 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:26:23,112 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: d3cf3329
+2025-07-13 04:26:23,114 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:26:23,127 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:26:27,957 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:28:28,146 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 04:28:28,152 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 52b45db4
+2025-07-13 04:28:28,154 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 04:28:28,167 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:28:33,059 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:28:34,474 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:28:34,489 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 04:28:34,497 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 07:07:51,056 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 07:07:51,060 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 6d52d0a6
+2025-07-13 07:07:51,062 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 07:07:51,071 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 07:07:57,117 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 07:07:57,162 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 07:07:57,164 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Capital Manager initialized with $100.00
+2025-07-13 07:07:57,167 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Professional Capital Validator initialized
+2025-07-13 07:07:57,170 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Starting capital: $100.00
+2025-07-13 07:07:57,172 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Session ID: capital_validation_20250713_070757
+2025-07-13 07:07:59,542 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Data validation completed
+2025-07-13 07:07:59,547 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 CSV files found: 2
+2025-07-13 07:07:59,550 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Total records: 1,890,141
+2025-07-13 07:07:59,555 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Data quality score: 100.0%
+2025-07-13 07:07:59,558 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real data confirmed: True
+2025-07-13 07:07:59,566 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Capital management validation completed
+2025-07-13 07:07:59,569 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Initial capital: $100.00
+2025-07-13 07:07:59,573 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Position sizing test: 0.01 lots
+2025-07-13 07:07:59,575 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Risk parameters: True
+2025-07-13 07:07:59,580 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_001
+2025-07-13 07:07:59,584 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $100.00 → $101.95
+2025-07-13 07:07:59,588 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.95 (Position: 0.01 lots)
+2025-07-13 07:07:59,592 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 1.95 (2.0%)
+2025-07-13 07:07:59,694 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_002
+2025-07-13 07:07:59,698 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $101.95 → $100.82
+2025-07-13 07:07:59,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.13 (Position: 0.01 lots)
+2025-07-13 07:07:59,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 0.82 (0.8%)
+2025-07-13 07:07:59,807 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_003
+2025-07-13 07:07:59,810 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $100.82 → $102.33
+2025-07-13 07:07:59,813 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.51 (Position: 0.01 lots)
+2025-07-13 07:07:59,816 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 2.33 (2.3%)
+2025-07-13 07:07:59,920 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_004
+2025-07-13 07:07:59,923 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $102.33 → $104.37
+2025-07-13 07:07:59,926 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.04 (Position: 0.01 lots)
+2025-07-13 07:07:59,929 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 4.37 (4.4%)
+2025-07-13 07:08:00,033 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_005
+2025-07-13 07:08:00,037 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $104.37 → $102.96
+2025-07-13 07:08:00,040 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.41 (Position: 0.01 lots)
+2025-07-13 07:08:00,043 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 2.96 (3.0%)
+2025-07-13 07:08:00,148 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_006
+2025-07-13 07:08:00,150 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $102.96 → $104.54
+2025-07-13 07:08:00,154 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.58 (Position: 0.01 lots)
+2025-07-13 07:08:00,157 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 4.54 (4.5%)
+2025-07-13 07:08:00,260 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_007
+2025-07-13 07:08:00,263 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $104.54 → $106.89
+2025-07-13 07:08:00,267 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.35 (Position: 0.01 lots)
+2025-07-13 07:08:00,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 6.89 (6.9%)
+2025-07-13 07:08:00,374 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_008
+2025-07-13 07:08:00,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $106.89 → $108.44
+2025-07-13 07:08:00,397 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.55 (Position: 0.01 lots)
+2025-07-13 07:08:00,401 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 8.44 (8.4%)
+2025-07-13 07:08:00,504 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_009
+2025-07-13 07:08:00,509 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $108.44 → $110.49
+2025-07-13 07:08:00,511 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.05 (Position: 0.01 lots)
+2025-07-13 07:08:00,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 10.49 (10.5%)
+2025-07-13 07:08:00,619 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_010
+2025-07-13 07:08:00,623 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $110.49 → $112.61
+2025-07-13 07:08:00,625 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.12 (Position: 0.01 lots)
+2025-07-13 07:08:00,627 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 12.61 (12.6%)
+2025-07-13 07:08:00,730 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_011
+2025-07-13 07:08:00,732 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $112.61 → $111.17
+2025-07-13 07:08:00,734 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.44 (Position: 0.01 lots)
+2025-07-13 07:08:00,736 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 11.17 (11.2%)
+2025-07-13 07:08:00,838 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_012
+2025-07-13 07:08:00,840 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $111.17 → $113.75
+2025-07-13 07:08:00,843 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.58 (Position: 0.01 lots)
+2025-07-13 07:08:00,845 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 13.75 (13.8%)
+2025-07-13 07:08:00,948 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_013
+2025-07-13 07:08:00,951 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $113.75 → $115.45
+2025-07-13 07:08:00,952 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.70 (Position: 0.01 lots)
+2025-07-13 07:08:00,954 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 15.45 (15.4%)
+2025-07-13 07:08:01,056 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_014
+2025-07-13 07:08:01,059 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $115.45 → $117.17
+2025-07-13 07:08:01,061 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.73 (Position: 0.01 lots)
+2025-07-13 07:08:01,063 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 17.17 (17.2%)
+2025-07-13 07:08:01,165 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_015
+2025-07-13 07:08:01,167 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $117.17 → $115.90
+2025-07-13 07:08:01,169 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.27 (Position: 0.01 lots)
+2025-07-13 07:08:01,171 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 15.90 (15.9%)
+2025-07-13 07:08:01,274 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_016
+2025-07-13 07:08:01,277 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $115.90 → $117.92
+2025-07-13 07:08:01,279 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.02 (Position: 0.01 lots)
+2025-07-13 07:08:01,281 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 17.92 (17.9%)
+2025-07-13 07:08:01,384 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_017
+2025-07-13 07:08:01,386 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $117.92 → $120.57
+2025-07-13 07:08:01,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.65 (Position: 0.01 lots)
+2025-07-13 07:08:01,389 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 20.57 (20.6%)
+2025-07-13 07:08:01,493 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_018
+2025-07-13 07:08:01,496 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $120.57 → $119.15
+2025-07-13 07:08:01,498 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.42 (Position: 0.01 lots)
+2025-07-13 07:08:01,500 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 19.15 (19.1%)
+2025-07-13 07:08:01,603 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_019
+2025-07-13 07:08:01,606 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $119.15 → $121.52
+2025-07-13 07:08:01,608 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.37 (Position: 0.01 lots)
+2025-07-13 07:08:01,610 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 21.52 (21.5%)
+2025-07-13 07:08:01,712 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_020
+2025-07-13 07:08:01,715 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $121.52 → $124.09
+2025-07-13 07:08:01,716 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.57 (Position: 0.01 lots)
+2025-07-13 07:08:01,718 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 24.09 (24.1%)
+2025-07-13 07:08:01,824 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_021
+2025-07-13 07:08:01,827 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $124.09 → $122.29
+2025-07-13 07:08:01,829 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.80 (Position: 0.01 lots)
+2025-07-13 07:08:01,831 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 22.29 (22.3%)
+2025-07-13 07:08:01,933 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_022
+2025-07-13 07:08:01,936 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $122.29 → $125.25
+2025-07-13 07:08:01,938 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.96 (Position: 0.01 lots)
+2025-07-13 07:08:01,940 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 25.25 (25.3%)
+2025-07-13 07:08:02,044 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_023
+2025-07-13 07:08:02,046 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $125.25 → $127.78
+2025-07-13 07:08:02,049 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.53 (Position: 0.01 lots)
+2025-07-13 07:08:02,051 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 27.78 (27.8%)
+2025-07-13 07:08:02,153 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_024
+2025-07-13 07:08:02,156 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $127.78 → $130.53
+2025-07-13 07:08:02,158 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.75 (Position: 0.01 lots)
+2025-07-13 07:08:02,160 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 30.53 (30.5%)
+2025-07-13 07:08:02,262 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_025
+2025-07-13 07:08:02,264 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $130.53 → $128.59
+2025-07-13 07:08:02,266 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.94 (Position: 0.01 lots)
+2025-07-13 07:08:02,268 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 28.59 (28.6%)
+2025-07-13 07:08:02,370 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_026
+2025-07-13 07:08:02,373 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $128.59 → $130.58
+2025-07-13 07:08:02,376 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $1.99 (Position: 0.01 lots)
+2025-07-13 07:08:02,379 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 30.58 (30.6%)
+2025-07-13 07:08:02,482 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_027
+2025-07-13 07:08:02,485 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $130.58 → $128.97
+2025-07-13 07:08:02,488 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.61 (Position: 0.01 lots)
+2025-07-13 07:08:02,491 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 28.97 (29.0%)
+2025-07-13 07:08:02,594 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_028
+2025-07-13 07:08:02,596 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $128.97 → $131.90
+2025-07-13 07:08:02,598 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.93 (Position: 0.01 lots)
+2025-07-13 07:08:02,600 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 31.90 (31.9%)
+2025-07-13 07:08:02,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_029
+2025-07-13 07:08:02,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $131.90 → $130.38
+2025-07-13 07:08:02,707 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.53 (Position: 0.01 lots)
+2025-07-13 07:08:02,709 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 30.38 (30.4%)
+2025-07-13 07:08:02,811 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_030
+2025-07-13 07:08:02,814 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $130.38 → $133.33
+2025-07-13 07:08:02,817 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.96 (Position: 0.01 lots)
+2025-07-13 07:08:02,819 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 33.33 (33.3%)
+2025-07-13 07:08:02,923 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_031
+2025-07-13 07:08:02,925 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $133.33 → $131.75
+2025-07-13 07:08:02,927 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.58 (Position: 0.01 lots)
+2025-07-13 07:08:02,928 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 31.75 (31.8%)
+2025-07-13 07:08:03,031 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_032
+2025-07-13 07:08:03,033 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $131.75 → $134.39
+2025-07-13 07:08:03,035 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.64 (Position: 0.01 lots)
+2025-07-13 07:08:03,037 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 34.39 (34.4%)
+2025-07-13 07:08:03,140 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_033
+2025-07-13 07:08:03,142 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $134.39 → $137.00
+2025-07-13 07:08:03,144 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.60 (Position: 0.01 lots)
+2025-07-13 07:08:03,146 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 37.00 (37.0%)
+2025-07-13 07:08:03,250 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_034
+2025-07-13 07:08:03,254 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $137.00 → $139.41
+2025-07-13 07:08:03,256 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.41 (Position: 0.01 lots)
+2025-07-13 07:08:03,258 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 39.41 (39.4%)
+2025-07-13 07:08:03,361 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_035
+2025-07-13 07:08:03,363 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $139.41 → $137.54
+2025-07-13 07:08:03,365 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.86 (Position: 0.01 lots)
+2025-07-13 07:08:03,367 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 37.54 (37.5%)
+2025-07-13 07:08:03,470 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_036
+2025-07-13 07:08:03,472 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $137.54 → $136.02
+2025-07-13 07:08:03,474 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.52 (Position: 0.01 lots)
+2025-07-13 07:08:03,476 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 36.02 (36.0%)
+2025-07-13 07:08:03,578 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_037
+2025-07-13 07:08:03,581 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $136.02 → $134.58
+2025-07-13 07:08:03,583 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.45 (Position: 0.01 lots)
+2025-07-13 07:08:03,585 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 34.58 (34.6%)
+2025-07-13 07:08:03,688 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_038
+2025-07-13 07:08:03,691 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $134.58 → $133.13
+2025-07-13 07:08:03,693 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.44 (Position: 0.01 lots)
+2025-07-13 07:08:03,695 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 33.13 (33.1%)
+2025-07-13 07:08:03,797 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_039
+2025-07-13 07:08:03,800 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $133.13 → $136.10
+2025-07-13 07:08:03,802 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.97 (Position: 0.01 lots)
+2025-07-13 07:08:03,804 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 36.10 (36.1%)
+2025-07-13 07:08:03,907 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_040
+2025-07-13 07:08:03,910 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $136.10 → $133.99
+2025-07-13 07:08:03,912 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-2.10 (Position: 0.01 lots)
+2025-07-13 07:08:03,915 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 33.99 (34.0%)
+2025-07-13 07:08:04,019 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_041
+2025-07-13 07:08:04,021 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $133.99 → $132.10
+2025-07-13 07:08:04,023 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-1.89 (Position: 0.01 lots)
+2025-07-13 07:08:04,024 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 32.10 (32.1%)
+2025-07-13 07:08:04,127 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_042
+2025-07-13 07:08:04,129 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $132.10 → $134.62
+2025-07-13 07:08:04,131 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.52 (Position: 0.01 lots)
+2025-07-13 07:08:04,133 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 34.62 (34.6%)
+2025-07-13 07:08:04,236 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_043
+2025-07-13 07:08:04,239 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $134.62 → $137.42
+2025-07-13 07:08:04,242 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.80 (Position: 0.01 lots)
+2025-07-13 07:08:04,244 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 37.42 (37.4%)
+2025-07-13 07:08:04,347 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_044
+2025-07-13 07:08:04,349 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $137.42 → $140.13
+2025-07-13 07:08:04,351 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.71 (Position: 0.01 lots)
+2025-07-13 07:08:04,354 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 40.13 (40.1%)
+2025-07-13 07:08:04,456 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_045
+2025-07-13 07:08:04,458 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $140.13 → $142.54
+2025-07-13 07:08:04,460 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.41 (Position: 0.01 lots)
+2025-07-13 07:08:04,462 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 42.54 (42.5%)
+2025-07-13 07:08:04,565 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_046
+2025-07-13 07:08:04,568 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $142.54 → $145.00
+2025-07-13 07:08:04,571 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.46 (Position: 0.01 lots)
+2025-07-13 07:08:04,573 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 45.00 (45.0%)
+2025-07-13 07:08:04,678 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_047
+2025-07-13 07:08:04,681 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $145.00 → $147.86
+2025-07-13 07:08:04,684 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.86 (Position: 0.01 lots)
+2025-07-13 07:08:04,686 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 47.86 (47.9%)
+2025-07-13 07:08:04,789 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_048
+2025-07-13 07:08:04,791 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $147.86 → $150.07
+2025-07-13 07:08:04,793 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.21 (Position: 0.01 lots)
+2025-07-13 07:08:04,796 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 50.07 (50.1%)
+2025-07-13 07:08:04,899 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_049
+2025-07-13 07:08:04,902 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $150.07 → $147.74
+2025-07-13 07:08:04,904 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $-2.32 (Position: 0.01 lots)
+2025-07-13 07:08:04,906 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 47.74 (47.7%)
+2025-07-13 07:08:05,009 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade executed: SIM_050
+2025-07-13 07:08:05,012 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Capital: $147.74 → $149.97
+2025-07-13 07:08:05,014 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    P&L: $2.23 (Position: 0.01 lots)
+2025-07-13 07:08:05,016 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Growth: 49.97 (50.0%)
+2025-07-13 07:08:05,121 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Compound growth simulation completed
+2025-07-13 07:08:05,123 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Final capital: $149.97
+2025-07-13 07:08:05,125 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📈 Total growth: 50.0%
+2025-07-13 07:08:05,127 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚠️ Max drawdown: 5.2%
+2025-07-13 07:08:05,129 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Compound growth achieved: True
+2025-07-13 07:08:05,141 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 07:08:05,156 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 07:08:05,164 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 MT5-Style BackTest system initialized successfully
+2025-07-13 07:08:05,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Detected Menu 1 session: 20250710_141138
+2025-07-13 07:08:05,399 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Menu 1 models found: 0
+2025-07-13 07:08:05,402 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Menu 1 data files: 4
+2025-07-13 07:08:05,464 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized: Session eccbc872-32e5-4247-86a2-0afdcd74d35e linked to Menu1 20250710_141138
+2025-07-13 07:08:05,466 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise logging initialized for session: 20250713_070805
+2025-07-13 07:08:05,469 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Linked to Menu 1 session: 20250710_141138
+2025-07-13 07:08:05,472 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Menu 5 Enterprise Backtest Strategy
+2025-07-13 07:08:05,474 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 20250713_070805
+2025-07-13 07:08:05,476 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔗 Menu 1 Link: 20250710_141138
+2025-07-13 07:08:19,718 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Starting MT5-Style BackTest System
+2025-07-13 07:08:19,721 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading complete market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 07:15:30,509 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: Using sequential timestamps as fallback
+2025-07-13 07:15:30,657 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Market data loaded: 1,771,969 rows
+2025-07-13 07:15:30,666 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    📅 Date range: 2024-01-01 00:00:00 to 2027-05-15 12:48:00
+2025-07-13 08:25:01,597 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:25:01,603 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 348c0778
+2025-07-13 08:25:01,606 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:25:01,625 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:00,023 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:28:00,028 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 1c2e00cd
+2025-07-13 08:28:00,030 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:28:00,054 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:00,100 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:00,103 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Error loading market data: 'ProjectPaths' object has no attribute 'get_data_path'
+2025-07-13 08:28:24,842 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:28:24,847 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 5bbfc09c
+2025-07-13 08:28:24,849 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:28:24,862 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:32,391 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:32,429 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:28:32,432 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Error loading market data: 'ProjectPaths' object has no attribute 'get_data_path'
+2025-07-13 08:29:08,237 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:29:08,241 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 3288ef8b
+2025-07-13 08:29:08,244 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:29:08,259 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:29:13,106 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:29:13,147 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:29:13,151 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 08:29:16,178 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Error loading market data: Unknown datetime string format, unable to parse: NaT 00:00:00, at position 0
+2025-07-13 08:29:16,180 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: ❌ Error loading market data: Unknown datetime string format, unable to parse: NaT 00:00:00, at position 0
+2025-07-13 08:54:43,540 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:54:43,545 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: a72c68f3
+2025-07-13 08:54:43,547 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:54:43,564 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:54:50,112 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:54:50,157 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:54:50,160 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 08:54:52,264 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 08:54:53,602 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 08:54:53,612 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 08:54:53,618 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 08:54:53,622 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 08:54:54,165 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 08:54:54,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 08:54:55,249 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 08:54:55,785 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 08:54:56,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 08:54:56,890 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 08:54:57,466 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 08:54:58,166 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 08:54:58,841 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 08:54:59,427 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 08:54:59,995 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 08:55:00,555 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 08:55:01,117 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 08:55:01,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 08:55:02,200 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 08:55:02,752 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 08:55:03,300 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 08:55:03,876 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 08:55:04,574 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 08:55:05,129 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 08:55:05,688 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 08:55:06,218 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 08:55:06,778 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 08:55:07,342 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 08:55:07,885 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 08:55:08,434 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 08:55:08,972 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 08:55:09,500 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 08:55:10,343 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 08:55:10,958 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 08:55:11,519 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 08:55:12,076 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 08:55:12,604 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 08:55:13,150 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 08:55:13,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 08:55:14,258 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 08:55:14,772 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 08:55:15,307 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 08:55:15,939 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 08:55:16,598 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 08:55:17,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 08:55:17,693 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 08:55:18,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 08:55:18,741 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 08:55:19,274 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 08:55:19,800 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 08:55:20,319 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 08:55:20,916 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 08:55:21,570 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 08:55:22,335 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 08:55:23,068 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 08:55:23,640 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 08:55:24,196 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 08:55:24,740 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 08:55:25,285 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 08:55:25,844 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 08:55:26,374 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 08:55:26,911 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 08:55:27,439 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 08:55:27,985 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 08:55:29,101 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 08:55:29,655 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 08:55:30,184 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 08:55:30,739 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 08:55:31,268 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 08:55:31,810 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 08:55:32,346 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 08:55:32,897 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 08:55:33,423 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 08:55:33,965 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 08:55:34,670 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 08:55:35,302 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 08:55:35,878 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 08:55:36,488 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 08:55:37,038 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 08:55:37,605 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 08:55:38,189 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 08:55:38,736 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 08:55:39,289 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 08:55:39,844 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 08:55:40,570 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 08:55:40,846 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 08:55:40,987 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_085540.json
+2025-07-13 08:57:55,189 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:57:55,193 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 44ce44fb
+2025-07-13 08:57:55,195 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:57:55,206 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:59:42,832 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 08:59:42,837 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: f1e1200a
+2025-07-13 08:59:42,840 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 08:59:42,856 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:59:49,039 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-07-13 08:59:51,046 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-13 08:59:51,066 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-13 08:59:51,070 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ NVIDIA GPU detection failed: NVML Shared Library Not Found
+2025-07-13 08:59:51,072 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-13 08:59:51,074 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-13 08:59:51,077 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-13 08:59:51,080 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Processing Mode: CPU_OPTIMIZED
+2025-07-13 08:59:51,084 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise CPU optimization applied
+2025-07-13 08:59:51,086 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-13 08:59:51,088 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-13 08:59:51,091 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED
+2025-07-13 08:59:52,572 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 08:59:52,676 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-13 08:59:52,678 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-13 08:59:52,680 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-13 08:59:52,688 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: GPU detection error: [Errno 2] No such file or directory: 'nvidia-smi'
+2025-07-13 08:59:52,691 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-13 08:59:52,696 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🖥️  CPU-Only Mode (No GPU Detected)
+🧠 CPU Threads: 6
+📦 Batch Size: 1024
+🎯 Optuna Trials: 100
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-13 08:59:52,700 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-13 08:59:52,702 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-13 08:59:52,704 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED
+2025-07-13 08:59:52,708 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-13 08:59:52,711 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-13 08:59:54,904 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-13 08:59:54,911 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real Enterprise Elliott Wave (ACTUAL AI): READY
+2025-07-13 08:59:54,914 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-13 08:59:54,916 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.
+2025-07-13 09:01:00,890 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:01:00,893 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 09:01:02,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 09:01:03,038 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 09:01:03,047 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 09:01:03,051 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 09:01:03,054 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 09:01:03,573 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 09:01:04,108 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 09:01:04,663 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 09:01:05,203 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 09:01:05,737 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 09:01:06,299 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 09:01:06,866 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 09:01:07,390 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 09:01:07,943 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 09:01:08,496 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 09:01:09,069 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 09:01:09,594 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 09:01:10,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 09:01:10,676 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 09:01:11,204 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 09:01:11,732 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 09:01:12,244 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 09:01:12,774 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 09:01:13,322 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 09:01:13,856 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 09:01:14,379 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 09:01:14,907 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 09:01:15,431 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 09:01:15,961 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 09:01:16,521 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 09:01:17,088 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 09:01:17,647 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 09:01:18,216 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 09:01:18,825 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 09:01:19,375 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 09:01:19,901 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 09:01:20,438 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 09:01:21,095 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 09:01:21,828 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 09:01:22,374 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 09:01:22,912 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 09:01:23,442 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 09:01:23,988 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 09:01:24,525 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 09:01:25,062 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 09:01:25,586 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 09:01:26,184 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 09:01:26,924 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 09:01:27,468 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 09:01:28,017 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 09:01:28,576 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 09:01:29,152 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 09:01:29,760 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 09:01:30,337 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 09:01:30,923 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 09:01:31,484 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 09:01:32,090 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 09:01:32,745 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 09:01:33,307 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 09:01:33,872 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 09:01:34,399 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 09:01:34,932 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 09:01:35,450 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 09:01:35,987 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 09:01:36,523 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 09:01:37,077 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 09:01:37,603 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 09:01:38,220 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 09:01:38,780 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 09:01:39,350 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 09:01:39,893 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 09:01:40,451 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 09:01:40,982 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 09:01:41,562 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 09:01:42,128 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 09:01:42,687 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 09:01:43,246 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 09:01:43,949 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 09:01:44,488 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 09:01:45,012 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 09:01:45,544 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 09:01:46,081 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 09:01:46,622 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 09:01:47,165 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 09:01:47,720 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 09:01:48,267 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 09:01:48,543 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 09:01:48,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_090148.json
+2025-07-13 09:04:43,649 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:04:43,655 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 3ea646df
+2025-07-13 09:04:43,659 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:04:43,672 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:04:43,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:04:43,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 09:04:45,109 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 09:04:45,940 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 09:04:45,950 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 09:04:45,955 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 09:04:45,961 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 09:04:46,525 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 09:04:47,064 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 09:04:47,617 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 09:04:48,206 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 09:04:48,767 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 09:04:49,330 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 09:04:49,876 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 09:04:50,394 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 09:04:50,921 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 09:04:51,454 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 09:04:52,003 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 09:04:52,551 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 09:04:53,084 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 09:04:53,619 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 09:04:54,148 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 09:04:54,689 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 09:04:55,206 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 09:04:55,750 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 09:04:56,283 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 09:04:56,843 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 09:04:57,393 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 09:04:57,934 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 09:04:58,499 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 09:04:59,044 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 09:04:59,593 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 09:05:00,122 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 09:05:00,683 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 09:05:01,199 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 09:05:01,735 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 09:05:02,279 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 09:05:03,001 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 09:05:03,549 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 09:05:04,081 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 09:05:04,598 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 09:05:05,161 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 09:05:05,687 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 09:05:06,216 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 09:05:06,745 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 09:05:07,306 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 09:05:07,843 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 09:05:08,379 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 09:05:08,954 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 09:05:09,523 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 09:05:10,072 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 09:05:10,638 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 09:05:11,200 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 09:05:11,752 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 09:05:12,282 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 09:05:12,796 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 09:05:13,317 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 09:05:13,856 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 09:05:14,377 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 09:05:14,918 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 09:05:15,436 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 09:05:15,946 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 09:05:16,473 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 09:05:17,008 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 09:05:17,535 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 09:05:18,060 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 09:05:18,588 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 09:05:19,103 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 09:05:19,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 09:05:20,138 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 09:05:20,671 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 09:05:21,463 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 09:05:22,039 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 09:05:22,585 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 09:05:23,166 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 09:05:23,711 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 09:05:24,234 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 09:05:24,768 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 09:05:25,296 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 09:05:25,828 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 09:05:26,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 09:05:26,863 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 09:05:27,396 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 09:05:27,922 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 09:05:28,440 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 09:05:28,972 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 09:05:29,483 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 09:05:30,011 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 09:05:30,289 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 09:05:30,430 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_090530.json
+2025-07-13 09:14:11,543 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:14:11,548 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 57556180
+2025-07-13 09:14:11,552 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:14:11,569 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:14:11,621 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:14:11,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 09:14:12,988 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 09:14:13,908 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 09:14:13,917 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 09:14:13,923 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 09:14:13,927 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 09:14:14,487 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 09:14:15,053 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 09:14:15,611 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 09:14:16,184 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 09:14:16,740 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 09:14:17,309 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 09:14:17,856 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 09:14:18,436 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 09:14:19,053 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 09:14:19,634 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 09:14:20,214 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 09:14:20,774 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 09:14:21,314 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 09:14:21,863 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 09:14:22,433 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 09:14:23,019 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 09:14:23,584 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 09:14:24,128 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 09:14:24,707 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 09:14:25,256 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 09:14:25,806 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 09:14:26,342 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 09:14:26,908 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 09:14:27,465 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 09:14:28,021 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 09:14:28,564 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 09:14:29,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 09:14:29,711 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 09:14:30,254 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 09:14:30,824 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 09:14:31,373 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 09:14:31,929 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 09:14:32,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 09:14:33,083 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 09:14:33,635 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 09:14:34,191 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 09:14:34,749 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 09:14:35,303 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 09:14:35,857 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 09:14:36,386 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 09:14:36,939 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 09:14:37,513 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 09:14:38,059 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 09:14:38,606 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 09:14:39,157 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 09:14:39,734 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 09:14:40,283 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 09:14:40,825 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 09:14:41,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 09:14:41,980 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 09:14:42,529 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 09:14:43,093 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 09:14:43,689 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 09:14:44,264 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 09:14:44,877 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 09:14:45,432 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 09:14:45,980 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 09:14:46,532 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 09:14:47,088 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 09:14:47,671 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 09:14:48,224 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 09:14:48,762 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 09:14:49,322 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 09:14:49,874 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 09:14:50,421 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 09:14:50,966 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 09:14:51,528 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 09:14:52,078 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 09:14:52,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 09:14:53,205 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 09:14:53,746 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 09:14:54,288 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 09:14:54,822 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 09:14:55,386 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 09:14:55,960 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 09:14:56,533 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 09:14:57,150 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 09:14:57,707 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 09:14:58,265 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 09:14:58,825 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 09:14:59,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 09:14:59,685 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 09:14:59,846 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_091459.json
+2025-07-13 09:18:32,144 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:18:32,162 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 80e42685
+2025-07-13 09:18:32,164 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:18:32,178 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:19:18,184 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:19:18,188 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 43fda321
+2025-07-13 09:19:18,191 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:19:18,205 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:27:05,950 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:27:05,955 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: db8c1b0d
+2025-07-13 09:27:05,957 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:27:05,970 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:27:05,987 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Starting Trading Signals Debug Analysis
+2025-07-13 09:27:05,990 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 09:27:07,400 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded: 1771969 rows
+2025-07-13 09:27:07,411 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Using sample data: 10000 rows
+2025-07-13 09:27:07,413 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 1: Data Quality Check
+2025-07-13 09:27:07,415 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Price range: 1670.88 - 1722.68
+2025-07-13 09:27:07,418 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Data types: {'Open': dtype('float64'), 'High': dtype('float64'), 'Low': dtype('float64'), 'Close': dtype('float64')}
+2025-07-13 09:27:07,422 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Missing values: {'Open': 0, 'High': 0, 'Low': 0, 'Close': 0}
+2025-07-13 09:27:07,423 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 2: Technical Indicators Calculation
+2025-07-13 09:27:07,430 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 SMA_20 range: 1672.03 - 1721.86
+2025-07-13 09:27:07,432 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 RSI range: 0.2 - 95.6
+2025-07-13 09:27:07,433 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 MACD range: -2.4829 - 1.9004
+2025-07-13 09:27:07,435 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 3: Trading Signals Generation
+2025-07-13 09:27:07,438 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔥 Buy signals: 1376
+2025-07-13 09:27:07,440 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔥 Sell signals: 1328
+2025-07-13 09:27:07,441 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔥 Total signals: 2704
+2025-07-13 09:27:07,443 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 4: Individual Signal Conditions Analysis
+2025-07-13 09:27:07,446 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 SMA_20 > SMA_50: 5040 rows (50.4%)
+2025-07-13 09:27:07,447 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 SMA_20 < SMA_50: 4911 rows (49.1%)
+2025-07-13 09:27:07,449 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 RSI < 70: 8889 rows (88.9%)
+2025-07-13 09:27:07,451 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 RSI > 30: 8949 rows (89.5%)
+2025-07-13 09:27:07,453 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 MACD > Signal: 5044 rows (50.4%)
+2025-07-13 09:27:07,455 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 MACD < Signal: 4955 rows (49.5%)
+2025-07-13 09:27:07,456 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 5: Signal Details Analysis
+2025-07-13 09:27:07,460 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 49: BUY at price 1686.00
+2025-07-13 09:27:07,462 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1684.91, SMA_50: 1684.87
+2025-07-13 09:27:07,463 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 67.2, MACD: 0.3640, Signal: 0.2513
+2025-07-13 09:27:07,466 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 50: BUY at price 1686.12
+2025-07-13 09:27:07,470 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1685.02, SMA_50: 1684.83
+2025-07-13 09:27:07,474 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 63.2, MACD: 0.3984, Signal: 0.2807
+2025-07-13 09:27:07,477 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 51: BUY at price 1686.27
+2025-07-13 09:27:07,480 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1685.14, SMA_50: 1684.82
+2025-07-13 09:27:07,482 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 62.4, MACD: 0.4325, Signal: 0.3110
+2025-07-13 09:27:07,486 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 52: BUY at price 1686.32
+2025-07-13 09:27:07,488 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1685.25, SMA_50: 1684.80
+2025-07-13 09:27:07,491 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 62.6, MACD: 0.4582, Signal: 0.3405
+2025-07-13 09:27:07,494 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 53: BUY at price 1687.46
+2025-07-13 09:27:07,496 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1685.42, SMA_50: 1684.82
+2025-07-13 09:27:07,498 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 67.6, MACD: 0.5628, Signal: 0.3849
+2025-07-13 09:27:07,500 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 54: BUY at price 1687.29
+2025-07-13 09:27:07,504 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1685.59, SMA_50: 1684.84
+2025-07-13 09:27:07,507 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 67.5, MACD: 0.6248, Signal: 0.4329
+2025-07-13 09:27:07,512 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 58: BUY at price 1687.87
+2025-07-13 09:27:07,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1686.18, SMA_50: 1684.99
+2025-07-13 09:27:07,517 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 67.5, MACD: 0.8258, Signal: 0.6290
+2025-07-13 09:27:07,519 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 59: BUY at price 1687.30
+2025-07-13 09:27:07,522 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1686.27, SMA_50: 1685.01
+2025-07-13 09:27:07,524 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 66.3, MACD: 0.7899, Signal: 0.6612
+2025-07-13 09:27:07,528 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 60: BUY at price 1687.00
+2025-07-13 09:27:07,532 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1686.35, SMA_50: 1685.03
+2025-07-13 09:27:07,535 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 63.3, MACD: 0.7294, Signal: 0.6748
+2025-07-13 09:27:07,538 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Signal 61: BUY at price 1687.59
+2025-07-13 09:27:07,544 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    SMA_20: 1686.50, SMA_50: 1685.08
+2025-07-13 09:27:07,547 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    RSI: 68.3, MACD: 0.7203, Signal: 0.6839
+2025-07-13 09:27:07,552 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 6: Position Sizing Analysis
+2025-07-13 09:27:07,555 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Price: $2000.00, Stop: $1998.00
+2025-07-13 09:27:07,558 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Risk: $2.00, Distance: 2.00
+2025-07-13 09:27:07,562 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Position Size: 0.10 lots
+2025-07-13 09:27:07,567 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Price: $2100.00, Stop: $2098.00
+2025-07-13 09:27:07,570 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Risk: $2.00, Distance: 2.00
+2025-07-13 09:27:07,574 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Position Size: 0.10 lots
+2025-07-13 09:27:07,578 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Price: $2200.00, Stop: $2198.00
+2025-07-13 09:27:07,583 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Risk: $2.00, Distance: 2.00
+2025-07-13 09:27:07,586 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Position Size: 0.10 lots
+2025-07-13 09:27:07,589 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 7: Profit Calculation Logic
+2025-07-13 09:27:07,593 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💰 Trade Example:
+2025-07-13 09:27:07,596 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Entry: $2000.00, Exit: $2012.00
+2025-07-13 09:27:07,599 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Volume: 0.1 lots
+2025-07-13 09:27:07,602 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Profit Points: 12.00
+2025-07-13 09:27:07,605 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Gross Profit: $12.00
+2025-07-13 09:27:07,607 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Commission: $0.03
+2025-07-13 09:27:07,609 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Spread Cost: $0.20
+2025-07-13 09:27:07,612 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT:    Net Profit: $11.77
+2025-07-13 09:27:07,615 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 8: NaN Values Check
+2025-07-13 09:27:07,620 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 NaN values in indicators: {'Signal': 0, 'SMA_20': 19, 'SMA_50': 49, 'RSI': 13, 'MACD': 0, 'MACD_Signal': 0}
+2025-07-13 09:27:07,624 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG 9: Saving Sample Data
+2025-07-13 09:27:07,806 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 💾 Sample data saved to: /content/drive/MyDrive/ProjectP-1/debug_signals_sample.csv
+2025-07-13 09:27:07,810 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 DEBUG SUMMARY:
+2025-07-13 09:27:07,813 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Data rows analyzed: 10000
+2025-07-13 09:27:07,816 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 Total signals generated: 2704
+2025-07-13 09:27:07,819 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔥 Signal rate: 27.04%
+2025-07-13 09:28:50,676 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:28:50,680 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 760957bb
+2025-07-13 09:28:50,682 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:28:50,692 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:28:50,729 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 09:28:50,732 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 09:28:52,217 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 09:28:53,057 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 09:28:53,067 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 09:28:53,072 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 09:28:53,077 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 09:28:53,623 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 09:28:54,171 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 09:28:54,746 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 09:28:55,288 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 09:28:55,841 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 09:28:56,385 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 09:28:56,980 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 09:28:57,545 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 09:28:58,105 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 09:28:58,706 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 09:28:59,236 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 09:28:59,758 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 09:29:00,273 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 09:29:00,802 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 09:29:01,345 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 09:29:01,893 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 09:29:02,477 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 09:29:03,116 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 09:29:03,663 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 09:29:04,190 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 09:29:04,752 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 09:29:05,290 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 09:29:05,833 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 09:29:06,378 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 09:29:06,928 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 09:29:07,476 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 09:29:08,001 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 09:29:08,537 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 09:29:09,146 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 09:29:09,696 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 09:29:10,242 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 09:29:10,799 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 09:29:11,361 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 09:29:11,939 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 09:29:12,504 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 09:29:13,061 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 09:29:13,591 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 09:29:14,141 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 09:29:14,683 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 09:29:15,228 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 09:29:15,797 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 09:29:16,344 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 09:29:16,908 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 09:29:17,481 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 09:29:18,024 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 09:29:18,575 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 09:29:19,118 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 09:29:19,656 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 09:29:20,187 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 09:29:20,753 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 09:29:21,549 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 09:29:22,123 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 09:29:22,708 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 09:29:23,297 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 09:29:23,887 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 09:29:24,446 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 09:29:24,979 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 09:29:25,508 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 09:29:26,063 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 09:29:26,618 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 09:29:27,169 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 09:29:27,724 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 09:29:28,277 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 09:29:28,863 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 09:29:29,404 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 09:29:29,964 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 09:29:30,502 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 09:29:31,066 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 09:29:31,622 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 09:29:32,181 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 09:29:32,721 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 09:29:33,266 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 09:29:33,826 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 09:29:34,363 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 09:29:34,937 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 09:29:35,507 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 09:29:36,060 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 09:29:36,627 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 09:29:37,176 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 09:29:37,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 09:29:38,252 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 09:29:38,548 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 09:29:38,623 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_092938.json
+2025-07-13 09:56:58,640 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 09:56:58,646 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: e0a60c34
+2025-07-13 09:56:58,648 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 09:56:58,663 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 11:49:22,454 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 11:49:22,459 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: a139b6d0
+2025-07-13 11:49:22,461 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 11:49:22,472 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 11:49:22,500 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 11:49:22,503 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 11:49:26,309 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-13 11:49:27,948 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-13 11:49:27,958 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-13 11:49:27,961 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-13 11:49:27,965 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-13 11:49:28,544 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-13 11:49:29,121 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-13 11:49:29,715 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-13 11:49:30,378 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-13 11:49:31,021 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-13 11:49:31,586 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-13 11:49:32,204 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-13 11:49:32,781 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-13 11:49:33,355 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-13 11:49:33,933 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-13 11:49:34,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-13 11:49:35,070 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-13 11:49:35,649 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-13 11:49:36,365 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-13 11:49:36,939 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-13 11:49:37,507 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-13 11:49:38,086 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-13 11:49:38,640 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-13 11:49:39,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-13 11:49:39,733 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-13 11:49:40,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-13 11:49:40,832 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-13 11:49:41,429 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-13 11:49:42,138 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-13 11:49:42,688 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-13 11:49:43,232 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-13 11:49:43,781 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-13 11:49:44,343 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-13 11:49:44,921 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-13 11:49:45,483 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-13 11:49:46,061 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-13 11:49:46,643 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-13 11:49:47,247 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-13 11:49:47,907 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-13 11:49:48,547 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-13 11:49:49,120 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-13 11:49:49,665 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-13 11:49:50,212 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-13 11:49:50,755 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-13 11:49:51,298 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-13 11:49:51,851 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-13 11:49:52,423 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-13 11:49:52,996 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-13 11:49:53,697 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-13 11:49:54,400 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-13 11:49:55,024 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-13 11:49:55,596 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-13 11:49:56,152 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-13 11:49:56,738 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-13 11:49:57,375 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-13 11:49:57,948 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-13 11:49:58,531 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-13 11:49:59,115 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-13 11:49:59,683 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-13 11:50:00,505 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-13 11:50:01,081 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-13 11:50:01,646 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-13 11:50:02,198 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-13 11:50:02,759 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-13 11:50:03,307 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-13 11:50:03,856 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-13 11:50:04,399 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-13 11:50:04,975 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-13 11:50:05,542 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-13 11:50:06,214 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-13 11:50:06,782 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-13 11:50:07,350 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-13 11:50:07,920 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-13 11:50:08,475 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-13 11:50:09,084 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-13 11:50:09,673 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-13 11:50:10,213 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-13 11:50:10,798 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-13 11:50:11,514 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-13 11:50:12,149 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-13 11:50:12,726 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-13 11:50:13,288 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-13 11:50:13,841 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-13 11:50:14,383 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-13 11:50:14,962 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-13 11:50:15,545 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-13 11:50:15,854 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-13 11:50:16,876 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs/backtest_results/simple_backtest_results_20250713_115016.json
+2025-07-13 12:13:42,136 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 12:13:42,140 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 92dcaff2
+2025-07-13 12:13:42,142 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 12:13:42,154 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:13:50,536 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:13:50,594 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:13:50,597 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:13:54,015 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:13:54,017 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:13:54,020 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:13:54,022 - core.multi_timeframe_converter - ERROR - ❌ Missing required columns: ['DateTime']
+2025-07-13 12:13:54,024 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: Input data validation failed
+2025-07-13 12:13:54,026 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Input data validation failed
+2025-07-13 12:13:54,032 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:13:55,972 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:13:55,976 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Required column 'open' not found
+2025-07-13 12:13:55,985 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:13:57,554 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:13:57,557 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:13:57,559 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:13:57,560 - core.multi_timeframe_converter - ERROR - ❌ Missing required columns: ['DateTime']
+2025-07-13 12:13:57,562 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: Input data validation failed
+2025-07-13 12:13:57,564 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Input data validation failed
+2025-07-13 12:13:57,572 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:13:59,018 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:13:59,021 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:13:59,023 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:13:59,025 - core.multi_timeframe_converter - ERROR - ❌ Missing required columns: ['DateTime']
+2025-07-13 12:13:59,027 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: Input data validation failed
+2025-07-13 12:13:59,030 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Input data validation failed
+2025-07-13 12:13:59,031 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Input data validation failed
+2025-07-13 12:13:59,047 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:13:59,049 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:14:00,313 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:14:00,315 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Required column 'open' not found
+2025-07-13 12:14:00,317 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Required column 'open' not found
+2025-07-13 12:14:00,325 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:14:01,630 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:14:01,633 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:14:01,635 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:14:01,637 - core.multi_timeframe_converter - ERROR - ❌ Missing required columns: ['DateTime']
+2025-07-13 12:14:01,639 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: Input data validation failed
+2025-07-13 12:14:01,643 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Input data validation failed
+2025-07-13 12:14:01,646 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Input data validation failed
+2025-07-13 12:14:01,655 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:14:02,984 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:14:02,987 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:14:02,988 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:14:02,990 - core.multi_timeframe_converter - ERROR - ❌ Missing required columns: ['DateTime']
+2025-07-13 12:14:02,991 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: Input data validation failed
+2025-07-13 12:14:02,994 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Input data validation failed
+2025-07-13 12:14:02,997 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Input data validation failed
+2025-07-13 12:16:34,447 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 12:16:34,451 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 60b81ef1
+2025-07-13 12:16:34,453 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 12:16:34,464 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:16:39,063 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:16:39,105 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:16:39,107 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:40,399 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:41,632 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:41,675 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:43,149 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:43,691 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:43,725 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:44,967 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:45,485 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:45,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:46,771 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:47,298 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:47,302 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:47,349 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:16:47,351 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:48,740 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:49,265 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:49,271 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:49,303 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:50,525 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:51,246 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:51,249 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:51,282 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:16:52,531 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:16:53,051 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:16:53,056 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: Out of bounds nanosecond timestamp: 25630501 00:00:00, at position 0. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2025-07-13 12:21:07,767 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 12:21:07,772 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 1daf522a
+2025-07-13 12:21:07,775 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 12:21:07,788 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:21:12,542 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:21:12,589 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:21:12,591 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:13,809 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:16,126 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:21:16,128 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:21:16,375 - core.multi_timeframe_converter - WARNING - ⚠️ Found 1771968 duplicate timestamps
+2025-07-13 12:21:16,379 - core.multi_timeframe_converter - WARNING - ⚠️ DateTime is not monotonic increasing - will sort data
+2025-07-13 12:21:16,381 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:21:16,411 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:21:17,426 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:17,429 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:17,435 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:18,663 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:20,659 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 1771969 rows ready for backtesting
+2025-07-13 12:21:20,663 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:22,533 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:24,929 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:21:24,931 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:21:24,956 - core.multi_timeframe_converter - WARNING - ⚠️ Found 1771968 duplicate timestamps
+2025-07-13 12:21:24,997 - core.multi_timeframe_converter - WARNING - ⚠️ DateTime is not monotonic increasing - will sort data
+2025-07-13 12:21:24,999 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:21:25,023 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:21:25,193 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:25,195 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:25,200 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:26,439 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:28,388 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:21:28,389 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:21:28,414 - core.multi_timeframe_converter - WARNING - ⚠️ Found 1771968 duplicate timestamps
+2025-07-13 12:21:28,416 - core.multi_timeframe_converter - WARNING - ⚠️ DateTime is not monotonic increasing - will sort data
+2025-07-13 12:21:28,418 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:21:28,440 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:21:28,641 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:28,644 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:28,646 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:28,665 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:21:28,667 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:29,952 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:31,960 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 1771969 rows ready for backtesting
+2025-07-13 12:21:31,962 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for M1
+2025-07-13 12:21:31,964 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on M1 timeframe
+2025-07-13 12:21:31,966 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for M1
+2025-07-13 12:21:31,969 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 1 validation windows
+2025-07-13 12:21:31,973 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Processing window 1/1
+2025-07-13 12:21:49,975 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Window 1 completed: 454 trades, 33.9% win rate, 9.27% return
+2025-07-13 12:21:49,978 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Walk Forward validation completed: 9.27% return
+2025-07-13 12:21:49,994 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_M1_20250713_122149.json
+2025-07-13 12:21:50,002 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:51,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:53,034 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:21:53,035 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:21:53,060 - core.multi_timeframe_converter - WARNING - ⚠️ Found 1771968 duplicate timestamps
+2025-07-13 12:21:53,062 - core.multi_timeframe_converter - WARNING - ⚠️ DateTime is not monotonic increasing - will sort data
+2025-07-13 12:21:53,063 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:21:53,084 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:21:53,261 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:53,263 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:53,265 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:53,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:21:54,447 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:21:56,302 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:21:56,304 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:21:56,329 - core.multi_timeframe_converter - WARNING - ⚠️ Found 1771968 duplicate timestamps
+2025-07-13 12:21:56,332 - core.multi_timeframe_converter - WARNING - ⚠️ DateTime is not monotonic increasing - will sort data
+2025-07-13 12:21:56,334 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:21:56,362 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:21:56,549 - core.multi_timeframe_converter - ERROR - ❌ Error converting timeframe: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:56,552 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:21:56,554 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: 'NaTType' object has no attribute 'normalize'
+2025-07-13 12:27:55,216 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 12:27:55,220 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: c2f9a86d
+2025-07-13 12:27:55,222 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 12:27:55,238 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:28:00,251 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:28:00,330 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:28:00,332 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:01,707 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:03,813 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:28:03,816 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:28:03,819 - core.multi_timeframe_converter - WARNING - ⚠️ Only 0 data points, minimum recommended: 100
+2025-07-13 12:28:03,822 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:28:03,826 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:28:03,849 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 0 → 0 rows
+2025-07-13 12:28:03,851 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 0.03 seconds
+2025-07-13 12:28:03,854 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0000
+2025-07-13 12:28:03,856 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:03,859 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:05,130 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:07,072 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 0 rows ready for backtesting
+2025-07-13 12:28:07,074 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:08,310 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:10,297 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:28:10,342 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:28:10,346 - core.multi_timeframe_converter - WARNING - ⚠️ Only 0 data points, minimum recommended: 100
+2025-07-13 12:28:10,348 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:28:10,350 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:28:10,363 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 0 → 0 rows
+2025-07-13 12:28:10,365 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 0.02 seconds
+2025-07-13 12:28:10,367 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0000
+2025-07-13 12:28:10,369 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:10,371 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:11,640 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:13,548 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:28:13,550 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:28:13,555 - core.multi_timeframe_converter - WARNING - ⚠️ Only 0 data points, minimum recommended: 100
+2025-07-13 12:28:13,558 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:28:13,561 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:28:13,599 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 0 → 0 rows
+2025-07-13 12:28:13,601 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 0.05 seconds
+2025-07-13 12:28:13,603 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0000
+2025-07-13 12:28:13,605 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:13,607 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:13,618 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 12:28:13,620 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:15,101 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:17,072 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 0 rows ready for backtesting
+2025-07-13 12:28:17,075 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for M1
+2025-07-13 12:28:17,077 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on M1 timeframe
+2025-07-13 12:28:17,079 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for M1
+2025-07-13 12:28:17,081 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 0 validation windows
+2025-07-13 12:28:17,109 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: No validation windows created
+2025-07-13 12:28:17,122 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_M1_20250713_122817.json
+2025-07-13 12:28:17,125 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:18,443 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:20,385 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 12:28:20,387 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 12:28:20,392 - core.multi_timeframe_converter - WARNING - ⚠️ Only 0 data points, minimum recommended: 100
+2025-07-13 12:28:20,394 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:28:20,396 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:28:20,436 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 0 → 0 rows
+2025-07-13 12:28:20,437 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 0.05 seconds
+2025-07-13 12:28:20,440 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0000
+2025-07-13 12:28:20,442 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:20,444 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:20,446 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 12:28:21,799 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 12:28:23,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 12:28:23,705 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 12:28:23,708 - core.multi_timeframe_converter - WARNING - ⚠️ Only 0 data points, minimum recommended: 100
+2025-07-13 12:28:23,712 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 12:28:23,715 - core.multi_timeframe_converter - ERROR - ❌ Error detecting timeframe: Cannot determine timeframe from data
+2025-07-13 12:28:23,756 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 0 → 0 rows
+2025-07-13 12:28:23,759 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 0.05 seconds
+2025-07-13 12:28:23,761 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0000
+2025-07-13 12:28:23,764 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Error loading data: object of type 'ConversionResult' has no len()
+2025-07-13 12:28:23,766 - NICEGOLD_PROJECT - ERROR - NICEGOLD_PROJECT: Backtest failed: object of type 'ConversionResult' has no len()
+2025-07-13 20:26:34,518 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-13 20:26:34,522 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: 8dd31fdb
+2025-07-13 20:26:34,524 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-13 20:26:34,534 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 20:26:42,581 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 20:26:42,643 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 20:26:42,645 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:26:45,980 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:26:51,106 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 20:26:51,108 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 20:26:51,345 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 20:26:51,385 - core.multi_timeframe_converter - INFO - 🕒 Detected timeframe: M1 (1 minutes)
+2025-07-13 20:26:53,858 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 1,771,969 → 118,172 rows
+2025-07-13 20:26:53,860 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 2.75 seconds
+2025-07-13 20:26:53,861 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0667
+2025-07-13 20:26:53,894 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converted to 118172 rows of M15 data
+2025-07-13 20:26:53,908 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 118172 rows ready for backtesting
+2025-07-13 20:26:53,966 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:26:55,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:26:57,822 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 1771969 rows ready for backtesting
+2025-07-13 20:26:57,877 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:26:59,014 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:27:02,092 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 20:27:02,094 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 20:27:02,326 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 20:27:02,359 - core.multi_timeframe_converter - INFO - 🕒 Detected timeframe: M1 (1 minutes)
+2025-07-13 20:27:03,776 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 1,771,969 → 29,557 rows
+2025-07-13 20:27:03,777 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 1.68 seconds
+2025-07-13 20:27:03,778 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0167
+2025-07-13 20:27:03,811 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converted to 29557 rows of H1 data
+2025-07-13 20:27:03,818 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 29557 rows ready for backtesting
+2025-07-13 20:27:03,903 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:27:05,050 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:27:07,285 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 20:27:07,287 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 20:27:07,524 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 20:27:07,567 - core.multi_timeframe_converter - INFO - 🕒 Detected timeframe: M1 (1 minutes)
+2025-07-13 20:27:08,588 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 1,771,969 → 118,172 rows
+2025-07-13 20:27:08,591 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 1.30 seconds
+2025-07-13 20:27:08,593 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0667
+2025-07-13 20:27:08,628 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converted to 118172 rows of M15 data
+2025-07-13 20:27:08,641 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 118172 rows ready for backtesting
+2025-07-13 20:27:08,697 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for M15
+2025-07-13 20:27:08,699 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on M15 timeframe
+2025-07-13 20:27:08,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for M15
+2025-07-13 20:27:08,703 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 1 validation windows
+2025-07-13 20:27:08,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Processing window 1/1
+2025-07-13 20:27:09,882 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Window 1 completed: 43 trades, 51.2% win rate, 94.73% return
+2025-07-13 20:27:09,885 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Walk Forward validation completed: 94.73% return
+2025-07-13 20:27:09,894 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_M15_20250713_202709.json
+2025-07-13 20:27:09,909 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: /content/drive/MyDrive/ProjectP-1
+2025-07-13 20:27:09,911 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:27:11,073 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:27:13,591 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 1771969 rows ready for backtesting
+2025-07-13 20:27:13,651 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for M1
+2025-07-13 20:27:13,653 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on M1 timeframe
+2025-07-13 20:27:13,655 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for M1
+2025-07-13 20:27:13,657 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 1 validation windows
+2025-07-13 20:27:13,659 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Processing window 1/1
+2025-07-13 20:27:29,112 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Window 1 completed: 454 trades, 33.9% win rate, 9.27% return
+2025-07-13 20:27:29,114 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Walk Forward validation completed: 9.27% return
+2025-07-13 20:27:29,123 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_M1_20250713_202729.json
+2025-07-13 20:27:29,158 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:27:30,321 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:27:32,589 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to M15 timeframe...
+2025-07-13 20:27:32,591 - core.multi_timeframe_converter - INFO - 🔄 Converting to M15 timeframe...
+2025-07-13 20:27:32,822 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 20:27:32,863 - core.multi_timeframe_converter - INFO - 🕒 Detected timeframe: M1 (1 minutes)
+2025-07-13 20:27:33,892 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 1,771,969 → 118,172 rows
+2025-07-13 20:27:33,894 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 1.30 seconds
+2025-07-13 20:27:33,895 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0667
+2025-07-13 20:27:33,932 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converted to 118172 rows of M15 data
+2025-07-13 20:27:33,944 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 118172 rows ready for backtesting
+2025-07-13 20:27:33,996 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for M15
+2025-07-13 20:27:33,998 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on M15 timeframe
+2025-07-13 20:27:34,000 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for M15
+2025-07-13 20:27:34,001 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 1 validation windows
+2025-07-13 20:27:34,003 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Processing window 1/1
+2025-07-13 20:27:35,126 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Window 1 completed: 43 trades, 51.2% win rate, 94.73% return
+2025-07-13 20:27:35,128 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Walk Forward validation completed: 94.73% return
+2025-07-13 20:27:35,136 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_M15_20250713_202735.json
+2025-07-13 20:27:35,146 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loading M1 data from: /content/drive/MyDrive/ProjectP-1/datacsv/XAUUSD_M1.csv
+2025-07-13 20:27:36,295 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Loaded 1771969 rows of M1 data
+2025-07-13 20:27:38,748 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converting M1 to H1 timeframe...
+2025-07-13 20:27:38,751 - core.multi_timeframe_converter - INFO - 🔄 Converting to H1 timeframe...
+2025-07-13 20:27:38,976 - core.multi_timeframe_converter - INFO - ✅ Input data validation completed
+2025-07-13 20:27:39,011 - core.multi_timeframe_converter - INFO - 🕒 Detected timeframe: M1 (1 minutes)
+2025-07-13 20:27:40,034 - core.multi_timeframe_converter - INFO - ✅ Conversion completed: 1,771,969 → 29,557 rows
+2025-07-13 20:27:40,036 - core.multi_timeframe_converter - INFO - ⏱️ Processing time: 1.28 seconds
+2025-07-13 20:27:40,037 - core.multi_timeframe_converter - INFO - 📊 Conversion ratio: 0.0167
+2025-07-13 20:27:40,087 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Converted to 29557 rows of H1 data
+2025-07-13 20:27:40,094 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Data validation complete: 29557 rows ready for backtesting
+2025-07-13 20:27:40,143 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Enhanced Multi-Timeframe Backtest Engine initialized for H1
+2025-07-13 20:27:40,145 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Enhanced Walk Forward Validation on H1 timeframe
+2025-07-13 20:27:40,146 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Starting Walk Forward validation for H1
+2025-07-13 20:27:40,148 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Created 1 validation windows
+2025-07-13 20:27:40,150 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Processing window 1/1
+2025-07-13 20:27:40,469 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Window 1 completed: 21 trades, 33.3% win rate, -1.06% return
+2025-07-13 20:27:40,471 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Walk Forward validation completed: -1.06% return
+2025-07-13 20:27:40,482 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Results saved to: /content/drive/MyDrive/ProjectP-1/outputs/enhanced_backtest_results/enhanced_backtest_H1_20250713_202740.json

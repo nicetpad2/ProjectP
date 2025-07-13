@@ -1,0 +1,6 @@
+session_id,menu1_session_id,metric_name,metric_value,metric_description,timestamp
+8a9b086e-8d11-4098-9270-71f0e42f1a6d,20250710_141138,total_execution_time,0.316928,Session metric: total_execution_time,2025-07-12T09:25:16.710201
+8a9b086e-8d11-4098-9270-71f0e42f1a6d,20250710_141138,data_points_processed,0.0,Session metric: data_points_processed,2025-07-12T09:25:16.731106
+8a9b086e-8d11-4098-9270-71f0e42f1a6d,20250710_141138,menu1_link_status,1.0,Session metric: menu1_link_status,2025-07-12T09:25:16.750221
+8a9b086e-8d11-4098-9270-71f0e42f1a6d,20250710_141138,enterprise_logging_enabled,1.0,Session metric: enterprise_logging_enabled,2025-07-12T09:25:16.768010
+8a9b086e-8d11-4098-9270-71f0e42f1a6d,20250710_141138,session_type,1.0,Session metric: session_type,2025-07-12T09:25:16.787665

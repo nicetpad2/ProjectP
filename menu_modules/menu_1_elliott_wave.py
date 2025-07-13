@@ -1,82 +1,92 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🌊 NICEGOLD PROJECTP - MENU 1 ELLIOTT WAVE WRAPPER
-Legacy wrapper for compatibility with existing system.
-Redirects to the enhanced menu implementation.
+🌊 MENU 1 ELLIOTT WAVE - REDIRECT TO REAL ENTERPRISE MENU
+Legacy compatibility wrapper that redirects to the real enterprise menu system
+
+This file maintains backward compatibility while directing to the new
+Real Enterprise Menu 1 system with complete AI functionality.
 """
 
-from typing import Dict, Any, Optional
-from .enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
-from core.unified_enterprise_logger import get_unified_logger
+import sys
+import warnings
+from pathlib import Path
 
+# Add project root to path
+sys.path.append(str(Path(__file__).parent.parent))
 
-def run_menu_1_elliott_wave(config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+# Suppress deprecation warnings for clean output
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
+# Import the real enterprise menu system
+try:
+    from .real_enterprise_menu_1 import RealEnterpriseMenu1 as RealMenu1
+    REAL_MENU_AVAILABLE = True
+except ImportError:
+    REAL_MENU_AVAILABLE = False
+    RealMenu1 = None
+    print("⚠️ Real Enterprise Menu 1 not available")
+
+# Legacy compatibility function
+def run_menu_1_elliott_wave(config=None):
     """
-    🌊 Legacy wrapper function for Menu 1 Elliott Wave Pipeline
-    
-    This function maintains compatibility with older system components
-    while redirecting to the enhanced implementation.
+    Legacy function that redirects to Real Enterprise Menu 1
     
     Args:
-        config: Optional configuration dictionary
+        config: Configuration dictionary
         
     Returns:
-        Dict containing pipeline results
+        Menu 1 execution results
     """
-    logger = get_unified_logger()
+    if not REAL_MENU_AVAILABLE:
+        print("❌ Real Enterprise Menu 1 not available")
+        return {"status": "error", "message": "Real menu not available"}
     
-    try:
-        logger.info("🌊 Starting Elliott Wave Full Pipeline (Legacy Wrapper)")
-        
-        # Create enhanced menu instance
-        enhanced_menu = EnhancedMenu1ElliottWave(config=config)
-        
-        # Run the enhanced pipeline
-        results = enhanced_menu.run()
-        
-        logger.info("✅ Elliott Wave Pipeline completed successfully")
-        return results
-        
-    except Exception as e:
-        logger.error(f"❌ Elliott Wave Pipeline failed: {e}")
-        return {
-            "status": "ERROR",
-            "error": str(e),
-            "message": "Legacy wrapper failed to execute enhanced pipeline"
-        }
-
-
-def get_menu_1_info() -> Dict[str, Any]:
-    """
-    Get information about Menu 1 Elliott Wave capabilities
+    print("🔄 Redirecting to Real Enterprise Menu 1...")
     
-    Returns:
-        Dict containing menu information
-    """
-    return {
-        "name": "Elliott Wave Full Pipeline",
-        "description": "Complete AI-powered Elliott Wave trading system",
-        "features": [
-            "Real market data processing",
-            "Elliott Wave pattern recognition",
-            "CNN-LSTM deep learning",
-            "DQN reinforcement learning",
-            "SHAP + Optuna feature selection",
-            "Enterprise performance analytics"
-        ],
-        "requirements": {
-            "min_auc": 0.70,
-            "data_policy": "real_data_only",
-            "enterprise_compliance": True
-        },
-        "wrapper_version": "2.0",
-        "enhanced_implementation": "EnhancedMenu1ElliottWave"
-    }
+    # Initialize real menu
+    if RealMenu1 is not None:
+        menu = RealMenu1(config or {})
+        # Run the real pipeline (correct method name)
+        return menu.run()
+    else:
+        return {"status": "error", "message": "RealMenu1 class not available"}
 
+# Backward compatibility class
+class Menu1ElliottWave:
+    """Legacy class that wraps Real Enterprise Menu 1"""
+    
+    def __init__(self, config=None):
+        self.config = config or {}
+        if REAL_MENU_AVAILABLE:
+            self.real_menu = RealMenu1(self.config)
+        else:
+            self.real_menu = None
+    
+    def run_full_pipeline(self):
+        """Legacy method that calls real pipeline"""
+        if not self.real_menu:
+            print("❌ Real Enterprise Menu 1 not available")
+            return {"status": "error", "message": "Real menu not available"}
+        
+        # Use correct method name
+        return self.real_menu.run()
+    
+    def display_beautiful_menu(self):
+        """Legacy method for menu display"""
+        print("🌊 Elliott Wave Full Pipeline (Real Enterprise)")
+        print("   🧠 Real AI Processing with CNN-LSTM + DQN")
+        print("   📊 Real Market Data Analysis")
+        print("   🎨 Beautiful Progress Tracking")
 
-# Legacy compatibility exports
+# Export for backward compatibility
 __all__ = [
     'run_menu_1_elliott_wave',
-    'get_menu_1_info'
+    'Menu1ElliottWave'
 ]
+
+if __name__ == "__main__":
+    # Test execution
+    print("🧪 Testing Menu 1 Elliott Wave...")
+    result = run_menu_1_elliott_wave()
+    print(f"✅ Test completed: {result}") 

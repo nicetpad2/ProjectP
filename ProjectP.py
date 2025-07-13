@@ -7,6 +7,15 @@ Single, clean entry point for the entire enterprise system.
 
 import os
 import sys
+# Real Enterprise Menu System
+try:
+    from menu_modules.real_enterprise_menu_1 import RealEnterpriseMenu1
+    REAL_MENU1_AVAILABLE = True
+    print("✅ Real Enterprise Menu 1 Elliott Wave system loaded!")
+except ImportError as e:
+    REAL_MENU1_AVAILABLE = False
+    print(f"⚠️ Real Enterprise Menu 1 not available: {e}")
+
 from pathlib import Path
 from datetime import datetime
 import warnings

@@ -1,0 +1,4 @@
+session_id,menu1_session_id,metric_name,metric_value,metric_description,timestamp
+20250712_091930_test,20250710_141138,test_auc,0.75,Test AUC score,2025-07-12T09:19:30.603335
+20250712_091930_test,20250710_141138,test_profit,100.5,Test profit amount,2025-07-12T09:19:30.620243
+20250712_091930_test,20250710_141138,test_drawdown,0.05,Test max drawdown,2025-07-12T09:19:30.636303

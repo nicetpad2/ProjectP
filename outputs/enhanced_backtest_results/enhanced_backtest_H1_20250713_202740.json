@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "timeframe": "H1",
+    "timestamp": "20250713_202740",
+    "system": "Enhanced Multi-Timeframe Backtest with Walk Forward Validation",
+    "version": "2.0"
+  },
+  "results": {
+    "timeframe": "H1",
+    "initial_capital": 100.0,
+    "final_capital": 98.94345087500034,
+    "total_return": -1.0565491249996626,
+    "num_trades": 21,
+    "win_rate": 33.33333333333333,
+    "profit_factor": 0.9890739998058914,
+    "max_drawdown": 1.0565491249996626,
+    "windows": [
+      {
+        "num_trades": 21,
+        "win_rate": 33.33333333333333,
+        "total_profit": 95.64389991666675,
+        "total_loss": 96.70044904166639,
+        "profit_factor": 0.9890739998058914,
+        "return": -1.0565491249996626,
+        "final_capital": 98.94345087500034
+      }
+    ]
+  }
+}

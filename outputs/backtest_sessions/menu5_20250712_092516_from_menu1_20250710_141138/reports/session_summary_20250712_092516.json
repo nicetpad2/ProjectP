@@ -1,0 +1,77 @@
+{
+  "session_info": {
+    "session_id": "20250712_092516",
+    "menu1_session_id": "20250710_141138",
+    "session_date": "2025-07-12 09:25:16.546213",
+    "start_time": "2025-07-12 09:25:16.546213",
+    "end_time": "2025-07-12 09:25:16.546214",
+    "duration": "0:00:00",
+    "data_file": "XAUUSD_M1.csv",
+    "model_source": "Menu1_20250710_141138",
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "profit_factor": 1.0,
+    "win_rate": 0.6,
+    "max_drawdown": 0.05,
+    "sharpe_ratio": 1.2,
+    "total_profit": 0,
+    "total_commission": 0,
+    "total_spread_cost": 0,
+    "average_trade_duration": "0:30:00",
+    "largest_win": 0,
+    "largest_loss": 0,
+    "consecutive_wins": 0,
+    "consecutive_losses": 0,
+    "is_latest": true,
+    "risk_adjusted_return": 0.0,
+    "calmar_ratio": 0.0,
+    "sortino_ratio": 0.0,
+    "maximum_consecutive_loss": 0.0,
+    "recovery_factor": 0.0
+  },
+  "detailed_results": {
+    "backtest_id": "backtest_20250712_092516",
+    "start_time": "2025-07-12T09:25:16.229257",
+    "sessions_analyzed": [],
+    "trading_simulation": {
+      "error": "No session data available"
+    },
+    "performance_analysis": {
+      "sessions_summary": {
+        "error": "No sessions to analyze"
+      },
+      "simulation_summary": {
+        "error": "No session data available"
+      },
+      "comparative_analysis": {
+        "error": "Cannot compare - insufficient data"
+      }
+    },
+    "recommendations": [
+      "\ud83d\udcca Trading costs: $0.00 commission + $0.00 spread = $0.00 total",
+      "\ud83c\udfaf Optimize trade frequency to minimize spread impact",
+      "\u26a1 Consider higher timeframes for better spread-to-profit ratios",
+      "\ud83d\udd04 Regular model retraining recommended based on market conditions",
+      "\ud83d\udcc8 Monitor performance continuously with live trading metrics",
+      "\ud83d\udee1\ufe0f Always use proper position sizing and risk management"
+    ],
+    "end_time": "2025-07-12T09:25:16.546208",
+    "total_duration": "0:00:00.069778",
+    "execution_time": 0.316928,
+    "session_id": "20250712_092516",
+    "menu1_session_id": "20250710_141138"
+  },
+  "execution_metadata": {
+    "execution_time": "2025-07-12T09:25:16.546393",
+    "session_duration": "0:00:00.159162",
+    "menu1_link": "20250710_141138",
+    "total_logged_trades": 0,
+    "data_integrity_check": {
+      "null_pnl_count": 0,
+      "invalid_time_sequence": 0,
+      "csv_file_size": 0,
+      "db_file_size": 12288
+    }
+  }
+}

@@ -1,0 +1,520 @@
+{
+  "installation_type": "silent_auto_installer",
+  "timestamp": "2025-07-12 02:22:45",
+  "python_version": "3.11.13",
+  "platform": "posix",
+  "install_log": [
+    {
+      "timestamp": "2025-07-12 02:20:07",
+      "level": "INFO",
+      "message": "🚀 Starting silent installation of all dependencies"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:07",
+      "level": "INFO",
+      "message": "📦 Step 1: Updating pip..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:07",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install --upgrade pip"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:09",
+      "level": "SUCCESS",
+      "message": "✅ pip update completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:09",
+      "level": "INFO",
+      "message": "📦 Installing essential packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:09",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install wheel>=0.37.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:11",
+      "level": "SUCCESS",
+      "message": "✅ Installing wheel>=0.37.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:11",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install setuptools>=60.0.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:14",
+      "level": "SUCCESS",
+      "message": "✅ Installing setuptools>=60.0.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:14",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install rich>=12.0.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:16",
+      "level": "SUCCESS",
+      "message": "✅ Installing rich>=12.0.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:16",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install colorama>=0.4.6"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:18",
+      "level": "SUCCESS",
+      "message": "✅ Installing colorama>=0.4.6 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:18",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install psutil>=5.8.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:20",
+      "level": "SUCCESS",
+      "message": "✅ Installing psutil>=5.8.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:20",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install PyYAML>=6.0.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:22",
+      "level": "SUCCESS",
+      "message": "✅ Installing PyYAML>=6.0.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:22",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install joblib>=1.4.2"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:24",
+      "level": "SUCCESS",
+      "message": "✅ Installing joblib>=1.4.2 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:24",
+      "level": "INFO",
+      "message": "📊 essential packages: 7/7 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:24",
+      "level": "INFO",
+      "message": "🔧 Step 3: Fixing NumPy/SHAP compatibility..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:24",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install numpy==1.26.4"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:26",
+      "level": "SUCCESS",
+      "message": "✅ NumPy 1.26.4 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:26",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install shap>=0.48.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:28",
+      "level": "SUCCESS",
+      "message": "✅ SHAP completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:28",
+      "level": "INFO",
+      "message": "📦 Installing core data science packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:28",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install pandas>=2.2.3"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:30",
+      "level": "SUCCESS",
+      "message": "✅ Installing pandas>=2.2.3 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:30",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install scipy>=1.14.1"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:32",
+      "level": "SUCCESS",
+      "message": "✅ Installing scipy>=1.14.1 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:32",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install scikit-learn>=1.5.2"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:34",
+      "level": "SUCCESS",
+      "message": "✅ Installing scikit-learn>=1.5.2 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:34",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install optuna>=4.4.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:36",
+      "level": "SUCCESS",
+      "message": "✅ Installing optuna>=4.4.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:36",
+      "level": "INFO",
+      "message": "📊 core data science packages: 4/4 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:36",
+      "level": "INFO",
+      "message": "📦 Installing machine learning packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:36",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install tensorflow>=2.18.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:38",
+      "level": "SUCCESS",
+      "message": "✅ Installing tensorflow>=2.18.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:38",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install torch>=2.6.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:40",
+      "level": "SUCCESS",
+      "message": "✅ Installing torch>=2.6.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:40",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install torchvision>=0.21.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:42",
+      "level": "SUCCESS",
+      "message": "✅ Installing torchvision>=0.21.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:42",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install xgboost>=2.1.4"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:44",
+      "level": "SUCCESS",
+      "message": "✅ Installing xgboost>=2.1.4 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:44",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install lightgbm>=4.5.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:46",
+      "level": "SUCCESS",
+      "message": "✅ Installing lightgbm>=4.5.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:46",
+      "level": "INFO",
+      "message": "📊 machine learning packages: 5/5 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:46",
+      "level": "INFO",
+      "message": "📦 Installing reinforcement learning packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:46",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install gymnasium>=1.1.1"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:48",
+      "level": "SUCCESS",
+      "message": "✅ Installing gymnasium>=1.1.1 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:48",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install stable-baselines3>=2.6.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:51",
+      "level": "SUCCESS",
+      "message": "✅ Installing stable-baselines3>=2.6.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:51",
+      "level": "INFO",
+      "message": "📊 reinforcement learning packages: 2/2 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:51",
+      "level": "INFO",
+      "message": "📦 Installing financial analysis packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:20:51",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install yfinance>=0.2.38"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:53",
+      "level": "SUCCESS",
+      "message": "✅ Installing yfinance>=0.2.38 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:53",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install ta>=0.11.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:56",
+      "level": "SUCCESS",
+      "message": "✅ Installing ta>=0.11.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:56",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install quantlib>=1.36"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:58",
+      "level": "SUCCESS",
+      "message": "✅ Installing quantlib>=1.36 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:20:58",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install statsmodels>=0.14.4"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:00",
+      "level": "SUCCESS",
+      "message": "✅ Installing statsmodels>=0.14.4 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:00",
+      "level": "INFO",
+      "message": "📊 financial analysis packages: 4/4 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:00",
+      "level": "INFO",
+      "message": "📦 Installing visualization packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:21:00",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install matplotlib>=3.9.2"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:02",
+      "level": "SUCCESS",
+      "message": "✅ Installing matplotlib>=3.9.2 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:02",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install seaborn>=0.13.2"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:04",
+      "level": "SUCCESS",
+      "message": "✅ Installing seaborn>=0.13.2 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:04",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install plotly>=5.24.1"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:06",
+      "level": "SUCCESS",
+      "message": "✅ Installing plotly>=5.24.1 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:06",
+      "level": "INFO",
+      "message": "📊 visualization packages: 3/3 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:06",
+      "level": "INFO",
+      "message": "📦 Installing enterprise packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:21:06",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install alembic>=1.16.2"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:08",
+      "level": "SUCCESS",
+      "message": "✅ Installing alembic>=1.16.2 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:08",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install cryptography>=44.0.0"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:10",
+      "level": "SUCCESS",
+      "message": "✅ Installing cryptography>=44.0.0 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:10",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install sqlalchemy>=2.0.36"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:12",
+      "level": "SUCCESS",
+      "message": "✅ Installing sqlalchemy>=2.0.36 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:12",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install h5py>=3.12.1"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:14",
+      "level": "SUCCESS",
+      "message": "✅ Installing h5py>=3.12.1 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:14",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install python-dotenv>=1.0.1"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:16",
+      "level": "SUCCESS",
+      "message": "✅ Installing python-dotenv>=1.0.1 completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:16",
+      "level": "INFO",
+      "message": "📊 enterprise packages: 5/5 packages installed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:16",
+      "level": "INFO",
+      "message": "📋 Installing from requirements_complete.txt..."
+    },
+    {
+      "timestamp": "2025-07-12 02:21:16",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install -r /content/drive/MyDrive/ProjectP-1/requirements_complete.txt"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:57",
+      "level": "ERROR",
+      "message": "❌ requirements from requirements_complete.txt failed: ERROR: Cannot install -r /content/drive/MyDrive/ProjectP-1/requirements_complete.txt (line 144), google-colab==1.0.0 and ipython==8.30.0 because these package versions have conflicting dependencies.\nERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts\n"
+    },
+    {
+      "timestamp": "2025-07-12 02:21:57",
+      "level": "INFO",
+      "message": "📋 Installing from requirements.txt..."
+    },
+    {
+      "timestamp": "2025-07-12 02:21:57",
+      "level": "INFO",
+      "message": "Executing: /usr/bin/python3 -m pip install -r /content/drive/MyDrive/ProjectP-1/requirements.txt"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:28",
+      "level": "SUCCESS",
+      "message": "✅ requirements from requirements.txt completed successfully"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:28",
+      "level": "INFO",
+      "message": "🔍 Verifying critical packages..."
+    },
+    {
+      "timestamp": "2025-07-12 02:22:28",
+      "level": "SUCCESS",
+      "message": "✅ numpy verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:29",
+      "level": "SUCCESS",
+      "message": "✅ pandas verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:29",
+      "level": "ERROR",
+      "message": "❌ scikit-learn verification failed"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:37",
+      "level": "SUCCESS",
+      "message": "✅ tensorflow verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:40",
+      "level": "SUCCESS",
+      "message": "✅ torch verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ shap verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ optuna verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ rich verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ colorama verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ psutil verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "SUCCESS",
+      "message": "✅ joblib verified"
+    },
+    {
+      "timestamp": "2025-07-12 02:22:45",
+      "level": "ERROR",
+      "message": "❌ 1 critical packages failed: ['scikit-learn']"
+    }
+  ],
+  "total_steps": 44,
+  "total_errors": 3
+}

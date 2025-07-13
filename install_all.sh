@@ -19,9 +19,42 @@ python -m pip install --upgrade pip
 echo "🎨 Installing rich for better terminal UI..."
 pip install rich
 
-# Run installation menu for interactive setup
-echo "🎯 Starting interactive installation menu..."
-python installation_menu.py
+# Check if user wants interactive or automatic installation
+echo ""
+echo "📋 Installation Options:"
+echo "1. 🚀 Ultimate Auto Installation (Recommended)"
+echo "2. 🎯 Interactive Installation Menu"
+echo "3. 📦 Basic Requirements Installation"
+echo ""
+
+read -p "Select option (1-3, default: 1): " choice
+choice=${choice:-1}
+
+case $choice in
+    1)
+        echo "🚀 Starting Ultimate Auto Installation..."
+        python ultimate_auto_installer.py
+        ;;
+    2)
+        echo "🎯 Starting Interactive Installation Menu..."
+        python installation_menu.py
+        ;;
+    3)
+        echo "📦 Installing basic requirements..."
+        if [ -f "requirements_complete.txt" ]; then
+            pip install -r requirements_complete.txt
+        elif [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+        else
+            echo "❌ No requirements file found"
+            exit 1
+        fi
+        ;;
+    *)
+        echo "❌ Invalid option. Using Ultimate Auto Installation..."
+        python ultimate_auto_installer.py
+        ;;
+esac
 
 # Additional critical packages installation
 echo ""
@@ -32,27 +65,10 @@ pip install ta  # Alternative to TA-Lib
 
 # Verify installation
 echo ""
-echo "🔍 Verifying critical packages..."
-python -c "
-import sys
-packages = ['QuantLib', 'dotenv', 'Crypto', 'dask', 'ray', 'IPython', 'google.cloud.storage', 'azure.storage.blob', 'ta']
-failed = []
-for pkg in packages:
-    try:
-        __import__(pkg)
-        print(f'✅ {pkg}: OK')
-    except ImportError as e:
-        print(f'❌ {pkg}: FAILED')
-        failed.append(pkg)
-        
-if failed:
-    print(f'\\n⚠️ {len(failed)} packages failed to install properly')
-    sys.exit(1)
-else:
-    print('\\n🎉 All critical packages installed successfully!')
-"
+echo "🔍 Verifying installation..."
+python check_installation.py
 
 echo ""
 echo "✅ Installation script completed!"
-echo "📋 Run 'python check_installation.py' to verify installation"
+echo "📋 Run 'python check_installation.py' to verify installation again"
 echo "🚀 Then run 'python ProjectP.py' to start the application"

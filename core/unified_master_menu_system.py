@@ -197,23 +197,68 @@ class UnifiedMasterMenuSystem:
             safe_print("❌ Cannot initialize Menu 1: Logger is not loaded.")
             return False
             
-        try:
-            from menu_modules.enhanced_menu_1_elliott_wave import EnhancedMenu1ElliottWave
-            self.menu_1 = EnhancedMenu1ElliottWave(self.config.config)
-            self.logger.info("✅ Enhanced Menu 1 Elliott Wave (Unified): READY")
-            self.menu_available = True
-            self.menu_type = "Enhanced Elliott Wave with Enterprise Features"
-            return True
-        except ImportError as e_imp:
-            safe_print(f"❌ CRITICAL: Failed to import EnhancedMenu1ElliottWave: {e_imp}")
-            self.logger.critical(f"Failed to import EnhancedMenu1ElliottWave: {e_imp}", exc_info=True)
-            return False
-        except Exception as e:
-            safe_print(f"❌ CRITICAL: Enhanced Menu 1 failed to initialize: {e}")
-            self.logger.critical(f"Enhanced Menu 1 failed to initialize: {e}", exc_info=True)
-            self.menu_1 = None
-            self.menu_available = False
-            return False
+        # Try multiple Menu 1 implementations in order of preference
+        menu_implementations = [
+            # Primary: Real Enterprise Menu 1 (ACTUAL AI PROCESSING)
+            {
+                'module': 'menu_modules.real_enterprise_menu_1',
+                'class': 'RealEnterpriseMenu1',
+                'name': 'Real Enterprise Elliott Wave (ACTUAL AI)',
+                'priority': 1
+            },
+            # Secondary: Enterprise Production Menu 1 (Simulation)
+            {
+                'module': 'menu_modules.enterprise_production_menu_1',
+                'class': 'EnterpriseProductionMenu1',
+                'name': 'Enterprise Production Elliott Wave (Simulation)',
+                'priority': 2
+            },
+            # Tertiary: Enhanced Menu 1 (Beautiful Dashboard)
+            {
+                'module': 'menu_modules.enhanced_menu_1_elliott_wave', 
+                'class': 'EnhancedMenu1ElliottWave',
+                'name': 'Enhanced Elliott Wave with Beautiful Dashboard',
+                'priority': 3
+            },
+            # Quaternary: Enhanced Menu 1 (Alternative name)
+            {
+                'module': 'menu_modules.enhanced_menu_1_elliott_wave',
+                'class': 'BeautifulMenu1ElliottWave', 
+                'name': 'Beautiful Elliott Wave Dashboard',
+                'priority': 4
+            }
+        ]
+        
+        for impl in menu_implementations:
+            try:
+                safe_print(f"🔄 Trying {impl['name']}...")
+                module = __import__(impl['module'], fromlist=[impl['class']])
+                menu_class = getattr(module, impl['class'])
+                
+                # Initialize with config
+                config_to_pass = self.config.config if self.config else {}
+                self.menu_1 = menu_class(config_to_pass)
+                
+                self.logger.info(f"✅ {impl['name']}: READY")
+                safe_print(f"✅ {impl['name']}: LOADED")
+                
+                self.menu_available = True
+                self.menu_type = impl['name']
+                return True
+                
+            except ImportError as e_imp:
+                safe_print(f"⚠️ {impl['name']}: Import failed - {e_imp}")
+                continue
+            except Exception as e:
+                safe_print(f"⚠️ {impl['name']}: Initialization failed - {e}")
+                continue
+        
+        # If all implementations fail
+        safe_print("❌ CRITICAL: All Menu 1 implementations failed to load")
+        self.logger.critical("All Menu 1 implementations failed to load")
+        self.menu_1 = None
+        self.menu_available = False
+        return False
     
     def display_unified_menu(self):
         """Display unified master menu"""
@@ -236,10 +281,14 @@ class UnifiedMasterMenuSystem:
             "║ 3. 🔧 System Diagnostics & Dependency Check                                                      ║",
             "║    🛠️ Complete system validation and dependency management                                       ║",
             "║                                                                                                   ║",
+            "║ 5. 🎯 BackTest Strategy (Professional Trading Simulation)                    ⭐ NEW!          ║",
+            "║    💰 Realistic trading simulation with 100pt spread, $0.07 commission                         ║",
+            "║    📊 10 sessions analysis with latest session detection                                        ║",
+            "║                                                                                                   ║",
             "║ D. 🎨 Beautiful Progress Bars Demo                                                               ║",
             "║    ✨ Demonstration of visual progress tracking system                                           ║",
             "║                                                                                                   ║",
-            "║ T. 🔐 Terminal Lock System                                                ⭐ NEW!              ║",
+            "║ T. 🔐 Terminal Lock System                                                                      ║",
             "║    🎯 Beautiful & Modern Terminal Security Lock with Enterprise Features                        ║",
             "║                                                                                                   ║",
             "║ E. 🚪 Exit System                                                                                ║",
@@ -273,6 +322,8 @@ class UnifiedMasterMenuSystem:
                 return self._handle_system_status()
             elif choice == "3":
                 return self._handle_system_diagnostics()
+            elif choice == "5":
+                return self._handle_backtest_strategy()
             elif choice == "D":
                 return self._handle_progress_demo()
             elif choice == "T":
@@ -283,7 +334,7 @@ class UnifiedMasterMenuSystem:
                 return self._handle_restart()
             else:
                 safe_print(f"❌ Invalid choice: {choice}")
-                safe_print("💡 Please select 1, 2, 3, D, T, E, or R")
+                safe_print("💡 Please select 1, 2, 3, 5, D, T, E, or R")
                 return True
                 
         except Exception as e:
@@ -320,13 +371,73 @@ class UnifiedMasterMenuSystem:
                 
                 # Display detailed results if available
                 if isinstance(result, dict):
+                    # Get performance metrics from result
+                    performance_metrics = result.get('performance_metrics', {})
+                    
+                    # Check for session_summary in result or use result directly
                     if 'session_summary' in result:
                         summary = result['session_summary']
-                        safe_print(f"\n📊 SESSION SUMMARY:")
-                        safe_print(f"   📈 Total Steps: {summary.get('total_steps', 'N/A')}")
-                        safe_print(f"   🎯 Features Selected: {summary.get('selected_features', 'N/A')}")
-                        safe_print(f"   🧠 Model AUC: {summary.get('model_auc', 'N/A')}")
-                        safe_print(f"   📊 Performance: {summary.get('performance_grade', 'N/A')}")
+                    else:
+                        summary = result
+                    
+                    safe_print(f"\n📊 SESSION SUMMARY:")
+                    
+                    # Extract total steps
+                    total_steps = summary.get('total_steps', result.get('total_steps', 'N/A'))
+                    safe_print(f"   📈 Total Steps: {total_steps}")
+                    
+                    # Extract features selected from multiple possible locations
+                    selected_features = (
+                        performance_metrics.get('selected_features') or
+                        summary.get('selected_features') or
+                        result.get('selected_features') or
+                        performance_metrics.get('original_features') or
+                        'N/A'
+                    )
+                    safe_print(f"   🎯 Features Selected: {selected_features}")
+                    
+                    # Extract AUC from multiple possible locations
+                    model_auc = (
+                        performance_metrics.get('auc_score') or
+                        performance_metrics.get('cnn_lstm_auc') or
+                        summary.get('model_auc') or
+                        result.get('model_auc') or
+                        'N/A'
+                    )
+                    if isinstance(model_auc, float):
+                        model_auc = f"{model_auc:.4f}"
+                    safe_print(f"   🧠 Model AUC: {model_auc}")
+                    
+                    # Extract performance grade or calculate from metrics
+                    performance_grade = summary.get('performance_grade', result.get('performance_grade'))
+                    if not performance_grade and performance_metrics:
+                        # Calculate performance grade based on metrics
+                        auc = performance_metrics.get('auc_score', performance_metrics.get('cnn_lstm_auc', 0))
+                        sharpe = performance_metrics.get('sharpe_ratio', 0)
+                        win_rate = performance_metrics.get('win_rate', 0)
+                        
+                        if auc >= 0.80 and sharpe >= 1.5 and win_rate >= 0.70:
+                            performance_grade = "Excellent"
+                        elif auc >= 0.70 and sharpe >= 1.0 and win_rate >= 0.60:
+                            performance_grade = "Good"
+                        elif auc >= 0.60:
+                            performance_grade = "Fair"
+                        else:
+                            performance_grade = "Poor"
+                    
+                    safe_print(f"   📊 Performance: {performance_grade or 'N/A'}")
+                    
+                    # Additional performance metrics if available
+                    if performance_metrics:
+                        safe_print(f"\n📈 DETAILED METRICS:")
+                        if 'sharpe_ratio' in performance_metrics:
+                            safe_print(f"   📊 Sharpe Ratio: {performance_metrics['sharpe_ratio']:.4f}")
+                        if 'win_rate' in performance_metrics:
+                            safe_print(f"   🎯 Win Rate: {performance_metrics['win_rate']:.2%}")
+                        if 'max_drawdown' in performance_metrics:
+                            safe_print(f"   📉 Max Drawdown: {performance_metrics['max_drawdown']:.2%}")
+                        if 'data_rows' in performance_metrics:
+                            safe_print(f"   📊 Data Rows Processed: {performance_metrics.get('data_rows', 'N/A'):,}")
                         
                     if 'output_files' in result:
                         safe_print(f"\n📁 Output files saved to: {result.get('output_directory', 'outputs/')}")
@@ -438,6 +549,89 @@ class UnifiedMasterMenuSystem:
         
         safe_print("   ✅ System appears ready for enterprise operation")
         
+        input("\nPress Enter to continue...")
+        return True
+    
+    def _handle_backtest_strategy(self) -> bool:
+        """Handle Menu 5 Simple Backtest with Walk Forward Validation"""
+        safe_print("\n🎯 MENU 5: SIMPLE BACKTEST WITH WALK FORWARD VALIDATION")
+        safe_print("="*80)
+        safe_print("💰 Starting Capital: $100 | Walk Forward Validation")
+        safe_print("🔄 80% Train | 20% Test | Real Market Data Only")
+        safe_print("�️ Portfolio Protection | Professional Risk Management")
+        safe_print("")
+        
+        try:
+            # Import Menu 5 Simple Backtest
+            from menu_modules.menu_5_simple_backtest import Menu5SimpleBacktest
+            
+            safe_print("✅ Menu 5 Simple Backtest loaded successfully")
+            safe_print("🚀 Initializing Walk Forward Validation system...")
+            
+            # Initialize Menu 5 with configuration
+            config_to_pass = self.config.config if self.config else {}
+            config_to_pass['initial_capital'] = 100.0  # Fixed $100 starting capital
+            menu_5 = Menu5SimpleBacktest(config_to_pass)
+            
+            safe_print("🎨 Beautiful progress tracking will be displayed during execution")
+            safe_print("🔄 Walk Forward Validation: Rolling windows with out-of-sample testing")
+            safe_print("")
+            
+            # Execute Menu 5 simple backtest
+            start_time = time.time()
+            result = menu_5.run()
+            end_time = time.time()
+            
+            duration = end_time - start_time
+            
+            # Process results
+            if result and result.get('status') == 'SUCCESS':
+                safe_print("\n🎉 SIMPLE BACKTEST COMPLETED SUCCESSFULLY!")
+                safe_print(f"⏱️ Duration: {duration:.2f} seconds")
+                
+                # Display backtest results
+                metadata = result.get('metadata', {})
+                
+                safe_print(f"\n📊 WALK FORWARD VALIDATION RESULTS:")
+                safe_print(f"   💰 Initial Capital: ${metadata.get('initial_capital', 0):,.2f}")
+                safe_print(f"   💰 Final Balance: ${metadata.get('final_balance', 0):,.2f}")
+                safe_print(f"   📈 Total Return: {metadata.get('total_return', 0):.1%}")
+                safe_print(f"   🔄 Total Windows: {metadata.get('total_windows', 0)}")
+                safe_print(f"   📊 Total Trades: {metadata.get('total_trades', 0)}")
+                safe_print(f"   ✅ Overall Win Rate: {metadata.get('overall_win_rate', 0):.1%}")
+                safe_print(f"   📁 Results File: {metadata.get('results_file', 'N/A')}")
+                
+                # Compound growth calculation
+                if metadata.get('initial_capital') and metadata.get('final_balance'):
+                    multiplier = metadata['final_balance'] / metadata['initial_capital']
+                    safe_print(f"   � Capital Multiplier: {multiplier:.2f}x")
+                
+                # Portfolio protection status
+                safe_print(f"   🛡️ Portfolio Protection: {'✅ Active' if metadata.get('portfolio_protection') else '❌ Disabled'}")
+                safe_print(f"   🎯 Validation Method: {metadata.get('validation_method', 'Walk Forward')}")
+                
+                safe_print("\n💡 Analysis completed using real market data with Walk Forward Validation")
+                safe_print("📊 Results saved for detailed review and analysis")
+                
+            elif result and result.get('status') == 'ERROR':
+                safe_print(f"\n❌ SIMPLE BACKTEST FAILED: {result.get('error', 'Unknown error')}")
+                return False
+            else:
+                safe_print("\n⚠️ Simple backtest completed with unexpected result format")
+                safe_print(f"Result: {result}")
+                return False
+                
+        except ImportError as e:
+            safe_print("❌ Menu 5 Simple Backtest not available")
+            safe_print(f"   Import Error: {e}")
+            safe_print("💡 Make sure menu_modules/menu_5_simple_backtest.py exists")
+            safe_print("🔧 Try option 3 for system diagnostics")
+            
+        except Exception as e:
+            safe_print(f"\n❌ Simple Backtest execution error: {e}")
+            import traceback
+            traceback.print_exc()
+            
         input("\nPress Enter to continue...")
         return True
     
@@ -617,8 +811,17 @@ class UnifiedMasterMenuSystem:
         """
         Start the unified master menu system with interactive menu including Terminal Lock.
         """
-        self.logger.info("🚀 Starting Unified Master Menu System...")
-        self.logger.info("🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.")
+        # Initialize components first
+        if not self.initialize_components():
+            safe_print("❌ CRITICAL: Failed to initialize system components")
+            return
+            
+        if self.logger:
+            self.logger.info("🚀 Starting Unified Master Menu System...")
+            self.logger.info("🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.")
+        else:
+            safe_print("🚀 Starting Unified Master Menu System...")
+            safe_print("🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.")
 
         # Show interactive menu with Terminal Lock option
         while self.running:

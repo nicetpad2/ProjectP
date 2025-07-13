@@ -839,6 +839,115 @@ class IntelligentEnvironmentDetector:
             
         except Exception as e:
             return f"Error generating environment summary: {e}"
+    
+    def get_optimized_config(self, env_info: Optional[EnvironmentInfo] = None) -> Dict[str, Any]:
+        """
+        Get optimized configuration based on environment
+        
+        Args:
+            env_info: Environment information (optional, will detect if not provided)
+            
+        Returns:
+            Dict containing optimized configuration
+        """
+        try:
+            if env_info is None:
+                env_info = self.detect_environment()
+            
+            # Get optimal resource allocation
+            allocation = self.get_optimal_resource_allocation(env_info)
+            
+            # Base configuration
+            config = {
+                'environment': {
+                    'type': env_info.environment_type.value,
+                    'hardware_capability': env_info.hardware_capability.value,
+                    'optimization_level': env_info.optimization_level.value
+                },
+                'resources': {
+                    'cpu_cores': env_info.cpu_cores,
+                    'memory_gb': env_info.memory_gb,
+                    'gpu_count': env_info.gpu_count,
+                    'gpu_memory_gb': env_info.gpu_memory_gb
+                },
+                'allocation': {
+                    'cpu_percentage': allocation.cpu_percentage,
+                    'memory_percentage': allocation.memory_percentage,
+                    'target_utilization': allocation.target_utilization,
+                    'safety_margin': allocation.safety_margin
+                },
+                'capabilities': env_info.capabilities.copy(),
+                'restrictions': env_info.restrictions.copy()
+            }
+            
+            # Environment-specific optimizations
+            if env_info.environment_type == EnvironmentType.GOOGLE_COLAB:
+                config.update({
+                    'colab_optimizations': True,
+                    'conservative_memory': True,
+                    'enable_progress_bars': True,
+                    'session_timeout_aware': True
+                })
+            elif env_info.environment_type == EnvironmentType.LOCAL_MACHINE:
+                config.update({
+                    'aggressive_optimization': True,
+                    'use_all_cores': True,
+                    'enable_caching': True
+                })
+            elif env_info.environment_type == EnvironmentType.CLOUD_VM:
+                config.update({
+                    'cloud_optimizations': True,
+                    'network_aware': True,
+                    'cost_optimization': True
+                })
+            
+            # Hardware-specific settings
+            if env_info.hardware_capability == HardwareCapability.HIGH_PERFORMANCE:
+                config.update({
+                    'batch_size_multiplier': 2.0,
+                    'max_workers': min(env_info.cpu_cores, 16),
+                    'enable_parallel_processing': True
+                })
+            elif env_info.hardware_capability == HardwareCapability.MEDIUM_PERFORMANCE:
+                config.update({
+                    'batch_size_multiplier': 1.5,
+                    'max_workers': min(env_info.cpu_cores, 8),
+                    'enable_parallel_processing': True
+                })
+            elif env_info.hardware_capability == HardwareCapability.LOW_PERFORMANCE:
+                config.update({
+                    'batch_size_multiplier': 1.0,
+                    'max_workers': min(env_info.cpu_cores, 4),
+                    'enable_parallel_processing': False
+                })
+            
+            # GPU-specific settings
+            if env_info.gpu_count > 0:
+                config.update({
+                    'enable_gpu': True,
+                    'gpu_memory_fraction': 0.8,
+                    'mixed_precision': True
+                })
+            else:
+                config.update({
+                    'enable_gpu': False,
+                    'cpu_optimization': True,
+                    'num_threads': env_info.cpu_cores
+                })
+            
+            return config
+            
+        except Exception as e:
+            self.logger.error(f"Error generating optimized config: {e}")
+            # Return minimal fallback config
+            return {
+                'environment': {'type': 'unknown'},
+                'resources': {'cpu_cores': 4, 'memory_gb': 8},
+                'allocation': {'target_utilization': 0.7},
+                'capabilities': {},
+                'restrictions': {}
+            }
+    
 
 
 # ====================================================

@@ -1,0 +1,43 @@
+{
+  "session_id": "20250711_222831",
+  "start_time": "2025-07-11T22:28:31.681789",
+  "end_time": "2025-07-11T23:00:20.842845",
+  "total_runtime": "0:31:49",
+  "total_steps": 8,
+  "completed_steps": 7,
+  "success_rate": 87.5,
+  "performance_metrics": {
+    "cnn_lstm_auc": 0.8157412578413216,
+    "original_features": 10,
+    "selected_features": 10,
+    "data_rows": 0,
+    "auc_score": 0.8157412578413216,
+    "sharpe_ratio": 1.563381707774718,
+    "max_drawdown": 0.13197337333091222,
+    "win_rate": 0.745907519789462,
+    "profit_factor": 1.4688480498003027
+  },
+  "real_processing_times": {
+    "System Initialization": "0:00:00",
+    "Data Loading & Validation": "0:00:01",
+    "Feature Engineering": "0:00:00",
+    "Feature Selection (SHAP+Optuna)": "0:00:00",
+    "CNN-LSTM Training": "0:24:46",
+    "DQN Agent Training": "0:06:32",
+    "Performance Analysis": "0:00:00"
+  },
+  "warnings_count": 0,
+  "errors_count": 0,
+  "data_processed": {
+    "rows": 1771969,
+    "features_created": 10,
+    "features_selected": 10
+  },
+  "ai_components_used": {
+    "data_processor": true,
+    "feature_selector": true,
+    "cnn_lstm_engine": true,
+    "dqn_agent": true,
+    "performance_analyzer": true
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "session_id": "20250711_104735",
+  "start_time": "2025-07-11T10:47:35.028363",
+  "end_time": "2025-07-11T11:43:37.366467",
+  "total_runtime": "0:56:02",
+  "total_steps": 8,
+  "completed_steps": 7,
+  "success_rate": 87.5,
+  "performance_metrics": {
+    "selected_features": 10,
+    "original_features": 10,
+    "cnn_lstm_auc": 0.72,
+    "ml_performance": {
+      "cnn_lstm_metrics": {
+        "auc": 0.0,
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      "feature_selection_metrics": {
+        "best_auc": 0.0,
+        "selected_features": 0,
+        "target_achieved": false
+      },
+      "ml_performance_score": 0.0,
+      "auc_target_met": false,
+      "model_quality": "Poor"
+    },
+    "trading_performance": {
+      "trading_metrics": {
+        "total_return_pct": 0.0,
+        "sharpe_ratio": 0.0,
+        "win_rate": 0.5,
+        "max_drawdown": 0.0,
+        "profit_factor": 0.8,
+        "total_trades": 0,
+        "final_balance": 10000.0
+      },
+      "trading_performance_score": 55.0,
+      "sharpe_target_met": false,
+      "drawdown_acceptable": true,
+      "win_rate_acceptable": false
+    },
+    "risk_analysis": {
+      "risk_metrics": {
+        "data_quality_risk": 50.0,
+        "model_risk": 100.0,
+        "overfitting_risk": 0.0,
+        "overall_risk_score": 75.0
+      },
+      "risk_assessment": "High",
+      "risk_factors": [
+        "AUC below target (0.7)",
+        "Limited training data"
+      ]
+    },
+    "overall_performance": {
+      "overall_score": 27.0,
+      "performance_grade": "F",
+      "key_metrics": {
+        "auc": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "win_rate": 50.0,
+        "total_return": 0.0
+      },
+      "component_scores": {
+        "ml_score": 0.0,
+        "trading_score": 55.0,
+        "risk_score": 25.0
+      },
+      "enterprise_ready": false,
+      "production_ready": false
+    },
+    "enterprise_grade": {
+      "enterprise_criteria": {
+        "performance_threshold": false,
+        "production_ready": false,
+        "auc_requirement": false,
+        "risk_acceptable": false,
+        "enterprise_grade": false
+      },
+      "enterprise_score": 0.0,
+      "enterprise_ready": false,
+      "certification_level": "Development Grade"
+    },
+    "recommendations": [
+      "Improve feature engineering and model architecture to achieve AUC >= 70%",
+      "Optimize trading strategy to improve risk-adjusted returns",
+      "Refine entry and exit signals to improve win rate",
+      "System requires significant improvements before enterprise deployment"
+    ],
+    "analysis_timestamp": "2025-07-11T11:43:37.337358"
+  },
+  "real_processing_times": {
+    "System Initialization": "0:00:00",
+    "Data Loading & Validation": "0:00:01",
+    "Feature Engineering": "0:00:00",
+    "Feature Selection (SHAP+Optuna)": "0:00:00",
+    "CNN-LSTM Training": "0:47:44",
+    "DQN Agent Training": "0:07:33",
+    "Performance Analysis": "0:00:00"
+  },
+  "warnings_count": 0,
+  "errors_count": 0,
+  "data_processed": {
+    "rows": 1771969,
+    "features_created": 10,
+    "features_selected": 10
+  },
+  "ai_components_used": {
+    "data_processor": true,
+    "feature_selector": true,
+    "cnn_lstm_engine": true,
+    "dqn_agent": true,
+    "performance_analyzer": true
+  }
+}

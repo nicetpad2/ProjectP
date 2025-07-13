@@ -1,0 +1,126 @@
+{
+  "session_id": "20250711_163503",
+  "total_files_before": 171,
+  "total_files_after": 93,
+  "files_consolidated": [],
+  "files_removed": [
+    "menu_modules/enterprise_production_menu_1.py",
+    "menu_modules/enhanced_menu_1_elliott_wave.py",
+    "menu_modules/enhanced_menu_1_elliott_wave_with_dashboard.py",
+    "menu_modules/enhanced_menu_1_elliott_wave_backup_20250711_155315.py",
+    "menu_modules/enhanced_menu_1_elliott_wave_backup_20250711_160315.py",
+    "menu_modules/menu_1_elliott_wave.py",
+    "intelligent_menu_1_elliott_wave.py",
+    "integrate_beautiful_menu1.py",
+    "integrate_beautiful_dashboard_menu1.py",
+    "core/resource_manager.py",
+    "core/high_memory_resource_manager.py",
+    "core/lightweight_high_memory_resource_manager.py",
+    "core/gpu_resource_manager.py",
+    "core/auto_80_percent_allocator.py",
+    "core/enterprise_resource_detector.py",
+    "core/enterprise_resource_control_center.py",
+    "core/resource_protection_system.py",
+    "core/dynamic_resource_optimizer.py",
+    "core/aggressive_memory_optimizer.py",
+    "core/logger.py",
+    "core/enhanced_menu1_logger.py",
+    "core/ai_enterprise_terminal_logger.py",
+    "core/advanced_terminal_logger.py",
+    "core/logging_integration_manager.py",
+    "core/menu1_logger_integration.py",
+    "core/robust_beautiful_progress.py",
+    "core/menu_system.py",
+    "core/optimized_menu_system.py",
+    "core/simple_enterprise_model_manager.py",
+    "core/menu1_model_integration.py",
+    "core/simple_beautiful_progress.py",
+    "core/modern_progress_bar.py",
+    "core/advanced_progress_manager.py",
+    "elliott_wave_modules/enhanced_dqn_agent.py",
+    "elliott_wave_modules/enhanced_multi_timeframe_dqn_agent.py",
+    "elliott_wave_modules/enterprise_dqn_agent.py",
+    "elliott_wave_modules/enterprise_cnn_lstm_engine.py",
+    "elliott_wave_modules/enterprise_ml_protection_original.py",
+    "elliott_wave_modules/enterprise_ml_protection_simple.py",
+    "elliott_wave_modules/enterprise_ml_protection_legacy.py",
+    "core/enterprise_system_resolver.py",
+    "core/logger_compatibility.py",
+    "menu_modules/menu_1_elliott_wave_complete.py",
+    "test_real_ai_processing.py",
+    "demo_beautiful_menu1.py",
+    "test_beautiful_menu1_integration.py",
+    "test_beautiful_dashboard_integration.py",
+    "test_menu1_80_percent_ram.py",
+    "test_menu1_step8_fix.py",
+    "test_menu1_pipeline.py",
+    "test_menu1_initialization.py",
+    "test_terminal_lock.py",
+    "test_enterprise_features.py",
+    "test_integration.py",
+    "working_beautiful_dashboard_demo.py",
+    "enterprise_beautiful_system_demo.py",
+    "production_demo.py",
+    "quick_integration_test.py",
+    "demo_enterprise_terminal_lock.py",
+    "install_enterprise.py",
+    "install_dependencies.py",
+    "installation_menu.py",
+    "quick_install.py",
+    "check_installation.py",
+    "fix_enterprise_production_issues.py",
+    "fix_ram_80_percent_usage.py",
+    "production_validation.py",
+    "production_menu1_integration.py",
+    "unified_menu1_integration_report_20250711_070041.json",
+    "unified_menu1_resource_integration.py",
+    "menu1_intelligent_resource_integration_complete.py",
+    "generate_final_report.py",
+    "production_resource_management_demo.py",
+    "terminal_lock_interface.py",
+    "check_colab_progress.py",
+    "launch_optimized_pipeline_complete.py",
+    "advanced_feature_selector.py",
+    "launch_optimized_pipeline.py",
+    "real_profit_feature_selector.py"
+  ],
+  "unified_components": {
+    "menu_1": {
+      "primary": "menu_modules/real_enterprise_menu_1.py",
+      "removed_count": 9
+    },
+    "resource_manager": {
+      "primary": "core/unified_resource_manager.py",
+      "removed_count": 10
+    },
+    "logger": {
+      "primary": "core/unified_enterprise_logger.py",
+      "removed_count": 7
+    },
+    "menu_system": {
+      "primary": "core/unified_master_menu_system.py",
+      "removed_count": 2
+    },
+    "model_manager": {
+      "primary": "core/enterprise_model_manager.py",
+      "removed_count": 2
+    },
+    "progress_system": {
+      "primary": "core/beautiful_progress.py",
+      "removed_count": 3
+    },
+    "dqn_agent": {
+      "primary": "elliott_wave_modules/dqn_agent.py",
+      "removed_count": 3
+    },
+    "cnn_lstm": {
+      "primary": "elliott_wave_modules/cnn_lstm_engine.py",
+      "removed_count": 1
+    },
+    "ml_protection": {
+      "primary": "elliott_wave_modules/enterprise_ml_protection.py",
+      "removed_count": 3
+    }
+  },
+  "space_saved_mb": 1.1893234252929688
+}

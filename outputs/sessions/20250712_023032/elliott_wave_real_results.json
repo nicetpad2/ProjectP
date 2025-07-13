@@ -1,0 +1,1113 @@
+{
+  "current_step": 7,
+  "total_steps": 8,
+  "step_names": [
+    "System Initialization",
+    "Data Loading & Validation",
+    "Feature Engineering",
+    "Feature Selection (SHAP+Optuna)",
+    "CNN-LSTM Training",
+    "DQN Agent Training",
+    "Performance Analysis",
+    "Results Compilation"
+  ],
+  "completed_steps": [
+    "System Initialization",
+    "Data Loading & Validation",
+    "Feature Engineering",
+    "Feature Selection (SHAP+Optuna)",
+    "CNN-LSTM Training",
+    "DQN Agent Training",
+    "Performance Analysis"
+  ],
+  "errors": [],
+  "warnings": [],
+  "files_created": {},
+  "performance_metrics": {
+    "cnn_lstm_auc": 0.8088611965197667,
+    "original_features": 10,
+    "selected_features": 10,
+    "data_rows": 0,
+    "auc_score": 0.8088611965197667,
+    "sharpe_ratio": 1.653449982056634,
+    "max_drawdown": 0.15135426415048447,
+    "win_rate": 0.7635532909556091,
+    "profit_factor": 1.5736822655412872
+  },
+  "session_summary": {
+    "session_id": "20250712_023032",
+    "start_time": "2025-07-12T02:30:32.506228",
+    "end_time": "2025-07-12T03:29:09.406301",
+    "total_runtime": "0:58:36",
+    "total_steps": 8,
+    "completed_steps": 7,
+    "success_rate": 87.5,
+    "performance_metrics": {
+      "cnn_lstm_auc": 0.8088611965197667,
+      "original_features": 10,
+      "selected_features": 10,
+      "data_rows": 0,
+      "auc_score": 0.8088611965197667,
+      "sharpe_ratio": 1.653449982056634,
+      "max_drawdown": 0.15135426415048447,
+      "win_rate": 0.7635532909556091,
+      "profit_factor": 1.5736822655412872
+    },
+    "real_processing_times": {
+      "System Initialization": "0:00:00",
+      "Data Loading & Validation": "0:00:04",
+      "Feature Engineering": "0:00:00",
+      "Feature Selection (SHAP+Optuna)": "0:00:00",
+      "CNN-LSTM Training": "0:48:44",
+      "DQN Agent Training": "0:08:57",
+      "Performance Analysis": "0:00:00"
+    },
+    "warnings_count": 0,
+    "errors_count": 0,
+    "data_processed": {
+      "rows": 1771969,
+      "features_created": 10,
+      "features_selected": 10
+    },
+    "ai_components_used": {
+      "data_processor": true,
+      "feature_selector": true,
+      "cnn_lstm_engine": true,
+      "dqn_agent": true,
+      "performance_analyzer": true
+    }
+  },
+  "real_processing_times": {
+    "System Initialization": "0:00:00",
+    "Data Loading & Validation": "0:00:04",
+    "Feature Engineering": "0:00:00",
+    "Feature Selection (SHAP+Optuna)": "0:00:00",
+    "CNN-LSTM Training": "0:48:44",
+    "DQN Agent Training": "0:08:57",
+    "Performance Analysis": "0:00:00"
+  },
+  "real_data": "             Date Timestamp      open      high       low     close  tick_volume\n0        25630501  00:00:00  1687.865  1688.305  1687.575  1687.955      0.04329\n1        25630501  00:01:00  1687.925  1688.645  1686.768  1687.195      0.06216\n2        25630501  00:02:00  1687.195  1687.415  1687.195  1687.295      0.02331\n3        25630501  00:03:00  1687.295  1687.535  1686.268  1686.368      0.02664\n4        25630501  00:04:00  1686.345  1686.455  1685.785  1686.205      0.02812\n...           ...       ...       ...       ...       ...       ...          ...\n1771964  25680430  23:55:00  3273.575  3273.995  3273.055  3273.485      0.00909\n1771965  25680430  23:56:00  3273.395  3273.475  3272.005  3272.605      0.01185\n1771966  25680430  23:57:00  3272.605  3272.825  3271.605  3271.965      0.01101\n1771967  25680430  23:58:00  3271.995  3274.015  3271.595  3272.345      0.01803\n1771968  25680430  23:59:00  3272.345  3272.845  3272.185  3272.545      0.00825\n\n[1771969 rows x 7 columns]",
+  "features_data": "             Date      open      high       low     close  tick_volume  close_filtered        rsi      macd  macd_signal  target\n15       25630501  1685.395  1685.415  1684.118  1684.338      0.02872     1684.982667  29.941663 -0.589873    -0.433033       1\n16       25630501  1684.338  1684.938  1683.948  1684.838      0.03476     1684.857000  34.392072 -0.605763    -0.467579       0\n17       25630501  1684.808  1685.028  1682.758  1682.998      0.07958     1684.058000  30.817395 -0.758089    -0.525681       1\n18       25630501  1683.248  1683.865  1682.948  1683.565      0.04160     1683.800333  35.633435 -0.823563    -0.585257       0\n19       25630501  1683.505  1683.705  1682.958  1683.015      0.03419     1683.192667  29.184926 -0.909350    -0.650076       0\n...           ...       ...       ...       ...       ...          ...             ...        ...       ...          ...     ...\n1771964  25680430  3273.575  3273.995  3273.055  3273.485      0.00909     3273.788333  56.685127 -0.504000    -0.555240       0\n1771965  25680430  3273.395  3273.475  3272.005  3272.605      0.01185     3273.248333  61.108742 -0.597638    -0.563720       0\n1771966  25680430  3272.605  3272.825  3271.605  3271.965      0.01101     3272.685000  47.368421 -0.715244    -0.594024       1\n1771967  25680430  3271.995  3274.015  3271.595  3272.345      0.01803     3272.305000  40.503432 -0.768921    -0.629004       1\n1771968  25680430  3272.345  3272.845  3272.185  3272.545      0.00825     3272.285000  42.742857 -0.786259    -0.660455       0\n\n[1771946 rows x 11 columns]",
+  "dqn_results": {
+    "success": true,
+    "total_episodes": 100,
+    "final_epsilon": 0.6057704364907278,
+    "avg_reward": 3680.0338485652305,
+    "best_reward": 5947.548573755546,
+    "episode_results": [
+      {
+        "episode": 1,
+        "reward": 1417.1974857364876,
+        "epsilon": 0.995,
+        "avg_loss": 35.349730582767066,
+        "avg_q_value": 1.2965767945328521,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 2,
+        "reward": 1759.309123965526,
+        "epsilon": 0.990025,
+        "avg_loss": 45.43350751686096,
+        "avg_q_value": 7.877187022507191,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 3,
+        "reward": 981.2518243429861,
+        "epsilon": 0.985074875,
+        "avg_loss": 36.83942630672455,
+        "avg_q_value": 7.990896738290787,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Good"
+      },
+      {
+        "episode": 4,
+        "reward": 1268.7804114979813,
+        "epsilon": 0.9801495006250001,
+        "avg_loss": 29.817351168632506,
+        "avg_q_value": 7.862548617839813,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 5,
+        "reward": 1319.9446784127472,
+        "epsilon": 0.9752487531218751,
+        "avg_loss": 26.11565523147583,
+        "avg_q_value": 7.921131029367447,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 6,
+        "reward": 1741.5134289211073,
+        "epsilon": 0.9703725093562657,
+        "avg_loss": 22.393027813911438,
+        "avg_q_value": 7.972700141191482,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 7,
+        "reward": 1370.909426760253,
+        "epsilon": 0.9655206468094844,
+        "avg_loss": 20.131167161464692,
+        "avg_q_value": 7.985560710906983,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 8,
+        "reward": 2203.047766463291,
+        "epsilon": 0.960693043575437,
+        "avg_loss": 18.627740254878997,
+        "avg_q_value": 8.002891150474548,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 9,
+        "reward": 2070.422140581784,
+        "epsilon": 0.9558895783575597,
+        "avg_loss": 17.152212850093843,
+        "avg_q_value": 8.124571157693863,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 10,
+        "reward": 2535.625390132635,
+        "epsilon": 0.9511101304657719,
+        "avg_loss": 16.32647719669342,
+        "avg_q_value": 8.21859854054451,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 11,
+        "reward": 2033.171513067092,
+        "epsilon": 0.946354579813443,
+        "avg_loss": 15.565430854320526,
+        "avg_q_value": 8.333688604116439,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 12,
+        "reward": 2506.2178731883173,
+        "epsilon": 0.9416228069143757,
+        "avg_loss": 33.576823347091675,
+        "avg_q_value": 17.817135063171385,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 13,
+        "reward": 1820.8505092529722,
+        "epsilon": 0.9369146928798039,
+        "avg_loss": 24.87839514541626,
+        "avg_q_value": 18.068210768699647,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 14,
+        "reward": 1952.2359122402172,
+        "epsilon": 0.9322301194154049,
+        "avg_loss": 23.158998252391815,
+        "avg_q_value": 18.227366532325746,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 15,
+        "reward": 2356.311453292629,
+        "epsilon": 0.9275689688183278,
+        "avg_loss": 22.185592161655425,
+        "avg_q_value": 18.333015823364256,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 16,
+        "reward": 2146.9964071467903,
+        "epsilon": 0.9229311239742362,
+        "avg_loss": 21.422363922595977,
+        "avg_q_value": 18.273593111991882,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 17,
+        "reward": 2195.1059045103475,
+        "epsilon": 0.918316468354365,
+        "avg_loss": 20.398893061637878,
+        "avg_q_value": 18.426447680473327,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 18,
+        "reward": 2405.5705347834355,
+        "epsilon": 0.9137248860125932,
+        "avg_loss": 19.66516051197052,
+        "avg_q_value": 18.550552166938783,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 19,
+        "reward": 2442.1592401596326,
+        "epsilon": 0.9091562615825302,
+        "avg_loss": 19.142603552341463,
+        "avg_q_value": 18.48513115978241,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 20,
+        "reward": 2550.0719986368363,
+        "epsilon": 0.9046104802746175,
+        "avg_loss": 19.216693890571594,
+        "avg_q_value": 18.554760459899903,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 21,
+        "reward": 2052.397673051975,
+        "epsilon": 0.9000874278732445,
+        "avg_loss": 18.87742738676071,
+        "avg_q_value": 18.585624554634094,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 22,
+        "reward": 2530.0760628513694,
+        "epsilon": 0.8955869907338783,
+        "avg_loss": 31.14728039932251,
+        "avg_q_value": 28.022028511047363,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 23,
+        "reward": 2705.9586562613513,
+        "epsilon": 0.8911090557802088,
+        "avg_loss": 24.87422651672363,
+        "avg_q_value": 28.252395973205566,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 24,
+        "reward": 2640.8475060754754,
+        "epsilon": 0.8866535105013078,
+        "avg_loss": 23.57455801486969,
+        "avg_q_value": 28.33882287979126,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 25,
+        "reward": 2906.8002229895037,
+        "epsilon": 0.8822202429488013,
+        "avg_loss": 22.03194541168213,
+        "avg_q_value": 28.418865253448487,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 26,
+        "reward": 2536.9719826665596,
+        "epsilon": 0.8778091417340573,
+        "avg_loss": 21.961885899543763,
+        "avg_q_value": 28.36574846076965,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 27,
+        "reward": 2772.851852430768,
+        "epsilon": 0.8734200960253871,
+        "avg_loss": 21.177077897548674,
+        "avg_q_value": 28.513278339385987,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 28,
+        "reward": 2373.882426479608,
+        "epsilon": 0.8690529955452602,
+        "avg_loss": 20.950416963100434,
+        "avg_q_value": 28.520956659317015,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 29,
+        "reward": 2049.150810530662,
+        "epsilon": 0.8647077305675338,
+        "avg_loss": 20.899160450935362,
+        "avg_q_value": 28.44887491607666,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 30,
+        "reward": 3757.500942889449,
+        "epsilon": 0.8603841919146962,
+        "avg_loss": 20.136032347202303,
+        "avg_q_value": 28.4734178276062,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 31,
+        "reward": 3220.7015379639106,
+        "epsilon": 0.8560822709551227,
+        "avg_loss": 19.980640414237975,
+        "avg_q_value": 28.555597650527954,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 32,
+        "reward": 3147.987636544008,
+        "epsilon": 0.851801859600347,
+        "avg_loss": 31.874973720550535,
+        "avg_q_value": 38.040499490737915,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 33,
+        "reward": 3011.4514947801244,
+        "epsilon": 0.8475428503023453,
+        "avg_loss": 26.55029080104828,
+        "avg_q_value": 38.162738189697265,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 34,
+        "reward": 2923.5503388178126,
+        "epsilon": 0.8433051360508336,
+        "avg_loss": 25.82388017463684,
+        "avg_q_value": 38.47399388122559,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 35,
+        "reward": 3151.0777715200884,
+        "epsilon": 0.8390886103705794,
+        "avg_loss": 25.080784494400024,
+        "avg_q_value": 38.2345468711853,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 36,
+        "reward": 2989.656997604703,
+        "epsilon": 0.8348931673187264,
+        "avg_loss": 24.44460976266861,
+        "avg_q_value": 38.29043811607361,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 37,
+        "reward": 2971.138456185809,
+        "epsilon": 0.8307187014821328,
+        "avg_loss": 24.145846598625184,
+        "avg_q_value": 38.326907222747806,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 38,
+        "reward": 2871.869558320675,
+        "epsilon": 0.8265651079747222,
+        "avg_loss": 23.871176186561584,
+        "avg_q_value": 38.37104491996765,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 39,
+        "reward": 3287.930360301606,
+        "epsilon": 0.8224322824348486,
+        "avg_loss": 23.769720883369445,
+        "avg_q_value": 38.429083992004394,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 40,
+        "reward": 3376.876009628383,
+        "epsilon": 0.8183201210226743,
+        "avg_loss": 23.465230328083038,
+        "avg_q_value": 38.534303558349606,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 41,
+        "reward": 3541.066650390537,
+        "epsilon": 0.8142285204175609,
+        "avg_loss": 23.444817602157592,
+        "avg_q_value": 38.54979362106323,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 42,
+        "reward": 3526.7001182335584,
+        "epsilon": 0.810157377815473,
+        "avg_loss": 35.843896454811095,
+        "avg_q_value": 47.923581157684325,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 43,
+        "reward": 3439.461915765656,
+        "epsilon": 0.8061065909263957,
+        "avg_loss": 30.854513833999633,
+        "avg_q_value": 47.98873035812378,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 44,
+        "reward": 3536.669027092486,
+        "epsilon": 0.8020760579717637,
+        "avg_loss": 30.104402235031127,
+        "avg_q_value": 48.0388797416687,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 45,
+        "reward": 3368.183146270071,
+        "epsilon": 0.798065677681905,
+        "avg_loss": 29.329544384002684,
+        "avg_q_value": 48.16975026702881,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 46,
+        "reward": 3837.686512273511,
+        "epsilon": 0.7940753492934954,
+        "avg_loss": 29.09008765888214,
+        "avg_q_value": 48.084373264312745,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 47,
+        "reward": 3889.0708842759414,
+        "epsilon": 0.7901049725470279,
+        "avg_loss": 28.303943347930907,
+        "avg_q_value": 48.2953896446228,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 48,
+        "reward": 3840.7407300590285,
+        "epsilon": 0.7861544476842928,
+        "avg_loss": 27.84408538913727,
+        "avg_q_value": 48.479965705871585,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 49,
+        "reward": 4210.0767645531705,
+        "epsilon": 0.7822236754458713,
+        "avg_loss": 27.992475984573364,
+        "avg_q_value": 48.42516320037842,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 50,
+        "reward": 3603.099553086155,
+        "epsilon": 0.778312557068642,
+        "avg_loss": 27.781377601623536,
+        "avg_q_value": 48.507503242492675,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 51,
+        "reward": 3923.9620917712045,
+        "epsilon": 0.7744209942832988,
+        "avg_loss": 27.452361003875733,
+        "avg_q_value": 48.50925037002563,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 52,
+        "reward": 3861.062314949031,
+        "epsilon": 0.7705488893118823,
+        "avg_loss": 40.631568702697756,
+        "avg_q_value": 56.94527812576294,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 53,
+        "reward": 3696.6781814598385,
+        "epsilon": 0.7666961448653229,
+        "avg_loss": 36.21548559856415,
+        "avg_q_value": 57.07745394897461,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 54,
+        "reward": 4277.552029060276,
+        "epsilon": 0.7628626641409962,
+        "avg_loss": 35.50545935916901,
+        "avg_q_value": 57.2699135055542,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 55,
+        "reward": 3974.9393748118327,
+        "epsilon": 0.7590483508202912,
+        "avg_loss": 34.07443437194824,
+        "avg_q_value": 57.33048041534424,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 56,
+        "reward": 3607.703453678652,
+        "epsilon": 0.7552531090661897,
+        "avg_loss": 33.30294415092468,
+        "avg_q_value": 57.35461296463013,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 57,
+        "reward": 3719.8839564470886,
+        "epsilon": 0.7514768435208588,
+        "avg_loss": 33.335366956710814,
+        "avg_q_value": 57.17048603820801,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 58,
+        "reward": 4162.16158953176,
+        "epsilon": 0.7477194593032545,
+        "avg_loss": 32.77793043327331,
+        "avg_q_value": 57.17305680084228,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 59,
+        "reward": 3596.290235587551,
+        "epsilon": 0.7439808620067382,
+        "avg_loss": 32.824492398262024,
+        "avg_q_value": 57.2636865196228,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 60,
+        "reward": 3684.717804156917,
+        "epsilon": 0.7402609576967045,
+        "avg_loss": 32.426743976593016,
+        "avg_q_value": 57.177737674713136,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 61,
+        "reward": 4012.8785513027487,
+        "epsilon": 0.736559652908221,
+        "avg_loss": 32.7472184715271,
+        "avg_q_value": 57.24726109313965,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 62,
+        "reward": 4479.694884083981,
+        "epsilon": 0.7328768546436799,
+        "avg_loss": 44.64262935829163,
+        "avg_q_value": 65.28684717941285,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 63,
+        "reward": 4220.921741246675,
+        "epsilon": 0.7292124703704616,
+        "avg_loss": 40.93560758781433,
+        "avg_q_value": 65.44119420242309,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 64,
+        "reward": 3789.9266034466714,
+        "epsilon": 0.7255664080186093,
+        "avg_loss": 39.817886058807375,
+        "avg_q_value": 65.31730619049073,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 65,
+        "reward": 5026.756958678523,
+        "epsilon": 0.7219385759785162,
+        "avg_loss": 39.45910540676117,
+        "avg_q_value": 65.35646013259888,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 66,
+        "reward": 4182.375178912772,
+        "epsilon": 0.7183288830986236,
+        "avg_loss": 38.53346608448029,
+        "avg_q_value": 65.41587915420533,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 67,
+        "reward": 4360.067344641558,
+        "epsilon": 0.7147372386831305,
+        "avg_loss": 38.245605335235595,
+        "avg_q_value": 65.53229320144654,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 68,
+        "reward": 4534.771492951345,
+        "epsilon": 0.7111635524897149,
+        "avg_loss": 37.72319971942902,
+        "avg_q_value": 65.52497824859618,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 69,
+        "reward": 4497.970481110043,
+        "epsilon": 0.7076077347272662,
+        "avg_loss": 38.3519028635025,
+        "avg_q_value": 65.52964479064941,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 70,
+        "reward": 4282.523555748825,
+        "epsilon": 0.7040696960536299,
+        "avg_loss": 37.66669912719727,
+        "avg_q_value": 65.68247121810913,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 71,
+        "reward": 5053.050807642609,
+        "epsilon": 0.7005493475733617,
+        "avg_loss": 36.85004949951172,
+        "avg_q_value": 65.73614432525635,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 72,
+        "reward": 4351.402903309135,
+        "epsilon": 0.697046600835495,
+        "avg_loss": 49.100330522537234,
+        "avg_q_value": 73.82764993667602,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 73,
+        "reward": 4890.811383920483,
+        "epsilon": 0.6935613678313175,
+        "avg_loss": 46.15317042350769,
+        "avg_q_value": 73.9542525177002,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 74,
+        "reward": 5127.729203122595,
+        "epsilon": 0.6900935609921609,
+        "avg_loss": 43.9787714138031,
+        "avg_q_value": 73.91696558380127,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 75,
+        "reward": 5232.252951892257,
+        "epsilon": 0.6866430931872001,
+        "avg_loss": 44.64092824745178,
+        "avg_q_value": 73.96520371246338,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 76,
+        "reward": 4449.789241800678,
+        "epsilon": 0.6832098777212641,
+        "avg_loss": 42.74962425327301,
+        "avg_q_value": 74.12507973480224,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 77,
+        "reward": 4835.773072570825,
+        "epsilon": 0.6797938283326578,
+        "avg_loss": 44.07205937862396,
+        "avg_q_value": 74.16299008941651,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 78,
+        "reward": 5067.977240927755,
+        "epsilon": 0.6763948591909945,
+        "avg_loss": 43.4751488571167,
+        "avg_q_value": 74.18017894744872,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 79,
+        "reward": 5141.02858217469,
+        "epsilon": 0.6730128848950395,
+        "avg_loss": 43.09503946495056,
+        "avg_q_value": 74.28706969451905,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 80,
+        "reward": 5015.117159824125,
+        "epsilon": 0.6696478204705644,
+        "avg_loss": 42.76309188556671,
+        "avg_q_value": 74.42173666381836,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 81,
+        "reward": 4503.001524178834,
+        "epsilon": 0.6662995813682115,
+        "avg_loss": 42.366527548789975,
+        "avg_q_value": 74.43900531768799,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 82,
+        "reward": 4868.383660517897,
+        "epsilon": 0.6629680834613705,
+        "avg_loss": 53.38572814369201,
+        "avg_q_value": 81.98067830657959,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 83,
+        "reward": 4838.6541436092375,
+        "epsilon": 0.6596532430440636,
+        "avg_loss": 50.408535919189454,
+        "avg_q_value": 82.02510597991943,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 84,
+        "reward": 4951.343279977856,
+        "epsilon": 0.6563549768288433,
+        "avg_loss": 49.970033267974856,
+        "avg_q_value": 82.1185066986084,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 85,
+        "reward": 4816.33667024927,
+        "epsilon": 0.653073201944699,
+        "avg_loss": 49.02664078330994,
+        "avg_q_value": 82.01885335540771,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 86,
+        "reward": 5621.199525188067,
+        "epsilon": 0.6498078359349755,
+        "avg_loss": 49.18692796707153,
+        "avg_q_value": 82.15012015533448,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 87,
+        "reward": 5241.5928759398375,
+        "epsilon": 0.6465587967553006,
+        "avg_loss": 47.78579914474487,
+        "avg_q_value": 82.26344840240479,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 88,
+        "reward": 5114.329978536327,
+        "epsilon": 0.6433260027715241,
+        "avg_loss": 47.91349317741394,
+        "avg_q_value": 82.26728579711914,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 89,
+        "reward": 4808.80929824167,
+        "epsilon": 0.6401093727576664,
+        "avg_loss": 48.494663343429565,
+        "avg_q_value": 82.13000006866456,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 90,
+        "reward": 5266.272993870306,
+        "epsilon": 0.6369088258938781,
+        "avg_loss": 48.2059855594635,
+        "avg_q_value": 82.17903018188477,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 91,
+        "reward": 4889.267720062223,
+        "epsilon": 0.6337242817644086,
+        "avg_loss": 47.68734640884399,
+        "avg_q_value": 82.20275653839111,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 92,
+        "reward": 5240.805529958596,
+        "epsilon": 0.6305556603555866,
+        "avg_loss": 57.78665881729126,
+        "avg_q_value": 88.75867345428466,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 93,
+        "reward": 5947.548573755546,
+        "epsilon": 0.6274028820538087,
+        "avg_loss": 55.130631441116336,
+        "avg_q_value": 88.92434588623047,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 94,
+        "reward": 5266.97977037243,
+        "epsilon": 0.6242658676435396,
+        "avg_loss": 53.93741785430908,
+        "avg_q_value": 88.91980978393555,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 95,
+        "reward": 5051.875927792852,
+        "epsilon": 0.6211445383053219,
+        "avg_loss": 54.0787509098053,
+        "avg_q_value": 88.82536655426026,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 96,
+        "reward": 5476.878997267719,
+        "epsilon": 0.6180388156137953,
+        "avg_loss": 52.85699864196777,
+        "avg_q_value": 88.97953273010253,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 97,
+        "reward": 5147.588689145697,
+        "epsilon": 0.6149486215357263,
+        "avg_loss": 53.00572726249695,
+        "avg_q_value": 89.02049840545655,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 98,
+        "reward": 5371.415232215651,
+        "epsilon": 0.6118738784280476,
+        "avg_loss": 53.11028427505493,
+        "avg_q_value": 89.05079780578613,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 99,
+        "reward": 5650.9089371755845,
+        "epsilon": 0.6088145090359074,
+        "avg_loss": 53.15568799209595,
+        "avg_q_value": 89.06602994537353,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      },
+      {
+        "episode": 100,
+        "reward": 5724.294534718023,
+        "epsilon": 0.6057704364907278,
+        "avg_loss": 52.28252663230896,
+        "avg_q_value": 89.29262860107421,
+        "steps": 1000,
+        "numerical_stability": "Maintained",
+        "reward_quality": "Clamped"
+      }
+    ]
+  },
+  "selected_features": [
+    "Date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "tick_volume",
+    "close_filtered",
+    "rsi",
+    "macd",
+    "macd_signal"
+  ],
+  "selection_results": "[[ 2.56305010e+07  1.68539500e+03  1.68541500e+03 ...  2.99416633e+01\n  -5.89872900e-01 -4.33032662e-01]\n [ 2.56305010e+07  1.68433800e+03  1.68493800e+03 ...  3.43920722e+01\n  -6.05762508e-01 -4.67578631e-01]\n [ 2.56305010e+07  1.68480800e+03  1.68502800e+03 ...  3.08173953e+01\n  -7.58088982e-01 -5.25680701e-01]\n ...\n [ 2.56804300e+07  3.27260500e+03  3.27282500e+03 ...  4.73684211e+01\n  -7.15243789e-01 -5.94024491e-01]\n [ 2.56804300e+07  3.27199500e+03  3.27401500e+03 ...  4.05034325e+01\n  -7.68921037e-01 -6.29003800e-01]\n [ 2.56804300e+07  3.27234500e+03  3.27284500e+03 ...  4.27428571e+01\n  -7.86258812e-01 -6.60454803e-01]]"
+}

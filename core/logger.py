@@ -1,33 +1,58 @@
-"""core/logger.py
-Legacy compatibility module mapping to the Unified Enterprise Logger.
-This exists to satisfy older imports (`import core.logger`) that may persist in
-third-party or legacy code after the logging system unification.
-All helper functions simply forward to the UnifiedEnterpriseLogger instance.
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-from core.unified_enterprise_logger import get_unified_logger as _get_unified_logger, UnifiedEnterpriseLogger
+[DEPRECATED] CORE LOGGER - COMPATIBILITY WRAPPER
+This module is deprecated. Use core.unified_enterprise_logger directly.
 
-# Obtain a singleton unified logger instance for legacy use
-_logger = _get_unified_logger("LegacyCompatibilityLogger")
+This compatibility wrapper forwards all calls to the unified enterprise logger.
+"""
 
-# Expose standard logging functions expected by old code
-info = _logger.info
-warning = _logger.warning
-error = _logger.error
-debug = _logger.debug
-critical = _logger.critical
-success = getattr(_logger, "success", _logger.info)
+import warnings
+from core.unified_enterprise_logger import get_unified_logger, UnifiedEnterpriseLogger
 
-# Provide a convenience function to retrieve the underlying logger
-def get_logger():
-    """Return the underlying UnifiedEnterpriseLogger instance (legacy call)."""
-    return _logger
+# Issue deprecation warning
+warnings.warn(
+    "core.logger is deprecated. Use core.unified_enterprise_logger instead.",
+    DeprecationWarning,
+    stacklevel=2
+)
 
-# Legacy alias expected by some call sites
-get_unified_logger = get_logger 
+# Export the unified logger functions for backward compatibility
+def get_logger(name: str = "NICEGOLD_PROJECT"):
+    """Deprecated: Use get_unified_logger instead"""
+    warnings.warn(
+        "get_logger is deprecated. Use get_unified_logger instead.",
+        DeprecationWarning,
+        stacklevel=2
+    )
+    return get_unified_logger(name)
 
-def setup_enterprise_logger(name: str = "LegacyEnterpriseLogger"):
-    """Legacy function for setting up enterprise logger (compatibility)."""
-    return _get_unified_logger(name)
+def setup_enterprise_logger(name: str = "NICEGOLD_PROJECT", level: str = "INFO"):
+    """Deprecated: Use get_unified_logger instead"""
+    warnings.warn(
+        "setup_enterprise_logger is deprecated. Use get_unified_logger instead.",
+        DeprecationWarning,
+        stacklevel=2
+    )
+    return get_unified_logger(name)
 
-# Legacy class alias for backward compatibility
-EnterpriseLogger = UnifiedEnterpriseLogger 
+# Legacy class alias
+class EnterpriseLogger:
+    """Deprecated: Use UnifiedEnterpriseLogger instead"""
+    
+    def __init__(self, name: str = "NICEGOLD_PROJECT"):
+        warnings.warn(
+            "EnterpriseLogger is deprecated. Use UnifiedEnterpriseLogger instead.",
+            DeprecationWarning,
+            stacklevel=2
+        )
+        self.logger = get_unified_logger(name)
+    
+    def __getattr__(self, name):
+        return getattr(self.logger, name)
+
+# Export all the main functions from unified enterprise logger
+__all__ = ['get_logger', 'get_unified_logger', 'UnifiedEnterpriseLogger', 'setup_enterprise_logger', 'EnterpriseLogger']
+
+# Re-export from unified logger for compatibility
+from core.unified_enterprise_logger import * 

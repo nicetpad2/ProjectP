@@ -1,358 +1,499 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-🔍 NICEGOLD ProjectP - Installation Checker
-Complete dependency verification and system health check
+🏢 NICEGOLD ENTERPRISE PROJECTP - INSTALLATION VERIFICATION
+🔍 Comprehensive Installation Check and Validation System
+
+This script verifies that all required dependencies are properly installed
+and the NICEGOLD ProjectP system is ready for production use.
+
+Author: NICEGOLD Enterprise ProjectP Team
+Version: v3.0 Enterprise Edition
+Date: July 12, 2025
 """
 
-import subprocess
 import sys
 import os
 import importlib
 import platform
+import subprocess
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
 
-# Set UTF-8 encoding for cross-platform compatibility
-os.environ['PYTHONIOENCODING'] = 'utf-8'
-
-def install_rich_if_missing():
-    """Install rich library if missing for better UI"""
-    try:
-        import rich
-        from rich.console import Console
-        return Console()
-    except ImportError:
-        print("📦 Installing 'rich' library for better display...")
-        try:
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'rich'], 
-                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            from rich.console import Console
-            return Console()
-        except Exception as e:
-            print(f"❌ Could not install 'rich': {e}")
-            return None
-
-console = install_rich_if_missing()
-
-if console:
+try:
+    from rich.console import Console
     from rich.panel import Panel
+    from rich.text import Text
     from rich.table import Table
     from rich.progress import Progress, SpinnerColumn, TextColumn
-    from rich.text import Text
-    
-    def print_success(message: str):
-        console.print(f"[green]✅ {message}[/green]")
-    
-    def print_error(message: str):
-        console.print(f"[red]❌ {message}[/red]")
-    
-    def print_warning(message: str):
-        console.print(f"[yellow]⚠️ {message}[/yellow]")
-    
-    def print_info(message: str):
-        console.print(f"[cyan]ℹ️ {message}[/cyan]")
-else:
-    def print_success(message: str):
-        print(f"✅ {message}")
-    
-    def print_error(message: str):
-        print(f"❌ {message}")
-    
-    def print_warning(message: str):
-        print(f"⚠️ {message}")
-    
-    def print_info(message: str):
-        print(f"ℹ️ {message}")
+    RICH_AVAILABLE = True
+except ImportError:
+    RICH_AVAILABLE = False
 
-def check_python_version() -> bool:
-    """Check if Python version is supported"""
-    version = sys.version_info
-    if version.major >= 3 and version.minor >= 8:
-        print_success(f"Python {version.major}.{version.minor}.{version.micro} (supported)")
-        return True
-    else:
-        print_error(f"Python {version.major}.{version.minor}.{version.micro} (requires 3.8+)")
-        return False
-
-def check_pip_available() -> bool:
-    """Check if pip is available"""
-    try:
-        subprocess.check_call([sys.executable, '-m', 'pip', '--version'], 
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print_success("pip is available")
-        return True
-    except subprocess.CalledProcessError:
-        print_error("pip is not available")
-        return False
-
-def get_requirements_from_file(filepath: str) -> List[str]:
-    """Parse requirements file and return clean package names"""
-    if not os.path.exists(filepath):
-        return []
+class InstallationChecker:
+    """
+    🔍 NICEGOLD Enterprise ProjectP Installation Verification System
+    Comprehensive verification of all dependencies and system readiness
+    """
     
-    packages = []
-    with open(filepath, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith('#'):
-                # Remove comments and extract package name
-                package = line.split('#')[0].strip()
-                if package:
-                    # Extract just the package name (remove version constraints)
-                    package_name = package.split('>=')[0].split('==')[0].split('<=')[0].split('>')[0].split('<')[0]
-                    packages.append(package_name)
-    return packages
-
-def check_package_installed(package: str) -> bool:
-    """Check if a Python package is installed"""
-    try:
-        # Handle special cases
-        if package == 'opencv-python':
-            importlib.import_module('cv2')
-        elif package == 'Pillow':
-            importlib.import_module('PIL')
-        elif package == 'beautifulsoup4':
-            importlib.import_module('bs4')
-        elif package == 'scikit-learn':
-            importlib.import_module('sklearn')
-        elif package == 'python-dateutil':
-            importlib.import_module('dateutil')
-        elif package == 'PyYAML':
-            importlib.import_module('yaml')
-        elif package == 'google-colab':
-            try:
-                importlib.import_module('google.colab')
-            except ImportError:
-                # google-colab is only available in Colab environment
-                return True
+    def __init__(self):
+        self.console = Console() if RICH_AVAILABLE else None
+        self.project_root = Path(__file__).parent
+        
+        # Critical packages for NICEGOLD ProjectP
+        self.critical_packages = {
+            # Core Data Science
+            'numpy': '1.21.0',
+            'pandas': '2.0.0',
+            'scipy': '1.8.0',
+            'scikit-learn': '1.1.0',
+            'joblib': '1.1.0',
+            
+            # Machine Learning
+            'tensorflow': '2.10.0',
+            'torch': '1.12.0',
+            
+            # Feature Selection (CRITICAL)
+            'shap': '0.41.0',
+            'optuna': '3.0.0',
+            
+            # Enterprise UI
+            'rich': '12.0.0',
+            'colorama': '0.4.4',
+            'psutil': '5.8.0',
+            
+            # Configuration
+            'yaml': None  # PyYAML
+        }
+        
+        # Optional but recommended packages
+        self.optional_packages = {
+            'xgboost': '1.6.0',
+            'lightgbm': '3.3.0',
+            'gymnasium': '0.26.0',
+            'stable_baselines3': '1.6.0',
+            'yfinance': '0.1.70',
+            'ta': '0.10.0',
+            'matplotlib': '3.5.0',
+            'seaborn': '0.11.0',
+            'plotly': '6.2.0'
+        }
+        
+        # Enterprise specific packages
+        self.enterprise_packages = {
+            'alembic': '1.8.0',
+            'cryptography': '3.4.0',
+            'sqlalchemy': '1.4.0',
+            'h5py': '3.7.0'
+        }
+        
+        self.results = {
+            'critical': {},
+            'optional': {},
+            'enterprise': {},
+            'system': {}
+        }
+    
+    def print_banner(self):
+        """Display verification banner"""
+        if RICH_AVAILABLE:
+            banner = Text()
+            banner.append("🔍 NICEGOLD ENTERPRISE PROJECTP\n", style="bold cyan")
+            banner.append("Installation Verification System\n", style="bold white")
+            banner.append("🚀 Checking System Readiness", style="bold green")
+            
+            panel = Panel(
+                banner,
+                title="[bold blue]Installation Check[/bold blue]",
+                border_style="cyan",
+                padding=(1, 2)
+            )
+            self.console.print(panel)
         else:
-            importlib.import_module(package.replace('-', '_'))
+            print("🔍 NICEGOLD ENTERPRISE PROJECTP")
+            print("Installation Verification System")
+            print("🚀 Checking System Readiness")
+            print("=" * 50)
+    
+    def check_python_version(self):
+        """Check Python version compatibility"""
+        version = sys.version_info
+        
+        if version >= (3, 8):
+            status = "✅ Compatible"
+            success = True
+        elif version >= (3, 7):
+            status = "⚠️ Minimum (upgrade recommended)"
+            success = True
+        else:
+            status = "❌ Incompatible (requires 3.8+)"
+            success = False
+        
+        self.results['system']['python'] = {
+            'version': f"{version.major}.{version.minor}.{version.micro}",
+            'status': status,
+            'success': success
+        }
+        
+        return success
+    
+    def check_platform_info(self):
+        """Check platform information"""
+        system = platform.system()
+        machine = platform.machine()
+        platform_info = platform.platform()
+        
+        self.results['system']['platform'] = {
+            'system': system,
+            'machine': machine,
+            'platform': platform_info,
+            'status': "✅ Detected",
+            'success': True
+        }
+        
         return True
-    except ImportError:
-        return False
-
-def check_core_modules() -> Tuple[List[str], List[str]]:
-    """Check NICEGOLD core modules availability"""
-    core_modules = [
-        'core.unified_enterprise_logger',
-        'core.project_paths',
-        'core.enterprise_model_manager',
-        'core.unified_config_manager',
-        'core.unified_resource_manager',
-        'core.output_manager'
-    ]
     
-    available = []
-    missing = []
-    
-    for module in core_modules:
+    def check_memory(self):
+        """Check available memory"""
         try:
-            importlib.import_module(module)
-            available.append(module)
+            import psutil
+            memory = psutil.virtual_memory()
+            memory_gb = memory.total / (1024**3)
+            
+            if memory_gb >= 8:
+                status = "✅ Excellent"
+                success = True
+            elif memory_gb >= 4:
+                status = "⚠️ Adequate"
+                success = True
+            else:
+                status = "❌ Insufficient (4GB+ recommended)"
+                success = False
+            
+            self.results['system']['memory'] = {
+                'total_gb': f"{memory_gb:.1f}",
+                'available_gb': f"{memory.available / (1024**3):.1f}",
+                'status': status,
+                'success': success
+            }
+            
+            return success
         except ImportError:
-            missing.append(module)
+            self.results['system']['memory'] = {
+                'status': "⚠️ Cannot check (psutil not available)",
+                'success': True
+            }
+            return True
     
-    return available, missing
-
-def check_elliott_wave_modules() -> Tuple[List[str], List[str]]:
-    """Check Elliott Wave modules availability"""
-    elliott_modules = [
-        'elliott_wave_modules.feature_selector',
-        'elliott_wave_modules.data_processor',
-        'elliott_wave_modules.cnn_lstm_engine',
-        'elliott_wave_modules.dqn_agent',
-        'elliott_wave_modules.pipeline_orchestrator',
-        'elliott_wave_modules.performance_analyzer'
-    ]
-    
-    available = []
-    missing = []
-    
-    for module in elliott_modules:
+    def check_package(self, package_name, min_version=None, category='critical'):
+        """Check if a package is installed and meets version requirements"""
         try:
-            importlib.import_module(module)
-            available.append(module)
+            # Special handling for yaml (PyYAML) and scikit-learn
+            if package_name == 'yaml':
+                import yaml
+                module = yaml
+                actual_package = 'PyYAML'
+            elif package_name == 'scikit-learn':
+                import sklearn
+                module = sklearn
+                actual_package = 'scikit-learn'
+            else:
+                module = importlib.import_module(package_name)
+                actual_package = package_name
+            
+            # Get version
+            version = getattr(module, '__version__', 'Unknown')
+            
+            # Check version compatibility
+            if min_version and version != 'Unknown':
+                try:
+                    from packaging import version as pkg_version
+                    if pkg_version.parse(version) >= pkg_version.parse(min_version):
+                        status = f"✅ {version}"
+                        success = True
+                    else:
+                        status = f"⚠️ {version} (min: {min_version})"
+                        success = False
+                except:
+                    # Fallback to string comparison
+                    status = f"✅ {version}"
+                    success = True
+            else:
+                status = f"✅ {version}"
+                success = True
+            
+            self.results[category][package_name] = {
+                'installed': True,
+                'version': version,
+                'status': status,
+                'success': success,
+                'package': actual_package
+            }
+            
+            return success
+            
         except ImportError:
-            missing.append(module)
+            self.results[category][package_name] = {
+                'installed': False,
+                'version': 'Not installed',
+                'status': "❌ Missing",
+                'success': False,
+                'package': package_name
+            }
+            return False
     
-    return available, missing
+    def check_project_files(self):
+        """Check if essential project files exist"""
+        essential_files = [
+            'ProjectP.py',
+            'requirements.txt',
+            'requirements_complete.txt',
+            'core/menu_system.py',
+            'elliott_wave_modules/data_processor.py',
+            'menu_modules',
+            'datacsv'
+        ]
+        
+        missing_files = []
+        
+        for file_path in essential_files:
+            full_path = self.project_root / file_path
+            if not full_path.exists():
+                missing_files.append(file_path)
+        
+        if missing_files:
+            self.results['system']['project_files'] = {
+                'status': f"❌ Missing: {', '.join(missing_files)}",
+                'success': False
+            }
+            return False
+        else:
+            self.results['system']['project_files'] = {
+                'status': "✅ All essential files present",
+                'success': True
+            }
+            return True
+    
+    def run_verification(self):
+        """Run complete verification process"""
+        self.print_banner()
+        
+        if RICH_AVAILABLE:
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                console=self.console
+            ) as progress:
+                # System checks
+                task1 = progress.add_task("🔍 Checking system requirements...", total=None)
+                self.check_python_version()
+                self.check_platform_info()
+                self.check_memory()
+                self.check_project_files()
+                progress.update(task1, completed=True)
+                
+                # Critical packages
+                task2 = progress.add_task("📦 Checking critical packages...", total=None)
+                for package, min_version in self.critical_packages.items():
+                    self.check_package(package, min_version, 'critical')
+                progress.update(task2, completed=True)
+                
+                # Optional packages
+                task3 = progress.add_task("🔧 Checking optional packages...", total=None)
+                for package, min_version in self.optional_packages.items():
+                    self.check_package(package, min_version, 'optional')
+                progress.update(task3, completed=True)
+                
+                # Enterprise packages
+                task4 = progress.add_task("🏢 Checking enterprise packages...", total=None)
+                for package, min_version in self.enterprise_packages.items():
+                    self.check_package(package, min_version, 'enterprise')
+                progress.update(task4, completed=True)
+        else:
+            print("🔍 Checking system requirements...")
+            self.check_python_version()
+            self.check_platform_info()
+            self.check_memory()
+            self.check_project_files()
+            
+            print("📦 Checking critical packages...")
+            for package, min_version in self.critical_packages.items():
+                self.check_package(package, min_version, 'critical')
+            
+            print("🔧 Checking optional packages...")
+            for package, min_version in self.optional_packages.items():
+                self.check_package(package, min_version, 'optional')
+            
+            print("🏢 Checking enterprise packages...")
+            for package, min_version in self.enterprise_packages.items():
+                self.check_package(package, min_version, 'enterprise')
+    
+    def display_results(self):
+        """Display verification results"""
+        if RICH_AVAILABLE:
+            # System Information Table
+            sys_table = Table(title="[bold cyan]System Information[/bold cyan]")
+            sys_table.add_column("Component", style="cyan")
+            sys_table.add_column("Details", style="white")
+            sys_table.add_column("Status", style="white")
+            
+            for component, info in self.results['system'].items():
+                if component == 'python':
+                    sys_table.add_row("Python Version", info['version'], info['status'])
+                elif component == 'platform':
+                    sys_table.add_row("Platform", info['platform'], info['status'])
+                elif component == 'memory':
+                    if 'total_gb' in info:
+                        sys_table.add_row("Memory", f"{info['total_gb']} GB total", info['status'])
+                    else:
+                        sys_table.add_row("Memory", "Unknown", info['status'])
+                elif component == 'project_files':
+                    sys_table.add_row("Project Files", "Essential files", info['status'])
+            
+            self.console.print(sys_table)
+            
+            # Critical Packages Table
+            crit_table = Table(title="[bold red]Critical Packages[/bold red]")
+            crit_table.add_column("Package", style="cyan")
+            crit_table.add_column("Version", style="yellow")
+            crit_table.add_column("Status", style="white")
+            
+            for package, info in self.results['critical'].items():
+                crit_table.add_row(package, info['version'], info['status'])
+            
+            self.console.print(crit_table)
+            
+            # Optional Packages Table (abbreviated)
+            opt_table = Table(title="[bold yellow]Optional Packages[/bold yellow]")
+            opt_table.add_column("Package", style="cyan")
+            opt_table.add_column("Status", style="white")
+            
+            for package, info in self.results['optional'].items():
+                status = "✅ Installed" if info['installed'] else "❌ Missing"
+                opt_table.add_row(package, status)
+            
+            self.console.print(opt_table)
+            
+        else:
+            # Fallback text display
+            print("\n📊 VERIFICATION RESULTS")
+            print("=" * 50)
+            
+            print("\n🖥️ System Information:")
+            for component, info in self.results['system'].items():
+                print(f"  {component}: {info['status']}")
+            
+            print("\n📦 Critical Packages:")
+            for package, info in self.results['critical'].items():
+                print(f"  {package}: {info['status']}")
+            
+            print("\n🔧 Optional Packages:")
+            for package, info in self.results['optional'].items():
+                status = "✅ Installed" if info['installed'] else "❌ Missing"
+                print(f"  {package}: {status}")
+    
+    def generate_summary(self):
+        """Generate verification summary"""
+        # Count results
+        critical_failed = sum(1 for info in self.results['critical'].values() if not info['success'])
+        critical_total = len(self.results['critical'])
+        
+        optional_installed = sum(1 for info in self.results['optional'].values() if info['installed'])
+        optional_total = len(self.results['optional'])
+        
+        system_failed = sum(1 for info in self.results['system'].values() if not info['success'])
+        
+        # Determine overall status
+        if critical_failed == 0 and system_failed == 0:
+            overall_status = "🎉 READY FOR PRODUCTION"
+            status_color = "bold green"
+        elif critical_failed == 0:
+            overall_status = "✅ READY (with minor issues)"
+            status_color = "bold yellow"
+        else:
+            overall_status = "❌ NOT READY (critical issues)"
+            status_color = "bold red"
+        
+        if RICH_AVAILABLE:
+            summary = Text()
+            summary.append("📋 VERIFICATION SUMMARY\n\n", style="bold cyan")
+            summary.append(f"Critical Packages: {critical_total - critical_failed}/{critical_total} ✅\n", 
+                          style="white")
+            summary.append(f"Optional Packages: {optional_installed}/{optional_total} ✅\n", 
+                          style="white")
+            summary.append(f"System Requirements: {'✅' if system_failed == 0 else '❌'}\n\n", 
+                          style="white")
+            summary.append(f"Overall Status: {overall_status}", style=status_color)
+            
+            panel = Panel(
+                summary,
+                title="[bold blue]Summary[/bold blue]",
+                border_style="cyan",
+                padding=(1, 2)
+            )
+            self.console.print(panel)
+        else:
+            print("\n📋 VERIFICATION SUMMARY")
+            print("=" * 30)
+            print(f"Critical Packages: {critical_total - critical_failed}/{critical_total} ✅")
+            print(f"Optional Packages: {optional_installed}/{optional_total} ✅")
+            print(f"System Requirements: {'✅' if system_failed == 0 else '❌'}")
+            print(f"\nOverall Status: {overall_status}")
+        
+        # Recommendations
+        if critical_failed > 0:
+            self._print_error("\n🚨 CRITICAL ISSUES FOUND:")
+            self._print_error("Run: python installation_menu.py")
+            self._print_error("Select option 1 (Complete Enterprise Installation)")
+        
+        if system_failed > 0:
+            self._print_warning("\n⚠️ SYSTEM ISSUES FOUND:")
+            self._print_warning("Check system requirements and resolve issues")
+        
+        return critical_failed == 0 and system_failed == 0
+    
+    def _print_error(self, message):
+        """Print error message"""
+        if RICH_AVAILABLE:
+            self.console.print(message, style="bold red")
+        else:
+            print(message)
+    
+    def _print_warning(self, message):
+        """Print warning message"""
+        if RICH_AVAILABLE:
+            self.console.print(message, style="bold yellow")
+        else:
+            print(message)
+    
+    def run(self):
+        """Run complete installation check"""
+        self.run_verification()
+        self.display_results()
+        success = self.generate_summary()
+        
+        return success
 
-def check_system_dependencies() -> Dict[str, bool]:
-    """Check system-level dependencies"""
-    checks = {}
-    
-    # Check for TA-Lib system dependency
-    try:
-        import talib
-        checks['TA-Lib'] = True
-    except ImportError:
-        checks['TA-Lib'] = False
-    
-    # Check for Git (optional)
-    try:
-        subprocess.check_call(['git', '--version'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        checks['Git'] = True
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        checks['Git'] = False
-    
-    return checks
 
 def main():
-    """Main installation check function"""
-    if console:
-        console.print(Panel.fit(
-            "[bold cyan]🔍 NICEGOLD ProjectP Installation Checker[/bold cyan]",
-            subtitle="[yellow]Verifying system readiness[/yellow]"
-        ))
-    else:
-        print("🔍 NICEGOLD ProjectP Installation Checker")
-        print("=" * 50)
-    
-    print_info("Starting comprehensive installation check...")
-    print("")
-    
-    # Check Python version
-    print_info("Checking Python version...")
-    python_ok = check_python_version()
-    
-    # Check pip
-    print_info("Checking pip availability...")
-    pip_ok = check_pip_available()
-    
-    # Check packages from requirements files
-    print_info("Checking installed packages...")
-    
-    # Check main requirements
-    main_requirements = get_requirements_from_file('requirements.txt')
-    complete_requirements = get_requirements_from_file('requirements_complete.txt')
-    
-    # Use complete requirements if available, otherwise main requirements
-    requirements = complete_requirements if complete_requirements else main_requirements
-    
-    if not requirements:
-        print_warning("No requirements file found!")
-        return
-    
-    print_info(f"Found {len(requirements)} packages to check")
-    
-    installed_packages = []
-    missing_packages = []
-    
-    if console:
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            console=console,
-            transient=True
-        ) as progress:
-            task = progress.add_task("Checking packages...", total=len(requirements))
-            
-            for package in requirements:
-                progress.update(task, description=f"Checking {package}...")
-                if check_package_installed(package):
-                    installed_packages.append(package)
-                else:
-                    missing_packages.append(package)
-                progress.advance(task)
-    else:
-        for i, package in enumerate(requirements, 1):
-            print(f"Checking {package}... ({i}/{len(requirements)})")
-            if check_package_installed(package):
-                installed_packages.append(package)
-            else:
-                missing_packages.append(package)
-    
-    # Check core modules
-    print_info("Checking NICEGOLD core modules...")
-    available_core, missing_core = check_core_modules()
-    
-    # Check Elliott Wave modules
-    print_info("Checking Elliott Wave modules...")
-    available_elliott, missing_elliott = check_elliott_wave_modules()
-    
-    # Check system dependencies
-    print_info("Checking system dependencies...")
-    system_deps = check_system_dependencies()
-    
-    # Print summary
-    print("")
-    if console:
-        # Create summary table
-        table = Table(title="Installation Summary", show_header=True)
-        table.add_column("Category", style="cyan")
-        table.add_column("Status", style="white")
-        table.add_column("Details", style="dim")
+    """Main function"""
+    try:
+        checker = InstallationChecker()
+        success = checker.run()
         
-        # Python & pip
-        table.add_row("Python", "✅ OK" if python_ok else "❌ FAIL", 
-                     f"Version {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
-        table.add_row("pip", "✅ OK" if pip_ok else "❌ FAIL", "Package manager")
-        
-        # Packages
-        table.add_row("Python Packages", 
-                     f"✅ {len(installed_packages)}/{len(requirements)}" if len(missing_packages) == 0 else f"⚠️ {len(installed_packages)}/{len(requirements)}", 
-                     f"{len(missing_packages)} missing" if missing_packages else "All installed")
-        
-        # Core modules
-        table.add_row("Core Modules", 
-                     f"✅ {len(available_core)}/{len(available_core + missing_core)}" if len(missing_core) == 0 else f"⚠️ {len(available_core)}/{len(available_core + missing_core)}", 
-                     f"{len(missing_core)} missing" if missing_core else "All available")
-        
-        # Elliott Wave modules
-        table.add_row("Elliott Wave Modules", 
-                     f"✅ {len(available_elliott)}/{len(available_elliott + missing_elliott)}" if len(missing_elliott) == 0 else f"⚠️ {len(available_elliott)}/{len(available_elliott + missing_elliott)}", 
-                     f"{len(missing_elliott)} missing" if missing_elliott else "All available")
-        
-        console.print(table)
-    else:
-        print("=" * 50)
-        print("INSTALLATION SUMMARY")
-        print("=" * 50)
-        print(f"Python: {'✅ OK' if python_ok else '❌ FAIL'}")
-        print(f"pip: {'✅ OK' if pip_ok else '❌ FAIL'}")
-        print(f"Packages: {len(installed_packages)}/{len(requirements)} installed")
-        print(f"Core Modules: {len(available_core)}/{len(available_core + missing_core)} available")
-        print(f"Elliott Wave Modules: {len(available_elliott)}/{len(available_elliott + missing_elliott)} available")
-    
-    # Print missing items
-    if missing_packages:
-        print("")
-        print_warning(f"Missing {len(missing_packages)} packages:")
-        for package in missing_packages[:10]:  # Show first 10
-            print(f"  - {package}")
-        if len(missing_packages) > 10:
-            print(f"  ... and {len(missing_packages) - 10} more")
-    
-    if missing_core:
-        print("")
-        print_warning(f"Missing {len(missing_core)} core modules:")
-        for module in missing_core:
-            print(f"  - {module}")
-    
-    if missing_elliott:
-        print("")
-        print_warning(f"Missing {len(missing_elliott)} Elliott Wave modules:")
-        for module in missing_elliott:
-            print(f"  - {module}")
-    
-    # Print system dependencies
-    print("")
-    print_info("System Dependencies:")
-    for dep, available in system_deps.items():
-        if available:
-            print_success(f"{dep} is available")
+        if success:
+            print("\n🚀 System is ready! Run: python ProjectP.py")
+            sys.exit(0)
         else:
-            print_warning(f"{dep} is not available (optional)")
-    
-    # Final verdict
-    print("")
-    total_issues = len(missing_packages) + len(missing_core) + len(missing_elliott)
-    if total_issues == 0:
-        print_success("🎉 Installation is complete! All dependencies are satisfied.")
-        print_info("You can now run the main application: python ProjectP.py")
-    else:
-        print_warning(f"⚠️ Installation has {total_issues} issues that need attention.")
-        print_info("Run the installer to fix missing dependencies: python install_dependencies.py")
+            print("\n❌ System not ready. Please resolve issues first.")
+            sys.exit(1)
+            
+    except KeyboardInterrupt:
+        print("\n\n⚠️ Verification interrupted by user")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n❌ Verification error: {e}")
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

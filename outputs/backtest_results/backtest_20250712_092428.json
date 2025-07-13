@@ -1,0 +1,29 @@
+{
+  "backtest_id": "backtest_20250712_092428",
+  "start_time": "2025-07-12T09:24:28.613588",
+  "sessions_analyzed": [],
+  "trading_simulation": {
+    "error": "No session data available"
+  },
+  "performance_analysis": {
+    "sessions_summary": {
+      "error": "No sessions to analyze"
+    },
+    "simulation_summary": {
+      "error": "No session data available"
+    },
+    "comparative_analysis": {
+      "error": "Cannot compare - insufficient data"
+    }
+  },
+  "recommendations": [
+    "📊 Trading costs: $0.00 commission + $0.00 spread = $0.00 total",
+    "🎯 Optimize trade frequency to minimize spread impact",
+    "⚡ Consider higher timeframes for better spread-to-profit ratios",
+    "🔄 Regular model retraining recommended based on market conditions",
+    "📈 Monitor performance continuously with live trading metrics",
+    "🛡️ Always use proper position sizing and risk management"
+  ],
+  "end_time": "2025-07-12T09:24:28.656118",
+  "total_duration": "0:00:00.042530"
+}

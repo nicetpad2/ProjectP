@@ -1,0 +1,191 @@
+2025-07-14 03:37:29,351 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Unified Enterprise Logger initialized successfully!
+2025-07-14 03:37:29,356 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Session ID: c8ea2ae2
+2025-07-14 03:37:29,359 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🖥️ Rich UI: Enabled
+2025-07-14 03:37:29,437 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-14 03:37:49,101 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-14 03:37:55,940 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-14 03:37:55,942 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-14 03:37:56,968 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-14 03:37:57,007 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-14 03:37:57,013 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-14 03:37:57,015 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-14 03:37:57,019 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-14 03:37:57,024 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-14 03:37:57,028 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-14 03:37:57,032 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-14 03:37:57,035 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-14 03:37:57,040 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-14 03:37:57,068 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-14 03:38:05,963 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-14 03:38:05,967 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-14 03:38:05,969 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-14 03:38:06,047 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-14 03:38:06,053 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-14 03:38:06,059 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-14 03:38:06,063 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-14 03:38:06,067 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-14 03:38:06,071 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-14 03:38:06,074 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-14 03:38:08,231 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-14 03:38:08,257 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real Enterprise Elliott Wave (ACTUAL AI): READY
+2025-07-14 03:38:08,336 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ GPUtil detected 1 GPU(s)
+2025-07-14 03:38:08,337 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Unified Resource Manager initialized (Target: 80% utilization)
+2025-07-14 03:38:08,405 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔍 Initializing GPU detection system...
+2025-07-14 03:38:08,434 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ NVIDIA GPUs detected: 1 devices
+2025-07-14 03:38:08,437 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ PyTorch CUDA support: Not available
+2025-07-14 03:38:08,440 - NICEGOLD_PROJECT - WARNING - NICEGOLD_PROJECT: ⚠️ GPU detected but CUDA not available - will use CPU optimized mode
+2025-07-14 03:38:08,443 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 TensorFlow configured for CPU mode (Enterprise Safe)
+2025-07-14 03:38:08,445 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ TensorFlow: No GPU devices detected
+2025-07-14 03:38:08,449 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: CPU_OPTIMIZED (GPU available as fallback)
+2025-07-14 03:38:08,452 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🔧 Enterprise GPU configuration applied
+2025-07-14 03:38:08,454 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Production optimizations applied
+2025-07-14 03:38:08,457 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🏢 Enterprise GPU Manager initialized
+2025-07-14 03:38:08,482 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: System Info Initialized. Processing mode: CPU_OPTIMIZED_WITH_GPU_FALLBACK
+2025-07-14 03:38:08,489 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 ElliottWaveDataProcessor initialized with Advanced Logging
+2025-07-14 03:38:08,492 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ All protection modules initialized successfully
+2025-07-14 03:38:08,494 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🛡️ Enterprise ML Protection System initialized
+2025-07-14 03:38:08,499 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 INITIALIZING ADVANCED ELLIOTT WAVE FEATURE SELECTOR
+2025-07-14 03:38:08,503 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎯 NICEGOLD GPU RESOURCE MANAGER
+==================================================
+🎮 GPU Available: 1 devices
+   GPU 0: NVIDIA GeForce RTX 3050 6GB Laptop GPU (6144MB)
+🚀 CUDA Available: False
+⚡ Processing Mode: GPU_ACCELERATED
+🧠 CPU Threads: 9
+📦 Batch Size: 614
+🎯 Optuna Trials: 50
+🔍 SHAP Samples: ALL_DATA
+✅ Performance optimization: ENABLED (Standard Config)
+🚀 PERFORMANCE OPTIMIZATION: STANDARD
+   ⚡ Parallel Jobs: 4
+   📦 Batch Processing: ENABLED
+   💾 Memory Optimization: ENABLED
+✅ Ultimate Full Power Config: ENABLED (Standard Settings)
+⚡ ULTIMATE FULL POWER CONFIGURATION: STANDARD
+   🎯 CPU Utilization: 80%
+   🎮 GPU Utilization: 70%
+   💾 Memory Utilization: 70%
+   🚀 Turbo Mode: ENABLED
+   🧠 Advanced Processing: ENABLED
+   ⚡ Optuna Trials: 150
+2025-07-14 03:38:08,510 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Advanced Elliott Wave FeatureSelector initialized
+2025-07-14 03:38:08,513 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎮 GPU Mode: DISABLED
+2025-07-14 03:38:08,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ⚡ Processing Mode: GPU_ACCELERATED
+2025-07-14 03:38:08,520 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ TensorFlow available. Using CNN-LSTM model (🖥️ CPU)
+2025-07-14 03:38:08,524 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ℹ️ CUDA not available - running on CPU (normal for cloud environments)
+2025-07-14 03:38:08,530 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ DQN Agent initialized (PyTorch: True)
+2025-07-14 03:38:08,559 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Real Enterprise Elliott Wave (ACTUAL AI): READY
+2025-07-14 03:38:08,563 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Unified Master Menu System...
+2025-07-14 03:38:08,567 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🎛️ INTERACTIVE MODE: Showing complete menu with Terminal Lock System.
+2025-07-14 03:38:18,117 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📁 Project paths initialized: G:\My Drive\ProjectP-1
+2025-07-14 03:38:18,121 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Loading market data from: G:\My Drive\ProjectP-1\datacsv\XAUUSD_M1.csv
+2025-07-14 03:38:19,382 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: Using sequential datetime due to corrupted date format in CSV
+2025-07-14 03:38:20,052 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Data loaded successfully: 1,771,969 rows
+2025-07-14 03:38:20,063 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📅 Date range: 2025-01-01 00:00:00 to 2028-05-15 12:48:00
+2025-07-14 03:38:20,070 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 🚀 Starting Walk Forward Validation
+2025-07-14 03:38:20,078 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 1: 34560 train, 8640 test
+2025-07-14 03:38:20,584 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 2: 34560 train, 8640 test
+2025-07-14 03:38:21,086 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 3: 34560 train, 8640 test
+2025-07-14 03:38:21,555 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 4: 34560 train, 8640 test
+2025-07-14 03:38:22,020 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 5: 34560 train, 8640 test
+2025-07-14 03:38:22,498 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 6: 34560 train, 8640 test
+2025-07-14 03:38:22,969 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 7: 34560 train, 8640 test
+2025-07-14 03:38:23,426 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 8: 34560 train, 8640 test
+2025-07-14 03:38:23,887 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 9: 34560 train, 8640 test
+2025-07-14 03:38:24,344 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 10: 34560 train, 8640 test
+2025-07-14 03:38:24,823 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 11: 34560 train, 8640 test
+2025-07-14 03:38:25,305 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 12: 34560 train, 8640 test
+2025-07-14 03:38:25,781 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 13: 34560 train, 8640 test
+2025-07-14 03:38:26,261 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 14: 34560 train, 8640 test
+2025-07-14 03:38:26,771 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 15: 34560 train, 8640 test
+2025-07-14 03:38:27,270 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 16: 34560 train, 8640 test
+2025-07-14 03:38:27,772 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 17: 34560 train, 8640 test
+2025-07-14 03:38:28,288 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 18: 34560 train, 8640 test
+2025-07-14 03:38:28,750 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 19: 34560 train, 8640 test
+2025-07-14 03:38:29,204 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 20: 34560 train, 8640 test
+2025-07-14 03:38:29,664 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 21: 34560 train, 8640 test
+2025-07-14 03:38:30,125 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 22: 34560 train, 8640 test
+2025-07-14 03:38:30,588 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 23: 34560 train, 8640 test
+2025-07-14 03:38:31,041 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 24: 34560 train, 8640 test
+2025-07-14 03:38:31,497 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 25: 34560 train, 8640 test
+2025-07-14 03:38:31,975 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 26: 34560 train, 8640 test
+2025-07-14 03:38:32,432 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 27: 34560 train, 8640 test
+2025-07-14 03:38:32,886 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 28: 34560 train, 8640 test
+2025-07-14 03:38:33,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 29: 34560 train, 8640 test
+2025-07-14 03:38:33,793 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 30: 34560 train, 8640 test
+2025-07-14 03:38:34,264 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 31: 34560 train, 8640 test
+2025-07-14 03:38:34,735 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 32: 34560 train, 8640 test
+2025-07-14 03:38:35,474 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 33: 34560 train, 8640 test
+2025-07-14 03:38:35,933 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 34: 34560 train, 8640 test
+2025-07-14 03:38:36,411 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 35: 34560 train, 8640 test
+2025-07-14 03:38:36,894 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 36: 34560 train, 8640 test
+2025-07-14 03:38:37,355 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 37: 34560 train, 8640 test
+2025-07-14 03:38:37,812 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 38: 34560 train, 8640 test
+2025-07-14 03:38:38,274 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 39: 34560 train, 8640 test
+2025-07-14 03:38:38,746 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 40: 34560 train, 8640 test
+2025-07-14 03:38:39,194 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 41: 34560 train, 8640 test
+2025-07-14 03:38:39,641 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 42: 34560 train, 8640 test
+2025-07-14 03:38:40,086 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 43: 34560 train, 8640 test
+2025-07-14 03:38:40,533 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 44: 34560 train, 8640 test
+2025-07-14 03:38:40,977 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 45: 34560 train, 8640 test
+2025-07-14 03:38:41,424 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 46: 34560 train, 8640 test
+2025-07-14 03:38:41,873 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 47: 34560 train, 8640 test
+2025-07-14 03:38:42,325 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 48: 34560 train, 8640 test
+2025-07-14 03:38:42,772 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 49: 34560 train, 8640 test
+2025-07-14 03:38:43,218 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 50: 34560 train, 8640 test
+2025-07-14 03:38:43,668 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 51: 34560 train, 8640 test
+2025-07-14 03:38:44,125 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 52: 34560 train, 8640 test
+2025-07-14 03:38:44,573 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 53: 34560 train, 8640 test
+2025-07-14 03:38:45,023 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 54: 34560 train, 8640 test
+2025-07-14 03:38:45,467 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 55: 34560 train, 8640 test
+2025-07-14 03:38:45,908 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 56: 34560 train, 8640 test
+2025-07-14 03:38:46,349 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 57: 34560 train, 8640 test
+2025-07-14 03:38:46,798 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 58: 34560 train, 8640 test
+2025-07-14 03:38:47,258 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 59: 34560 train, 8640 test
+2025-07-14 03:38:47,701 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 60: 34560 train, 8640 test
+2025-07-14 03:38:48,169 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 61: 34560 train, 8640 test
+2025-07-14 03:38:48,612 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 62: 34560 train, 8640 test
+2025-07-14 03:38:49,050 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 63: 34560 train, 8640 test
+2025-07-14 03:38:49,496 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 64: 34560 train, 8640 test
+2025-07-14 03:38:49,949 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 65: 34560 train, 8640 test
+2025-07-14 03:38:50,408 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 66: 34560 train, 8640 test
+2025-07-14 03:38:50,862 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 67: 34560 train, 8640 test
+2025-07-14 03:38:51,331 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 68: 34560 train, 8640 test
+2025-07-14 03:38:51,802 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 69: 34560 train, 8640 test
+2025-07-14 03:38:52,253 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 70: 34560 train, 8640 test
+2025-07-14 03:38:52,705 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 71: 34560 train, 8640 test
+2025-07-14 03:38:53,154 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 72: 34560 train, 8640 test
+2025-07-14 03:38:53,606 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 73: 34560 train, 8640 test
+2025-07-14 03:38:54,059 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 74: 34560 train, 8640 test
+2025-07-14 03:38:54,515 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 75: 34560 train, 8640 test
+2025-07-14 03:38:54,968 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 76: 34560 train, 8640 test
+2025-07-14 03:38:55,431 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 77: 34560 train, 8640 test
+2025-07-14 03:38:55,889 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 78: 34560 train, 8640 test
+2025-07-14 03:38:56,338 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 79: 34560 train, 8640 test
+2025-07-14 03:38:56,789 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 80: 34560 train, 8640 test
+2025-07-14 03:38:57,256 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 81: 34560 train, 8640 test
+2025-07-14 03:38:57,725 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: 📊 Processing Window 82: 17895 train, 4474 test
+2025-07-14 03:38:57,965 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Walk Forward Validation completed: 82 windows
+2025-07-14 03:38:59,053 - NICEGOLD_PROJECT - INFO - NICEGOLD_PROJECT: ✅ Results saved to: outputs\backtest_results\simple_backtest_results_20250714_033858.json
