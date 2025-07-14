@@ -281,9 +281,9 @@ class UnifiedMasterMenuSystem:
             "║ 3. 🔧 System Diagnostics & Dependency Check                                                      ║",
             "║    🛠️ Complete system validation and dependency management                                       ║",
             "║                                                                                                   ║",
-            "║ 5. 🏢 OMS & MM System with 100 USD Capital                                 ⭐ NEW!         ║",
-            "║    💰 Order Management System + Money Management with Menu 1 Strategy                          ║",
-            "║    📊 Professional trading system with 100 USD capital and enterprise features                ║",
+            "║ 5. 🤖 AI-Powered Trading System (Menu 5)                                   ⭐ NEW!         ║",
+            "║    🧠 AI Controls: SL, TP, Partial Close, Buy/Sell/Hold Signals                               ║",
+            "║    � $100 USD → Target Growth | 🎯 >1500 orders, ≥$1 profit/order                         ║",
             "║                                                                                                   ║",
             "║ D. 🎨 Beautiful Progress Bars Demo                                                               ║",
             "║    ✨ Demonstration of visual progress tracking system                                           ║",
@@ -687,89 +687,116 @@ class UnifiedMasterMenuSystem:
         return True
     
     def _handle_oms_mm_system(self) -> bool:
-        """Handle OMS & MM System with 100 USD Capital"""
-        safe_print("\n🏢 OMS & MM SYSTEM WITH 100 USD CAPITAL")
+        """Handle AI-Powered Trading System - Menu 5"""
+        safe_print("\n🤖 AI-POWERED TRADING SYSTEM - MENU 5")
         safe_print("="*80)
+        safe_print("� AI Controls: SL, TP, Partial Close, Buy/Sell/Hold Signals")
+        safe_print("🧠 Strategy: Elliott Wave + CNN-LSTM + DQN from Menu 1")
+        safe_print("💰 Capital: $100 USD → Target Growth")
+        safe_print("📊 Backtest: Walk Forward Validation with Real Data")
+        safe_print("🎯 Target: >1500 orders, ≥$1 profit/order")
         
         try:
-            # Import the new menu 5 system
-            from menu_modules.menu_5_oms_mm_100usd import Menu5OMSMMSystem
+            # Import the AI-powered trading system
+            from menu_modules.ai_powered_trading_menu_5 import run_ai_powered_trading_menu_5
             
-            safe_print("🔄 Initializing OMS & MM System...")
+            safe_print("\n🔄 Initializing AI-Powered Trading System...")
+            safe_print("🧠 Loading Menu 1 Elliott Wave Strategy...")
+            safe_print("🤖 Setting up AI Decision Engine...")
+            safe_print("💼 Configuring Portfolio Manager...")
+            safe_print("📊 Preparing Walk Forward Validator...")
             
-            # Create and run the system
-            oms_mm_system = Menu5OMSMMSystem()
-            results = oms_mm_system.run_full_system()
+            # Run the AI trading system
+            results = run_ai_powered_trading_menu_5()
             
-            if results:
-                safe_print("\n🎉 OMS & MM System completed successfully!")
-                self._display_oms_mm_results(results)
+            if results.get('status') == 'SUCCESS':
+                safe_print("\n🎉 AI-Powered Trading System completed successfully!")
+                self._display_ai_trading_results(results)
                 return True
             else:
-                safe_print("❌ OMS & MM System failed to complete")
+                safe_print(f"❌ AI Trading System failed: {results.get('error', 'Unknown error')}")
                 return False
                 
         except ImportError as e:
-            safe_print(f"❌ Failed to import OMS & MM System: {e}")
-            safe_print("💡 Make sure menu_modules/menu_5_oms_mm_100usd.py exists")
+            safe_print(f"❌ Failed to import AI-Powered Trading System: {e}")
+            safe_print("💡 Make sure menu_modules/ai_powered_trading_menu_5.py exists")
+            safe_print("🔧 Try running Menu 1 first to ensure dependencies are working")
             return False
         except Exception as e:
-            safe_print(f"❌ OMS & MM System error: {e}")
+            safe_print(f"❌ AI Trading System error: {e}")
+            import traceback
+            traceback.print_exc()
             return False
         
         input("\nPress Enter to continue...")
         return True
     
-    def _display_oms_mm_results(self, results: dict):
-        """Display OMS & MM System results"""
+    def _display_ai_trading_results(self, results: dict):
+        """Display AI-Powered Trading System results"""
         try:
-            safe_print("\n📊 OMS & MM SYSTEM RESULTS")
-            safe_print("="*50)
+            safe_print("\n🤖 AI-POWERED TRADING SYSTEM RESULTS")
+            safe_print("="*60)
             
-            # Capital Management
-            safe_print("💰 CAPITAL MANAGEMENT:")
-            safe_print(f"   Initial Capital: ${results.get('initial_capital', 100):.2f}")
-            safe_print(f"   Final Capital: ${results.get('final_capital', 100):.2f}")
-            safe_print(f"   Total Return: {results.get('total_return_pct', 0):.2f}%")
-            safe_print(f"   Total P&L: ${results.get('total_pnl', 0):.2f}")
+            # Check if WFV results exist
+            if 'wfv_summary' in results:
+                wfv = results['wfv_summary']
+                safe_print("� WALK FORWARD VALIDATION SUMMARY:")
+                safe_print(f"   Total Iterations: {wfv.get('total_iterations', 0)}")
+                safe_print(f"   Total Trades: {wfv.get('total_trades', 0):,}")
+                safe_print(f"   Total Return: ${wfv.get('total_return_usd', 0):,.2f}")
+                safe_print(f"   Average Profit per Trade: ${wfv.get('avg_profit_per_trade', 0):,.2f}")
+                safe_print(f"   Win Rate: {wfv.get('win_rate_pct', 0):.1f}%")
+                safe_print(f"   Consistency Score: {wfv.get('consistency_score', 0):.1f}%")
+                
+                # Target Achievement
+                targets = wfv.get('targets_achieved', {})
+                safe_print("\n🎯 TARGET ACHIEVEMENT:")
+                safe_print(f"   >1500 Orders: {'✅ ACHIEVED' if targets.get('min_orders', False) else '❌ NOT ACHIEVED'}")
+                safe_print(f"   ≥$1 Profit/Order: {'✅ ACHIEVED' if targets.get('min_profit_per_order', False) else '❌ NOT ACHIEVED'}")
+                safe_print(f"   Portfolio Growth: {'✅ ACHIEVED' if targets.get('portfolio_growth', False) else '❌ NOT ACHIEVED'}")
+                
+                # Performance Grade based on targets
+                achieved_count = sum(1 for v in targets.values() if v)
+                if achieved_count == 3:
+                    grade = "🏆 EXCELLENT - All Targets Achieved"
+                elif achieved_count == 2:
+                    grade = "🥈 GOOD - Most Targets Achieved"
+                elif achieved_count == 1:
+                    grade = "🥉 PARTIAL - Some Targets Achieved"
+                else:
+                    grade = "❌ NEEDS IMPROVEMENT - No Targets Achieved"
+                
+                safe_print(f"\n� PERFORMANCE GRADE: {grade}")
+                
+            else:
+                # Fallback for basic results
+                safe_print("💰 CAPITAL MANAGEMENT:")
+                safe_print(f"   Initial Capital: ${results.get('initial_capital', 100):,.2f}")
+                safe_print(f"   Final Capital: ${results.get('final_capital', 100):,.2f}")
+                safe_print(f"   Total Return: {results.get('total_return_pct', 0):.2f}%")
+                safe_print(f"   Total P&L: ${results.get('total_pnl', 0):,.2f}")
             
-            # Performance Metrics
-            safe_print("\n📈 PERFORMANCE METRICS:")
-            safe_print(f"   Total Trades: {results.get('trades_executed', 0)}")
-            safe_print(f"   Win Rate: {results.get('win_rate', 0):.2f}%")
-            safe_print(f"   Profit Factor: {results.get('profit_factor', 0):.2f}")
-            safe_print(f"   Max Drawdown: {results.get('max_drawdown', 0):.2f}%")
-            
-            # Order Management
-            account_summary = results.get('account_summary', {})
-            safe_print("\n🏢 ORDER MANAGEMENT:")
-            safe_print(f"   Total Orders: {account_summary.get('total_orders', 0)}")
-            safe_print(f"   Filled Orders: {account_summary.get('filled_orders', 0)}")
-            safe_print(f"   Active Positions: {account_summary.get('total_positions', 0)}")
+            # AI Decision Engine Information
+            safe_print("\n🧠 AI DECISION ENGINE:")
+            safe_print("   🎯 Signal Analysis: CNN-LSTM Pattern Recognition")
+            safe_print("   🤖 Trading Decisions: DQN Reinforcement Learning")
+            safe_print("   🛡️ Risk Management: AI-Controlled SL/TP/Partial Close")
+            safe_print("   📊 Portfolio Management: AI-Optimized Position Sizing")
             
             # Strategy Information
             safe_print("\n🎯 STRATEGY INFORMATION:")
-            safe_print("   Strategy Source: Menu 1 (CNN-LSTM + DQN)")
-            safe_print("   Capital: 100 USD")
-            safe_print("   Risk per Trade: 2%")
-            safe_print("   Stop Loss: 2 ATR")
-            safe_print("   Take Profit: 3 ATR")
+            safe_print("   Strategy Source: Menu 1 Elliott Wave (CNN-LSTM + DQN)")
+            safe_print("   Trading Method: Walk Forward Validation Backtest")
+            safe_print("   Data Source: XAUUSD_M1.CSV (Real Market Data)")
+            safe_print("   Commission: 0.07 USD per 0.01 LOT")
+            safe_print("   Spread: 100/10 points (3-digit/2-digit)")
             
-            # Performance Grade
-            total_return = results.get('total_return_pct', 0)
-            if total_return > 20:
-                grade = "🏆 EXCELLENT"
-            elif total_return > 10:
-                grade = "🥈 GOOD"
-            elif total_return > 0:
-                grade = "🥉 POSITIVE"
-            else:
-                grade = "❌ NEEDS IMPROVEMENT"
-            
-            safe_print(f"\n🎯 PERFORMANCE GRADE: {grade}")
+            # Results location
+            if 'output_dir' in results:
+                safe_print(f"\n📁 Detailed results saved to: {results['output_dir']}")
             
         except Exception as e:
-            safe_print(f"❌ Error displaying results: {e}")
+            safe_print(f"❌ Error displaying AI trading results: {e}")
     
     def _handle_terminal_lock(self) -> bool:
         """Handle Terminal Lock System"""
