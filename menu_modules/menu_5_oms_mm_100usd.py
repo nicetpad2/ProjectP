@@ -233,7 +233,7 @@ class MoneyManagementSystem:
         # Leveraged capital allows opening larger positions while still controlling risk per trade.
         # This enables hitting the desired minimum profit threshold per order without requiring large
         # upfront capital. The leverage value can be tuned from configuration if needed.
-        self.leverage: float = 50  # 50x leverage (margin 2%)
+        self.leverage: float = 500  # 500x leverage (margin 0.2%)
 
         # Enterprise requirement – each executed order should aim for at least 1 USD net profit.
         self.min_profit_per_trade: float = 1.0
