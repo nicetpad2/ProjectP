@@ -26,7 +26,7 @@ import traceback
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, Union
 from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
@@ -62,6 +62,15 @@ class OrderStatus(Enum):
     CANCELLED = "CANCELLED"
     REJECTED = "REJECTED"
 
+# DataFrame alias for type hints without importing pandas objects before runtime
+try:
+    import pandas as pd  # type: ignore
+    DataFrame = pd.DataFrame  # noqa: N816
+except ImportError:  # Fallback if pandas is unavailable at lint time
+    DataFrame = Any  # type: ignore
+
+
+# Ensure Order data structure remains a dataclass for automatic init generation
 @dataclass
 class Order:
     """Order data structure"""
@@ -93,7 +102,8 @@ class OrderManagementSystem:
     """🏢 Order Management System"""
     
     def __init__(self, logger: UnifiedEnterpriseLogger):
-        self.logger = logger
+        # Guarantee a usable logger instance to satisfy static analysis & runtime safety
+        self.logger: UnifiedEnterpriseLogger = logger if logger is not None else UnifiedEnterpriseLogger()
         self.orders: List[Order] = []
         self.positions: List[Position] = []
         self.order_counter = 0
@@ -126,9 +136,10 @@ class OrderManagementSystem:
         if not order:
             return False
             
+        # Assign filled details with strict typing safety
         order.status = OrderStatus.FILLED
-        order.filled_price = filled_price
-        order.filled_quantity = filled_quantity
+        order.filled_price = float(filled_price)
+        order.filled_quantity = float(filled_quantity)
         
         # Update position
         self._update_position(order)
@@ -138,18 +149,21 @@ class OrderManagementSystem:
     
     def _update_position(self, order: Order):
         """อัปเดต position หลังจาก fill order"""
-        existing_position = next((p for p in self.positions if p.symbol == order.symbol), None)
+        filled_qty: float = float(order.filled_quantity or 0.0)
+        existing_position: Optional[Position] = next((p for p in self.positions if p.symbol == order.symbol), None)
         
         if existing_position:
             # Update existing position
             if order.side == "BUY":
-                total_quantity = existing_position.quantity + order.filled_quantity
+                if filled_qty <= 0:
+                    return  # Skip invalid quantity
+                total_quantity: float = existing_position.quantity + filled_qty
                 total_value = (existing_position.avg_price * existing_position.quantity) + \
-                            (order.filled_price * order.filled_quantity)
+                            (float(order.filled_price or 0.0) * filled_qty)
                 existing_position.avg_price = total_value / total_quantity
                 existing_position.quantity = total_quantity
             else:  # SELL
-                existing_position.quantity -= order.filled_quantity
+                existing_position.quantity -= filled_qty
                 if existing_position.quantity <= 0:
                     self.positions.remove(existing_position)
         else:
@@ -158,9 +172,9 @@ class OrderManagementSystem:
                 position = Position(
                     symbol=order.symbol,
                     side="LONG",
-                    quantity=order.filled_quantity,
-                    avg_price=order.filled_price,
-                    current_price=order.filled_price,
+                    quantity=filled_qty,
+                    avg_price=float(order.filled_price or 0.0),
+                    current_price=float(order.filled_price or 0.0),
                     unrealized_pnl=0.0,
                     timestamp=datetime.now()
                 )
@@ -200,16 +214,20 @@ class OrderManagementSystem:
             ]
         }
 
+# ------------------------------
+# Money Management System
+# ------------------------------
+
 class MoneyManagementSystem:
     """💰 Money Management System"""
     
-    def __init__(self, initial_capital: float = 100.0, logger: UnifiedEnterpriseLogger = None):
+    def __init__(self, initial_capital: float = 100.0, logger: Optional[UnifiedEnterpriseLogger] = None):
         self.initial_capital = initial_capital
         self.current_capital = initial_capital
         self.max_risk_per_trade = 0.02  # 2% per trade
         self.max_total_risk = 0.10  # 10% total portfolio risk
         self.logger = logger
-        self.trades_history: List[Dict] = []
+        self.trades_history: List[Dict[str, Any]] = []
 
         # Leverage and trade profit targets
         # Leveraged capital allows opening larger positions while still controlling risk per trade.
@@ -221,8 +239,7 @@ class MoneyManagementSystem:
         self.min_profit_per_trade: float = 1.0
         self.logger.info(f"💰 Money Management initialized with ${initial_capital:.2f}")
     
-    def calculate_position_size(self, entry_price: float, stop_loss: float, 
-                             confidence: float = 1.0) -> float:
+    def calculate_position_size(self, entry_price: float, stop_loss: float, *, confidence: float = 1.0) -> float:
         """คำนวณขนาด position ตามหลัก Money Management"""
         risk_amount = self.current_capital * self.max_risk_per_trade
         
@@ -330,7 +347,8 @@ class Menu5OMSMMSystem:
     def __init__(self):
         """Initialize Menu 5 OMS & MM System"""
         self.paths = ProjectPaths()
-        self.logger = UnifiedEnterpriseLogger()
+        # Explicitly type the logger for linters (UnifiedEnterpriseLogger has .info/.success etc.)
+        self.logger: UnifiedEnterpriseLogger = UnifiedEnterpriseLogger()
         self.logger.set_component_name("MENU5_OMS_MM")
         self.session_id = f"menu5_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
@@ -392,7 +410,8 @@ class Menu5OMSMMSystem:
                     'memory_size': 10000
                 }
             }
-            self.dqn_agent = DQNReinforcementAgent(config=dqn_config, logger=self.logger)
+            # mypy/pylint: DQNReinforcementAgent expects std logging.Logger but our enterprise logger is compatible
+            self.dqn_agent = DQNReinforcementAgent(config=dqn_config, logger=self.logger)  # type: ignore[arg-type]
             self.logger.success("✅ DQN Agent loaded")
             
             # Load feature selector
@@ -401,7 +420,7 @@ class Menu5OMSMMSystem:
                 max_features=30,
                 n_trials=50,
                 timeout=300
-            )
+            )  # type: ignore[arg-type]
             self.logger.success("✅ Feature Selector loaded")
             
             self.logger.success("🎯 Menu 1 Strategy loaded successfully!")
@@ -482,7 +501,7 @@ class Menu5OMSMMSystem:
             self.logger.error(f"❌ Model training failed: {str(e)}")
             return False
 
-    def generate_trading_signals(self, market_data: pd.DataFrame) -> List[Dict]:
+    def generate_trading_signals(self, market_data: DataFrame) -> List[Dict]:
         """สร้าง trading signals ด้วยกลยุทธ์เมนูที่ 1"""
         try:
             signals = []
@@ -521,7 +540,7 @@ class Menu5OMSMMSystem:
             self.logger.error(f"❌ Signal generation failed: {str(e)}")
             return []
 
-    def execute_trading_strategy(self, signals: List[Dict]) -> Dict[str, Any]:
+    def execute_trading_strategy(self, signals: List[Dict[str, Any]]) -> Dict[str, Any]:
         """ดำเนินการเทรดตาม signals"""
         try:
             self.logger.info("🎯 Executing trading strategy...")
