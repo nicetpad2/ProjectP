@@ -484,6 +484,17 @@ class UnifiedEnterpriseLogger:
     def production(self, message: str, component: str = None, **kwargs):
         """Log production message"""
         self._log(LogLevel.PRODUCTION, message, component, **kwargs)
+
+    def log_exception(self, exception: Exception, component: str = None, **kwargs):
+        """Log exception with full traceback details"""
+        import traceback
+        error_message = f"Exception occurred: {str(exception)}"
+        error_details = {
+            "exception_type": type(exception).__name__,
+            "exception_message": str(exception),
+            "traceback": traceback.format_exc()
+        }
+        self._log(LogLevel.ERROR, error_message, component, error_details=error_details, **kwargs)
     
     def log_progress(self, step_or_message, percentage=None, message: str = "", component: str = None, **kwargs):
         """Log progress information - Enterprise compatibility method

@@ -201,6 +201,28 @@ class ProjectPaths:
         if timestamp is None:
             timestamp = self._get_timestamp()
         return self.charts / f"{chart_name}_{timestamp}.{format}"
+
+    def get_output_path(self, subdirectory: str = "", filename: str = "", 
+                       timestamp: Optional[str] = None) -> Path:
+        """ดึง path ในโฟลเดอร์ outputs"""
+        if timestamp is None:
+            timestamp = self._get_timestamp()
+        
+        if subdirectory:
+            base_path = self.outputs / subdirectory
+        else:
+            base_path = self.outputs
+            
+        # Ensure directory exists
+        self.ensure_directory_exists(base_path)
+        
+        if filename:
+            if timestamp and not timestamp in filename:
+                name, ext = filename.rsplit('.', 1) if '.' in filename else (filename, '')
+                filename = f"{name}_{timestamp}.{ext}" if ext else f"{name}_{timestamp}"
+            return base_path / filename
+        else:
+            return base_path
     
     def _get_timestamp(self) -> str:
         """สร้าง timestamp สำหรับไฟล์"""

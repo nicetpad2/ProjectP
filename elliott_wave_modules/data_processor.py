@@ -57,6 +57,15 @@ except ImportError as e:
 # Progress Manager is optional - no import needed
 PROGRESS_MANAGER_AVAILABLE = False  # Disabled for now
 
+# Import Feature Engineer
+try:
+    from elliott_wave_modules.feature_engineering import ElliottWaveFeatureEngineer
+    FEATURE_ENGINEER_AVAILABLE = True
+    print("✅ Feature engineering system loaded successfully")
+except ImportError as e:
+    FEATURE_ENGINEER_AVAILABLE = False
+    print(f"ℹ️ Feature engineering not available: {e}")
+
 
 class DataProcessor:
     """Enterprise Data Processor Wrapper (for validation)"""
@@ -751,6 +760,98 @@ class ElliottWaveDataProcessor:
         self.progress_manager.complete_task('data_processing')
         
         return processed_data
+
+    def prepare_ml_data(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
+        """
+        เตรียมข้อมูลสำหรับ Machine Learning
+        
+        Args:
+            df: DataFrame ที่ต้องการประมวลผล
+            
+        Returns:
+            Tuple[pd.DataFrame, pd.Series]: (X features, y target)
+        """
+        try:
+            self.logger.info("🔄 Preparing ML data from processed features...")
+            
+            # ถ้าไม่มี feature engineer ให้สร้าง simple features
+            if not FEATURE_ENGINEER_AVAILABLE:
+                self.logger.warning("⚠️ Feature engineer not available, creating simple features")
+                
+                # Create simple target (price direction)
+                if 'target' not in df.columns:
+                    df['target'] = (df['close'].shift(-1) > df['close']).astype(int)
+                
+                # Remove rows with NaN target
+                df = df.dropna()
+                
+                # Get feature columns (exclude target and metadata columns)
+                exclude_cols = ['target', 'target_multiclass', 'future_return', 'timestamp', 'time', 'date']
+                feature_cols = [col for col in df.columns if col not in exclude_cols]
+                
+                X = df[feature_cols].copy()
+                y = df['target'].copy()
+                
+                # Ensure all features are numeric
+                X = X.select_dtypes(include=[np.number])
+                
+                self.logger.info(f"✅ ML data prepared (simple): {len(X)} samples, {len(X.columns)} features")
+                return X, y
+            
+            # ใช้ Feature Engineer สำหรับ advanced features
+            self.logger.info("🧠 Using advanced feature engineering...")
+            
+            # Initialize feature engineer
+            feature_engineer = ElliottWaveFeatureEngineer(
+                config=self.config,
+                logger=self.logger
+            )
+            
+            # Create comprehensive features
+            df_with_features = feature_engineer.create_all_features(df)
+            
+            # Prepare ML data using feature engineer
+            X, y = feature_engineer.prepare_ml_data(df_with_features)
+            
+            self.logger.info(f"✅ ML data prepared (advanced): {len(X)} samples, {len(X.columns)} features")
+            return X, y
+            
+        except Exception as e:
+            error_msg = f"Failed to prepare ML data: {str(e)}"
+            self.logger.error(error_msg, component=self.component_name)
+            self.logger.debug(traceback.format_exc())
+            raise Exception(error_msg)
+    
+    def create_elliott_wave_features(self, data: pd.DataFrame) -> pd.DataFrame:
+        """
+        สร้าง Elliott Wave features (wrapper สำหรับ backward compatibility)
+        """
+        try:
+            self.logger.info("🌊 Creating Elliott Wave features...")
+            
+            if not FEATURE_ENGINEER_AVAILABLE:
+                self.logger.warning("⚠️ Feature engineer not available, using basic features")
+                # Return basic features ที่มีอยู่
+                processed_data = self.add_technical_indicators(data)
+                return processed_data
+            
+            # ใช้ Feature Engineer สำหรับ advanced features
+            feature_engineer = ElliottWaveFeatureEngineer(
+                config=self.config,
+                logger=self.logger
+            )
+            
+            # Create comprehensive Elliott Wave features
+            features_data = feature_engineer.create_all_features(data)
+            
+            self.logger.info(f"✅ Elliott Wave features created: {len(features_data.columns)} features")
+            return features_data
+            
+        except Exception as e:
+            error_msg = f"Failed to create Elliott Wave features: {str(e)}"
+            self.logger.error(error_msg, component=self.component_name)
+            # Return basic features as fallback
+            return self.add_technical_indicators(data)
 
 # Example usage for testing
 if __name__ == '__main__':

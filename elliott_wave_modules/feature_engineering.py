@@ -551,23 +551,71 @@ class ElliottWaveFeatureEngineer:
             # Calculate future returns
             df['future_return'] = df['close'].pct_change(periods=future_periods).shift(-future_periods)
             
+            # Handle NaN values in future_return before creating targets
+            nan_count = df['future_return'].isna().sum()
+            if nan_count > 0:
+                self.logger.warning(f"⚠️ Found {nan_count} NaN values in future_return, filling with forward fill")
+                df['future_return'] = df['future_return'].ffill()
+                
+                # If still NaN values exist, fill with 0
+                remaining_nan = df['future_return'].isna().sum()
+                if remaining_nan > 0:
+                    self.logger.warning(f"⚠️ Filling remaining {remaining_nan} NaN values with 0")
+                    df['future_return'] = df['future_return'].fillna(0)
+            
             # Binary target (1 = price will go up, 0 = price will go down)
-            df['target'] = (df['future_return'] > 0).astype(int)
+            # Use fillna(0) as safety net for any remaining NaN values
+            target_binary = (df['future_return'] > 0).fillna(False)
+            df['target'] = target_binary.astype(int)
             
             # Multi-class target (for more granular predictions)
             return_threshold = df['future_return'].std()
-            df['target_multiclass'] = pd.cut(
+            if return_threshold is None or np.isnan(return_threshold) or return_threshold == 0:
+                return_threshold = 0.001  # Default threshold
+            
+            # Create bins for multi-class target
+            target_multiclass = pd.cut(
                 df['future_return'], 
                 bins=[-np.inf, -return_threshold, return_threshold, np.inf], 
                 labels=[0, 1, 2]  # 0=down, 1=sideways, 2=up
-            ).astype(int)
+            )
+            
+            # Handle NaN values in target_multiclass and convert to Series if needed
+            if hasattr(target_multiclass, 'fillna'):
+                df['target_multiclass'] = target_multiclass.fillna(1).astype(int)  # Default to sideways (1)
+            else:
+                # If target_multiclass is not a Series, convert it
+                df['target_multiclass'] = pd.Series(target_multiclass).fillna(1).astype(int)
+            
+            # Log success statistics
+            self.logger.info(f"✅ Target variable created successfully:")
+            self.logger.info(f"   - Binary target distribution: {df['target'].value_counts().to_dict()}")
+            self.logger.info(f"   - Multi-class target distribution: {df['target_multiclass'].value_counts().to_dict()}")
             
             return df
             
         except Exception as e:
             self.logger.error(f"❌ Target variable creation failed: {str(e)}")
-            # Fallback: simple next-period prediction
-            df['target'] = (df['close'].shift(-1) > df['close']).astype(int)
+            # Fallback: simple next-period prediction with NaN handling
+            try:
+                future_close = df['close'].shift(-1)
+                current_close = df['close']
+                
+                # Create binary target with NaN handling
+                target_binary = (future_close > current_close).fillna(False)
+                df['target'] = target_binary.astype(int)
+                
+                # Create simple multi-class target (all sideways as fallback)
+                df['target_multiclass'] = pd.Series([1] * len(df), index=df.index)
+                
+                self.logger.info("✅ Fallback target variable created successfully")
+                
+            except Exception as fallback_e:
+                self.logger.error(f"❌ Fallback target creation also failed: {str(fallback_e)}")
+                # Last resort: create dummy targets
+                df['target'] = pd.Series([0] * len(df), index=df.index)
+                df['target_multiclass'] = pd.Series([1] * len(df), index=df.index)
+                
             return df
     
     def _clean_and_validate_features(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -609,6 +657,9 @@ class ElliottWaveFeatureEngineer:
     def _remove_highly_correlated_features(self, df: pd.DataFrame, threshold: float = 0.95) -> pd.DataFrame:
         """ลบฟีเจอร์ที่มีความสัมพันธ์สูง"""
         try:
+            # Define essential columns that should never be removed
+            essential_cols = ['open', 'high', 'low', 'close', 'volume']
+            
             # Calculate correlation matrix for numeric columns only
             numeric_cols = df.select_dtypes(include=[np.number]).columns
             corr_matrix = df[numeric_cols].corr().abs()
@@ -618,8 +669,9 @@ class ElliottWaveFeatureEngineer:
                 np.triu(np.ones(corr_matrix.shape), k=1).astype(bool)
             )
             
-            # Find features to remove
-            to_remove = [column for column in upper_triangle.columns if any(upper_triangle[column] > threshold)]
+            # Find features to remove (exclude essential columns)
+            to_remove = [column for column in upper_triangle.columns 
+                        if any(upper_triangle[column] > threshold) and column not in essential_cols]
             
             if to_remove:
                 self.logger.info(f"Removing {len(to_remove)} highly correlated features")

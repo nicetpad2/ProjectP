@@ -26,6 +26,87 @@ from datetime import datetime
 from typing import Dict, List, Optional
 import sys
 import os
+import pandas as pd
+import numpy as np
+
+
+def verify_real_data_compliance(data: pd.DataFrame) -> bool:
+    """
+    ตรวจสอบความปฏิบัติตามกฎระเบียบข้อมูลจริงสำหรับ Enterprise
+    
+    Args:
+        data: DataFrame ที่ต้องการตรวจสอบ
+        
+    Returns:
+        bool: True หากข้อมูลผ่านการตรวจสอบ, False หากไม่ผ่าน
+    """
+    try:
+        # ตรวจสอบว่า DataFrame ไม่ว่าง
+        if data is None or data.empty:
+            print("❌ Data compliance failed: Data is empty or None")
+            return False
+        
+        # ตรวจสอบคอลัมน์ที่จำเป็นสำหรับข้อมูลตลาด
+        # Support both uppercase and lowercase column names
+        required_cols = ['open', 'high', 'low', 'close']
+        available_cols = [col.lower() for col in data.columns]
+        
+        for col in required_cols:
+            if col not in available_cols:
+                # Try uppercase version
+                if col.upper() not in data.columns:
+                    print(f"❌ Data compliance failed: Required column '{col}' not found")
+                    return False
+        
+        # ตรวจสอบจำนวนแถวข้อมูล (อย่างน้อย 100 แถวสำหรับ backtest)
+        if len(data) < 100:
+            print(f"❌ Data compliance failed: Insufficient data rows ({len(data)} < 100)")
+            return False
+        
+        # ตรวจสอบคุณภาพข้อมูลราคา
+        for col_name in required_cols:
+            # Find the actual column name (case insensitive)
+            actual_col = None
+            for col in data.columns:
+                if col.lower() == col_name:
+                    actual_col = col
+                    break
+            
+            if actual_col is None:
+                continue
+                
+            # ตรวจสอบว่าเป็นข้อมูลตัวเลข
+            if not pd.api.types.is_numeric_dtype(data[actual_col]):
+                print(f"❌ Data compliance failed: Column '{actual_col}' is not numeric")
+                return False
+            
+            # ตรวจสอบค่า finite (ไม่เป็น NaN หรือ inf)
+            if not np.all(np.isfinite(data[actual_col].dropna())):
+                print(f"⚠️ Data compliance warning: Column '{actual_col}' contains non-finite values")
+                # ไม่ return False เพื่อให้ยืดหยุ่น แต่ให้คำเตือน
+            
+            # ตรวจสอบช่วงราคาที่สมเหตุสมผลสำหรับ XAUUSD
+            if not data[actual_col].empty:
+                min_val = data[actual_col].min()
+                max_val = data[actual_col].max()
+                
+                # ช่วงราคาทองคำที่เป็นไปได้ (500-5000 USD/oz)
+                if min_val < 100 or max_val > 10000:
+                    print(f"⚠️ Data compliance warning: '{actual_col}' values outside typical range (Min: {min_val:.2f}, Max: {max_val:.2f})")
+                    # ไม่ return False เพื่อรองรับสินทรัพย์อื่น
+        
+        # ตรวจสอบว่าไม่มีข้อมูล mock หรือ dummy
+        for col in data.columns:
+            if any(keyword in col.lower() for keyword in ['mock', 'dummy', 'fake', 'test', 'placeholder']):
+                print(f"❌ Data compliance failed: Found mock/dummy column '{col}'")
+                return False
+        
+        print("✅ Data passed enterprise compliance validation")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Data compliance check failed with error: {e}")
+        return False
 
 
 class EnterpriseComplianceValidator:

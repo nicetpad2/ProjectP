@@ -281,9 +281,9 @@ class UnifiedMasterMenuSystem:
             "║ 3. 🔧 System Diagnostics & Dependency Check                                                      ║",
             "║    🛠️ Complete system validation and dependency management                                       ║",
             "║                                                                                                   ║",
-            "║ 5. 🎯 BackTest Strategy (Professional Trading Simulation)                    ⭐ NEW!          ║",
-            "║    💰 Realistic trading simulation with 100pt spread, $0.07 commission                         ║",
-            "║    📊 10 sessions analysis with latest session detection                                        ║",
+            "║ 5. 🏢 OMS & MM System with 100 USD Capital                                 ⭐ NEW!         ║",
+            "║    💰 Order Management System + Money Management with Menu 1 Strategy                          ║",
+            "║    📊 Professional trading system with 100 USD capital and enterprise features                ║",
             "║                                                                                                   ║",
             "║ D. 🎨 Beautiful Progress Bars Demo                                                               ║",
             "║    ✨ Demonstration of visual progress tracking system                                           ║",
@@ -323,7 +323,7 @@ class UnifiedMasterMenuSystem:
             elif choice == "3":
                 return self._handle_system_diagnostics()
             elif choice == "5":
-                return self._handle_backtest_strategy()
+                return self._handle_oms_mm_system()
             elif choice == "D":
                 return self._handle_progress_demo()
             elif choice == "T":
@@ -553,53 +553,49 @@ class UnifiedMasterMenuSystem:
         return True
     
     def _handle_backtest_strategy(self) -> bool:
-        """Handle Menu 5 Simple Backtest with Walk Forward Validation"""
-        safe_print("\n🎯 MENU 5: SIMPLE BACKTEST WITH WALK FORWARD VALIDATION")
+        """Handle Enhanced Advanced Backtest System"""
+        safe_print("\n🚀 ENHANCED ADVANCED BACKTEST - PROFIT-FOCUSED AI STRATEGY")
         safe_print("="*80)
-        safe_print("💰 Starting Capital: $100 | Walk Forward Validation")
-        safe_print("🔄 80% Train | 20% Test | Real Market Data Only")
+        safe_print("💰 Enhanced Trading Strategy with Multiple Signal Confirmations")
+        safe_print("🧠 AI-Powered Signal Generation with MACD, RSI, Bollinger Bands")
         safe_print("�️ Portfolio Protection | Professional Risk Management")
         safe_print("")
         
         try:
-            # Import Menu 5 Simple Backtest
-            from menu_modules.menu_5_simple_backtest import Menu5SimpleBacktest
+            # Import Enhanced Menu 5 Advanced Backtest
+            from menu_modules.enhanced_menu_5_advanced_backtest import run_enhanced_menu_5
             
-            safe_print("✅ Menu 5 Simple Backtest loaded successfully")
-            safe_print("🚀 Initializing Walk Forward Validation system...")
-            
-            # Initialize Menu 5 with configuration
-            config_to_pass = self.config.config if self.config else {}
-            config_to_pass['initial_capital'] = 100.0  # Fixed $100 starting capital
-            menu_5 = Menu5SimpleBacktest(config_to_pass)
-            
-            safe_print("🎨 Beautiful progress tracking will be displayed during execution")
-            safe_print("🔄 Walk Forward Validation: Rolling windows with out-of-sample testing")
+            safe_print("✅ Enhanced Advanced Backtest System loaded successfully")
+            safe_print("🚀 Initializing profit-focused AI strategy...")
+            safe_print("🎨 Beautiful progress tracking and detailed analysis will be displayed")
+            safe_print("📊 Dynamic Risk Management with 1:2 Risk-Reward Ratio")
+            safe_print("🎯 Comprehensive Performance Analysis and Insights")
             safe_print("")
             
-            # Execute Menu 5 simple backtest
+            # Execute Enhanced Menu 5
             start_time = time.time()
-            result = menu_5.run()
+            result = run_enhanced_menu_5()
             end_time = time.time()
             
             duration = end_time - start_time
             
             # Process results
-            if result and result.get('status') == 'SUCCESS':
-                safe_print("\n🎉 SIMPLE BACKTEST COMPLETED SUCCESSFULLY!")
+            if result:
+                safe_print(f"\n🎉 ENHANCED BACKTEST COMPLETED SUCCESSFULLY!")
                 safe_print(f"⏱️ Duration: {duration:.2f} seconds")
                 
                 # Display backtest results
                 metadata = result.get('metadata', {})
                 
-                safe_print(f"\n📊 WALK FORWARD VALIDATION RESULTS:")
-                safe_print(f"   💰 Initial Capital: ${metadata.get('initial_capital', 0):,.2f}")
-                safe_print(f"   💰 Final Balance: ${metadata.get('final_balance', 0):,.2f}")
-                safe_print(f"   📈 Total Return: {metadata.get('total_return', 0):.1%}")
-                safe_print(f"   🔄 Total Windows: {metadata.get('total_windows', 0)}")
-                safe_print(f"   📊 Total Trades: {metadata.get('total_trades', 0)}")
-                safe_print(f"   ✅ Overall Win Rate: {metadata.get('overall_win_rate', 0):.1%}")
-                safe_print(f"   📁 Results File: {metadata.get('results_file', 'N/A')}")
+                safe_print(f"\n📊 ENHANCED PERFORMANCE SUMMARY:")
+                safe_print(f"   💰 Initial Capital: ${result.get('initial_capital', 0):,.2f}")
+                safe_print(f"   💰 Final Capital: ${result.get('final_capital', 0):,.2f}")
+                safe_print(f"   📈 Total Return: {result.get('total_return', 0):+.2f}%")
+                safe_print(f"   📊 Total Trades: {result.get('total_trades', 0):,}")
+                safe_print(f"   ✅ Win Rate: {result.get('win_rate', 0):.1f}%")
+                safe_print(f"   ⚡ Profit Factor: {result.get('profit_factor', 0):.2f}")
+                safe_print(f"   🛡️ Max Drawdown: {result.get('max_drawdown', 0):.2f}%")
+                safe_print(f"   📊 Sharpe Ratio: {result.get('sharpe_ratio', 0):.2f}")
                 
                 # Compound growth calculation
                 if metadata.get('initial_capital') and metadata.get('final_balance'):
@@ -679,6 +675,91 @@ class UnifiedMasterMenuSystem:
         
         input("\nPress Enter to continue...")
         return True
+    
+    def _handle_oms_mm_system(self) -> bool:
+        """Handle OMS & MM System with 100 USD Capital"""
+        safe_print("\n🏢 OMS & MM SYSTEM WITH 100 USD CAPITAL")
+        safe_print("="*80)
+        
+        try:
+            # Import the new menu 5 system
+            from menu_modules.menu_5_oms_mm_100usd import Menu5OMSMMSystem
+            
+            safe_print("🔄 Initializing OMS & MM System...")
+            
+            # Create and run the system
+            oms_mm_system = Menu5OMSMMSystem()
+            results = oms_mm_system.run_full_system()
+            
+            if results:
+                safe_print("\n🎉 OMS & MM System completed successfully!")
+                self._display_oms_mm_results(results)
+                return True
+            else:
+                safe_print("❌ OMS & MM System failed to complete")
+                return False
+                
+        except ImportError as e:
+            safe_print(f"❌ Failed to import OMS & MM System: {e}")
+            safe_print("💡 Make sure menu_modules/menu_5_oms_mm_100usd.py exists")
+            return False
+        except Exception as e:
+            safe_print(f"❌ OMS & MM System error: {e}")
+            return False
+        
+        input("\nPress Enter to continue...")
+        return True
+    
+    def _display_oms_mm_results(self, results: dict):
+        """Display OMS & MM System results"""
+        try:
+            safe_print("\n📊 OMS & MM SYSTEM RESULTS")
+            safe_print("="*50)
+            
+            # Capital Management
+            safe_print("💰 CAPITAL MANAGEMENT:")
+            safe_print(f"   Initial Capital: ${results.get('initial_capital', 100):.2f}")
+            safe_print(f"   Final Capital: ${results.get('final_capital', 100):.2f}")
+            safe_print(f"   Total Return: {results.get('total_return_pct', 0):.2f}%")
+            safe_print(f"   Total P&L: ${results.get('total_pnl', 0):.2f}")
+            
+            # Performance Metrics
+            safe_print("\n📈 PERFORMANCE METRICS:")
+            safe_print(f"   Total Trades: {results.get('trades_executed', 0)}")
+            safe_print(f"   Win Rate: {results.get('win_rate', 0):.2f}%")
+            safe_print(f"   Profit Factor: {results.get('profit_factor', 0):.2f}")
+            safe_print(f"   Max Drawdown: {results.get('max_drawdown', 0):.2f}%")
+            
+            # Order Management
+            account_summary = results.get('account_summary', {})
+            safe_print("\n🏢 ORDER MANAGEMENT:")
+            safe_print(f"   Total Orders: {account_summary.get('total_orders', 0)}")
+            safe_print(f"   Filled Orders: {account_summary.get('filled_orders', 0)}")
+            safe_print(f"   Active Positions: {account_summary.get('total_positions', 0)}")
+            
+            # Strategy Information
+            safe_print("\n🎯 STRATEGY INFORMATION:")
+            safe_print("   Strategy Source: Menu 1 (CNN-LSTM + DQN)")
+            safe_print("   Capital: 100 USD")
+            safe_print("   Risk per Trade: 2%")
+            safe_print("   Stop Loss: 2 ATR")
+            safe_print("   Take Profit: 3 ATR")
+            
+            # Performance Grade
+            total_return = results.get('total_return_pct', 0)
+            if total_return > 20:
+                grade = "🏆 EXCELLENT"
+            elif total_return > 10:
+                grade = "🥈 GOOD"
+            elif total_return > 0:
+                grade = "🥉 POSITIVE"
+            else:
+                grade = "❌ NEEDS IMPROVEMENT"
+            
+            safe_print(f"\n🎯 PERFORMANCE GRADE: {grade}")
+            
+        except Exception as e:
+            safe_print(f"❌ Error displaying results: {e}")
     
     def _handle_terminal_lock(self) -> bool:
         """Handle Terminal Lock System"""

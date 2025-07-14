@@ -175,8 +175,8 @@ class DQNReinforcementAgent:
             self.logger = logger or get_unified_logger()
             self.progress_manager = None
         
-        # DQN Parameters
-        self.state_size = self.config.get('dqn', {}).get('state_size', 20)
+        # DQN Parameters  
+        self.state_size = self.config.get('dqn', {}).get('state_size', 20)  # Will be updated dynamically
         self.action_size = self.config.get('dqn', {}).get('action_size', 3)  # Hold, Buy, Sell
         self.learning_rate = self.config.get('dqn', {}).get('learning_rate', 0.001)
         self.gamma = self.config.get('dqn', {}).get('gamma', 0.95)
@@ -185,18 +185,50 @@ class DQNReinforcementAgent:
         self.epsilon_decay = self.config.get('dqn', {}).get('epsilon_decay', 0.995)
         self.memory_size = self.config.get('dqn', {}).get('memory_size', 10000)
         
-        # Initialize components
+        # Network initialization flag
+        self.networks_initialized = False
+        self.actual_state_size = None
+        
+        # Initialize components (will be re-initialized when actual state size is known)
         self._initialize_components()
     
     def _initialize_components(self):
         """เริ่มต้นส่วนประกอบต่างๆ"""
         try:
-            # Initialize networks
+            # Initialize networks only if state_size is confirmed
+            if self.networks_initialized:
+                return
+                
             self.q_network = DQNNetwork(self.state_size, self.action_size)
             self.target_network = DQNNetwork(self.state_size, self.action_size)
             
             # Initialize replay buffer
             self.replay_buffer = ReplayBuffer(self.memory_size)
+            
+            self.networks_initialized = True
+            self.logger.info(f"✅ DQN networks initialized with state_size: {self.state_size}")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to initialize DQN components: {str(e)}")
+            self.networks_initialized = False
+    
+    def update_state_size(self, new_state_size: int):
+        """Update state size and reinitialize networks if needed"""
+        if self.actual_state_size != new_state_size:
+            self.actual_state_size = new_state_size
+            self.state_size = new_state_size
+            
+            # Reinitialize networks with correct state size
+            self.logger.info(f"🔄 Updating DQN state_size from {self.state_size} to {new_state_size}")
+            
+            self.q_network = DQNNetwork(self.state_size, self.action_size)
+            self.target_network = DQNNetwork(self.state_size, self.action_size)
+            
+            # Clear replay buffer to avoid dimension mismatches
+            self.replay_buffer = ReplayBuffer(self.memory_size)
+            
+            self.networks_initialized = True
+            self.logger.info(f"✅ DQN networks reinitialized with state_size: {self.state_size}")
             
             # Initialize optimizer (PyTorch only)
             if PYTORCH_AVAILABLE:
@@ -216,6 +248,22 @@ class DQNReinforcementAgent:
     def get_action(self, state: np.ndarray, training: bool = True) -> int:
         """เลือก action ด้วย epsilon-greedy policy"""
         try:
+            # Check if state size matches network architecture
+            if len(state) != self.state_size:
+                self.logger.warning(f"⚠️ State size mismatch: expected {self.state_size}, got {len(state)}")
+                self.update_state_size(len(state))
+            
+            # Adjust state size to match network requirements
+            if len(state) != self.state_size:
+                if len(state) > self.state_size:
+                    # Truncate to required size
+                    state = state[-self.state_size:]
+                else:
+                    # Pad with zeros
+                    padded_state = np.zeros(self.state_size)
+                    padded_state[:len(state)] = state
+                    state = padded_state
+            
             # Epsilon-greedy exploration
             if training and np.random.random() < self.epsilon:
                 return np.random.randint(0, self.action_size)
@@ -233,6 +281,7 @@ class DQNReinforcementAgent:
                 
         except Exception as e:
             self.logger.error(f"❌ Action selection failed: {str(e)}")
+            self.logger.error(f"State shape: {state.shape if hasattr(state, 'shape') else len(state)}, Expected state_size: {self.state_size}")
             return 0  # Default to Hold
     
     def store_experience(self, state, action, reward, next_state, done):
