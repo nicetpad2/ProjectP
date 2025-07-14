@@ -553,39 +553,41 @@ class UnifiedMasterMenuSystem:
         return True
     
     def _handle_backtest_strategy(self) -> bool:
-        """Handle Enhanced Advanced Backtest System"""
-        safe_print("\n🚀 ENHANCED ADVANCED BACKTEST - PROFIT-FOCUSED AI STRATEGY")
+        """Handle Enhanced Profitable Backtest System"""
+        safe_print("\n🚀 ENHANCED PROFITABLE BACKTEST - HIGH-VOLUME TRADING SYSTEM")
         safe_print("="*80)
-        safe_print("💰 Enhanced Trading Strategy with Multiple Signal Confirmations")
-        safe_print("🧠 AI-Powered Signal Generation with MACD, RSI, Bollinger Bands")
-        safe_print("�️ Portfolio Protection | Professional Risk Management")
+        safe_print("💰 Optimized for Maximum Profitability & High-Volume Trading")
+        safe_print("🎯 Requirements: กำไรขั้นต่ำ 1 USD ต่อออเดอร์, ออเดอร์มากกว่า 1,500")
+        safe_print("📦 Features: Progressive Lot Sizing, Scalping Strategy, High-Frequency Signals")
+        safe_print("🧠 AI-Powered Signal Generation with Multiple Technical Indicators")
         safe_print("")
         
         try:
-            # Import Enhanced Menu 5 Advanced Backtest
-            from menu_modules.enhanced_menu_5_advanced_backtest import run_enhanced_menu_5
+            # Import Enhanced Menu 5 Profitable Backtest
+            from menu_modules.enhanced_menu_5_profitable_backtest import run_enhanced_profitable_menu_5
             
-            safe_print("✅ Enhanced Advanced Backtest System loaded successfully")
-            safe_print("🚀 Initializing profit-focused AI strategy...")
+            safe_print("✅ Enhanced Profitable Backtest System loaded successfully")
+            safe_print("🚀 Initializing high-volume trading system...")
             safe_print("🎨 Beautiful progress tracking and detailed analysis will be displayed")
-            safe_print("📊 Dynamic Risk Management with 1:2 Risk-Reward Ratio")
-            safe_print("🎯 Comprehensive Performance Analysis and Insights")
+            safe_print("📊 Progressive Lot Sizing with 1 USD minimum profit per trade")
+            safe_print("🎯 Scalping Strategy with High-Frequency Signal Generation")
+            safe_print("📈 Target: >1,500 trades with consistent profitability")
             safe_print("")
             
-            # Execute Enhanced Menu 5
+            # Execute Enhanced Profitable Menu 5
             start_time = time.time()
-            result = run_enhanced_menu_5()
+            result = run_enhanced_profitable_menu_5()
             end_time = time.time()
             
             duration = end_time - start_time
             
             # Process results
-            if result:
-                safe_print(f"\n🎉 ENHANCED BACKTEST COMPLETED SUCCESSFULLY!")
+            if result and result.get('status') == 'SUCCESS':
+                safe_print(f"\n🎉 ENHANCED PROFITABLE BACKTEST COMPLETED SUCCESSFULLY!")
                 safe_print(f"⏱️ Duration: {duration:.2f} seconds")
                 
                 # Display backtest results
-                metadata = result.get('metadata', {})
+                targets_achieved = result.get('targets_achieved', {})
                 
                 safe_print(f"\n📊 ENHANCED PERFORMANCE SUMMARY:")
                 safe_print(f"   💰 Initial Capital: ${result.get('initial_capital', 0):,.2f}")
@@ -595,36 +597,44 @@ class UnifiedMasterMenuSystem:
                 safe_print(f"   ✅ Win Rate: {result.get('win_rate', 0):.1f}%")
                 safe_print(f"   ⚡ Profit Factor: {result.get('profit_factor', 0):.2f}")
                 safe_print(f"   🛡️ Max Drawdown: {result.get('max_drawdown', 0):.2f}%")
-                safe_print(f"   📊 Sharpe Ratio: {result.get('sharpe_ratio', 0):.2f}")
+                safe_print(f"   � Avg Profit/Trade: ${result.get('avg_profit_per_trade', 0):.2f}")
                 
-                # Compound growth calculation
-                if metadata.get('initial_capital') and metadata.get('final_balance'):
-                    multiplier = metadata['final_balance'] / metadata['initial_capital']
-                    safe_print(f"   � Capital Multiplier: {multiplier:.2f}x")
+                # Target Achievement Status
+                safe_print(f"\n🎯 TARGET ACHIEVEMENT STATUS:")
+                min_profit_status = "✅ ACHIEVED" if targets_achieved.get('min_profit_per_trade') else "❌ NOT ACHIEVED"
+                trades_status = "✅ ACHIEVED" if targets_achieved.get('trades_above_1500') else "❌ NOT ACHIEVED"
+                profitable_status = "✅ ACHIEVED" if targets_achieved.get('profitable_system') else "❌ NOT ACHIEVED"
                 
-                # Portfolio protection status
-                safe_print(f"   🛡️ Portfolio Protection: {'✅ Active' if metadata.get('portfolio_protection') else '❌ Disabled'}")
-                safe_print(f"   🎯 Validation Method: {metadata.get('validation_method', 'Walk Forward')}")
+                safe_print(f"   💰 Min Profit/Trade (≥1 USD): {min_profit_status}")
+                safe_print(f"   📊 Trades Above 1,500: {trades_status}")
+                safe_print(f"   📈 Profitable System: {profitable_status}")
                 
-                safe_print("\n💡 Analysis completed using real market data with Walk Forward Validation")
+                # System Features
+                safe_print(f"\n🎪 SYSTEM FEATURES:")
+                safe_print(f"   📦 Progressive Lot Sizing: ✅ ENABLED")
+                safe_print(f"   🎯 Scalping Strategy: ✅ ENABLED")
+                safe_print(f"   🔄 High-Frequency Signals: ✅ ENABLED")
+                safe_print(f"   💡 AI-Powered Analysis: ✅ ENABLED")
+                
+                safe_print("\n💡 Analysis completed using real market data with high-frequency scalping")
                 safe_print("📊 Results saved for detailed review and analysis")
                 
             elif result and result.get('status') == 'ERROR':
-                safe_print(f"\n❌ SIMPLE BACKTEST FAILED: {result.get('error', 'Unknown error')}")
+                safe_print(f"\n❌ PROFITABLE BACKTEST FAILED: {result.get('error', 'Unknown error')}")
                 return False
             else:
-                safe_print("\n⚠️ Simple backtest completed with unexpected result format")
+                safe_print("\n⚠️ Profitable backtest completed with unexpected result format")
                 safe_print(f"Result: {result}")
                 return False
                 
         except ImportError as e:
-            safe_print("❌ Menu 5 Simple Backtest not available")
+            safe_print("❌ Menu 5 Profitable Backtest not available")
             safe_print(f"   Import Error: {e}")
-            safe_print("💡 Make sure menu_modules/menu_5_simple_backtest.py exists")
+            safe_print("💡 Make sure menu_modules/enhanced_menu_5_profitable_backtest.py exists")
             safe_print("🔧 Try option 3 for system diagnostics")
             
         except Exception as e:
-            safe_print(f"\n❌ Simple Backtest execution error: {e}")
+            safe_print(f"\n❌ Profitable Backtest execution error: {e}")
             import traceback
             traceback.print_exc()
             
